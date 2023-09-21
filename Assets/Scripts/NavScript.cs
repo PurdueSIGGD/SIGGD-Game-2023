@@ -6,11 +6,15 @@ using UnityEngine.AI;
 public class NavScript : MonoBehaviour
 {
     public NavMeshAgent agent;
-    public GameObject otherObject;
-
-    // Update is called once per frame
-    void Update()
+    public GameObject player;
+    public float maxDistance;
+    void FixedUpdate()
     {
-        agent.SetDestination(otherObject.transform.position);
+        RaycastHit hit;
+        if (Physics.Raycast(GetComponent<Transform>().position, player.transform.position - transform.position, out hit, Mathf.Infinity)) {
+            if (hit.collider.gameObject == player) {
+                agent.SetDestination(player.transform.position);
+            }
+        }
     }
 }
