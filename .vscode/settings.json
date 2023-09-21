@@ -51,5 +51,12 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "SIGGD-Game-2023.sln"
+    "dotnet.defaultSolution": "SIGGD-Game-2023.sln",
+    "workbench.colorCustomizations":{
+        "peekView.border": "#E50A69AB",
+        "peekViewTitle.background": "#002b36",
+        "peekViewResult.background": "#00212b",
+        "peekViewEditor.background": "#002b36",
+        "peekViewEditor.matchHighlightBackground": "#00212bAB"
+      }
 }

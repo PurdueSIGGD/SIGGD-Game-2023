@@ -12,6 +12,9 @@ TagManager:
   - 
   - Water
   - UI
+  - Obstacles
+  - Player
+  - Enemy
   - Character
   - Player
   - 
