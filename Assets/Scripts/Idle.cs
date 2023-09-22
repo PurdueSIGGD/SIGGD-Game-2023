@@ -5,18 +5,19 @@ using UnityEngine;
 // Prototype for possible idle state
 public class Idle : EnemyState
 {
-    public void Start()
+    public override void StateStart()
     {
-        
+        Debug.Log("Idle Start");
     }
 
-    public void Stop()
+    public override void StateStop()
     {
-
+        Debug.Log("Idle Stop");
     }
 
-    public void Update()
+    public override void StateUpdate()
     {
-        // If in range, SwitchState(Attack);
+        Debug.Log("Idle");
+        controller.SwitchState(controller.attackState);
     }
 }

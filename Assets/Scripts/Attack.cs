@@ -5,21 +5,19 @@ using UnityEngine;
 // Prototype for possible attack state
 public class Attack : EnemyState
 {
-    public void Start()
+    public override void StateStart()
     {
-        // Do the stuff
-        
-        // When done, determine the next state
-        // Call SwitchState(next state)
+        Debug.Log("Attack Start");
     }
 
-    public void Stop()
+    public override void StateStop()
     {
-
+        Debug.Log("Attack Stop");
     }
 
-    public void Update()
+    public override void StateUpdate()
     {
-
+        Debug.Log("Attack");
+        controller.SwitchState(controller.idleState);
     }
 }

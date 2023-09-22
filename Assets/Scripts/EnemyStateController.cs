@@ -5,18 +5,21 @@ using UnityEngine;
 // Prototype for possible enemy state controller
 public class EnemyStateController : MonoBehaviour
 {
-    private EnemyState currentState;
+    public Idle idleState;
+    public Attack attackState;
 
-    // Start is called before the first frame update
+    public EnemyState currentState;
+
     void Start()
     {
+        
 
+        SwitchState(idleState);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        currentState.Update();
+        currentState.StateUpdate();
     }
 
     // Stops the current state and begins the new state specified by argument.
@@ -24,16 +27,9 @@ public class EnemyStateController : MonoBehaviour
     // and from Update() for infinite states (e.g. idle, patrol)
     public void SwitchState(EnemyState nextState)
     {
-        currentState.Stop();
+        currentState?.StateStop();
         currentState = nextState;
-        currentState.Start();
+        currentState.StateStart();
     }
 
-}
-
-public interface EnemyState
-{
-    public void Start(); // If state is finite, start method should call SwitchState() on return
-    public void Stop(); // Called by SwitchState() to clean up resources
-    public void Update(); // Method for updating on every frame
 }
