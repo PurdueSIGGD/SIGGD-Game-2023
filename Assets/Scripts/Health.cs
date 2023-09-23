@@ -20,8 +20,23 @@ public class Health : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            currHealth -= damage;
-            healthBar.SetHealth(currHealth);
+            if (currHealth > 0)
+            {
+                currHealth -= damage;
+                healthBar.SetHealth(currHealth);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            if (currHealth < maxHealth)
+            {
+                currHealth -= -1 * damage;
+                healthBar.SetHealth(currHealth);
+            }
+        }
+        if(currHealth <= 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 }

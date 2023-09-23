@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,7 @@ public class HealthBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyHealth = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Health>();
+        enemyHealth = this.transform.root.gameObject.GetComponent<Health>();
         healthBar = GetComponent<Slider>();
         healthBar.maxValue = enemyHealth.maxHealth;
         healthBar.value = enemyHealth.maxHealth;
