@@ -13,7 +13,7 @@ public class EnemyStateController : MonoBehaviour
     void Start()
     {
         StartCoroutine(Tick());
-        SwitchState(idleState);
+        SwitchState(followState);
     }
 
     void Update()
