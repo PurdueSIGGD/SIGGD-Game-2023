@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Prototype for possible idle state
 public class Idle : EnemyState
 {
     public override void StateStart()
@@ -17,7 +16,11 @@ public class Idle : EnemyState
 
     public override void StateUpdate()
     {
-        Debug.Log("Idle");
-        controller.SwitchState(controller.attackState);
+
+    }
+
+    public override void StateTick()
+    {
+        Debug.Log("Idle Tick");
     }
 }

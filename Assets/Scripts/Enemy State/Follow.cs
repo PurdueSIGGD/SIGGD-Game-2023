@@ -2,22 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Prototype for possible attack state
-public class Attack : EnemyState
+public class Follow : EnemyState
 {
     public override void StateStart()
     {
-        Debug.Log("Attack Start");
+        Debug.Log("Follow Start");
     }
 
     public override void StateStop()
     {
-        Debug.Log("Attack Stop");
+        Debug.Log("Follow Stop");
     }
 
     public override void StateUpdate()
     {
-        Debug.Log("Attack");
-        controller.SwitchState(controller.idleState);
+
+    }
+
+    public override void StateTick()
+    {
+        Debug.Log("Follow Tick");
     }
 }
