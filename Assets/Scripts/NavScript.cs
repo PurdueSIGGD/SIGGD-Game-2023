@@ -11,7 +11,8 @@ public class NavScript : MonoBehaviour
     void FixedUpdate()
     {
         RaycastHit hit;
-        if (Physics.Raycast(GetComponent<Transform>().position, player.position - transform.position, out hit, Mathf.Infinity)) {
+        LayerMask mask = LayerMask.GetMask("Enemy");
+        if (Physics.Raycast(GetComponent<Transform>().position, player.position - transform.position, out hit, Mathf.Infinity, ~mask)) {
             if (hit.collider.gameObject.transform == player) {
                 agent.SetDestination(player.position);
             }
