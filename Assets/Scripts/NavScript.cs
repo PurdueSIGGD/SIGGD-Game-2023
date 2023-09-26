@@ -5,15 +5,15 @@ using UnityEngine.AI;
 
 public class NavScript : MonoBehaviour
 {
-    public NavMeshAgent agent;
-    public GameObject player;
+    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private Transform player;
     public float maxDistance;
     void FixedUpdate()
     {
         RaycastHit hit;
-        if (Physics.Raycast(GetComponent<Transform>().position, player.transform.position - transform.position, out hit, Mathf.Infinity)) {
-            if (hit.collider.gameObject == player) {
-                agent.SetDestination(player.transform.position);
+        if (Physics.Raycast(GetComponent<Transform>().position, player.position - transform.position, out hit, Mathf.Infinity)) {
+            if (hit.collider.gameObject.transform == player) {
+                agent.SetDestination(player.position);
             }
         }
     }
