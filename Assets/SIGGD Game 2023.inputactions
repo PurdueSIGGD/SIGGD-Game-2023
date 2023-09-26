@@ -243,6 +243,17 @@
                 },
                 {
                     "name": "",
+                    "id": "a3e62481-1754-4762-a526-c85247c634d8",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "TogglePlaceTurret",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c3595906-af87-4617-a92b-3d13ef234414",
                     "path": "<Mouse>/position",
                     "interactions": "",

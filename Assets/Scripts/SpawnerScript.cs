@@ -1,7 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Spawn : MonoBehaviour
 {
@@ -10,78 +8,77 @@ public class Spawn : MonoBehaviour
     [SerializeField] private GameObject turretAccepted;
     [SerializeField] private GameObject turretDenied;
     [SerializeField] private MeshCollider ghostCollider;
+    [SerializeField] private TurretController controller;
 
+    private RaycastHit hit;
     private GameObject turretGhost;
-    private static bool wasSpawned;
-    private static bool pressedE;
+    private GameObject turretGhostToPlace;
+    private static bool hoverTurret;
     private static bool hasSpace;
-    private static bool noSpace;
     private static Ray ray;
 
     void Start()
     {
-        pressedE = false;
-        wasSpawned = false;
+        hoverTurret = false;
         hasSpace = true;
-        noSpace = false;
+        turretGhostToPlace = turretAccepted;
     }
 
+    // InputSystem Hook, set to moving your mouse.
+    public void OnHoverPlaceTurret(InputValue action)
+    {
+        Vector2 hover = action.Get<Vector2>();
+        Ray camToWorld = mainCamera.ScreenPointToRay(hover);
+
+        if (Physics.Raycast(camToWorld, out RaycastHit hit))
+        {
+            this.hit = hit;
+            // The offset from the hit point is arbitrarily chosen right now. Might be the cause of weird hitbox collisions.
+            transform.position = hit.point + new Vector3(0.3f, 1.2f, 0f);
+            if (hoverTurret)
+                calcPlaceablity();
+        }
+    }
+
+    // Helper function to update the position and type (red or green) of the turretGhost.
+    // OPTIMIZE THIS 
+    private void calcPlaceablity()
+    {
+        Destroy(turretGhost);
+        turretGhost = Instantiate(turretGhostToPlace, hit.point, Quaternion.identity);
+        turretGhost.transform.position = hit.point;
+    }
+
+    // InputSystem Hook, set to LMB.
+    public void OnPlaceTurret()
+    {
+        if (hoverTurret && hasSpace)
+            Instantiate(turret, hit.point, Quaternion.identity);
+    }
+
+    // InputSystem Hook, set to E or Space.
+    public void OnTogglePlaceTurret()
+    {                
+        if (hoverTurret)
+            Destroy(turretGhost);
+        else
+            calcPlaceablity();
+
+        hoverTurret = !hoverTurret;
+    }
+
+    // Collision Hook
     private void OnCollisionEnter(Collision collision)
     {
         hasSpace = false;
+        turretGhostToPlace = turretDenied;
     }
 
+    // Collision Hook
     private void OnCollisionExit(Collision collision)
     {
         hasSpace = true;
+        turretGhostToPlace = turretAccepted;
     }
-    void Update()
-    {
-        ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        Boolean raycast = Physics.Raycast(ray, out RaycastHit raycastHit);
-        if (raycast)
-        {
-            //updates the hitbox of the "ghost" turret
-            transform.position = raycastHit.point + new Vector3(0.3f, 1.2f, 0f);
 
-            if (pressedE == true)
-            {
-                turretGhost.transform.position = raycastHit.point;
-                
-                //if statements test for collision and displays either green or red turret
-                if (hasSpace == false && noSpace == false)
-                {
-                    Destroy(turretGhost);
-                    turretGhost = Instantiate(turretDenied, raycastHit.point, Quaternion.identity);
-                    noSpace = true;
-                }
-                else if (hasSpace == true && noSpace == true)
-                {
-                    Destroy(turretGhost);
-                    turretGhost = Instantiate(turretAccepted, raycastHit.point, Quaternion.identity);
-                    noSpace = false;
-                }
-
-                //spawns the turret on lmb
-                if (wasSpawned == false && noSpace == false && Input.GetMouseButtonDown(0))
-                {
-                    Instantiate(turret, raycastHit.point, Quaternion.identity);
-                    Debug.Log(Input.mousePosition);
-                    wasSpawned = true;
-                }
-                //exit
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    Destroy(turretGhost);
-                    pressedE = false;
-                }
-            }
-            else if (pressedE == false && Input.GetKeyDown(KeyCode.E))
-            {
-                turretGhost = Instantiate(turretAccepted, raycastHit.point, Quaternion.identity);
-                pressedE = true;
-            }
-        }
-        wasSpawned = false;
-    }
 }
