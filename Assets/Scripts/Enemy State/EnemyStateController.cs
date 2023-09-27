@@ -7,6 +7,8 @@ public class EnemyStateController : MonoBehaviour
 {
     public Idle idleState;
     public Follow followState;
+    public Attack1 attack1;
+    public Attack2 attack2;
 
     public EnemyState currentState;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Idle : EnemyState
+public class Attack1 : EnemyState
 {
     private GameObject player;
     private Transform gameObjectTransform;
@@ -15,25 +15,37 @@ public class Idle : EnemyState
     }
     public override void StateStart()
     {
-        Debug.Log("Idle Start");
+        Debug.Log("Attack1 Start");
+        StartCoroutine(AttackTask());
     }
 
     public override void StateStop()
     {
-        Debug.Log("Idle Stop");
+        Debug.Log("Attack1 Stop");
     }
 
     public override void StateUpdate()
     {
-
+        
     }
 
     public override void StateTick()
     {
-        //Debug.Log("Idle Tick");
-        if (Vector3.Distance(gameObjectTransform.position, player.transform.position) < 10)
+        //Debug.Log("Attack1 Tick");
+    }
+
+    IEnumerator AttackTask()
+    {
+        yield return new WaitForSeconds(1.0f);
+        EnemyState nextState;
+        if (Vector3.Distance(gameObjectTransform.position, player.transform.position) < 15)
         {
-            controller.SwitchState(controller.followState);
+            nextState = controller.followState;
         }
+        else
+        {
+            nextState = controller.idleState;
+        }
+        controller.SwitchState(nextState);
     }
 }
