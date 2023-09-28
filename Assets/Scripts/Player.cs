@@ -16,9 +16,11 @@ public class Player : MonoBehaviour, TurretController
     public void OnMove(InputValue action) 
     {
         move = action.Get<Vector2>();
+        spawn.CheckOutOfRange();
+        spawn.UpdateGhost();
     }
 
-    public void HoverPlaceTurret(Spawn s, InputValue action) => s.OnHoverPlaceTurret(action);
+    public void HoverPlaceTurret(Spawn s, InputValue action) => s.OnHoverPlaceTurret(action.Get<Vector2>());
     public void TogglePlaceTurret(Spawn s) => s.OnTogglePlaceTurret();
     public void PlaceTurret(Spawn s) => s.OnPlaceTurret();
 
@@ -51,5 +53,10 @@ public class Player : MonoBehaviour, TurretController
     {
         Vector3 deltaMove = new Vector3(move.x, 0, move.y) * SPEED;
         transform.position += Time.deltaTime * deltaMove; 
+        if (move != Vector2.zero)
+        {
+            spawn.CheckOutOfRange();
+            spawn.UpdateGhost();
+        }
     }
 }

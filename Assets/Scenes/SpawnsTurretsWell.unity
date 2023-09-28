@@ -725,7 +725,8 @@ MonoBehaviour:
     type: 3}
   turretDenied: {fileID: 2336254327737820464, guid: f9eaa4b74344d7e4f864a4a9caf78c58,
     type: 3}
-  ghostCollider: {fileID: 1258376288}
+  owner: {fileID: 1512525237}
+  PLACE_RANGE: 5
 --- !u!4 &1258376290
 Transform:
   m_ObjectHideFlags: 0
