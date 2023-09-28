@@ -5,42 +5,30 @@ using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
+    public GameObject[] weapons;
     private GameObject currentWeapon;
-    public GameObject sword;
-    private delegate void Attack();
-    Attack CurrentAttack;
-    private Rigidbody currentRB;
-
-    // Attack Method Variables
-    private bool swingingSword;
-    private float timePassed;
 
     // Start is called before the first frame update
     void Start()
     {
-        timePassed = 0;
-        currentWeapon = sword;
-        CurrentAttack = SwordAttack;
-        currentRB = sword.GetComponent<Rigidbody>();
-        swingingSword = false;
+        currentWeapon = weapons[0];
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        // currentWeapon.transform.position = Vector3.Lerp()
+        
     }
 
-    void SwordAttack() {
-        if (!swingingSword) {
-            swingingSword = true;
-            timePassed = 0;
-        }
+    public void ChangeWeapon(int index) {
+
     }
 
-    void OnAttack(InputAction.CallbackContext cxt) {
-        if (cxt.started) {
-            CurrentAttack();
-        }
+    public void ChangeWeapon(GameObject weapon) {
+
+    }
+
+    void OnAttack() {
+        currentWeapon.GetComponent<WeaponScript>().PerformAttack();
     }
 }
