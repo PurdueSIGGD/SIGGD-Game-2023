@@ -5,6 +5,7 @@ using UnityEngine;
 // Prototype for possible enemy state controller
 public class EnemyStateController : MonoBehaviour
 {
+    // These states should be declared by a child class object
     public Idle idleState;
     public Follow followState;
     public Attack1 attack1;
