@@ -21,7 +21,7 @@ public class Follow : EnemyState
         {
             {controller.followState, 500 },
             {controller.attack1, 10 },
-            {controller.attack2, 10 }
+            //{controller.attack2, 10 }
         };
     }
 
