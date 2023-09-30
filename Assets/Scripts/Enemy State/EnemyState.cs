@@ -9,5 +9,6 @@ public abstract class EnemyState : MonoBehaviour
     public abstract void StateStart(); // If state is finite, start method should call SwitchState() on return
     public abstract void StateStop(); // Called by SwitchState() to clean up resources
     public abstract void StateUpdate(); // Method for updating on every frame
-    public abstract void StateTick(); // Method for updating at interval slower than update(); used for updating state
+    public abstract bool StateTick(); // Method for updating at interval slower than update(); used for updating state
+                                        // Returns a boolean on whether controller should check for a switch.
 }

@@ -2,21 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Prototype for possible enemy state controller
 public class EnemyStateController : MonoBehaviour
 {
-    // These states should be declared by a child class object
-    public Idle idleState;
-    public Follow followState;
-    public Attack1 attack1;
-    public Attack2 attack2;
-
+    // States should be declared in subclass objects, not within this class.
+    public Dictionary<EnemyState, int> weightTable; // For subclass to initialize
     public EnemyState currentState;
+    private EnemyState nextstate; // Reserved for Tick()
 
     void Start()
     {
         StartCoroutine(Tick());
-        SwitchState(idleState);
+        SwitchState(currentState);
     }
 
     void Update()
@@ -30,7 +26,28 @@ public class EnemyStateController : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(0.25f);
-            currentState?.StateTick();
+        
+            bool shouldSwitch = currentState.StateTick(); // Tick will return whether a switch should be attempted
+            if (!shouldSwitch) yield return null;
+
+            EnemyState nextState = currentState; // Calculate next state based on weighted probabilities
+            int weightSum = 0;
+            foreach (KeyValuePair<EnemyState, int> state in weightTable)
+            {
+                weightSum += state.Value;
+            }
+            int randomWeight = UnityEngine.Random.Range(0, weightSum);
+            foreach (KeyValuePair<EnemyState, int> state in weightTable)
+            {
+                randomWeight -= state.Value;
+                if (randomWeight < 0)
+                {
+                    nextState = state.Key;
+                    break;
+                }
+            }
+
+            if (nextstate != currentState) SwitchState(nextstate);
         }
     }
 
