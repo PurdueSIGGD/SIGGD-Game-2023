@@ -1,27 +1,36 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TurretSpawn : MonoBehaviour
+public class Player : MonoBehaviour, TurretController
 {
     const float SPEED = 2f;
     private Vector2 move;
     private bool placingTurret = true;
-    private GameObject turret;
+    [SerializeField] Spawn spawn;
     
     // Start is called before the first frame update
     void Start()
     {
-        // turret = new Turret();
     }
 
     public void OnMove(InputValue action) 
     {
         move = action.Get<Vector2>();
+        spawn.CheckOutOfRange();
+        spawn.UpdateGhost();
     }
+
+    public void HoverPlaceTurret(Spawn s, InputValue action) => s.OnHoverPlaceTurret(action.Get<Vector2>());
+    public void TogglePlaceTurret(Spawn s) => s.OnTogglePlaceTurret();
+    public void PlaceTurret(Spawn s) => s.OnPlaceTurret();
+
+    // InputSystem Hook
+    public void OnHoverPlaceTurret(InputValue action) => HoverPlaceTurret(spawn, action);
 
     // InputSystem Hook
     public void OnTogglePlaceTurret()
     {
+        TogglePlaceTurret(spawn);
         if (placingTurret)
         {
             print("Now, please place the turret!");
@@ -32,6 +41,7 @@ public class TurretSpawn : MonoBehaviour
     // InputSystem Hook
     public void OnPlaceTurret()
     {
+        PlaceTurret(spawn);
         if (placingTurret) 
             print("TODO: placing turret");
         else 
@@ -43,13 +53,10 @@ public class TurretSpawn : MonoBehaviour
     {
         Vector3 deltaMove = new Vector3(move.x, 0, move.y) * SPEED;
         transform.position += Time.deltaTime * deltaMove; 
-
-        // Preview the turret to place
-        /*
-        if (placingTurret)
+        if (move != Vector2.zero)
         {
-            turret.SetActive(true);
+            spawn.CheckOutOfRange();
+            spawn.UpdateGhost();
         }
-        */
     }
 }
