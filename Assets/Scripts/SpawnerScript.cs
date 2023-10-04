@@ -1,3 +1,4 @@
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class Spawn : MonoBehaviour
@@ -20,6 +21,7 @@ public class Spawn : MonoBehaviour
 
     private Vector3 toOwner 
     {
+        // You should only be able 
         get => owner.transform.position - transform.position;
     }
 
@@ -43,7 +45,8 @@ public class Spawn : MonoBehaviour
     {
         Ray camToWorld = mainCamera.ScreenPointToRay(hover);
 
-        if (!Physics.Raycast(camToWorld, out RaycastHit hit))
+        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, LayerMask.GetMask("Turret Placeable")))
+        //if (!Physics.Raycast(camToWorld, out RaycastHit hit))
             return;
 
         this.hit = hit;
@@ -58,12 +61,18 @@ public class Spawn : MonoBehaviour
 
     public void UpdateGhost(Vector3 toOwner)
     {
+        if (!hoverTurret) return;
+
         Destroy(turretGhost);
         turretGhost = Instantiate(turretGhostToPlace, hit.point, Quaternion.identity);
         turretGhost.transform.position = hit.point;
-        turretGhost.transform.rotation = Quaternion.LookRotation(toOwner);
-        // Unity BUILDS IN a 90 degree offset for some reason!
-        turretGhost.transform.Rotate(Vector3.up, 90);
+        // The ghost is only supposed to be placeable upright, so convert toOwner to that.
+        Vector3 toOwnerFlattened = toOwner;
+        toOwnerFlattened.y = 0;
+        Quaternion look = Quaternion.LookRotation(toOwnerFlattened, Vector3.up);
+        // Rotate the asset 90 degrees instead of use this code, this is dumb.
+        look.eulerAngles += new Vector3(0, 90, 0);
+        turretGhost.transform.rotation = look;
     }
 
     // Helper function to update the position and type (red or green) of the turretGhost.
