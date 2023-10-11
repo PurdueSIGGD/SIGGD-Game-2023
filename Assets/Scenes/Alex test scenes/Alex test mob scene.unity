@@ -1273,7 +1273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 1371075661}
-  speed: 5
+  speed: 6
 --- !u!1001 &1462303127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1908,6 +1908,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2680864217524382988, guid: 05e517ecb5c27384eb79c140e748158f,
+        type: 3}
+      propertyPath: speed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2680864217524382988, guid: 05e517ecb5c27384eb79c140e748158f,
         type: 3}
