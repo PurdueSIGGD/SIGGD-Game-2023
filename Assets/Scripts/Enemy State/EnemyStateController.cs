@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Parent class for state controllers for enemy AI
 public class EnemyStateController : MonoBehaviour
 {
-    // States should be declared in subclass objects, not within this class.
-    public Dictionary<EnemyState, int> weightTable; // For subclass to initialize
+    // Enemy-Specific States should be declared in subclass objects, not within this class.
+    public Dictionary<EnemyState, int> weightTable; // Table of probability weights for each state,
+                                                    // should be instantiated by subclasses of this class.
     public EnemyState currentState;
     private EnemyState nextstate; // Reserved for Tick()
 
@@ -27,7 +29,7 @@ public class EnemyStateController : MonoBehaviour
         {
             yield return new WaitForSeconds(0.25f);
         
-            bool shouldSwitch = currentState.StateTick(); // Tick will return whether a switch should be attempted
+            bool shouldSwitch = currentState.StateTick(); // Tick will return a bool for whether a switch should be attempted
             if (!shouldSwitch) yield return null;
 
             EnemyState nextState = currentState; // Calculate next state based on weighted probabilities
