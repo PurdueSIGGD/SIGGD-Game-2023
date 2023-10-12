@@ -42,8 +42,8 @@ public class NavScript_Mob : MonoBehaviour
                 Vector3 move_offset = this_enemy.forward;
                 RaycastHit leftHit;
                 RaycastHit rightHit;
-                bool leftHitBool = Physics.Raycast((this_enemy.position + (this_enemy.right * -1 * boxSize.x * 0.51f)), (this_enemy.right * -1), out leftHit, rayDist);
-                bool rightHitBool = Physics.Raycast((this_enemy.position + (this_enemy.right * boxSize.x * 0.51f)), this_enemy.right, out rightHit, rayDist);
+                bool leftHitBool = Physics.Raycast((this_enemy.position + (this_enemy.right * -1 * boxSize.x * 0.51f)), (this_enemy.right * -1), out leftHit, rayDist, mask);
+                bool rightHitBool = Physics.Raycast((this_enemy.position + (this_enemy.right * boxSize.x * 0.51f)), this_enemy.right, out rightHit, rayDist, mask);
                 if (leftHitBool && !rightHitBool) {
                     move_offset += this_enemy.right * 1;
                 }
