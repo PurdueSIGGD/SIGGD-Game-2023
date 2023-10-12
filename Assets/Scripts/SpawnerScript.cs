@@ -89,13 +89,17 @@ public class Spawn : MonoBehaviour
 
     // InputSystem Hook, set to E or Space.
     public void OnTogglePlaceTurret()
-    {                
+    {
         if (hoverTurret)
+        {
             Destroy(turretGhost);
+            hoverTurret = !hoverTurret;
+        }
         else
+        {
+            hoverTurret = !hoverTurret;
             UpdateGhost();
-
-        hoverTurret = !hoverTurret;
+        }
     }
 
     // Collision Hook

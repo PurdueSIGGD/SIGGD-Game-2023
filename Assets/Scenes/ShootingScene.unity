@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 811387055}
   m_Layer: 0
-  m_Name: Spawn Location
+  m_Name: Bullet Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 4876502833996459116}
   - component: {fileID: 469998297109383188}
   m_Layer: 0
-  m_Name: Leg3
+  m_Name: Left Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 4740397501522044034}
   - component: {fileID: 3520998599059006790}
   m_Layer: 0
-  m_Name: Leg1
+  m_Name: Back Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -507,7 +507,7 @@ GameObject:
   - component: {fileID: 4195833659228065289}
   - component: {fileID: 7280828037837630817}
   m_Layer: 0
-  m_Name: ShootingTurret
+  m_Name: Shooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -772,7 +772,7 @@ GameObject:
   - component: {fileID: 3059249579467725139}
   - component: {fileID: 1840574360829931074}
   m_Layer: 0
-  m_Name: Leg2
+  m_Name: Right Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
