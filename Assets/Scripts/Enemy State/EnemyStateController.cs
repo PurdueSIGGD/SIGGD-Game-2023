@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyStateController : MonoBehaviour
 {
     // Enemy-Specific States should be declared in subclass objects, not within this class.
-    public Dictionary<EnemyState, int> weightTable; // Table of probability weights for each state,
+    public Dictionary<EnemyState, float> weightTable; // Table of probability weights for each state,
                                                     // should be instantiated by subclasses of this class.
     public EnemyState currentState;
 
