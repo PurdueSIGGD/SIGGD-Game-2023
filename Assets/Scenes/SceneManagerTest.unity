@@ -200,7 +200,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -517,6 +517,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 50760272}
     m_Modifications:
+    - target: {fileID: 2171153512951788868, guid: 90db93eb55223964d8646ba5ab094633,
+        type: 3}
+      propertyPath: scenes.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171153512951788868, guid: 90db93eb55223964d8646ba5ab094633,
+        type: 3}
+      propertyPath: scenes.Array.data[0]
+      value: Scenes/SampleScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171153512951788868, guid: 90db93eb55223964d8646ba5ab094633,
+        type: 3}
+      propertyPath: scenes.Array.data[1]
+      value: Scenes/SampleScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171153512951788868, guid: 90db93eb55223964d8646ba5ab094633,
+        type: 3}
+      propertyPath: scenes.Array.data[2]
+      value: Scenes/SampleScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171153512951788868, guid: 90db93eb55223964d8646ba5ab094633,
+        type: 3}
+      propertyPath: scenes.Array.data[3]
+      value: Scenes/SampleScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171153512951788868, guid: 90db93eb55223964d8646ba5ab094633,
+        type: 3}
+      propertyPath: scenes.Array.data[4]
+      value: Scenes/SampleScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171153512951788868, guid: 90db93eb55223964d8646ba5ab094633,
+        type: 3}
+      propertyPath: scenes.Array.data[5]
+      value: Scenes/SampleScene
+      objectReference: {fileID: 0}
     - target: {fileID: 3890276906383973449, guid: 90db93eb55223964d8646ba5ab094633,
         type: 3}
       propertyPath: m_Pivot.x

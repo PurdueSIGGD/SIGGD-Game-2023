@@ -75,5 +75,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectorObj: {fileID: 9196225460444610470, guid: 76fb5ec358f8ab242b0121106d454709,
     type: 3}
-  scenes:
-  - Scenes/SampleScene
+  scenes: []
