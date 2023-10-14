@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawning : MonoBehaviour
@@ -16,14 +12,27 @@ public class Spawning : MonoBehaviour
     [SerializeField]
     public float maxDistance = 10.0f;
 
+    [SerializeField]
+    LayerMask regionLayer;
+
     // Start is called before the first frame update
     void Start()
     {
         for(int i = 0; i < 50; i++) {
             // Spawn object
-            UnityEngine.Vector2 randomPoint = generatePointInRing();
-            UnityEngine.Vector3 randomPoint3D = new UnityEngine.Vector3(randomPoint.x, player.transform.position.y, randomPoint.y);
-            GameObject newEnemy = Instantiate(enemy, randomPoint3D, UnityEngine.Quaternion.identity);
+            Vector2 randomPoint = generatePointInRing();
+            Vector3 randomPoint3D = new Vector3(randomPoint.x, player.transform.position.y, randomPoint.y);
+            GameObject newEnemy = Instantiate(enemy, randomPoint3D, Quaternion.identity);
+            // Set the color of the enemy to the color of the region that we spawned in
+            Collider[] collArray = Physics.OverlapSphere(randomPoint3D, 1.0f, regionLayer, QueryTriggerInteraction.Collide);
+            for (int j = 0; j < collArray.Length; j++) {
+                 if (collArray[i].gameObject.tag == "RegionColliders") {
+                     gameObject.GetComponent<MeshRenderer>().material = collArray[i].gameObject.GetComponent<MeshRenderer>().material;
+                 }
+            }
+            randomPoint = generatePointInRing();
+            randomPoint3D = new Vector3(randomPoint.x, player.transform.position.y, randomPoint.y);
+            newEnemy.transform.position = randomPoint3D;
         }
     }
 
