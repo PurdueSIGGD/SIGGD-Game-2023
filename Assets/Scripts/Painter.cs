@@ -16,9 +16,10 @@ public class Painter : MonoBehaviour
         
     }
 
-    private void OnTriggerColliderEnter(Collider collider) {
+    private void OnTriggerEnter(Collider collider) {
+        Debug.Log("called");
         if (collider.gameObject.tag == "RegionColliders") {
-            gameObject.AddComponent<collider.gameObject.GetComponent<Renderer>().material>();
+            gameObject.GetComponent<MeshRenderer>().material = collider.gameObject.GetComponent<MeshRenderer>().material;
         }
     }
 }
