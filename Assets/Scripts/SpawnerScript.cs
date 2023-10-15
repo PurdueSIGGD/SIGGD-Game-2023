@@ -69,7 +69,7 @@ public class Spawn : MonoBehaviour
         toOwnerFlattened.y = 0;
         Quaternion look = Quaternion.LookRotation(toOwnerFlattened, Vector3.up);
         // Rotate the asset 90 degrees instead of use this code, this is dumb.
-        look.eulerAngles += new Vector3(0, 90, 0);
+        //look.eulerAngles += new Vector3(0, 90, 0);
         turretGhost.transform.rotation = look;
     }
 
