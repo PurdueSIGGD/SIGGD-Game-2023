@@ -1,4 +1,3 @@
-using UnityEditor.UIElements;
 using UnityEngine;
 
 public class Spawn : MonoBehaviour
@@ -21,7 +20,6 @@ public class Spawn : MonoBehaviour
 
     private Vector3 toOwner 
     {
-        // You should only be able 
         get => owner.transform.position - transform.position;
     }
 

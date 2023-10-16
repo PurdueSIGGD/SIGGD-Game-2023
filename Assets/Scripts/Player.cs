@@ -1,5 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Assertions.Comparers;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour, TurretController
 {
@@ -26,6 +30,23 @@ public class Player : MonoBehaviour, TurretController
 
     // InputSystem Hook
     public void OnHoverPlaceTurret(InputValue action) => HoverPlaceTurret(spawn, action);
+
+    // InputSystem Hook
+    public void OnInteractTurret()
+    {
+        IdleTurret[] turrets = FindObjectsOfType<IdleTurret>();
+        List<IdleTurret> turretsList = new List<IdleTurret>(turrets).Where(t => t.IsInteractable).ToList();
+        if (turretsList.Count == 0) 
+            return;
+
+        turretsList.Sort((a, b) => 
+        {
+            var distA = (a.transform.position - transform.position).magnitude;
+            var distB = (b.transform.position - transform.position).magnitude;
+            return distA.CompareTo(distB);
+        });
+        turretsList.First().Interact(gameObject);
+    }
 
     // InputSystem Hook
     public void OnTogglePlaceTurret()
