@@ -5,10 +5,7 @@ using UnityEngine;
 public abstract class Unit : MonoBehaviour
 {
     //What will the unit do on spawn?
-    protected abstract void Awake();
-
-    //What will the unit do when activated? (Fire? Other?)
-    protected abstract void Activate();
+    protected abstract void Create();
 
     //What will the unit do on end
     protected abstract void End();
