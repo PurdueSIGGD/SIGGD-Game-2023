@@ -340,7 +340,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 987475167}
   - component: {fileID: 987475166}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -450,7 +450,8 @@ Transform:
   m_LocalPosition: {x: 2.49, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1110685205}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1110685203
@@ -479,11 +480,11 @@ Transform:
   m_GameObject: {fileID: 1110685203}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7861409, y: -0.83952904, z: 0.38979244}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 987475169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1110685206
 MonoBehaviour:
@@ -497,10 +498,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944c5cd2539709f41a45eead4a9f856c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  enemy: {fileID: 0}
-  minDistance: 5
-  maxDistance: 10
+  player: {fileID: 987475165}
+  enemy: {fileID: 701243886974363129, guid: 61703e55ccf7d8c488aa65f113cf878f, type: 3}
+  minDistance: 10
+  maxDistance: 15
+  regionLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1750706576
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,7 +604,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -705,7 +709,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -858,4 +862,3 @@ SceneRoots:
   - {fileID: 1750706580}
   - {fileID: 2068250663}
   - {fileID: 987475169}
-  - {fileID: 1110685205}

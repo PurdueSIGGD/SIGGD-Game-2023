@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8628654576002574909}
   - component: {fileID: 6230376828475643613}
   - component: {fileID: 2319603754153200170}
-  - component: {fileID: -9189263142510834890}
   - component: {fileID: 1993936892163321554}
   m_Layer: 0
   m_Name: Enemy
@@ -107,18 +106,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-9189263142510834890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 701243886974363129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4056562d62b71be438e58f35d0a63823, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &1993936892163321554
 Rigidbody:
   m_ObjectHideFlags: 0

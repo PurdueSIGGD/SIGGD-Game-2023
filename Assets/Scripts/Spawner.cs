@@ -12,27 +12,29 @@ public class Spawning : MonoBehaviour
     [SerializeField]
     public float maxDistance = 10.0f;
 
-    [SerializeField]
-    LayerMask regionLayer;
-
     // Start is called before the first frame update
     void Start()
     {
         for(int i = 0; i < 50; i++) {
             // Spawn object
             Vector2 randomPoint = generatePointInRing();
-            Vector3 randomPoint3D = new Vector3(randomPoint.x, player.transform.position.y, randomPoint.y);
-            GameObject newEnemy = Instantiate(enemy, randomPoint3D, Quaternion.identity);
-            // Set the color of the enemy to the color of the region that we spawned in
-            Collider[] collArray = Physics.OverlapSphere(randomPoint3D, 1.0f, regionLayer, QueryTriggerInteraction.Collide);
+            Vector3 randomPoint3D = new Vector3(randomPoint.x, 0.0f, randomPoint.y) +  player.transform.position;
+
+            // Get the color of the region our random point is in
+            Material regionMaterial = null;
+            Collider[] collArray = Physics.OverlapSphere(randomPoint3D, 1.0f);
+            Debug.Log(collArray.Length);
             for (int j = 0; j < collArray.Length; j++) {
-                 if (collArray[i].gameObject.tag == "RegionColliders") {
-                     gameObject.GetComponent<MeshRenderer>().material = collArray[i].gameObject.GetComponent<MeshRenderer>().material;
-                 }
+                if (collArray[j].gameObject.tag == "RegionColliders") {
+                    regionMaterial = collArray[j].gameObject.GetComponent<MeshRenderer>().material;
+                }
             }
+
+            // Generate a new point to spawn the enemy in with the color we found
             randomPoint = generatePointInRing();
-            randomPoint3D = new Vector3(randomPoint.x, player.transform.position.y, randomPoint.y);
-            newEnemy.transform.position = randomPoint3D;
+            randomPoint3D = new Vector3(randomPoint.x, 0.0f, randomPoint.y) +  player.transform.position;
+            GameObject newEnemy = Instantiate(enemy, randomPoint3D, Quaternion.identity);
+            newEnemy.GetComponent<MeshRenderer>().material = regionMaterial;
         }
     }
 
@@ -42,8 +44,8 @@ public class Spawning : MonoBehaviour
         
     }
 
-    private UnityEngine.Vector2 generatePointInRing() {
-        UnityEngine.Vector2 dir = Random.insideUnitCircle.normalized;
+    private Vector2 generatePointInRing() {
+        Vector2 dir = Random.insideUnitCircle.normalized;
         float dist = Random.Range(minDistance, maxDistance);
         return dir * dist;
     }
