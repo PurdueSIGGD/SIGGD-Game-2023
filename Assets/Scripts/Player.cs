@@ -70,6 +70,12 @@ public class Player : MonoBehaviour, TurretController
             print("Wait, not placing turret! Toggle with spacebar.");
     }
 
+    public void OnRotateTurret(InputValue action)
+    {
+        Vector2 scroll = action.Get<Vector2>();
+        spawn.OnRotateTurrent(scroll);
+    }
+
     // Update is called once per frame
     void Update()
     {

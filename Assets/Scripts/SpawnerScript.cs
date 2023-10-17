@@ -1,4 +1,7 @@
+using System.Linq.Expressions;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Composites;
 
 public class Spawn : MonoBehaviour
 {
@@ -120,6 +123,19 @@ public class Spawn : MonoBehaviour
     {
         hasSpace = canPlace;
         turretGhostToPlace = canPlace ? turretAccepted : turretDenied;
+    }
+
+    //--------
+
+    public void OnRotateTurrent(Vector2 scroll)
+    {
+        if (hoverTurret)
+        {
+            Debug.Log("SCroll while Rotate!");
+            Debug.Log(scroll);
+        }
+
+        Debug.Log("Scrolling");
     }
 
 }

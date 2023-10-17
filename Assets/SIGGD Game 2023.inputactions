@@ -52,12 +52,12 @@
                 },
                 {
                     "name": "RotateTurret",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "ddbea524-0935-4297-8d36-fa6625ebe33f",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -295,7 +295,7 @@
                 {
                     "name": "",
                     "id": "202768c8-cd24-4fba-a3cb-af4adda68bbb",
-                    "path": "Mouse/<Scroll>",
+                    "path": "<Mouse>/scroll",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
