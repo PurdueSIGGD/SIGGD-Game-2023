@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Spawning : MonoBehaviour
@@ -15,38 +16,61 @@ public class Spawning : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i < 50; i++) {
-            // Spawn object
-            Vector2 randomPoint = generatePointInRing();
-            Vector3 randomPoint3D = new Vector3(randomPoint.x, 0.0f, randomPoint.y) +  player.transform.position;
-
-            // Get the color of the region our random point is in
-            Material regionMaterial = null;
-            Collider[] collArray = Physics.OverlapSphere(randomPoint3D, 1.0f);
-            Debug.Log(collArray.Length);
-            for (int j = 0; j < collArray.Length; j++) {
-                if (collArray[j].gameObject.tag == "RegionColliders") {
-                    regionMaterial = collArray[j].gameObject.GetComponent<MeshRenderer>().material;
-                }
-            }
-
-            // Generate a new point to spawn the enemy in with the color we found
-            randomPoint = generatePointInRing();
-            randomPoint3D = new Vector3(randomPoint.x, 0.0f, randomPoint.y) +  player.transform.position;
-            GameObject newEnemy = Instantiate(enemy, randomPoint3D, Quaternion.identity);
-            newEnemy.GetComponent<MeshRenderer>().material = regionMaterial;
-        }
+        //InvokeRepeating("SpawnEnemy", 0, 0.1f);
+        StartCoroutine(SpawnWave());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
-    private Vector2 generatePointInRing() {
+    // Optional spawning in a cone for waves
+    private Vector2 generatePointInRing(int degrees = -1, int spread = -1) {
         Vector2 dir = Random.insideUnitCircle.normalized;
+        if (degrees != -1) {
+            // The difference in degrees from the center of our arc to the spawn point we generated
+            while ((Mathf.Rad2Deg * Mathf.Atan(dir.y / dir.x)) - degrees > spread) {
+                dir = Random.insideUnitCircle.normalized;
+            }
+        }
         float dist = Random.Range(minDistance, maxDistance);
         return dir * dist;
+    }
+
+    // Optional spawning in a cone for waves
+    private void SpawnEnemy(int degrees = -1, int spread = -1) {
+        // Spawn object
+        Vector2 randomPoint = generatePointInRing();
+        Vector3 randomPoint3D = new Vector3(randomPoint.x, 0.0f, randomPoint.y) +  player.transform.position;
+
+        // Get the color of the region our random point is in
+        Material regionMaterial = null;
+        Collider[] collArray = Physics.OverlapSphere(randomPoint3D, 1.0f);
+        for (int j = 0; j < collArray.Length; j++) {
+            if (collArray[j].gameObject.tag == "RegionColliders") {
+                regionMaterial = collArray[j].gameObject.GetComponent<MeshRenderer>().material;
+            }
+        }
+
+        // Generate a new point to spawn the enemy in with the color we found
+        randomPoint = generatePointInRing(degrees, spread);
+        randomPoint3D = new Vector3(randomPoint.x, 0.0f, randomPoint.y) +  player.transform.position;
+        GameObject newEnemy = Instantiate(enemy, randomPoint3D, Quaternion.identity);
+        newEnemy.GetComponent<MeshRenderer>().material = regionMaterial;
+    }
+
+    IEnumerator SpawnWave() {
+        int degrees = Random.Range(0, 360);
+        int spread = Random.Range(90, 180);
+        int totalSpawns = 0;
+        // Larger numbers make the wave have more enemy volume
+        int waveVolume = 15;
+        while (totalSpawns / waveVolume < Mathf.PI) {
+            SpawnEnemy(degrees, spread);
+            totalSpawns++;
+            yield return new WaitForSeconds(1.0f - Mathf.Sin((float)totalSpawns / (float)waveVolume));
+        }
     }
 }
