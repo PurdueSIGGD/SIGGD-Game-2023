@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponScript : MonoBehaviour
+public class KnifeScript : MonoBehaviour, IWeapon
 {
     // Start is called before the first frame update
     void Start()
@@ -16,10 +16,15 @@ public class WeaponScript : MonoBehaviour
         
     }
 
-    // Returns true if the attack is successfully started, or false if it's not -- for example, if a
-    // cooldown has not charged or the previous attack hasn't finished yet.
-    public bool PerformAttack() {
+    public bool PerformAttack(int attack) {
         // Call animation stuff, manipulate hitboxes, manipulate health values, etc.
+
+        if (attack == 1) {
+            Debug.Log("Primary attack triggered on knife");
+        } else if (attack == 2) {
+            Debug.Log("Secondary attack triggered on knife");
+        }
+
         return true;
     }
 }
