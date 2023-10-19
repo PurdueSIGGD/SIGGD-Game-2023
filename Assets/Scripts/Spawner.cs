@@ -16,7 +16,7 @@ public class Spawning : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //InvokeRepeating("SpawnEnemy", 0, 0.1f);
+        InvokeRepeating("SpawnEnemy", 0, 0.1f);
         StartCoroutine(SpawnWave());
     }
 
@@ -30,10 +30,8 @@ public class Spawning : MonoBehaviour
     private Vector2 generatePointInRing(int degrees = -1, int spread = -1) {
         Vector2 dir = Random.insideUnitCircle.normalized;
         if (degrees != -1) {
-            // The difference in degrees from the center of our arc to the spawn point we generated
-            while ((Mathf.Rad2Deg * Mathf.Atan(dir.y / dir.x)) - degrees > spread) {
-                dir = Random.insideUnitCircle.normalized;
-            }
+            float randomRads= Mathf.Deg2Rad * Random.Range(degrees - spread, degrees + spread);
+            dir = new Vector2(1, Mathf.Tan(randomRads)).normalized;
         }
         float dist = Random.Range(minDistance, maxDistance);
         return dir * dist;
@@ -62,15 +60,19 @@ public class Spawning : MonoBehaviour
     }
 
     IEnumerator SpawnWave() {
+        // Randomize spread and direction for wave
         int degrees = Random.Range(0, 360);
-        int spread = Random.Range(90, 180);
+        // Deviation from degrees in one direction (2 * spread is the whole arc)
+        int spread = Random.Range(45, 90);
+        Debug.Log("degrees: " + degrees);
+        Debug.Log("spread: " + spread);
         int totalSpawns = 0;
         // Larger numbers make the wave have more enemy volume
         int waveVolume = 15;
         while (totalSpawns / waveVolume < Mathf.PI) {
             SpawnEnemy(degrees, spread);
             totalSpawns++;
-            yield return new WaitForSeconds(1.0f - Mathf.Sin((float)totalSpawns / (float)waveVolume));
+            yield return new WaitForSeconds(1.25f - Mathf.Sin((float)totalSpawns / (float)waveVolume));
         }
     }
 }
