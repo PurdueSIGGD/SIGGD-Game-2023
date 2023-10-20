@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class generator : MonoBehaviour
+public class Generator : MonoBehaviour
 {
     int capactity = 10000;
     int charge = 0;
