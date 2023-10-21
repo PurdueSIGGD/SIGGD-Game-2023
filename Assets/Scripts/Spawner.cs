@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Spawning : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject player;
@@ -13,32 +13,50 @@ public class Spawning : MonoBehaviour
     [SerializeField]
     public float maxDistance = 10.0f;
 
+    float constantSpawnTimer = 0.0f;
+    float constantSpawnInterval = 300.0f; //seconds
+    float waveSpawnTimer = 0.0f;
+    float waveSpawnInterval = 300.0f; //seconds
+
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnEnemy", 0, 0.1f);
         StartCoroutine(SpawnWave());
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        // Theres definitely a better way to constant spawn
+        // I tried invoke repeating but that breaks with parameters
+        constantSpawnTimer += Time.deltaTime;
+        waveSpawnTimer += Time.deltaTime;
+        if (constantSpawnTimer > constantSpawnInterval) {
+            constantSpawnTimer -= constantSpawnInterval;
+            SpawnEnemy();
+        }
+        if (waveSpawnTimer > waveSpawnInterval) {
+            waveSpawnTimer -= waveSpawnInterval;
+            StartCoroutine(SpawnWave());
+        }
     }
 
     // Optional spawning in a cone for waves
     private Vector2 generatePointInRing(int degrees = -1, int spread = -1) {
         Vector2 dir = Random.insideUnitCircle.normalized;
         if (degrees != -1) {
-            float randomRads= Mathf.Deg2Rad * Random.Range(degrees - spread, degrees + spread);
-            dir = new Vector2(1, Mathf.Tan(randomRads)).normalized;
+            // Manual tangent...
+            float randomRads = Mathf.Deg2Rad * Random.Range(degrees - spread, degrees + spread);
+            int posOrNeg = 1;
+            if (degrees < 90 || degrees > 270) { posOrNeg = -1; }
+            dir = new Vector2(posOrNeg, Mathf.Tan(randomRads)).normalized;
         }
         float dist = Random.Range(minDistance, maxDistance);
         return dir * dist;
     }
 
     // Optional spawning in a cone for waves
-    private void SpawnEnemy(int degrees = -1, int spread = -1) {
+    void SpawnEnemy(int degrees = -1, int spread = -1) {
         // Spawn object
         Vector2 randomPoint = generatePointInRing();
         Vector3 randomPoint3D = new Vector3(randomPoint.x, 0.0f, randomPoint.y) +  player.transform.position;
@@ -64,15 +82,15 @@ public class Spawning : MonoBehaviour
         int degrees = Random.Range(0, 360);
         // Deviation from degrees in one direction (2 * spread is the whole arc)
         int spread = Random.Range(45, 90);
-        Debug.Log("degrees: " + degrees);
-        Debug.Log("spread: " + spread);
-        int totalSpawns = 0;
+        Debug.Log("Degrees: " + degrees);
+        Debug.Log("Spread: " + spread);
+        int currentTotalSpawns = 0;
         // Larger numbers make the wave have more enemy volume
-        int waveVolume = 15;
-        while (totalSpawns / waveVolume < Mathf.PI) {
+        int waveVolume = 30;
+        while (currentTotalSpawns / waveVolume < Mathf.PI) {
             SpawnEnemy(degrees, spread);
-            totalSpawns++;
-            yield return new WaitForSeconds(1.25f - Mathf.Sin((float)totalSpawns / (float)waveVolume));
+            currentTotalSpawns++;
+            yield return new WaitForSeconds(1.25f - Mathf.Sin((float)currentTotalSpawns / (float)waveVolume));
         }
     }
 }
