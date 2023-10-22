@@ -33,16 +33,16 @@ public class EnemyStateController : MonoBehaviour
             bool shouldSwitch = currentState.StateTick(); // Tick will return a bool for whether a switch should be attempted
             if (!shouldSwitch) yield return null;
 
-            int weightSum = 0;
-            foreach (KeyValuePair<EnemyState, int> state in weightTable)
+            float weightSum = 0;
+            foreach (KeyValuePair<EnemyState, float> state in weightTable)
             {
                 weightSum += state.Value;
             }
-            int randomWeight = UnityEngine.Random.Range(0, weightSum);
-            foreach (KeyValuePair<EnemyState, int> state in weightTable)
+            float randomWeight = UnityEngine.Random.Range(0, weightSum);
+            foreach (KeyValuePair<EnemyState, float> state in weightTable)
             {
                 randomWeight -= state.Value;
-                if (randomWeight < 0)
+                if (randomWeight <= 0)
                 {
                     nextState = state.Key;
                     break;
