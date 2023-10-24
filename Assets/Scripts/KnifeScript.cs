@@ -7,7 +7,8 @@ public class KnifeScript : MonoBehaviour, IWeapon
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.transform.SetPositionAndRotation(new Vector3(-.58f, .51f, .61f), Quaternion.Euler(0, 0, -73));
+        this.SetEnabled(false);
     }
 
     // Update is called once per frame
@@ -17,7 +18,6 @@ public class KnifeScript : MonoBehaviour, IWeapon
     }
 
     public bool PerformAttack(int attack) {
-        // Call animation stuff, manipulate hitboxes, manipulate health values, etc.
 
         if (attack == 1) {
             Debug.Log("Primary attack triggered on knife");
@@ -26,5 +26,15 @@ public class KnifeScript : MonoBehaviour, IWeapon
         }
 
         return true;
+    }
+
+    public void SetEnabled(bool enabled) {
+        Component[] comps = GetComponents<Component>();
+        foreach (Component c in comps) {
+            Debug.Log("Behavior for " + this.gameObject.name + ": " + c);
+            if (c is not IWeapon) {
+                // ((Behaviour) c).enabled = enabled;
+            }
+        }
     }
 }

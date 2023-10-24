@@ -306,26 +306,37 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "d3307396-d36a-4192-87fc-508bd3ae2043",
-                    "path": "<Mouse>/scroll/up",
+                    "name": "1D Axis",
+                    "id": "a54d5aca-3688-4e31-b1aa-aa0febabb1da",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "ChangeItem",
-                    "isComposite": false,
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "40998f5a-3040-4e89-bdd9-7c3289adcbcc",
+                    "name": "negative",
+                    "id": "f45fbaf6-134f-4091-bec6-30c28bd759b8",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ChangeItem",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "8c84a51b-3694-4e24-a07c-3e62afeacf7f",
                     "path": "<Mouse>/scroll/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "ChangeItem",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 }
             ]
         },

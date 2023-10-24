@@ -6,18 +6,31 @@ using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public GameObject[] weapons;
+    public GameObject[] weaponPrefabs; // Stores weapons inserted into the list in the editor
+    private GameObject[] weaponObjects; // Stores the specific instances of all chosen weapons
     private GameObject currentWeapon;
     private IWeapon currentWeaponScript;
+    private int currentWeaponIndex;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (weapons.Length > 0) {
-            currentWeapon = weapons[0];
-            currentWeaponScript = currentWeapon.GetComponent<IWeapon>();
+        // Create weapon objects from prefabs
+        weaponObjects = new GameObject[weaponPrefabs.Length];
+        for (int i = 0; i < weaponPrefabs.Length; i++) {
+            GameObject weapon = Instantiate(weaponPrefabs[i]);
+            weapon.transform.parent = this.transform;
+            weaponObjects[i] = weapon;
+            weapon.GetComponent<IWeapon>().SetEnabled(false); // Disable all weapons at first
         }
-        Debug.Log("Weapon script is" + currentWeaponScript);
+
+        if (weaponObjects.Length > 0) {
+            currentWeapon = weaponObjects[0];
+            currentWeaponIndex = 0;
+            currentWeaponScript = currentWeapon.GetComponent<IWeapon>();
+            weaponObjects[0].GetComponent<IWeapon>().SetEnabled(true);
+        }
+        // Debug.Log("Weapon script is" + currentWeaponScript);
     }
 
     // Update is called once per frame
@@ -26,20 +39,35 @@ public class PlayerCombat : MonoBehaviour
         
     }
 
-    public void ChangeWeapon(int index) {
-        if ((index >= 0) && (index < weapons.Length)) {
-            currentWeapon = weapons[index];
-            currentWeaponScript = currentWeapon.GetComponent<IWeapon>();
-        }
+    public void EnableWeapon() {
+        currentWeaponScript.SetEnabled(true);
     }
 
-    public void ChangeWeapon(GameObject weapon) {
-        // Check if list contains the weapon object specified, and switch to it
-        if (weapons.Contains<GameObject>(weapon)) {
-            currentWeapon = weapon;
+    public void DisableWeapon() {
+        currentWeaponScript.SetEnabled(false);
+    }
+
+    public bool ChangeWeapon(int index) {
+        if ((index >= 0) && (index < weaponPrefabs.Length)) {
+            DisableWeapon();
+            currentWeapon = weaponObjects[index];
+            currentWeaponIndex = index;
             currentWeaponScript = currentWeapon.GetComponent<IWeapon>();
-            Debug.Log("Weapon script is" + currentWeaponScript);
+            EnableWeapon();
+            // Debug.Log("Weapon " + currentWeapon.name + " at index " + currentWeaponIndex + ".");
         }
+        return false;
+    }
+
+    public bool ChangeWeapon(GameObject weapon) {
+        // Check if list contains the weapon object specified, and switch to it
+        for (int i = 0; i < weaponObjects.Length; i++) {
+            if (weaponObjects[i] = weapon) {
+                ChangeWeapon(i);
+                return true;
+            }
+        }
+        return false;
     }
 
     void OnAttack1() {
@@ -47,7 +75,24 @@ public class PlayerCombat : MonoBehaviour
         // Maybe combine attack2 into this method and check which button is pressed?
     }
 
-    void OnChangeItem() {
-        // Must pass in whether the scroll motion is up or down
+    void OnAttack2() {
+        currentWeaponScript.PerformAttack(2);
+    }
+
+    void OnChangeItem(InputValue val) {
+        // Debug.Log("value = " + val.Get<float>());
+        if (val.Get<float>() > 0) {
+            if (currentWeaponIndex == weaponObjects.Length - 1) {
+                ChangeWeapon(0);
+            } else {
+                ChangeWeapon(currentWeaponIndex + 1);
+            }
+        } else if (val.Get<float>() < 0) {
+            if (currentWeaponIndex == 0) {
+                ChangeWeapon(weaponObjects.Length - 1);
+            } else {
+                ChangeWeapon(currentWeaponIndex - 1);
+            }
+        }
     }
 }
