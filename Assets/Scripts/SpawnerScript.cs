@@ -7,9 +7,11 @@ public class Spawn : MonoBehaviour
 {
     [SerializeField] private Camera mainCamera;
 
-    [SerializeField] private GameObject turret;
-    [SerializeField] private GameObject turretAccepted;
-    [SerializeField] private GameObject turretDenied;
+    [SerializeField] private GameObject shooter;
+    [SerializeField] private GameObject rocketJet;
+    [SerializeField] private GameObject spawnIndicatorValid;
+    [SerializeField] private GameObject spawnIndicatorInvalid;
+    private GameObject selectedUnitToSpawn;
     private GameObject turretGhost;
     private GameObject turretGhostToPlace;
 
@@ -28,9 +30,10 @@ public class Spawn : MonoBehaviour
 
     void Start()
     {
+        selectedUnitToSpawn = shooter;
         hoverTurret = false;
         hasSpace = true;
-        turretGhostToPlace = turretAccepted;
+        turretGhostToPlace = spawnIndicatorValid;
     }
 
     private void CheckOutOfRange(Vector3 toOwner)
@@ -86,13 +89,15 @@ public class Spawn : MonoBehaviour
         if (hoverTurret && hasSpace)
         {
             Quaternion rotation = turretGhost.transform.rotation;
-            Instantiate(turret, turretGhost.transform.position, rotation);
+            Instantiate(selectedUnitToSpawn, turretGhost.transform.position, rotation);
         }
     }
 
     // InputSystem Hook, set to E or Space.
     public void OnTogglePlaceTurret()
     {
+        foreach (Canvas canvas in GetComponentsInChildren<Canvas>())
+            canvas.enabled = !canvas.enabled;
         if (hoverTurret)
         {
             Destroy(turretGhost);
@@ -103,6 +108,16 @@ public class Spawn : MonoBehaviour
             hoverTurret = !hoverTurret;
             UpdateGhost();
         }
+    }
+
+    public void SelectShooterUnit()
+    {
+        selectedUnitToSpawn = shooter;
+    }
+
+    public void SelectRocketUnit()
+    {
+        selectedUnitToSpawn = rocketJet;
     }
 
     // Collision Hook
@@ -122,9 +137,10 @@ public class Spawn : MonoBehaviour
     private void setPlaceability(bool canPlace) 
     {
         hasSpace = canPlace;
-        turretGhostToPlace = canPlace ? turretAccepted : turretDenied;
+        turretGhostToPlace = canPlace ? spawnIndicatorValid : spawnIndicatorInvalid;
     }
 
+    
     //--------
 
     public void OnRotateTurrent(Vector2 scroll)
