@@ -18,8 +18,8 @@ public class player_controller : MonoBehaviour
     {
         Vector3 movement = new Vector3();
         movement.y = 0;
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.z = Input.GetAxisRaw("Vertical");
+        //movement.x = Input.GetAxisRaw("Horizontal");
+        //movement.z = Input.GetAxisRaw("Vertical");
         body.MovePosition(body.position + (movement * speed * Time.deltaTime));
     }
 }
