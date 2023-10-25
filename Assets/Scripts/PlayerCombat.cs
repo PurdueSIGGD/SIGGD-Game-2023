@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,16 +20,15 @@ public class PlayerCombat : MonoBehaviour
             GameObject weapon = Instantiate(weaponPrefabs[i]);
             weapon.transform.parent = this.transform;
             weaponObjects[i] = weapon;
-            weapon.GetComponent<IWeapon>().SetEnabled(false); // Disable all weapons at first
+            weapon.GetComponent<IWeapon>().SetEnabled(false);
         }
 
         if (weaponObjects.Length > 0) {
             currentWeapon = weaponObjects[0];
             currentWeaponIndex = 0;
             currentWeaponScript = currentWeapon.GetComponent<IWeapon>();
-            weaponObjects[0].GetComponent<IWeapon>().SetEnabled(true);
+            this.EnableWeapon();
         }
-        // Debug.Log("Weapon script is" + currentWeaponScript);
     }
 
     // Update is called once per frame
@@ -54,7 +52,6 @@ public class PlayerCombat : MonoBehaviour
             currentWeaponIndex = index;
             currentWeaponScript = currentWeapon.GetComponent<IWeapon>();
             EnableWeapon();
-            // Debug.Log("Weapon " + currentWeapon.name + " at index " + currentWeaponIndex + ".");
         }
         return false;
     }
@@ -72,7 +69,6 @@ public class PlayerCombat : MonoBehaviour
 
     void OnAttack1() {
         currentWeaponScript.PerformAttack(1);
-        // Maybe combine attack2 into this method and check which button is pressed?
     }
 
     void OnAttack2() {
@@ -80,7 +76,6 @@ public class PlayerCombat : MonoBehaviour
     }
 
     void OnChangeItem(InputValue val) {
-        // Debug.Log("value = " + val.Get<float>());
         if (val.Get<float>() > 0) {
             if (currentWeaponIndex == weaponObjects.Length - 1) {
                 ChangeWeapon(0);
