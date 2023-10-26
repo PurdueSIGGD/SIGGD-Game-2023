@@ -4,19 +4,19 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
+  - RegionColliders
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Turret Placeable
+  - 
   - Water
   - UI
-  - Unit
-  - Obstacles
-  - Player
-  - Enemy
-  - Character
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
