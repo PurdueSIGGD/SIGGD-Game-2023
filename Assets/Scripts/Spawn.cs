@@ -39,7 +39,7 @@ public class Spawn : MonoBehaviour
 
     void Start()
     {
-        selectedUnitToSpawn = shooter;
+        //selectedUnitToSpawn = shooter;
         hoverTurret = false;
         hasSpace = true;
         turretGhostToPlace = turretAccepted;
@@ -133,6 +133,7 @@ public class Spawn : MonoBehaviour
         }
     }
 
+    /*
     public void SelectShooterUnit()
     {
         selectedUnitToSpawn = shooter;
@@ -142,6 +143,7 @@ public class Spawn : MonoBehaviour
     {
         selectedUnitToSpawn = rocketJet;
     }
+    */
 
     // Collision Hook
     private void OnCollisionEnter(Collision collision)
@@ -160,7 +162,7 @@ public class Spawn : MonoBehaviour
     private void setPlaceability(bool canPlace) 
     {
         hasSpace = canPlace;
-        turretGhostToPlace = canPlace ? spawnIndicatorValid : spawnIndicatorInvalid;
+        //turretGhostToPlace = canPlace ? spawnIndicatorValid : spawnIndicatorInvalid;
     }
 
     
