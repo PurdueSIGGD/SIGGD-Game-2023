@@ -41,38 +41,52 @@ public class EnemyTargeting : MonoBehaviour
     }
     public virtual void UpdateWeights()
     {
-
-    }
-    public virtual void UpdateTarget()
-    {
         float distance;
         _weight targetWeight;
         foreach (KeyValuePair<GameObject, _weight> targetWeightPair in targetWeights)
         {
             targetWeight = targetWeightPair.Value;
 
-            if (true) // Check for visibility (e.g. raycast to target)
+            if (true) // In complete code this will check for visibility (e.g. raycast to target)
             {
                 targetWeight.visibilityFactor = 1.0f;
-            } else
+            }
+            else
             {
                 targetWeight.visibilityFactor -= visibilityDecayRate;
                 if (targetWeight.visibilityFactor < 0.0f) targetWeight.visibilityFactor = 0.0f;
             }
 
             distance = Vector3.Distance(gameObject.transform.position, targetWeightPair.Key.transform.position);
-            if (distance < aggroRange) 
-            { 
+            if (distance < aggroRange)
+            {
                 targetWeight.proximityWeight = (aggroRange - distance) / aggroRange;
-            } else
+            }
+            else
             {
                 targetWeight.proximityWeight = 0.0f;
             }
         }
     }
-    IEnumerator Tick()
+    public virtual void UpdateTarget()
     {
-        while (true)
+        float maxWeight = 0.0f;
+        foreach (KeyValuePair<GameObject, _weight> targetWeightPair in targetWeights)
+        {
+            if (targetWeightPair.Value.visibilityFactor <= 0.0f) continue;
+            if (targetWeightPair.Value.proximityWeight > maxWeight)
+            {
+                nextTarget = targetWeightPair.Key;
+                maxWeight = targetWeightPair.Value.proximityWeight;
+            }
+        }
+        if (canSwitch) currentTarget = nextTarget;
+    }
+    public virtual void UpdateTarget()
+    {
+        float distance;
+        _weight targetWeight;
+        foreach (KeyValuePair<GameObject, _weight> targetWeightPair in targetWeights)
         {
             yield return new WaitForSeconds(0.25f);
             UpdateWeights();
