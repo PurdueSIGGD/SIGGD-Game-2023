@@ -12,10 +12,10 @@ TagManager:
   - Turret Placeable
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Obstacles
+  - Player
+  - Enemy
+  - Character
   - 
   - 
   - 
