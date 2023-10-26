@@ -1,20 +1,29 @@
 using System.Linq.Expressions;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Composites;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Spawn : MonoBehaviour
 {
+    //Camera
     [SerializeField] private Camera mainCamera;
 
-    [SerializeField] private GameObject shooter;
-    [SerializeField] private GameObject rocketJet;
-    [SerializeField] private GameObject spawnIndicatorValid;
-    [SerializeField] private GameObject spawnIndicatorInvalid;
-    private GameObject selectedUnitToSpawn;
+    //Different turret types for placement visualization
+    [SerializeField] private GameObject turret;
+    [SerializeField] private GameObject turretAccepted;
+    [SerializeField] private GameObject turretDenied;
+
+    //The ghost object and the object to place when updating
     private GameObject turretGhost;
     private GameObject turretGhostToPlace;
 
+    //List of the active turrets
+    private List<Unit> activeUnits;
+
+    //Type of unit to spawn
+    private string unitType;
+
+    //Owner of turrets and how far away from the owner they can place
     [SerializeField] private GameObject owner;
     [SerializeField] private float PLACE_RANGE = 5;
 
@@ -33,7 +42,9 @@ public class Spawn : MonoBehaviour
         selectedUnitToSpawn = shooter;
         hoverTurret = false;
         hasSpace = true;
-        turretGhostToPlace = spawnIndicatorValid;
+        turretGhostToPlace = turretAccepted;
+        unitType = "Simple Turret";
+        activeUnits = new List<Unit>();
     }
 
     private void CheckOutOfRange(Vector3 toOwner)
@@ -88,8 +99,20 @@ public class Spawn : MonoBehaviour
     {
         if (hoverTurret && hasSpace)
         {
+            //Set rotation to the same as ghost
             Quaternion rotation = turretGhost.transform.rotation;
-            Instantiate(selectedUnitToSpawn, turretGhost.transform.position, rotation);
+            //Create new unit
+            GameObject newUnit = Instantiate(turret, turretGhost.transform.position, rotation);
+            switch (unitType) {
+                case "Simple Turret":
+                    newUnit.AddComponent<SimpleTurret>();
+                    activeUnits.Add(newUnit.GetComponent<SimpleTurret>());
+                    break;
+                default:
+                    Debug.LogWarning("Turret type " + unitType + " not found.");
+                    break;
+            }
+            Debug.Log("Active Turrets: " + activeUnits);
         }
     }
 
