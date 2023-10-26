@@ -11,6 +11,7 @@ public class Player : MonoBehaviour, TurretController
     private Vector2 move;
     private bool placingTurret = true;
     [SerializeField] Spawn spawn;
+    public bool airborne;
     
     // Start is called before the first frame update
     void Start()
@@ -69,6 +70,12 @@ public class Player : MonoBehaviour, TurretController
             print("Wait, not placing turret! Toggle with spacebar.");
     }
 
+    public void OnRotateTurret(InputValue action)
+    {
+        Vector2 scroll = action.Get<Vector2>();
+        spawn.OnRotateTurrent(scroll);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -79,5 +86,13 @@ public class Player : MonoBehaviour, TurretController
             spawn.CheckOutOfRange();
             spawn.UpdateGhost();
         }
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.layer == 3) // Turret Placeable Layer (Ground)
+        {
+            airborne = false;
+        }
+        
     }
 }

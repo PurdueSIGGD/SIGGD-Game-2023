@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,6 +39,7 @@ public class Spawn : MonoBehaviour
 
     void Start()
     {
+        //selectedUnitToSpawn = shooter;
         hoverTurret = false;
         hasSpace = true;
         turretGhostToPlace = turretAccepted;
@@ -84,7 +86,7 @@ public class Spawn : MonoBehaviour
         toOwnerFlattened.y = 0;
         Quaternion look = Quaternion.LookRotation(toOwnerFlattened, Vector3.up);
         // Rotate the asset 90 degrees instead of use this code, this is dumb.
-        look.eulerAngles += new Vector3(0, 90, 0);
+        //look.eulerAngles += new Vector3(0, 90, 0);
         turretGhost.transform.rotation = look;
     }
 
@@ -116,14 +118,32 @@ public class Spawn : MonoBehaviour
 
     // InputSystem Hook, set to E or Space.
     public void OnTogglePlaceTurret()
-    {                
+    {
+        foreach (Canvas canvas in GetComponentsInChildren<Canvas>())
+            canvas.enabled = !canvas.enabled;
         if (hoverTurret)
+        {
             Destroy(turretGhost);
+            hoverTurret = !hoverTurret;
+        }
         else
+        {
+            hoverTurret = !hoverTurret;
             UpdateGhost();
-
-        hoverTurret = !hoverTurret;
+        }
     }
+
+    /*
+    public void SelectShooterUnit()
+    {
+        selectedUnitToSpawn = shooter;
+    }
+
+    public void SelectRocketUnit()
+    {
+        selectedUnitToSpawn = rocketJet;
+    }
+    */
 
     // Collision Hook
     private void OnCollisionEnter(Collision collision)
@@ -142,7 +162,21 @@ public class Spawn : MonoBehaviour
     private void setPlaceability(bool canPlace) 
     {
         hasSpace = canPlace;
-        turretGhostToPlace = canPlace ? turretAccepted : turretDenied;
+        //turretGhostToPlace = canPlace ? spawnIndicatorValid : spawnIndicatorInvalid;
+    }
+
+    
+    //--------
+
+    public void OnRotateTurrent(Vector2 scroll)
+    {
+        if (hoverTurret)
+        {
+            Debug.Log("SCroll while Rotate!");
+            Debug.Log(scroll);
+        }
+
+        Debug.Log("Scrolling");
     }
 
 }
