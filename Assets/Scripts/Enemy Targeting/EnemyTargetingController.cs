@@ -24,6 +24,8 @@ public class EnemyTargeting : MonoBehaviour
     public float aggroRange;
     public float visibilityDecayRate;
 
+    public bool canSwitch;
+
     public virtual void AddTarget(GameObject newTarget)
     {
         _weight newTargetWeight = new _weight();
@@ -82,15 +84,10 @@ public class EnemyTargeting : MonoBehaviour
         }
         if (canSwitch) currentTarget = nextTarget;
     }
-    public virtual void UpdateTarget()
+    IEnumerator Tick()
     {
-        float distance;
-        _weight targetWeight;
-        foreach (KeyValuePair<GameObject, _weight> targetWeightPair in targetWeights)
-        {
-            yield return new WaitForSeconds(0.25f);
-            UpdateWeights();
-            UpdateTarget();
-        }
+        UpdateWeights();
+        UpdateTarget();
+        yield return new WaitForSeconds(0.25f);
     }
 }
