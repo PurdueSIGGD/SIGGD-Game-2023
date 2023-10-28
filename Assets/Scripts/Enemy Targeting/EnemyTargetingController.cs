@@ -39,7 +39,7 @@ public class EnemyTargeting : MonoBehaviour
     {
         targetWeights.Remove(target);
         UpdateWeights();
-        UpdateTarget();
+        UpdateTargets();
     }
     public virtual void UpdateWeights()
     {
@@ -84,14 +84,10 @@ public class EnemyTargeting : MonoBehaviour
         }
         if (canSwitch) currentTarget = nextTarget;
     }
-    public virtual void UpdateTarget()
+    IEnumerator Tick()
     {
-        float distance;
-        _weight targetWeight;
-        foreach (KeyValuePair<GameObject, _weight> targetWeightPair in targetWeights)
-        {
-            UpdateWeights();
-            UpdateTargets();
-        }
+        UpdateWeights();    // Update weights based on changing values
+        UpdateTargets();    // Update the current target
+        yield return new WaitForSeconds(0.25f);
     }
 }
