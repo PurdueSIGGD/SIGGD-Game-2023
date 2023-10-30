@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NavScript_Mob : MonoBehaviour
+public class NavScript_Ranged : MonoBehaviour
 {
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Transform this_enemy;
@@ -14,8 +14,8 @@ public class NavScript_Mob : MonoBehaviour
     private Vector3 boxSize;
     private bool flankDir;
     [SerializeField] private float rayDist;
-    [SerializeField] private float flankDist;
     [SerializeField] private bool seeThroughWalls;
+    [SerializeField] float maxRangeDist;
 
 
     void Start() {
@@ -44,7 +44,10 @@ public class NavScript_Mob : MonoBehaviour
                 for (int i = 0; i < path.corners.Length - 1; i++) {
                     Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
                 }
-                Vector3 move_offset = this_enemy.forward;
+                Vector3 move_offset = this_enemy.forward * -0.1f;
+                if ((path.corners[1].Equals(player.position)) || Vector3.Distance(player.position, this_enemy.position) > maxRangeDist) {
+                    move_offset = this_enemy.forward;
+                }
                 RaycastHit leftHit;
                 RaycastHit rightHit;
                 bool leftHitBool = Physics.Raycast((this_enemy.position + (this_enemy.right * -1 * boxSize.x * 0.51f)), (this_enemy.right * -1), out leftHit, rayDist, mask);
@@ -58,24 +61,8 @@ public class NavScript_Mob : MonoBehaviour
                 else if (leftHitBool && rightHitBool) {
                     move_offset += this_enemy.right * (rightHit.distance- leftHit.distance) * -1;
                 }
-                RaycastHit frontHit;
-                if (hit.distance < flankDist) {
-                    Vector3 targetPos = player.position;
-                    float angle = Vector3.Angle(this_enemy.right, (this_enemy.position - targetPos));
-                    if (angle < 90) {
-                        flankDir = true;
-                    }
-                    else {
-                        flankDir = false;
-                    }
-                    Vector3 flank_offset = this_enemy.right;
-                    if (flankDir == false) {
-                        flank_offset *= -1;
-                    }
-                    //Debug.DrawLine(this_enemy.position, (this_enemy.position + flank_offset), Color.white);
-                    move_offset += flank_offset;
-                }
 
+                RaycastHit frontHit;
                 if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, rayDist, mask)) {
                     Vector3 targetPos = frontHit.collider.gameObject.transform.position;
                     float angle = Vector3.Angle(this_enemy.right, (this_enemy.position - targetPos));
@@ -92,9 +79,9 @@ public class NavScript_Mob : MonoBehaviour
                     //Debug.DrawLine(this_enemy.position, (this_enemy.position + flank_offset), Color.white);
                     move_offset += flank_offset;
                 }
-                
+
+
                 move_offset = move_offset.normalized;
-                //string pos_debug = "" + move_offset.x + " " + move_offset.y + " " + move_offset.z;
                 Debug.DrawLine(this_enemy.position, (this_enemy.position + 2 * move_offset), Color.blue);
                 agent.Move(move_offset * speed * Time.fixedDeltaTime);
             }
