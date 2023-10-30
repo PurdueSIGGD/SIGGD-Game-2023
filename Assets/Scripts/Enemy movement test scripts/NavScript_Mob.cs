@@ -8,31 +8,36 @@ public class NavScript_Mob : MonoBehaviour
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Transform this_enemy;
     private Transform player;
-    public float maxDistance;
     private NavMeshPath path;
     [SerializeField] private float speed;
     [SerializeField] private float turnSpeed;
     private Vector3 boxSize;
+    private bool flankDir;
     [SerializeField] private float rayDist;
     [SerializeField] private float flankDist;
-    private bool flankDir;
+    [SerializeField] private bool seeThroughWalls;
 
 
     void Start() {
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         path = new NavMeshPath();
         boxSize = GetComponent<BoxCollider>().size;
-        flankDir = (Random.Range(0, 1) > 0.5);
     }
     void FixedUpdate()
     {
         RaycastHit hit;
         LayerMask mask = LayerMask.GetMask("Enemy");
+        LayerMask mask2 = LayerMask.GetMask("Player");
+        if (seeThroughWalls) {
+            mask = ~mask2;
+        }
         if (Physics.Raycast(GetComponent<Transform>().position, player.position - this_enemy.position, out hit, Mathf.Infinity, ~mask)) {
             if (hit.collider.gameObject.transform == player) {
                 NavMesh.CalculatePath(this_enemy.position, player.position, NavMesh.AllAreas, path);
                 //agent.SetDestination(player.position);
-                Vector3 targetDir = player.position - this_enemy.position;
+                //Vector3 targetDir = player.position - this_enemy.position;
+                Vector3 targetDir = path.corners[1] - this_enemy.position;
+                //Debug.Log(path.corners[1]);
                 Vector3 newDir = Vector3.RotateTowards(this_enemy.forward, targetDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
                 this_enemy.rotation = Quaternion.LookRotation(newDir);
 
@@ -55,10 +60,18 @@ public class NavScript_Mob : MonoBehaviour
                 }
                 RaycastHit frontHit;
                 if ((hit.distance < flankDist) || (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, rayDist, mask))) {
+                    float angle = Vector3.Angle(this_enemy.right, (this_enemy.position - player.position));
+                    if (angle < 90) {
+                        flankDir = true;
+                    }
+                    else {
+                        flankDir = false;
+                    }
                     Vector3 flank_offset = this_enemy.right;
-                    if (flankDir == true) {
+                    if (flankDir == false) {
                         flank_offset *= -1;
                     }
+                    Debug.DrawLine(this_enemy.position, (this_enemy.position + flank_offset), Color.white);
                     move_offset += flank_offset;
                 }
                 move_offset = move_offset.normalized;
