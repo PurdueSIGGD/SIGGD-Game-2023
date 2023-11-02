@@ -9,7 +9,8 @@ public class Spawn : MonoBehaviour
     [SerializeField] private Camera mainCamera;
 
     //Different turret types for placement visualization
-    [SerializeField] private GameObject turret;
+    [SerializeField] private GameObject shooter;
+    [SerializeField] private GameObject rocketJet;
     [SerializeField] private GameObject turretAccepted;
     [SerializeField] private GameObject turretDenied;
 
@@ -21,7 +22,8 @@ public class Spawn : MonoBehaviour
     private List<Unit> activeUnits;
 
     //Type of unit to spawn
-    private string unitType;
+    private GameObject unitType;
+    //private string unitType; <- Thus should be the indicator of what to spawn but its not implemented yet 
 
     //Owner of turrets and how far away from the owner they can place
     [SerializeField] private GameObject owner;
@@ -43,7 +45,8 @@ public class Spawn : MonoBehaviour
         hoverTurret = false;
         hasSpace = true;
         turretGhostToPlace = turretAccepted;
-        unitType = "Simple Turret";
+        //unitType = "Simple Turret";
+        unitType = shooter;
         activeUnits = new List<Unit>();
     }
 
@@ -102,7 +105,10 @@ public class Spawn : MonoBehaviour
             //Set rotation to the same as ghost
             Quaternion rotation = turretGhost.transform.rotation;
             //Create new unit
-            GameObject newUnit = Instantiate(turret, turretGhost.transform.position, rotation);
+            GameObject newUnit = Instantiate(unitType, turretGhost.transform.position, rotation);
+            
+            /* Not yet implemented/finished
+             * 
             switch (unitType) {
                 case "Simple Turret":
                     newUnit.AddComponent<SimpleTurret>();
@@ -113,6 +119,7 @@ public class Spawn : MonoBehaviour
                     break;
             }
             Debug.Log("Active Turrets: " + activeUnits);
+            */
         }
     }
 
@@ -133,17 +140,16 @@ public class Spawn : MonoBehaviour
         }
     }
 
-    /*
+    
     public void SelectShooterUnit()
     {
-        selectedUnitToSpawn = shooter;
+        unitType = shooter;
     }
 
     public void SelectRocketUnit()
     {
-        selectedUnitToSpawn = rocketJet;
+        unitType = rocketJet;
     }
-    */
 
     // Collision Hook
     private void OnCollisionEnter(Collision collision)
