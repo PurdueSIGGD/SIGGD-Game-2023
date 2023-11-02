@@ -23,7 +23,7 @@ public class Spawn : MonoBehaviour
 
     //Type of unit to spawn
     private GameObject unitType;
-    //private string unitType; <- Thus should be the indicator of what to spawn but its not implemented yet 
+    //private string unitType; <- Used in new unit system which is not finished yet 
 
     //Owner of turrets and how far away from the owner they can place
     [SerializeField] private GameObject owner;
