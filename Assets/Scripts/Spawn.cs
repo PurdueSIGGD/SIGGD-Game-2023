@@ -178,7 +178,7 @@ public class Spawn : MonoBehaviour
     {
         if (hoverTurret)
         {
-            Debug.Log("SCroll while Rotate!");
+            Debug.Log("Scroll while Rotate!");
             Debug.Log(scroll);
         }
 
