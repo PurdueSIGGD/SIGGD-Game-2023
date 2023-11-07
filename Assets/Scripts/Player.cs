@@ -5,94 +5,40 @@ using UnityEngine.Assertions.Comparers;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-public class Player : MonoBehaviour, TurretController
+public class Player : MonoBehaviour
 {
-    const float SPEED = 2f;
-    private Vector2 move;
-    private bool placingTurret = true;
-    [SerializeField] Spawn spawn;
+    const float SPEED = 0.1f;
+    [SerializeField] TurretController tc;
     public bool airborne;
-    
-    // Start is called before the first frame update
-    void Start()
+
+    private Vector3 moveVec;
+
+    // Player movement function
+    public void OnMove(InputValue action)
     {
+        // Vector to move the player along
+        moveVec = new Vector3(action.Get<Vector2>().x, 0, action.Get<Vector2>().y);
     }
 
-    public void OnMove(InputValue action) 
+    // Escape place mode
+    public void OnEscapeTurret() => tc.OnEscape();
+
+    // Place turret
+    public void OnPlaceTurret() => tc.PlaceTurret();
+
+    private void FixedUpdate()
     {
-        move = action.Get<Vector2>();
-        spawn.CheckOutOfRange();
-        spawn.UpdateGhost();
+        // Move the player to the appropriate position
+        transform.position += SPEED * moveVec;
+        // Update the turret controller player position
+        tc.playerPosition = transform.position;
     }
 
-    public void HoverPlaceTurret(Spawn s, InputValue action) => s.OnHoverPlaceTurret(action.Get<Vector2>());
-    public void TogglePlaceTurret(Spawn s) => s.OnTogglePlaceTurret();
-    public void PlaceTurret(Spawn s) => s.OnPlaceTurret();
-
-    // InputSystem Hook
-    public void OnHoverPlaceTurret(InputValue action) => HoverPlaceTurret(spawn, action);
-
-    // InputSystem Hook
-    public void OnInteractTurret()
-    {
-        IdleTurret[] turrets = FindObjectsOfType<IdleTurret>();
-        List<IdleTurret> turretsList = new List<IdleTurret>(turrets).Where(t => t.IsInteractable).ToList();
-        if (turretsList.Count == 0) 
-            return;
-
-        turretsList.Sort((a, b) => 
-        {
-            var distA = (a.transform.position - transform.position).magnitude;
-            var distB = (b.transform.position - transform.position).magnitude;
-            return distA.CompareTo(distB);
-        });
-        turretsList.First().Interact(gameObject);
-    }
-
-    // InputSystem Hook
-    public void OnTogglePlaceTurret()
-    {
-        TogglePlaceTurret(spawn);
-        if (placingTurret)
-        {
-            print("Now, please place the turret!");
-        }
-        placingTurret = !placingTurret;
-    }
-
-    // InputSystem Hook
-    public void OnPlaceTurret()
-    {
-        PlaceTurret(spawn);
-        if (placingTurret) 
-            print("TODO: placing turret");
-        else 
-            print("Wait, not placing turret! Toggle with spacebar.");
-    }
-
-    public void OnRotateTurret(InputValue action)
-    {
-        Vector2 scroll = action.Get<Vector2>();
-        spawn.OnRotateTurrent(scroll);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Vector3 deltaMove = new Vector3(move.x, 0, move.y) * SPEED;
-        transform.position += Time.deltaTime * deltaMove; 
-        if (move != Vector2.zero)
-        {
-            spawn.CheckOutOfRange();
-            spawn.UpdateGhost();
-        }
-    }
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.layer == 3) // Turret Placeable Layer (Ground)
         {
             airborne = false;
         }
-        
     }
 }

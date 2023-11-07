@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RocketTurret : Unit
+public class RocketTurret : Turret
 {
     //Rocket turret script
-    //Create function
     protected override void Create()
     {
         throw new System.NotImplementedException();
     }
 
     //End function
-    protected override void End()
+    protected override void Destroy()
     {
         throw new System.NotImplementedException();
     }
