@@ -309,7 +309,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlankModel
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2193569542518114225, guid: b0d0fd8a43c8641639808d343b92f2e7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -585,7 +586,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blankModel: {fileID: 745886887}
   mainCamera: {fileID: 330585545}
-  PLACE_RANGE: 5
+  TURRET_CAP: 0
+  PLACE_MIN: 1
+  PLACE_MAX: 5
   playerPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &352382981
 Transform:
@@ -688,10 +691,10 @@ MonoBehaviour:
       - m_Target: {fileID: 352382980}
         m_TargetAssemblyTypeName: TurretController, Assembly-CSharp
         m_MethodName: OnSelect
-        m_Mode: 5
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1751498656773587579, guid: cd23a97b3ac374b459e24ddf94fd4260, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: ShooterTurret
@@ -1098,10 +1101,10 @@ MonoBehaviour:
       - m_Target: {fileID: 352382980}
         m_TargetAssemblyTypeName: TurretController, Assembly-CSharp
         m_MethodName: OnSelect
-        m_Mode: 5
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 5314204133885613145, guid: f2ec1b3122e0e445abc0a4d4f8975a8e, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: RocketTurret

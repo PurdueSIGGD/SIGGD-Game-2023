@@ -39,7 +39,7 @@ public class TurretController : MonoBehaviour
     private bool canPlace = false;
 
     // Unit type
-    private string unitType;
+    private GameObject unitToSpawn;
 
     // Raycast hit
     private RaycastHit hit;
@@ -53,10 +53,10 @@ public class TurretController : MonoBehaviour
     }
 
     // Turret selected from button
-    public void OnSelect(string typeName)
+    public void OnSelect(GameObject unit)
     {
         // Set the unit type
-        unitType = typeName;
+        unitToSpawn = unit;
 
         // Toggle turrets placeable boolean
         placeMode = true;
@@ -78,26 +78,6 @@ public class TurretController : MonoBehaviour
 
         // Execute exit place mode
         ExitPlaceMode();
-    }
-
-    // Set the type from a string. Undefined string = shooter turret
-    public Unit CreateUnit(string uType)
-    {
-        GameObject newObj = new GameObject();
-        Unit unit;
-        switch (uType) {
-            case "ShooterTurret":
-                unit = newObj.AddComponent<ShooterTurret>();
-                break;
-            case "RocketTurret":
-                unit = newObj.AddComponent<RocketTurret>();
-                break;
-            default:
-                Debug.LogWarning("Button not tied to a specific turret. Using shooter turret by default.");
-                unit = newObj.AddComponent<ShooterTurret>();
-                break;
-        }
-        return unit;
     }
 
     // Enter place mode
@@ -133,8 +113,22 @@ public class TurretController : MonoBehaviour
     // Place the turret
     public void PlaceTurret()
     {
-        Unit placeUnit = CreateUnit(unitType);
-        // TODO : Instantiate the object associated with the player
+        // Get spawn position and validity
+        (bool valid, Vector3 pos) = CheckValidAndGetPos();
+
+        // Check validity
+        if (valid)
+        {
+            // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
+            if (unitToSpawn.GetComponent<Unit>() != null)
+            {
+                GameObject newUnit = Instantiate(unitToSpawn, pos, Quaternion.identity);
+            }
+            else
+            {
+                Debug.LogWarning("The object you are trying to instantiate is not a unit; please ensure you are using a unit!");
+            }
+        }
     }
 
     // Set the blank model color
