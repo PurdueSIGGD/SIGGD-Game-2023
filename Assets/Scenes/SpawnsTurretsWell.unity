@@ -266,6 +266,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2909169135850650568, guid: b0d0fd8a43c8641639808d343b92f2e7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2909169135850650568, guid: b0d0fd8a43c8641639808d343b92f2e7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2909169135850650568, guid: b0d0fd8a43c8641639808d343b92f2e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -587,8 +595,9 @@ MonoBehaviour:
   blankModel: {fileID: 745886887}
   mainCamera: {fileID: 330585545}
   TURRET_CAP: 0
-  PLACE_MIN: 1
+  PLACE_MIN: 1.5
   PLACE_MAX: 5
+  MAX_PLACE_ANGLE: 45
   playerPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &352382981
 Transform:
