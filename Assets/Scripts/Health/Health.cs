@@ -6,9 +6,9 @@ using UnityEngine.Events;
 public class EnemyHealth : MonoBehaviour
 {
     public bool isInvulnerable;
-    public int maxHealth;
+    public float maxHealth;
     [SerializeField]
-    private int currHealth;
+    private float currHealth;
 
     public delegate void OnDamage(float damageAmount); // Components dependent on entity taking damage should subscribe to this delegate. To tell an entity it has been damaged, call ProcessDamage().
     private event OnDamage RegisterDamageEvent;
@@ -33,6 +33,7 @@ public class EnemyHealth : MonoBehaviour
     public void ProcessDamage(float damage)
     {
         if (isInvulnerable) return;
+        currHealth = currHealth - damage;
         // Do checks for damage
         RegisterDamageEvent(damage);
     }
