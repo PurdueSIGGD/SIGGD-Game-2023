@@ -5,9 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
-    private GameObject player;
-    [SerializeField]
-    private GameObject enemy; 
+    private GameObject player; 
 
     [SerializeField]
     public float minDistance = 5.0f;
@@ -18,6 +16,9 @@ public class EnemySpawner : MonoBehaviour
     float constantSpawnInterval = 3.0f; //seconds
     float waveSpawnTimer = 0.0f;
     float waveSpawnInterval = 45.0f; //seconds
+
+    [SerializeField]
+    LayerMask mask;
 
     // Start is called before the first frame update
     void Start()
@@ -57,22 +58,22 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemy(int degrees = -1, int spread = -1) {
         // Spawn object
         Vector2 randomPoint = generatePointInRing();
-        Vector3 randomPoint3D = new Vector3(randomPoint.x, 0.0f, randomPoint.y) +  player.transform.position;
+        Vector3 randomPoint3D = new Vector3(randomPoint.x, 0.0f, randomPoint.y) + player.transform.position;
 
         // Get the color of the region our random point is in
-        Material regionMaterial = null;
-        Collider[] collArray = Physics.OverlapSphere(randomPoint3D, 1.0f);
+        GameObject enemy = null;
+        Collider[] collArray = Physics.OverlapSphere(randomPoint3D, 1.0f, mask, QueryTriggerInteraction.Collide);
         for (int j = 0; j < collArray.Length; j++) {
-            if (collArray[j].gameObject.tag == "RegionColliders") {
-                regionMaterial = collArray[j].gameObject.GetComponent<MeshRenderer>().material;
+            Debug.Log(collArray[j].name);
+            if (collArray[j].gameObject.TryGetComponent(out EnemyReference enemyReference)) {
+                enemy = enemyReference.enemy;
             }
         }
 
         // Generate a new point to spawn the enemy in with the color we found
         randomPoint = generatePointInRing(degrees, spread);
-        randomPoint3D = new Vector3(randomPoint.x, 0.0f, randomPoint.y) +  player.transform.position;
-        GameObject newEnemy = Instantiate(enemy, randomPoint3D, Quaternion.identity);
-        newEnemy.GetComponent<MeshRenderer>().material = regionMaterial;
+        randomPoint3D = new Vector3(randomPoint.x, 0, randomPoint.y) +  player.transform.position;
+        Instantiate(enemy, randomPoint3D, Quaternion.identity);
     }
 
     IEnumerator SpawnWave() {
