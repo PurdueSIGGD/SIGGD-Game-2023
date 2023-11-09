@@ -4,5 +4,9 @@ using UnityEngine;
 
 public abstract class Unit : MonoBehaviour
 {
-    protected int manaCost;
+    protected int manaCost { get; set; }
+
+    //protected abstract void Action();
+
+
 }

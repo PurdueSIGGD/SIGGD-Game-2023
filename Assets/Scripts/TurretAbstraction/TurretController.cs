@@ -36,13 +36,19 @@ public class TurretController : MonoBehaviour
     [HideInInspector] public Vector3 playerPosition;
 
     // Bool for if in place mode
-    private bool placeMode = false;
+    private bool placeMode;
 
     // Bool for if the active position is placeable
-    private bool canPlace = false;
+    private bool canPlace;
 
     // Unit type
     private GameObject unitToSpawn;
+
+    // The collider for the blank model
+    private MeshCollider c;
+
+    // Check distance to wall with placement collider
+    public bool colliderBlocked;
 
     // Raycast hit
     private RaycastHit hit;
@@ -52,7 +58,12 @@ public class TurretController : MonoBehaviour
 
     private void Awake()
     {
+        placeMode = false;
+        canPlace = false;
+        colliderBlocked = false;
         blankModel.SetActive(false);
+
+        c = blankModel.GetComponent<MeshCollider>();
     }
 
     // Turret selected from button
@@ -71,12 +82,6 @@ public class TurretController : MonoBehaviour
     // Escape key pressed to leave place mode
     public void OnEscape()
     {
-        // Set place mode to false
-        if (placeMode)
-        {
-            placeMode = false;
-        }
-
         // Execute exit place mode
         ExitPlaceMode();
     }
@@ -85,7 +90,7 @@ public class TurretController : MonoBehaviour
     void EnterPlaceMode()
     {
         // Check the model
-        bool valid = CheckValid();
+        canPlace = CheckValid();
 
         // Get transform
         (Vector3 pos, Vector3 rot) = GetTransform();
@@ -98,7 +103,7 @@ public class TurretController : MonoBehaviour
         }
 
         // If the model is valid, set the color to green. If not, red
-        if (valid)
+        if (canPlace)
         {
             SetColor(blankModel, Color.green);
         } else
@@ -110,6 +115,8 @@ public class TurretController : MonoBehaviour
     // Exit place mode
     void ExitPlaceMode()
     {
+        // Turn off place mode
+        placeMode = false;
         // Set the blank model to be inactive
         blankModel.SetActive(false);
     }
@@ -117,24 +124,27 @@ public class TurretController : MonoBehaviour
     // Place the turret
     public void PlaceTurret()
     {
-        // Get validity
-        bool valid = CheckValid();
-
-        // Get spawn location
-        (Vector3 pos, Vector3 rot) = GetTransform();
-
-        // Check validity
-        if (valid )
+        if (placeMode)
         {
-            // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
-            if (unitToSpawn.GetComponent<Unit>() != null)
+            // Get validity
+            canPlace = CheckValid();
+
+            // Get spawn location
+            (Vector3 pos, Vector3 rot) = GetTransform();
+
+            // Check validity
+            if (canPlace)
             {
-                GameObject newUnit = Instantiate(unitToSpawn, pos, Quaternion.identity);
-                newUnit.transform.up = rot;
-            }
-            else
-            {
-                Debug.LogWarning("The object you are trying to instantiate is not a unit; please ensure you are using a unit!");
+                // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
+                if (unitToSpawn.GetComponent<Unit>() != null)
+                {
+                    GameObject newUnit = Instantiate(unitToSpawn, pos, Quaternion.identity);
+                    newUnit.transform.up = rot;
+                }
+                else
+                {
+                    Debug.LogWarning("The object you are trying to instantiate is not a unit; please ensure you are using a unit!");
+                }
             }
         }
     }
@@ -153,7 +163,6 @@ public class TurretController : MonoBehaviour
     }
 
     // Returns true if the proposed turret placement position is valid, false otherwise
-    // TODO : Check distance to walls
     bool CheckValid()
     {
         // Ray from mouse position into screen
@@ -161,11 +170,18 @@ public class TurretController : MonoBehaviour
 
         // If no placeable surface, return not valid
         if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, LayerMask.GetMask("Placeable")))
+        {
             return false;
+        }
 
         // If distance too far, return not valid
         if (!((Vector3.Distance(hit.point, playerPosition) >= PLACE_MIN) && (Vector3.Distance(hit.point, playerPosition) <= PLACE_MAX)))
         {
+            return false;
+        }
+
+        // Check if blank model collider is intercepting anything
+        if (colliderBlocked) {
             return false;
         }
 
@@ -185,11 +201,12 @@ public class TurretController : MonoBehaviour
         // Ray from mouse position into screen
         Ray camToWorld = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-        // If no placeable surface, return + infinity for position and zero rotation
-        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, LayerMask.GetMask("Placeable")))
+        // If no surface, return + infinity for position and zero rotation
+        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, ~(LayerMask.GetMask("Blank") | LayerMask.GetMask("Player")))) {
             return (Vector3.positiveInfinity, Vector3.zero);
-
-        // If point is on placeable surface return the hit point and normal
+        }
+        
+        // If point is on surface return the hit point and normal
         return (hit.point, hit.normal);
     }
 
@@ -204,12 +221,13 @@ public class TurretController : MonoBehaviour
             (Vector3 pos, Vector3 rot) = GetTransform();
 
             // If position is infinity, hide GO
-            if (pos.Equals(Vector3.positiveInfinity))
+            if (blankModel.activeSelf && pos.Equals(Vector3.positiveInfinity))
             {
                 blankModel.SetActive(false);
             }
             else
             {
+                // Check valid update
                 // If now valid after not being valid, make valid and set color to green
                 if (!canPlace && valid)
                 {
@@ -223,9 +241,21 @@ public class TurretController : MonoBehaviour
                     SetColor(blankModel, Color.red);
                 }
 
-                // Reset position, rotation
-                blankModel.transform.position = pos;
-                blankModel.transform.up = rot;
+                // Update pos, rot if available
+                if (!pos.Equals(Vector3.positiveInfinity))
+                {
+                    blankModel.transform.position = pos;
+                    blankModel.transform.up = rot;
+                }
+
+                // If we come back onto a placeable surface, show turret again
+                if (!blankModel.activeSelf && !pos.Equals(Vector3.positiveInfinity))
+                {
+                    blankModel.SetActive(true);
+                }
+
+                // Change canPlace
+                canPlace = valid;
             }
         }
     }
