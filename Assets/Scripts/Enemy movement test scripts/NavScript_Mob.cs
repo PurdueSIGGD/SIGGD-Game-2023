@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.VirtualTexturing;
 
 public class NavScript_Mob : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class NavScript_Mob : MonoBehaviour
     {
         RaycastHit hit;
         LayerMask mask = LayerMask.GetMask("Enemy");
+        Debug.Log(mask == null);
         if (Physics.Raycast(GetComponent<Transform>().position, player.position - this_enemy.position, out hit, Mathf.Infinity, ~mask)) {
             if (hit.collider.gameObject.transform == player) {
                 NavMesh.CalculatePath(this_enemy.position, player.position, NavMesh.AllAreas, path);

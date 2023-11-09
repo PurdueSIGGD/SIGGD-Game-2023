@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject player;
