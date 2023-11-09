@@ -170,7 +170,7 @@ public class TurretController : MonoBehaviour
         }
 
         // If hit normal y component is too low (slope too steep), return not valid
-        if (hit.normal.y < Mathf.Cos(Mathf.Deg2Rad * MAX_PLACE_ANGLE))
+        if (Mathf.Abs(hit.normal.y) < Mathf.Cos(Mathf.Deg2Rad * MAX_PLACE_ANGLE))
         {
             return false;
         }
