@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "TogglePlaceTurret",
+                    "name": "EscapeTurret",
                     "type": "Button",
                     "id": "2c406c76-2eef-4832-8e6b-94b7a3682991",
                     "expectedControlType": "Button",
@@ -207,7 +207,7 @@
                 {
                     "name": "",
                     "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -251,22 +251,11 @@
                 {
                     "name": "",
                     "id": "cd66a9be-1dab-4ae6-b4f2-b490374e754b",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "TogglePlaceTurret",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a3e62481-1754-4762-a526-c85247c634d8",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "TogglePlaceTurret",
+                    "action": "EscapeTurret",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
