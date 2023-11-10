@@ -5,23 +5,24 @@ using UnityEngine;
 
 public class LightResource : MonoBehaviour
 {
-    [SerializeField] private int level1MaximumLight;
-    [SerializeField] private int level2MaximumLight;
-    [SerializeField] private int level2LightGeneratedPerTick;
-    [SerializeField] private int level2TicksPerSecond;
-    [SerializeField] private int level3MaximumLight;
-    [SerializeField] private int level3LightGeneratedPerTick;
-    [SerializeField] private int level3TicksPerSecond;
+    [SerializeField] private int level1MaximumLight;                //Level 1 - Maximum Light
+    [SerializeField] private int level2MaximumLight;                //Level 2 - Maximum Light
+    [SerializeField] private float level2LightGeneratedPerSecond;   //Level 2 - Passive Light Gain per Second
+    [SerializeField] private int level3MaximumLight;                //Level 3 - Maximum Light
+    [SerializeField] private float level3LightGeneratedPerSecond;   //Level 3 - Passive Light Gain per Second
+
 
     private int[] maxLightPerLevel = { 0, 0, 0 };
-    private int[] lightPerTickPerLevel = { 0, 0, 0 };
-    private int[] tickRatePerLevel = { 0, 0, 0 };
+    private float[] lightperSecondPerLevel = { 0, 0, 0 };
     
     private float currentLight;
     private int currentLevel;
     private int currentMaxLight;
-    private int currentLightGeneratedPerTick;
-    private int currentGeneratorTickRate;
+    private float currentLightGeneratedPerSecond;
+
+    //Tick Timer
+    private float tickRate = 0.2f;
+    private float previousTickTime;
 
     // Start is called before the first frame update
     void Start()
@@ -30,32 +31,34 @@ public class LightResource : MonoBehaviour
         maxLightPerLevel[1] = level2MaximumLight;
         maxLightPerLevel[2] = level3MaximumLight;
 
-        lightPerTickPerLevel[1] = level2LightGeneratedPerTick;
-        lightPerTickPerLevel[2] = level3LightGeneratedPerTick;
-
-        tickRatePerLevel[1] = level2TicksPerSecond;
-        tickRatePerLevel[2] = level3TicksPerSecond;
+        lightperSecondPerLevel[0] = 0;
+        lightperSecondPerLevel[1] = level2LightGeneratedPerSecond;
+        lightperSecondPerLevel[2] = level3LightGeneratedPerSecond;
 
         currentLevel = 1;
         currentMaxLight = maxLightPerLevel[0];
+        currentLightGeneratedPerSecond = lightperSecondPerLevel[0];
         currentLight = 0f;
+
+        previousTickTime = Time.time;
     }
 
 
-    public void addLight(int light)
+    public void addLight(float light)
     {
         currentLight = (currentLight + light >= currentMaxLight) ? currentMaxLight : currentLight + light;
     }
 
-    public void consumeLight(int light)
+    public void consumeLight(float light)
     {
-        currentLight = (currentLight - light <= 0) ? 0 : currentLight - light;
+        currentLight = (currentLight - light <= 0f) ? 0f : currentLight - light;
     }
 
 
-    public void levelUp()
+    public void levelUpGenerator()
     {
         currentMaxLight = maxLightPerLevel[currentLevel];
+        currentLightGeneratedPerSecond = lightperSecondPerLevel[currentLevel];
         currentLevel++;
     }
 
@@ -64,8 +67,10 @@ public class LightResource : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
-
+        if (Time.time - previousTickTime >= tickRate)
+        {
+            addLight(currentLightGeneratedPerSecond * tickRate);
+            previousTickTime = Time.time;
+        }
     }
 }
