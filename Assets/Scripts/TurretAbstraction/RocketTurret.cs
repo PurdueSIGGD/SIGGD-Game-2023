@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RocketTurret : Turret
+public class RocketTurret : Unit
 {
     //Rocket turret script
     protected override void Create()

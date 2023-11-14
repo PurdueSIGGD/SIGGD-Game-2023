@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShooterTurret : Turret
+public class ShooterTurret : Unit
 {
-    //Placeholder turret script
-    protected override void Create()
+    protected override bool DetectTrigger()
     {
         throw new System.NotImplementedException();
     }
 
-    //End function
-    protected override void Destroy()
+    protected override void Action()
     {
         throw new System.NotImplementedException();
     }
