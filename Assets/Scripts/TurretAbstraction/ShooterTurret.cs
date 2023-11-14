@@ -4,12 +4,27 @@ using UnityEngine;
 
 public class ShooterTurret : Unit
 {
-    protected override bool DetectTrigger()
+    // Range
+    int range = 4;
+
+    // Collider for range detection
+    SphereCollider sC;
+
+    private void Start()
     {
-        throw new System.NotImplementedException();
+        // Add a range collider
+        sC = gameObject.AddComponent<SphereCollider>();
+        sC.radius = range;
+        sC.isTrigger = true;
     }
 
-    protected override void Action()
+    private void OnTriggerEnter(Collider other)
+    {
+        GameObject[] targets = { other.gameObject };
+        Action(targets);
+    }
+
+    protected override void Action(GameObject[] targets)
     {
         throw new System.NotImplementedException();
     }

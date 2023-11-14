@@ -4,14 +4,7 @@ using UnityEngine;
 
 public class RocketTurret : Unit
 {
-    //Rocket turret script
-    protected override void Create()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    //End function
-    protected override void Destroy()
+    protected override void Action(GameObject[] objects)
     {
         throw new System.NotImplementedException();
     }
