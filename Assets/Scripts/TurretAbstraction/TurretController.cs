@@ -45,7 +45,7 @@ public class TurretController : MonoBehaviour
     private GameObject unitToSpawn;
 
     // Raycast hit
-    private RaycastHit hit;
+    //private RaycastHit hit;
 
     // Position of raycast mouse in world space
     private Vector3 position = Vector3.zero;
@@ -117,24 +117,28 @@ public class TurretController : MonoBehaviour
     // Place the turret
     public void PlaceTurret()
     {
-        // Get validity
-        bool valid = CheckValid();
-
-        // Get spawn location
-        (Vector3 pos, Vector3 rot) = GetTransform();
-
-        // Check validity
-        if (valid )
+        // If we are in spawn mode, check validity to spawn
+        if (placeMode)
         {
-            // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
-            if (unitToSpawn.GetComponent<Unit>() != null)
+            // Get validity
+            bool valid = CheckValid();
+
+            // Get spawn location
+            (Vector3 pos, Vector3 rot) = GetTransform();
+
+            // Check validity
+            if (valid)
             {
-                GameObject newUnit = Instantiate(unitToSpawn, pos, Quaternion.identity);
-                newUnit.transform.up = rot;
-            }
-            else
-            {
-                Debug.LogWarning("The object you are trying to instantiate is not a unit; please ensure you are using a unit!");
+                // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
+                if (unitToSpawn.GetComponent<Unit>() != null)
+                {
+                    GameObject newUnit = Instantiate(unitToSpawn, pos, Quaternion.identity);
+                    newUnit.transform.up = rot;
+                }
+                else
+                {
+                    Debug.LogWarning("The object you are trying to instantiate is not a unit; please ensure you are using a unit!");
+                }
             }
         }
     }
@@ -159,9 +163,15 @@ public class TurretController : MonoBehaviour
         // Ray from mouse position into screen
         Ray camToWorld = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-        // If no placeable surface, return not valid
-        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, LayerMask.GetMask("Placeable")))
+        // If no surface hit, return not valid
+        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity)) {
             return false;
+        }
+
+        // If surface is not placeable, return false (it still needs to hit layer though)
+        if (hit.collider.gameObject.layer != LayerMask.NameToLayer("Placeable")) {
+            return false;
+        }
 
         // If distance too far, return not valid
         if (!((Vector3.Distance(hit.point, playerPosition) >= PLACE_MIN) && (Vector3.Distance(hit.point, playerPosition) <= PLACE_MAX)))
@@ -185,8 +195,8 @@ public class TurretController : MonoBehaviour
         // Ray from mouse position into screen
         Ray camToWorld = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-        // If no placeable surface, return + infinity for position and zero rotation
-        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, LayerMask.GetMask("Placeable")))
+        // If no surface, return + infinity for position and zero rotation
+        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, ~(LayerMask.GetMask("Player") | LayerMask.GetMask("Ignore Raycast"))))
             return (Vector3.positiveInfinity, Vector3.zero);
 
         // If point is on placeable surface return the hit point and normal

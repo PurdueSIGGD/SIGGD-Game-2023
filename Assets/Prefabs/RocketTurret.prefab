@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4353084341348328844}
   - component: {fileID: 5249625681032127583}
   - component: {fileID: 5323866170589558224}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2011838383890221318}
   - component: {fileID: 4986698588613327261}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RocketTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 5942720839824976099}
   - component: {fileID: 7096887273385634659}
   - component: {fileID: 2833926161964273435}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Leg3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 5774485910266453680}
   - component: {fileID: 6924462870758531981}
   - component: {fileID: 1228635731998548553}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Leg1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 2369426334339564607}
   - component: {fileID: 813214453635735930}
   - component: {fileID: 8832790241595359626}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 7563969853320873673}
   - component: {fileID: 3047045356045970190}
   - component: {fileID: 3416866106710402114}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Shaft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -597,7 +597,7 @@ GameObject:
   - component: {fileID: 2495850650172779751}
   - component: {fileID: 839155430407052892}
   - component: {fileID: 4060818062693820749}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Leg2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

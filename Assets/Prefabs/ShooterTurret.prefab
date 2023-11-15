@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8254650619080646591}
   - component: {fileID: 4795090335668804671}
   - component: {fileID: 550143712479918151}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Leg3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 8130607329041754604}
   - component: {fileID: 4678679630497387729}
   - component: {fileID: 3601293857070159125}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Leg1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 6549431961957219}
   - component: {fileID: 3152447318989297190}
   - component: {fileID: 6513049433553417942}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 2062617000747160272}
   - component: {fileID: 7506597470548693763}
   - component: {fileID: 7571830864466870924}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,7 +438,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4259803020852952666}
   - component: {fileID: 753533673817479139}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ShooterTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 168228507282791355}
   - component: {fileID: 3122093452277721344}
   - component: {fileID: 1777880193219452433}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Leg2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -597,7 +597,7 @@ GameObject:
   - component: {fileID: 5192156274915209621}
   - component: {fileID: 774592221692894290}
   - component: {fileID: 1125202267014501150}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Shaft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
