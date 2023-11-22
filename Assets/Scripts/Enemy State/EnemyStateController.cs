@@ -22,7 +22,7 @@ public class EnemyStateController : MonoBehaviour
     }
 
     // Updates at intervals slower than every frame; Used to update state
-    IEnumerator Tick() //TODO change to method called by a synchronized tick method??
+    public IEnumerator Tick() //TODO change to method called by a synchronized tick method??
     {
         EnemyState nextState;
         while (true)

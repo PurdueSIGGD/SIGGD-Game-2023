@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class NavScript_Mob : MonoBehaviour
 {
+    public bool enabled;
+
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Transform this_enemy;
     private Transform player;
@@ -25,6 +27,7 @@ public class NavScript_Mob : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (!enabled) return;
         RaycastHit hit;
         LayerMask mask = LayerMask.GetMask("Enemy");
         LayerMask mask2 = LayerMask.GetMask("Player");
