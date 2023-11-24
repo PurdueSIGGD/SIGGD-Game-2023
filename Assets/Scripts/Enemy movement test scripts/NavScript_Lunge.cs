@@ -45,6 +45,7 @@ public class NavScript_Lunge : MonoBehaviour
         timeToNextChange = Random.Range(minChange, maxChange);
         timeToNextPounce = Random.Range(minPounceTime, maxPounceTime);
         lastPounceTime = 0f;
+        tempRange = minRangeDist;
     }
     void FixedUpdate()
     {
