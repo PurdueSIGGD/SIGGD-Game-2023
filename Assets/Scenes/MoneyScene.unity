@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 497256554}
   - component: {fileID: 497256553}
   - component: {fileID: 497256556}
+  - component: {fileID: 497256557}
   m_Layer: 0
   m_Name: Player Collider
   m_TagString: Untagged
@@ -250,6 +251,28 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &497256557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497256551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368d370145725f34a8edded35e899372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level1MaximumLight: 100
+  level2MaximumLight: 300
+  level2LightGeneratedPerSecond: 10
+  level3MaximumLight: 900
+  level3LightGeneratedPerSecond: 30
+  currentLight: 0
+  currentLevel: 0
+  addLightDEV: 0
+  consumeLightDEV: 0
+  setLevelDEV: 0
 --- !u!1 &774936381
 GameObject:
   m_ObjectHideFlags: 0
