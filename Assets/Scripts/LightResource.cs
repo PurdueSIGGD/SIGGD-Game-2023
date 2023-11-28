@@ -15,10 +15,14 @@ public class LightResource : MonoBehaviour
     private int[] maxLightPerLevel = { 0, 0, 0 };
     private float[] lightperSecondPerLevel = { 0, 0, 0 };
     
-    private float currentLight;
-    private int currentLevel;
+    [SerializeField] private float currentLight;
+    [SerializeField] private int currentLevel;
     private int currentMaxLight;
     private float currentLightGeneratedPerSecond;
+
+    [SerializeField] private int addLightDEV = 0;
+    [SerializeField] private int consumeLightDEV = 0;
+    [SerializeField] private bool setLevelDEV = false;
 
     //Tick Timer
     private float tickRate = 0.2f;
@@ -72,5 +76,24 @@ public class LightResource : MonoBehaviour
             addLight(currentLightGeneratedPerSecond * tickRate);
             previousTickTime = Time.time;
         }
+
+        if (addLightDEV > 0)
+        {
+            addLight(addLightDEV);
+            addLightDEV = 0;
+        }
+
+        if (consumeLightDEV > 0)
+        {
+            consumeLight(consumeLightDEV);
+            consumeLightDEV = 0;
+        }
+
+        if (setLevelDEV)
+        {
+            levelUpGenerator();
+            setLevelDEV = false;
+        }
+
     }
 }
