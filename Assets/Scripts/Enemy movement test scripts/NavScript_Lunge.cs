@@ -77,15 +77,15 @@ public class NavScript_Lunge : MonoBehaviour
 
 
                     if (distToPlayer < minRangeDist) {
-                        Debug.Log("back back");
+                        //Debug.Log("back back");
                         move_offset = this_enemy.forward * -1 * retreatSpeed;
                     }
                     else if (distToPlayer < (tempRange - 0.5f)) {
-                        Debug.Log("back faster");
+                        //Debug.Log("back faster");
                         move_offset = this_enemy.forward * -1;
                     }
                     if (path.corners.Length > 2 || distToPlayer > (tempRange + 0.5f)) {
-                        Debug.Log("Hello");
+                        //Debug.Log("Hello");
                         move_offset = this_enemy.forward;
                     }
 
@@ -129,9 +129,9 @@ public class NavScript_Lunge : MonoBehaviour
                     RaycastHit frontHit;
                     if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position))) {
                         if (frontHit.collider.gameObject.transform == player) {
-                            Debug.Log("player available");
+                            //Debug.Log("player available");
                             if ((lastPounceTime + timeToNextPounce) < Time.time) {
-                                Debug.Log("pounce!!!");
+                                //Debug.Log("pounce!!!");
                                 lastPounceTime = Time.time;
                                 inPounce = true;
                             }
