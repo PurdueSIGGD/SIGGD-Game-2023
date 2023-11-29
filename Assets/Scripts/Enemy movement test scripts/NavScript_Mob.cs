@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class NavScript_Mob : MonoBehaviour
 {
-    public bool enabled;
-
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Transform this_enemy;
     private Transform player;

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public abstract class EnemyState : MonoBehaviour
 {
-    public EnemyStateController controller; // Parent Controller
-
     public abstract void StateStart(); // If state is finite, start method should call SwitchState() from coroutine
     public abstract void StateStop(); // Called by SwitchState() to clean up resources
     public abstract void StateUpdate(); // Method for updating on every frame
