@@ -48,14 +48,20 @@ public class LightResource : MonoBehaviour
     }
 
 
-    public void addLight(float light)
+    public float addLight(float light)
     {
-        currentLight = (currentLight + light >= currentMaxLight) ? currentMaxLight : currentLight + light;
+        float addedLight = (currentLight + light >= currentMaxLight) ? currentMaxLight - currentLight : light;
+        currentLight += addedLight;
+        return addedLight;
+        //currentLight = (currentLight + light >= currentMaxLight) ? currentMaxLight : currentLight + light;
     }
 
-    public void consumeLight(float light)
+    public float consumeLight(float light)
     {
-        currentLight = (currentLight - light <= 0f) ? 0f : currentLight - light;
+        float consumedLight = (currentLight - light <= 0f) ? currentLight : light;
+        currentLight -= consumedLight;
+        return consumedLight;
+        //currentLight = (currentLight - light <= 0f) ? 0f : currentLight - light;
     }
 
 
