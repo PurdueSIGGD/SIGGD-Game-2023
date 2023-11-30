@@ -10,7 +10,7 @@ public class LightOrb : MonoBehaviour
 
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         GameObject player = other.gameObject;
         Debug.Log(player.tag + " Collided");
