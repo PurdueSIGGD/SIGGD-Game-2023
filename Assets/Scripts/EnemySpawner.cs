@@ -63,6 +63,7 @@ public class EnemySpawner : MonoBehaviour
         // Get the color of the region our random point is in
         GameObject enemy = null;
         Collider[] collArray = Physics.OverlapSphere(randomPoint3D, 1.0f, mask, QueryTriggerInteraction.Collide);
+        Debug.Log(collArray.Length);
         for (int j = 0; j < collArray.Length; j++) {
             Debug.Log(collArray[j].name);
             if (collArray[j].gameObject.TryGetComponent(out EnemyReference enemyReference)) {

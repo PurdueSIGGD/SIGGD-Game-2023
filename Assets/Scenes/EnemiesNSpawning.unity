@@ -135,13 +135,17 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1405574262}
+    - target: {fileID: -9178058049634296392, guid: 1fb8c8db67802934b911c65be55a6d05, type: 3}
+      propertyPath: mask.m_Bits
+      value: 32768
+      objectReference: {fileID: 0}
     - target: {fileID: 2236774520043852867, guid: 1fb8c8db67802934b911c65be55a6d05, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2236774520043852867, guid: 1fb8c8db67802934b911c65be55a6d05, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 2236774520043852867, guid: 1fb8c8db67802934b911c65be55a6d05, type: 3}
       propertyPath: m_LocalPosition.z
