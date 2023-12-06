@@ -10,9 +10,11 @@ public class Mob_AttackState : EnemyState
     private Mob_EnemyController controller;
     private Mob_NavigationController navController;
 
+    private EnemyState idleState;
     private EnemyState followState;
     private EnemyState attackState;
 
+    private Collider hitCollider;
     void Awake()
     {
         controller = enemy.GetComponent<Mob_EnemyController>();
@@ -20,17 +22,30 @@ public class Mob_AttackState : EnemyState
 
         player = controller.player;
 
+        idleState = controller.idleState;
         followState = controller.followState;
         attackState = controller.attackState;
+    
+        hitCollider = gameObject.transform.Find("HitBox").gameObject.GetComponent<Collider>();
     }
 
     public override void StateStart()
     {
-        navController.active = false;
+        StartCoroutine(AttackTask());
     }
+
+    private IEnumerator AttackTask()
+    {
+        navController.active = false;
+        hitCollider.enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        controller.SwitchState(idleState);
+    }
+
     public override void StateStop()
     {
-
+        hitCollider.enabled = false;
+        StopCoroutine(AttackTask());
     }
     public override void StateUpdate()
     {

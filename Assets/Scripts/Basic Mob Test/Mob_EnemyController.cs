@@ -16,10 +16,14 @@ public class Mob_EnemyController : MonoBehaviour
 
     void Awake()
     {
-        weightTable = new Dictionary<EnemyState, float> { };
-        weightTable[idleState] = 0.0f;
-        weightTable[followState] = 0.0f;
-        weightTable[attackState] = 0.0f;
+        /*
+                weightTable = new Dictionary<EnemyState, float> { };
+                weightTable[idleState] = 0.0f;
+                weightTable[followState] = 0.0f;
+                weightTable[attackState] = 0.0f;
+        */
+
+        player = GameObject.FindWithTag("Player");
     }
 
 	void Start() 
@@ -48,7 +52,7 @@ public class Mob_EnemyController : MonoBehaviour
 			yield return new WaitForSeconds(0.25f);
 
 			nextState = currentState; 
-
+            
             bool shouldSwitch = currentState.StateTick(); // Tick will return a bool for whether a switch should be attempted
             if (shouldSwitch) // Randomly select next state based on weighted probabilities
 			{
