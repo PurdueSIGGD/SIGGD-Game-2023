@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 823112353940993700}
   - component: {fileID: 2230165988041175507}
   - component: {fileID: 1917901478362272410}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,9 +117,9 @@ GameObject:
   - component: {fileID: 8306697731737104011}
   - component: {fileID: 1332049217028871302}
   - component: {fileID: 6725497492273886849}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 1010044667812630534}
   - component: {fileID: 1535979750132036168}
   - component: {fileID: 3128851865700870863}
-  m_Layer: 7
+  m_Layer: 22
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ MonoBehaviour:
   maxDistance: 10
   mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 32768
 --- !u!54 &1210705494475913735
 Rigidbody:
   m_ObjectHideFlags: 0
