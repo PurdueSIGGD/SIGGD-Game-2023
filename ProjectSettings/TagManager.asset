@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - RegionColliders
   - Enemy
   layers:
   - Default
@@ -28,8 +29,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Player
+  - Enemy
   - 
   - 
   - 

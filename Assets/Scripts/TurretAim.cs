@@ -8,11 +8,12 @@ using UnityEngine.UIElements;
 public class TurretAim : MonoBehaviour
 {
     private List<Collider> triggerList = new List<Collider>();
-    Vector3 initialPos;
+    Quaternion initialRot;
     [SerializeField] float lerpSpeed = 5.0f;
+    [SerializeField] private GameObject bullet;
 
     void Start() {
-        initialPos = transform.position;
+        initialRot = transform.rotation;
     }
     private void OnTriggerEnter(Collider collider) {
         if (collider.gameObject.tag == "Enemy" && !triggerList.Contains(collider)) {
@@ -28,6 +29,13 @@ public class TurretAim : MonoBehaviour
         }
     }
 
+    private void shootBullet() {
+        GameObject curBullet = Instantiate(bullet, transform.position, transform.rotation);
+        //curBullet.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 100.0f);
+        Physics.IgnoreCollision(curBullet.GetComponent<Collider>(), GetComponent<Collider>());
+        Destroy(curBullet, 5.0f);
+    }
+
     void Update() {
         Collider target = null;
         float smallerDist = float.PositiveInfinity;
@@ -41,13 +49,18 @@ public class TurretAim : MonoBehaviour
             }
         }
         
-        Vector3 lookPos = initialPos;
+        Quaternion rotation = initialRot;
+        
         if(target != null) {
-            lookPos = target.transform.position - transform.position;
+            Vector3 lookPos = target.transform.position - transform.position;
             lookPos.y = 0;
+            rotation = Quaternion.LookRotation(lookPos);
         }
 
-        Quaternion rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * lerpSpeed);
+
+        if(Input.GetButtonDown("Enable Debug Button 2")) {
+            shootBullet();
+        }
     }
 }
