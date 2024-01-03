@@ -14,7 +14,9 @@ public class Mob_AttackState : EnemyState
     private EnemyState followState;
     private EnemyState attackState;
 
-    private Collider hitCollider;
+    public bool debounce = false;
+
+    [SerializeField] private Collider hitCollider;
     void Awake()
     {
         controller = enemy.GetComponent<Mob_EnemyController>();
@@ -25,8 +27,6 @@ public class Mob_AttackState : EnemyState
         idleState = controller.idleState;
         followState = controller.followState;
         attackState = controller.attackState;
-    
-        hitCollider = gameObject.transform.Find("HitBox").gameObject.GetComponent<Collider>();
     }
 
     public override void StateStart()
@@ -38,8 +38,18 @@ public class Mob_AttackState : EnemyState
     {
         navController.active = false;
         hitCollider.enabled = true;
-        yield return new WaitForSeconds(0.5f);
-        controller.SwitchState(idleState);
+        yield return new WaitForSeconds(2.0f);
+        StartCoroutine(StartDebounce());
+        controller.SwitchState(followState);
+    }
+
+    private IEnumerator StartDebounce()
+    {
+        debounce = true;
+        navController.backoff = true;
+        yield return new WaitForSeconds(1.0f);
+        navController.backoff = false;
+        debounce = false;
     }
 
     public override void StateStop()

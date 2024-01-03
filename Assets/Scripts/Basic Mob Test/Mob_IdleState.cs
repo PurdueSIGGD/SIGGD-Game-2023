@@ -26,6 +26,7 @@ public class Mob_IdleState : EnemyState
 
     public override void StateStart()
     {
+        Debug.Log("Idle Start");
         navController.active = false;
     }
     public override void StateStop()
@@ -34,7 +35,8 @@ public class Mob_IdleState : EnemyState
     }
     public override void StateUpdate()
     {
-
+        float distance = Vector3.Distance(player.transform.position, enemy.transform.position);
+        if (distance < 20) controller.SwitchState(controller.followState);
     }
     public override bool StateTick()
     {

@@ -6,10 +6,11 @@ using UnityEngine.AI;
 public class Mob_NavigationController : MonoBehaviour
 {
     public bool active;
+    public bool backoff;
 
     [SerializeField] private NavMeshAgent agent;
     private Transform enemyTransform;
-    private Transform targetTransform;
+    private Transform playerTransform;
     private NavMeshPath path;
     
     public float speed;
@@ -26,7 +27,7 @@ public class Mob_NavigationController : MonoBehaviour
     void Start()
     {
         enemyTransform = gameObject.GetComponent<Transform>();
-        targetTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
         
         path = new NavMeshPath();
 
@@ -37,16 +38,20 @@ public class Mob_NavigationController : MonoBehaviour
         if (!active) return;
         RaycastHit hit;
         LayerMask mask = LayerMask.GetMask("Enemy");
+        LayerMask mask3 = LayerMask.GetMask("Enemy");
         LayerMask mask2 = LayerMask.GetMask("Player");
         if (seeThroughWalls)
         {
             mask = ~mask2;
         }
-        if (Physics.Raycast(GetComponent<Transform>().position, targetTransform.position - enemyTransform.position, out hit, Mathf.Infinity, ~mask))
+        //Debug.Log("Pre");
+        Debug.DrawRay(GetComponent<Transform>().position, playerTransform.position - enemyTransform.position, Color.red);
+        if (Physics.Raycast(GetComponent<Transform>().position, playerTransform.position - enemyTransform.position, out hit, Mathf.Infinity, ~mask))
         {
-            if (hit.collider.gameObject.transform == targetTransform)
+            //Debug.Log("Hit");
+            if (hit.collider.gameObject.transform == playerTransform)
             {
-                NavMesh.CalculatePath(enemyTransform.position, targetTransform.position, NavMesh.AllAreas, path);
+                NavMesh.CalculatePath(enemyTransform.position, playerTransform.position, NavMesh.AllAreas, path);
                 //agent.SetDestination(player.position);
                 //Vector3 targetDir = player.position - this_enemy.position;
                 Vector3 targetDir = path.corners[1] - enemyTransform.position;
@@ -59,6 +64,10 @@ public class Mob_NavigationController : MonoBehaviour
                     Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
                 }
                 Vector3 move_offset = enemyTransform.forward;
+                if (backoff) {
+                    move_offset *= -4;
+                    goto AfterFlank;
+                }
                 RaycastHit leftHit;
                 RaycastHit rightHit;
                 bool leftHitBool = Physics.Raycast((enemyTransform.position + (enemyTransform.right * -1 * colliderRadius * 0.51f)), (enemyTransform.right * -1), out leftHit, rayDist, mask);
@@ -75,10 +84,12 @@ public class Mob_NavigationController : MonoBehaviour
                 {
                     move_offset += enemyTransform.right * (rightHit.distance - leftHit.distance) * -1;
                 }
+
                 RaycastHit frontHit;
                 if (hit.distance < flankDist)
                 {
-                    Vector3 targetPos = targetTransform.position;
+                    Debug.Log("Flank");
+                    Vector3 targetPos = playerTransform.position;
                     float angle = Vector3.Angle(enemyTransform.right, (enemyTransform.position - targetPos));
                     if (angle < 90)
                     {
@@ -97,8 +108,10 @@ public class Mob_NavigationController : MonoBehaviour
                     move_offset += flank_offset;
                 }
 
-                if (Physics.Raycast((enemyTransform.position + (enemyTransform.forward * colliderRadius * 0.51f)), enemyTransform.forward, out frontHit, rayDist, mask))
+                if (Physics.Raycast((enemyTransform.position + (enemyTransform.forward * colliderRadius * 0.51f)), enemyTransform.forward, out frontHit, rayDist, mask3))
                 {
+                    Debug.Log("Flank2");
+
                     Vector3 targetPos = frontHit.collider.gameObject.transform.position;
                     float angle = Vector3.Angle(enemyTransform.right, (enemyTransform.position - targetPos));
                     if (angle < 90)
@@ -118,13 +131,13 @@ public class Mob_NavigationController : MonoBehaviour
                     move_offset += flank_offset;
                 }
 
+                AfterFlank:
+
                 move_offset = move_offset.normalized;
                 //string pos_debug = "" + move_offset.x + " " + move_offset.y + " " + move_offset.z;
                 Debug.DrawLine(enemyTransform.position, (enemyTransform.position + 2 * move_offset), Color.blue);
                 agent.Move(move_offset * speed * Time.fixedDeltaTime);
             }
         }
-
-
     }
 }

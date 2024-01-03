@@ -10,7 +10,7 @@ public class Mob_EnemyController : MonoBehaviour
 	
 	public EnemyState idleState;
 	public EnemyState followState;
-	public EnemyState attackState;
+	public Mob_AttackState attackState;
 
 	public EnemyState currentState;
 

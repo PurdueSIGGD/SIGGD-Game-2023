@@ -11,7 +11,7 @@ public class Mob_FollowState : EnemyState
     private Mob_NavigationController navController;
 
     private EnemyState followState;
-    private EnemyState attackState;
+    private Mob_AttackState attackState;
 
     void Awake()
     {
@@ -26,6 +26,7 @@ public class Mob_FollowState : EnemyState
 
     public override void StateStart()
     {
+        Debug.Log("Follow Start");
         navController.active = true;
     }
     public override void StateStop()
@@ -34,7 +35,10 @@ public class Mob_FollowState : EnemyState
     }
     public override void StateUpdate()
     {
+        float distance = Vector3.Distance(player.transform.position, enemy.transform.position);
 
+        if (distance < 1 && attackState.debounce == false) controller.SwitchState(controller.attackState);
+        if (distance > 25) controller.SwitchState(controller.idleState);
     }
     public override bool StateTick()
     {
