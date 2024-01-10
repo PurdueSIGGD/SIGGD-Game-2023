@@ -44,9 +44,9 @@ public class Mob_NavigationController : MonoBehaviour
         {
             mask = ~mask2;
         }
-        //Debug.Log("Pre");
+        //Debug.Log("Nav Update");
         Debug.DrawRay(GetComponent<Transform>().position, playerTransform.position - enemyTransform.position, Color.red);
-        if (Physics.Raycast(GetComponent<Transform>().position, playerTransform.position - enemyTransform.position, out hit, Mathf.Infinity, ~mask))
+        if (Physics.Raycast(GetComponent<Transform>().position, playerTransform.position - enemyTransform.position, out hit, Mathf.Infinity, mask))
         {
             //Debug.Log("Hit");
             if (hit.collider.gameObject.transform == playerTransform)
@@ -58,7 +58,7 @@ public class Mob_NavigationController : MonoBehaviour
                 //Debug.Log(path.corners[1]);
                 Vector3 newDir = Vector3.RotateTowards(enemyTransform.forward, targetDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
                 enemyTransform.rotation = Quaternion.LookRotation(newDir);
-
+                
                 for (int i = 0; i < path.corners.Length - 1; i++)
                 {
                     Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
@@ -136,6 +136,7 @@ public class Mob_NavigationController : MonoBehaviour
                 move_offset = move_offset.normalized;
                 //string pos_debug = "" + move_offset.x + " " + move_offset.y + " " + move_offset.z;
                 Debug.DrawLine(enemyTransform.position, (enemyTransform.position + 2 * move_offset), Color.blue);
+                Debug.Log("Move");
                 agent.Move(move_offset * speed * Time.fixedDeltaTime);
             }
         }

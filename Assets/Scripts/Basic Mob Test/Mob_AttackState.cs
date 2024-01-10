@@ -38,7 +38,7 @@ public class Mob_AttackState : EnemyState
     {
         navController.active = false;
         hitCollider.enabled = true;
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(0.0f);
         StartCoroutine(StartDebounce());
         controller.SwitchState(followState);
     }
