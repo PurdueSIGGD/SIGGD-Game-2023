@@ -78,6 +78,7 @@ public class TurretController : MonoBehaviour
     // Enter place mode
     void EnterPlaceMode()
     {
+
         // Check the model
         bool valid = CheckValid();
 
