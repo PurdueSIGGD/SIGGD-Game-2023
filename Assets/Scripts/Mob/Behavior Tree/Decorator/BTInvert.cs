@@ -4,20 +4,6 @@ using UnityEngine;
 
 public class BTInvert : BTDecoratorNode
 {
-    public BTInvert(BTNode parent)
-    {
-        this.parent = parent;
-        this.gameObject = parent?.gameObject;
-        this.child = null;
-    }
-
-    public BTInvert(BTNode parent, BTNode child)
-    {
-        this.parent = parent;
-        this.gameObject = parent?.gameObject;
-        this.child = child;
-    }
-
     public override (BTResult, BTLeafNode) Evaluate()
     {
         (BTResult result, BTLeafNode activeNode) = child.Evaluate();

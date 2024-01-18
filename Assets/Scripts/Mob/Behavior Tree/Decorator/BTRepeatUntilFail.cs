@@ -4,20 +4,6 @@ using UnityEngine;
 
 public class BTRepeatUntilFail : BTDecoratorNode
 {
-    public BTRepeatUntilFail(BTNode parent)
-    {
-        this.parent = parent;
-        this.gameObject = parent?.gameObject;
-        this.child = null;
-    }
-
-    public BTRepeatUntilFail(BTNode parent, BTNode child)
-    {
-        this.parent = parent;
-        this.gameObject = parent?.gameObject;
-        this.child = child;
-    }
-
     public override (BTResult, BTLeafNode) Evaluate()
     {
         (BTResult result, BTLeafNode activeNode) = child.Evaluate();

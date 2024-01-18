@@ -2,8 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BTRepeat : BTDecoratorNode
+public class BTEntryNode : BTDecoratorNode
 {
+    public BTEntryNode(GameObject gameObject)
+    {
+        this.gameObject = gameObject;
+        this.parent = null;
+        this.activeNode = null;
+        this.child = null;
+    }
+
     public override (BTResult, BTLeafNode) Evaluate()
     {
         (BTResult _, BTLeafNode activeNode) = child.Evaluate();

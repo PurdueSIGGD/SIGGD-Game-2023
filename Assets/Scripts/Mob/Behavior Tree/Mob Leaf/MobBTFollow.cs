@@ -4,24 +4,40 @@ using UnityEngine;
 
 public class MobBTFollow : BTLeafNode
 {
-    private MobNavigationController navigationController;
+    private MobNavigationController mobNavigationController;
+    private MobTargetingController mobTargetingController;
 
-    public MobBTFollow(BTNode parent)
+    public MobBTFollow(BTCompositeNode parent) : base(parent)
     {
-        this.parent = parent;
-        this.gameObject = parent?.gameObject;
-        this.navigationController = gameObject?.GetComponent<MobNavigationController>();
+        GameObject gObj = parent.gameObject;
+        mobNavigationController = gObj.GetComponent<MobNavigationController>();
+        mobTargetingController = gObj.GetComponent<MobTargetingController>();
+    }
+
+    public MobBTFollow(BTDecoratorNode parent) : base(parent)
+    {
+        GameObject gObj = parent.gameObject;
+        mobNavigationController = gObj.GetComponent<MobNavigationController>();
+        mobTargetingController = gObj.GetComponent<MobTargetingController>();
     }
 
     public override (BTResult, BTLeafNode) Evaluate()
     {
-        Debug.Log("Follow Evaluate");
-        navigationController.behavior = MobNavigationController.NavBehavior.Pursue;
         return (BTResult.Running, this);
     }
 
     public override void NodeUpdate()
     {
-        return;
+
+    }
+
+    public override IEnumerator StartRunning()
+    {
+        yield return null;
+    }
+
+    public override IEnumerator StopRunning()
+    {
+        yield return null;
     }
 }

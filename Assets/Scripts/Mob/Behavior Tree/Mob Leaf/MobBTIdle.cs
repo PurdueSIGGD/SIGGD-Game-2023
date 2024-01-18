@@ -2,23 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MobBTIdle : BTLeafNode
+public class MobBTIdle: BTLeafNode
 {
-    public MobBTIdle(BTNode parent)
-    {
-        this.parent = parent;
-        this.gameObject = parent?.gameObject;
-    }
+    public MobBTIdle(BTCompositeNode parent) : base(parent) { }
+    public MobBTIdle(BTDecoratorNode parent) : base(parent) { }
 
     public override (BTResult, BTLeafNode) Evaluate()
     {
-        Debug.Log("Idle Evaluate");
-        navigationController.behavior = MobNavigationController.NavBehavior.Idle;
         return (BTResult.Running, this);
     }
 
     public override void NodeUpdate()
     {
-        return;
+
+    }
+
+    public override IEnumerator StartRunning()
+    {
+        yield return null;
+    }
+
+    public override IEnumerator StopRunning()
+    {
+        yield return null;
     }
 }

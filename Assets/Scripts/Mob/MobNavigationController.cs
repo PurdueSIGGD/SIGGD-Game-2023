@@ -56,9 +56,8 @@ public class MobNavigationController : MonoBehaviour
     {
         if (!isActive) return;
 
-        //if (targetingController.target == null) return;
-        //targetTransform = targetingController.target.transform;
-        targetTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        if (targetingController.target == null) return;
+        targetTransform = targetingController.target.transform;
 
         // Rotate towards target
         NavMesh.CalculatePath(selfTransform.position, targetTransform.position, NavMesh.AllAreas, navPath);

@@ -6,25 +6,9 @@ public class BTSelector : BTCompositeNode
 {
     private int currentIndex;
 
-    public BTSelector(BTNode parent)
-    {
-        this.parent = parent;
-        this.gameObject = parent?.gameObject;
-        this.children = null;
-        this.currentIndex = 0;
-    }
-
-    public BTSelector(BTNode parent, BTNode[] children)
-    {
-        this.parent = parent;
-        this.gameObject = parent?.gameObject;
-        this.children = children;
-        this.currentIndex = 0;
-    }
-
     public override (BTResult, BTLeafNode) Evaluate()
     {
-        for (int i = currentIndex; i < children.Length; i++)
+        for (int i = currentIndex; i < children.Count; i++)
         {
             BTNode child = children[i];
             (BTResult result, BTLeafNode activeNode) = child.Evaluate();

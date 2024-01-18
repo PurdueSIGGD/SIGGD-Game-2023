@@ -10,20 +10,7 @@ public class MobBTree : MonoBehaviour
 
     void Awake()
     {
-        rootNode = new BTRepeat(null);
-        rootNode.gameObject = gameObject;
-
-        BTSelector selector = new BTSelector(rootNode);
-        rootNode.child = selector;
-
-        BTSequence sequence = new BTSequence(selector);
-        MobBTIdle idle = new MobBTIdle(selector);
-        selector.children = new BTNode[] {sequence, idle};
-
-        MobBTIsVisible isVisible = new MobBTIsVisible(sequence);
-        MobBTFollow follow = new MobBTFollow(sequence);
-
-        sequence.children = new BTNode[] {isVisible, follow};
+        Debug.Log(typeof(BTNode).AssemblyQualifiedName);
     }
 
     private const double TICK_LENGTH = 1.0;
