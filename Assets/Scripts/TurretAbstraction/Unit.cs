@@ -9,7 +9,4 @@ public abstract class Unit : MonoBehaviour
 
     // If the turret action is repeatable
     protected bool repeatable { get; set; }
-
-    // What the turret does and to what target(s)
-    protected abstract void Action(GameObject[] targets);
 }

@@ -21,11 +21,5 @@ public class ShooterTurret : Unit
     private void OnTriggerEnter(Collider other)
     {
         GameObject[] targets = { other.gameObject };
-        Action(targets);
-    }
-
-    protected override void Action(GameObject[] targets)
-    {
-        throw new System.NotImplementedException();
     }
 }

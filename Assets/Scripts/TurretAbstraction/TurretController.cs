@@ -44,12 +44,6 @@ public class TurretController : MonoBehaviour
     // Unit type
     private GameObject unitToSpawn;
 
-    // Raycast hit
-    //private RaycastHit hit;
-
-    // Position of raycast mouse in world space
-    private Vector3 position = Vector3.zero;
-
     private void Awake()
     {
         blankModel.SetActive(false);
@@ -220,6 +214,11 @@ public class TurretController : MonoBehaviour
             }
             else
             {
+                // Set active if hidden due to being off map
+                if (!blankModel.activeSelf)
+                {
+                    blankModel.SetActive(true);
+                }
                 // If now valid after not being valid, make valid and set color to green
                 if (!canPlace && valid)
                 {
