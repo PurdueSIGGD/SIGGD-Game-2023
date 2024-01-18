@@ -18,11 +18,19 @@ public class MobBTree : MonoBehaviour
     void Update()
     {
         tickTimer += Time.deltaTime;
-        while (tickTimer >= TICK_LENGTH) 
+        if (tickTimer >= TICK_LENGTH) 
         {
             tickTimer -= TICK_LENGTH;
-            (BTNode.BTResult _, BTLeafNode active) = rootNode.Evaluate();
-            activeNode = active;
+            (BTNode.BTResult _, BTLeafNode newActive) = rootNode.Evaluate();
+            
+            if (activeNode != newActive)
+            {
+                StartCoroutine(activeNode.StopRunning());
+                StartCoroutine(newActive.StartRunning());
+            }
+
+            activeNode = newActive;
+
         }
         activeNode?.NodeUpdate();
     }
