@@ -10,7 +10,7 @@ public class DummyEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = FindObjectOfType<Spawner>().gameObject;
+        player = FindObjectOfType<EnemySpawner>().gameObject;
     }
 
     // Update is called once per frame
