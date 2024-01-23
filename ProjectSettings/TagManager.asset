@@ -10,9 +10,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Placeable
   - Water
   - UI
+  - Not Placeable
   - 
   - 
   - 
@@ -21,8 +22,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - RegionLayer
   - 
   - 
   - 
