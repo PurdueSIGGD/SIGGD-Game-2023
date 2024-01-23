@@ -5,13 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - RegionColliders
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Placeable
   - Water
   - UI
+  - Not Placeable
   - 
   - 
   - 
@@ -20,16 +22,15 @@ TagManager:
   - 
   - 
   - 
+  - RegionLayer
   - 
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
   - 
   - 
   - 
