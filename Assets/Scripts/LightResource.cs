@@ -48,23 +48,48 @@ public class LightResource : MonoBehaviour
     }
 
 
+
+    /// <summary>
+    /// Adds the specified amount of light to the player's light resource pool.
+    /// This method enforces the light pool's maximum capacity.
+    /// </summary>
+    /// <param name="light">
+    /// The amount of light to add to the light resource pool
+    /// </param>
+    /// <returns>
+    /// The actual amount of light added to the player's light resource pool
+    /// </returns>
     public float addLight(float light)
     {
         float addedLight = (currentLight + light >= currentMaxLight) ? currentMaxLight - currentLight : light;
         currentLight += addedLight;
         return addedLight;
-        //currentLight = (currentLight + light >= currentMaxLight) ? currentMaxLight : currentLight + light;
     }
 
+
+
+    /// <summary>
+    /// Removes the specified amount of light from the player's light resource pool.
+    /// This method enforces the light pool's minimum capacity of zero.
+    /// </summary>
+    /// <param name="light">
+    /// The amount of light to remove from the light resource pool
+    /// </param>
+    /// <returns>
+    /// The actual amount of light removed from the player's light resource pool
+    /// </returns>
     public float consumeLight(float light)
     {
         float consumedLight = (currentLight - light <= 0f) ? currentLight : light;
         currentLight -= consumedLight;
         return consumedLight;
-        //currentLight = (currentLight - light <= 0f) ? 0f : currentLight - light;
     }
 
 
+
+    /// <summary>
+    /// Levels up the player's light generator.
+    /// </summary>
     public void levelUpGenerator()
     {
         currentMaxLight = maxLightPerLevel[currentLevel];
