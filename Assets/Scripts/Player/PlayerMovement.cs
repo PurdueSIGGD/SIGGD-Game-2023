@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 speedDif = targetSpeed - RB.velocity;
         Vector3 movement = speedDif * accelRate;
 
-        Debug.Log(movement);
+        //Debug.Log(movement);
 
         RB.AddForce(movement, ForceMode.Acceleration);
     }

@@ -43,7 +43,11 @@ public class TurretController : MonoBehaviour
 
     // Unit type
     private GameObject unitToSpawn;
-
+    
+    // Layermask
+    [SerializeField]
+    private LayerMask physicalMask;
+ 
     private void Awake()
     {
         blankModel.SetActive(false);
@@ -111,11 +115,13 @@ public class TurretController : MonoBehaviour
     // Place the turret
     public void PlaceTurret()
     {
+        
         // If we are in spawn mode, check validity to spawn
         if (placeMode)
         {
             // Get validity
             bool valid = CheckValid();
+            
 
             // Get spawn location
             (Vector3 pos, Vector3 rot) = GetTransform();
@@ -123,6 +129,7 @@ public class TurretController : MonoBehaviour
             // Check validity
             if (valid)
             {
+                
                 // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
                 if (unitToSpawn.GetComponent<Unit>() != null)
                 {
@@ -158,7 +165,7 @@ public class TurretController : MonoBehaviour
         Ray camToWorld = mainCamera.ScreenPointToRay(Input.mousePosition);
 
         // If no surface hit, return not valid
-        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity)) {
+        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, physicalMask)) {
             return false;
         }
 
@@ -190,7 +197,7 @@ public class TurretController : MonoBehaviour
         Ray camToWorld = mainCamera.ScreenPointToRay(Input.mousePosition);
 
         // If no surface, return + infinity for position and zero rotation
-        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, ~(LayerMask.GetMask("Player") | LayerMask.GetMask("Ignore Raycast"))))
+        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, physicalMask))
             return (Vector3.positiveInfinity, Vector3.zero);
 
         // If point is on placeable surface return the hit point and normal
