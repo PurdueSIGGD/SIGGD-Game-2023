@@ -5,8 +5,6 @@ using UnityEngine;
 public class Btn_Unit : MonoBehaviour
 {
     [SerializeField] GameObject player;
-    TurretController unitController;
-
 
     void Start()
     {
@@ -14,7 +12,7 @@ public class Btn_Unit : MonoBehaviour
 
     public void Z_SwitchCurrentUnit(GameObject unitPrefab)
     {
-        unitController = player.GetComponent<TurretController>();
+        DemoUnitController unitController = player.GetComponent<DemoUnitController>();
         Debug.Log(unitController == null);
         unitController.OnSelect(unitPrefab);
         Debug.Log("TEST1");
