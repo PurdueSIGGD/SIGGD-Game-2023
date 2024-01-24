@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class Btn_Unit : MonoBehaviour
 {
+    [SerializeField] GameObject player;
     TurretController unitController;
 
 
     void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        unitController = player.GetComponent<TurretController>();
     }
 
     public void Z_SwitchCurrentUnit(GameObject unitPrefab)
     {
+        unitController = player.GetComponent<TurretController>();
+        Debug.Log(unitController == null);
         unitController.OnSelect(unitPrefab);
         Debug.Log("TEST1");
     }

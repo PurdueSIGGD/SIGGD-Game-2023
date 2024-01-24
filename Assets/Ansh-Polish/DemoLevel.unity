@@ -308,18 +308,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 76944398}
---- !u!114 &483010114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8315056354628920369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0483a9fa30e8a1f4da991f4246c5ed28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &519708694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,20 +1147,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1709912848933143295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8315056354628920369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c2931a2027f0df478af597e6139814b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tc: {fileID: 7759072854868901075}
-  airborne: 0
 --- !u!65 &1917901478175011553
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1265,7 +1239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 41871f722956fae4ca7e00685335d70e, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: d23df9163f51fab47b2e77f78981f972, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -1277,12 +1251,28 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 53484d11-4742-4067-9ae7-b90b26a88a74
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ca239099-eb9e-4f56-8b15-fff9a35d613d
+    m_ActionName: UI/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b0a14597-1df8-4d91-9351-0e8e6d76883c
+    m_ActionName: Player/EscapeTurret[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4f95f385-fb17-4437-a9b4-175e85f7a805
+    m_ActionName: Player/PlaceTurret[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 76944398}
 --- !u!1 &3210579956342553056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,6 +1322,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2236774520196199480}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &6699293834594638645
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 16897420764240092, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 16897420764240092, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.865
+      objectReference: {fileID: 0}
+    - target: {fileID: 16897420764240092, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.074
+      objectReference: {fileID: 0}
+    - target: {fileID: 16897420764240092, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 16897420764240092, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 16897420764240092, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 16897420764240092, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 16897420764240092, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 16897420764240092, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 16897420764240092, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2122521397291697729, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
+      propertyPath: m_Name
+      value: NeedleGunUnit
+      objectReference: {fileID: 0}
+    - target: {fileID: 2122521397291697729, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
 --- !u!136 &6725497492460820218
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1355,6 +1406,11 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6818926260574510514 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3217064873231778149, guid: 491e9b224b1b10747b9d37da2972e4a7, type: 3}
+  m_PrefabInstance: {fileID: 869791438514292281}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7284636382108064353
 GameObject:
   m_ObjectHideFlags: 0
@@ -1406,6 +1462,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3167065127079489930, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2122521397291697729, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
     - target: {fileID: 5683132004079740496, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1510,6 +1570,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8473931682696022423, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 8315056354628920369}
     - target: {fileID: 9186058902188744639, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
       propertyPath: m_Name
       value: UI_Unit
@@ -1531,8 +1595,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda3a0a7064b54f2da94464df6ffcd4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blankModel: {fileID: 0}
-  mainCamera: {fileID: 0}
+  blankModel: {fileID: 6818926260574510514}
+  mainCamera: {fileID: 76944398}
   TURRET_CAP: 3
   PLACE_MIN: 1
   PLACE_MAX: 10
@@ -1561,9 +1625,8 @@ GameObject:
   - component: {fileID: 1210705494360070780}
   - component: {fileID: 3128851865580636852}
   - component: {fileID: 7759072854868901075}
-  - component: {fileID: 1709912848933143295}
   - component: {fileID: 483010108}
-  - component: {fileID: 483010114}
+  - component: {fileID: 8315056354628920370}
   m_Layer: 22
   m_Name: DemoPlayer
   m_TagString: Player
@@ -1571,6 +1634,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8315056354628920370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8315056354628920369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f291d0ba7d92242aef0a7787881b1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSpeed: 10
+  accelDuration: 3
+  accelAmount: 5
+  decelDuration: 3
+  decelAmount: 5
+  lerpAmount: 10
+  turnSpeed: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1583,3 +1665,4 @@ SceneRoots:
   - {fileID: 1371111149}
   - {fileID: 869791438514292281}
   - {fileID: 2236774520196199480}
+  - {fileID: 6699293834594638645}
