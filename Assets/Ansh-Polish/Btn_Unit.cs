@@ -16,6 +16,7 @@ public class Btn_Unit : MonoBehaviour
     public void Z_SwitchCurrentUnit(GameObject unitPrefab)
     {
         unitController.OnSelect(unitPrefab);
+        Debug.Log("TEST1");
     }
 
 }
