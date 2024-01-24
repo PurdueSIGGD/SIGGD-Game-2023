@@ -1,38 +1,67 @@
+using DefaultNamespace;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 /* 
  * DemoMovement
  * ------------
  * Controls Player Movement
- * TODO : Work on Unit Abstraction Hierarchy (Unit System -> Turrets || Single Use -> Specific Turret / SU classes)
- * All units have a cost and a gameobject associated with them. All units will have an Action function. Turrets may
- * repeat shooting actions where single use items may not.
- * TODO : Rework Turret Aim to work with this new script
- * TODO : Make sure the TurretController keeps track of turrets and does not exceed turret cap, where 0 = infinite turrets
- * TODO : Add in all desired subclasses of turrets
- * TODO : Turrets in wall
  */
 public class DemoMovement : MonoBehaviour
 {
+    // Serialize Fields
     [SerializeField] Camera mainCamera;
+
+    // Private Variables
+    private Vector2 inputDirection;
+    private Rigidbody RB;
+    private DemoPlayerData data;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        RB = GetComponent<Rigidbody>();
+        data = GetComponent<DemoPlayerData>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // Poll - Update Player Direction Based on Mouse Position
-        Ray camToWorld = mainCamera.ScreenPointToRay(Input.mousePosition);
+        Ray camToWorld = mainCamera.ScreenPointToRay(UnityEngine.Input.mousePosition);
         Plane xz = new Plane(Vector3.up, Vector3.zero);
         xz.Raycast(camToWorld, out float dist);
         Vector3 hit = camToWorld.GetPoint(dist);
 
         this.transform.LookAt(hit);
+    }
+
+    // Input Action (Move) - Update Move Direction
+    public void OnMove(InputValue value)
+    {
+
+        inputDirection = value.Get<Vector2>();
+    }
+
+    private void move()
+    {
+        Vector3 inputVector = new Vector3(inputDirection.x, 0, inputDirection.y);
+        float angle = Vector3.Angle(Vector3.forward, inputVector);
+        angle *= (inputVector.x < 0) ? -1 : 1;
+
+        Vector3 cameraForward = new Vector3(mainCamera.transform.forward.x, 0, mainCamera.transform.forward.z);
+        Vector3 rotated = Quaternion.AngleAxis(angle, Vector3.up) * cameraForward;
+        Vector3 targetSpeed = (rotated * inputVector.magnitude).normalized * data.GetMaxSpeed();
+        RB.velocity = targetSpeed;
+    }
+
+
+    void FixedUpdate()
+    {
+        move();
     }
 }
