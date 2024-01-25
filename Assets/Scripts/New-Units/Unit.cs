@@ -10,9 +10,9 @@ public abstract class Unit : MonoBehaviour
 
     [SerializeField]
     public float Range;
-    public float ManaCost { get; private set; }
-    public float SellCost { get; private set; }
-    public UnitMovement Movement { get; private set; }
+    public float ManaCost { get; protected set; }
+    public float SellCost { get; protected set; }
+    public UnitMovement Movement { get; protected set; }
 
     // Private Fields
     protected Rigidbody RB;
