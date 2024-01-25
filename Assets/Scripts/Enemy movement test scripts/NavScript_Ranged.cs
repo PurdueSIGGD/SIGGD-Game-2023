@@ -49,11 +49,11 @@ public class NavScript_Ranged : MonoBehaviour
 
                 
                 if (distToPlayer < (maxRangeDist - 1)) {
-                    Debug.Log("back back");
+                    //Debug.Log("back back");
                     move_offset = this_enemy.forward * -0.1f;
                 }
                 if (path.corners.Length > 2 || distToPlayer > maxRangeDist) {
-                    Debug.Log("Hello");
+                    //Debug.Log("Hello");
                     move_offset = this_enemy.forward;
                 }
 
