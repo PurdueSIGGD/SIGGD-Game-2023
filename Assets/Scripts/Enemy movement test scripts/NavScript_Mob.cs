@@ -32,7 +32,8 @@ public class NavScript_Mob : MonoBehaviour
         if (seeThroughWalls) {
             mask = ~mask2;
         }
-        if (Physics.Raycast(GetComponent<Transform>().position, player.position - this_enemy.position, out hit, Mathf.Infinity, ~mask)) {
+        if (Physics.Raycast(GetComponent<Transform>().position, player.position - this_enemy.position, out hit, Mathf.Infinity, mask)) {
+            Debug.Log("Hit");
             if (hit.collider.gameObject.transform == player) {
                 NavMesh.CalculatePath(this_enemy.position, player.position, NavMesh.AllAreas, path);
                 //agent.SetDestination(player.position);
