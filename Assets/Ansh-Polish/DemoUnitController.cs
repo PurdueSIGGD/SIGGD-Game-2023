@@ -29,7 +29,7 @@ public class DemoUnitController : MonoBehaviour
     // Bool for if the active position is placeable
     private bool canPlace = false;
 
-    // Unit type
+    // UnitOld type
     private GameObject unitToSpawn;
 
     // Layermask

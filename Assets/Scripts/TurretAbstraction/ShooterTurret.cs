@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShooterTurret : Unit
+public class ShooterTurret : UnitOld
 {
     // Range
     int range = 4;

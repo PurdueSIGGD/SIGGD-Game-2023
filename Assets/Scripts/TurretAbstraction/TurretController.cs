@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 /* 
  * TURRET CONTROLLER
  * Instantiates and destroys turrets
- * TODO : Work on Unit Abstraction Hierarchy (Unit System -> Turrets || Single Use -> Specific Turret / SU classes)
+ * TODO : Work on UnitOld Abstraction Hierarchy (UnitOld System -> Turrets || Single Use -> Specific Turret / SU classes)
  * All units have a cost and a gameobject associated with them. All units will have an Action function. Turrets may
  * repeat shooting actions where single use items may not.
  * TODO : Rework Turret Aim to work with this new script
@@ -41,7 +41,7 @@ public class TurretController : MonoBehaviour
     // Bool for if the active position is placeable
     private bool canPlace = false;
 
-    // Unit type
+    // UnitOld type
     private GameObject unitToSpawn;
     
     // Layermask
@@ -131,7 +131,7 @@ public class TurretController : MonoBehaviour
             {
                 
                 // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
-                if (unitToSpawn.GetComponent<Unit>() != null)
+                if (unitToSpawn.GetComponent<UnitOld>() != null)
                 {
                     GameObject newUnit = Instantiate(unitToSpawn, pos, Quaternion.identity);
                     newUnit.transform.up = rot;
