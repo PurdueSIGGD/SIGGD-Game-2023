@@ -6,6 +6,9 @@ public class BTSelector : BTCompositeNode
 {
     private int currentIndex;
 
+    public BTSelector(BTCompositeNode parent) : base(parent) { }
+    public BTSelector(BTDecoratorNode parent) : base(parent) { }
+
     public override (BTResult, BTLeafNode) Evaluate()
     {
         for (int i = currentIndex; i < children.Count; i++)
@@ -21,6 +24,7 @@ public class BTSelector : BTCompositeNode
                     return (result, activeNode);
                     break;
                 case BTResult.Running:
+                    currentIndex = 0;
                     return (result, activeNode);
                     break;
             }

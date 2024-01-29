@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -480,7 +480,7 @@ Transform:
   m_GameObject: {fileID: 535439801}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 10}
+  m_LocalPosition: {x: 0.21, y: 1, z: 10.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -647,6 +647,10 @@ MonoBehaviour:
   behavior: 0
   moveSpeed: 2
   turnSpeed: 5
+  pursueMoveFactor: 1
+  pursueTurnFactor: 1
+  dashMoveFactor: 2
+  dashTurnFactor: 0.1
   avoidDistance: 0
   flankThreshold: 1
   seeThroughWalls: 1
@@ -663,10 +667,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  aggroRange: 0
-  visibilityDecayRate: 0
-  aggressionDecayRate: 0
-  tickUpdateRate: 0
+  distanceToTarget: 0
+  aggroRange: 10
+  visibilityDecayRate: 1
+  aggressionDecayRate: 1
 --- !u!1 &1542787634
 GameObject:
   m_ObjectHideFlags: 0

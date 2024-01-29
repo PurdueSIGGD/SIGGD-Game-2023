@@ -5,15 +5,23 @@ using UnityEngine;
 public class MobTargetingController : MonoBehaviour
 {
     public GameObject target;
+    public float distanceToTarget;
 
     protected const float MIN_VISIBILITY_FACTOR = 0f;
     protected const float MAX_VISIBILITY_FACTOR = 100f;
 
     protected const float MIN_AGGRESSION_FACTOR = 0f;
     protected const float MAX_AGGRESSION_FACTOR = 100f;
-
+    
     protected class TargetWeight
     {
+        public TargetWeight()
+        {
+            proximity = 0;
+            visibilityFactor = 0;
+            aggressionFactor = 0;
+        }
+
         public float proximity;
         public float visibilityFactor; // 0 - 100
         public float aggressionFactor; // 0 - 100
@@ -22,15 +30,41 @@ public class MobTargetingController : MonoBehaviour
     [SerializeField] private float aggroRange;
     [SerializeField] private float visibilityDecayRate;
     [SerializeField] private float aggressionDecayRate;
-    [SerializeField] private float tickUpdateRate;
 
     private Dictionary<GameObject, TargetWeight> targetWeightDict;
     private LayerMask enemyMask;
+
+    private Transform selfTransform;
 
     void Awake()
     {
         targetWeightDict = new Dictionary<GameObject, TargetWeight>();
         enemyMask = LayerMask.GetMask("Enemy");
+        distanceToTarget = -1;
+
+        selfTransform = GetComponent<Transform>();
+    }
+
+    private const double TICK_LENGTH = 1.0;
+    private double tickTimer;
+    void Update()
+    {
+        tickTimer += Time.deltaTime;
+        if (tickTimer >= TICK_LENGTH)
+        {
+            tickTimer -= TICK_LENGTH;
+            UpdateWeights();
+            UpdateTarget();
+        }
+
+        if (target != null)
+        {
+            distanceToTarget = Vector3.Distance(selfTransform.position, target.transform.position);
+
+        } else
+        {
+            distanceToTarget = -1;
+        }
     }
 
     private void UpdateWeights()
@@ -39,11 +73,10 @@ public class MobTargetingController : MonoBehaviour
         {
             TargetWeight currentWeight = targetWeightPair.Value;
             GameObject currentTarget = targetWeightPair.Key;
-            
-            Transform selfTransform = gameObject.transform;
+
             Transform targetTransform = currentTarget.transform;
 
-            bool targetIsVisible = Physics.Raycast(selfTransform.position, targetTransform.position - selfTransform.position, aggroRange, enemyMask);
+            bool targetIsVisible = Physics.Raycast(selfTransform.position, targetTransform.position - selfTransform.position, aggroRange, ~enemyMask);
             if (targetIsVisible)
             {
                 currentWeight.proximity = Vector3.Distance(selfTransform.position, targetTransform.position);
@@ -77,6 +110,18 @@ public class MobTargetingController : MonoBehaviour
             }
         }
 
+
         target = nextTarget;
+    }
+
+    public void AddTarget(GameObject target)
+    {
+        TargetWeight weight = new TargetWeight();
+        targetWeightDict.Add(target, weight);
+    }
+
+    public void RemoveTarget(GameObject target)
+    {
+        targetWeightDict.Remove(target);
     }
 }

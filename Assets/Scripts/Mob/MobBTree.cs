@@ -8,9 +8,27 @@ public class MobBTree : MonoBehaviour
     public BTDecoratorNode rootNode;
     public BTLeafNode activeNode;
 
+    private MobNavigationController mobNavigationController;
+    private MobTargetingController mobTargetingController;
+
     void Awake()
     {
-        Debug.Log(typeof(BTNode).AssemblyQualifiedName);
+        rootNode = new BTEntryNode(gameObject);
+        BTSelector selector = new BTSelector(rootNode);
+        BTSequence sequence = new BTSequence(selector);
+        MobBTIdle idle = new MobBTIdle(selector);
+
+        MobBTTargetInRange hasTarget = new MobBTTargetInRange(sequence, 0, 100);
+        MobBTFollow follow = new MobBTFollow(sequence);
+
+        mobNavigationController = GetComponent<MobNavigationController>();
+        mobTargetingController = GetComponent<MobTargetingController>();
+    }
+
+    void Start()
+    {
+        GameObject player = GameObject.FindWithTag("Player");
+        mobTargetingController.AddTarget(player);
     }
 
     private const double TICK_LENGTH = 1.0;
@@ -25,8 +43,8 @@ public class MobBTree : MonoBehaviour
             
             if (activeNode != newActive)
             {
-                StartCoroutine(activeNode.StopRunning());
-                StartCoroutine(newActive.StartRunning());
+                activeNode?.StopRunning();
+                newActive.StartRunning();
             }
 
             activeNode = newActive;

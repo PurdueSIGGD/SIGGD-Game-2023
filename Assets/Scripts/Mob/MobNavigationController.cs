@@ -9,13 +9,20 @@ public class MobNavigationController : MonoBehaviour
     {
         Idle,
         Pursue,
+        Dash,
     }
 
     public bool isActive;
     public NavBehavior behavior;
 
-    public float moveSpeed;
-    public float turnSpeed;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float turnSpeed;
+
+    [SerializeField] private float pursueMoveFactor;
+    [SerializeField] private float pursueTurnFactor;
+
+    [SerializeField] private float dashMoveFactor;
+    [SerializeField] private float dashTurnFactor;
 
     [SerializeField] private float avoidDistance;
     [SerializeField] private float flankThreshold;
@@ -49,6 +56,9 @@ public class MobNavigationController : MonoBehaviour
             case NavBehavior.Pursue:
                 Pursue();
                 return;
+            case NavBehavior.Dash:
+                Dash();
+                return;
         }
     }
 
@@ -62,7 +72,7 @@ public class MobNavigationController : MonoBehaviour
         // Rotate towards target
         NavMesh.CalculatePath(selfTransform.position, targetTransform.position, NavMesh.AllAreas, navPath);
         Vector3 targetLookDir = navPath.corners[1] - selfTransform.position;
-        Vector3 newLookDir = Vector3.RotateTowards(selfTransform.forward, targetLookDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
+        Vector3 newLookDir = Vector3.RotateTowards(selfTransform.forward, targetLookDir, turnSpeed * pursueTurnFactor * Time.fixedDeltaTime, 0.0f);
         selfTransform.rotation = Quaternion.LookRotation(newLookDir);
 
         // Move towards target
@@ -104,7 +114,27 @@ public class MobNavigationController : MonoBehaviour
             moveOffset += selfTransform.right * (isFlankingRight ? 1 : -1);
         }
 
-        moveOffset = moveOffset.normalized * (moveSpeed * Time.fixedDeltaTime);
+        moveOffset = moveOffset.normalized * (moveSpeed * pursueMoveFactor * Time.fixedDeltaTime);
+        navAgent.Move(moveOffset);
+    }
+
+    private void Dash()
+    {
+        if (!isActive) return;
+
+        if (targetingController.target == null) return;
+        targetTransform = targetingController.target.transform;
+
+        // Rotate towards target
+        NavMesh.CalculatePath(selfTransform.position, targetTransform.position, NavMesh.AllAreas, navPath);
+        Vector3 targetLookDir = navPath.corners[1] - selfTransform.position;
+        Vector3 newLookDir = Vector3.RotateTowards(selfTransform.forward, targetLookDir, turnSpeed * dashMoveFactor * Time.fixedDeltaTime, 0.0f);
+        selfTransform.rotation = Quaternion.LookRotation(newLookDir);
+
+        // Move towards target
+        Vector3 moveOffset = selfTransform.forward;
+
+        moveOffset = moveOffset.normalized * (moveSpeed * dashMoveFactor * Time.fixedDeltaTime);
         navAgent.Move(moveOffset);
     }
 }

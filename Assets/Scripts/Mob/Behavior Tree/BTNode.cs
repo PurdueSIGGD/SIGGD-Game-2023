@@ -88,8 +88,8 @@ public abstract class BTDecoratorNode : BTNode
 
 public abstract class BTLeafNode : BTNode
 {
-    public abstract IEnumerator StartRunning();
-    public abstract IEnumerator StopRunning();
+    public abstract void StartRunning();
+    public abstract void StopRunning();
 
     public abstract void NodeUpdate();
 

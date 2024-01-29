@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BTEntryNode : BTDecoratorNode
 {
+    public BTEntryNode(BTCompositeNode parent) : base(parent) { }
+    public BTEntryNode(BTDecoratorNode parent) : base(parent) { }
+
     public BTEntryNode(GameObject gameObject)
     {
         this.gameObject = gameObject;

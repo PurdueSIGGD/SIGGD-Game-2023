@@ -4,8 +4,22 @@ using UnityEngine;
 
 public class MobBTIdle: BTLeafNode
 {
-    public MobBTIdle(BTCompositeNode parent) : base(parent) { }
-    public MobBTIdle(BTDecoratorNode parent) : base(parent) { }
+    private MobNavigationController mobNavigationController;
+    private MobTargetingController mobTargetingController;
+
+    public MobBTIdle(BTCompositeNode parent) : base(parent)
+    {
+        GameObject gObj = parent.gameObject;
+        mobNavigationController = gObj.GetComponent<MobNavigationController>();
+        mobTargetingController = gObj.GetComponent<MobTargetingController>();
+    }
+
+    public MobBTIdle(BTDecoratorNode parent) : base(parent)
+    {
+        GameObject gObj = parent.gameObject;
+        mobNavigationController = gObj.GetComponent<MobNavigationController>();
+        mobTargetingController = gObj.GetComponent<MobTargetingController>();
+    }
 
     public override (BTResult, BTLeafNode) Evaluate()
     {
@@ -14,16 +28,16 @@ public class MobBTIdle: BTLeafNode
 
     public override void NodeUpdate()
     {
+        mobNavigationController.behavior = MobNavigationController.NavBehavior.Idle;
+    }
+
+    public override void StartRunning()
+    {
 
     }
 
-    public override IEnumerator StartRunning()
+    public override void StopRunning()
     {
-        yield return null;
-    }
 
-    public override IEnumerator StopRunning()
-    {
-        yield return null;
     }
 }
