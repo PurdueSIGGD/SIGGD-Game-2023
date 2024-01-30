@@ -148,3 +148,6 @@ MonoBehaviour:
   rayDist: 5
   flankDist: 2
   seeThroughWalls: 1
+  testMask:
+    serializedVersion: 2
+    m_Bits: 4194305

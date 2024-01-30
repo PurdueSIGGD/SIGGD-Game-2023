@@ -49,7 +49,7 @@ namespace DefaultNamespace
         }
         private void OnValidate()
         {
-            //Calculate are run acceleration & deceleration forces using formula: amount = ((1 / Time.fixedDeltaTime) * acceleration) / runMaxSpeed
+            //Calculate are run accelDuration & decelDuration forces using formula: amount = ((1 / Time.fixedDeltaTime) * accelDuration) / runMaxSpeed
             float runAccelAmount = (acceleration) / maxMoveSpeed;
             float runDecelAmount = (deceleration) / maxMoveSpeed;
 
