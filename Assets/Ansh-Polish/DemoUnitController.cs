@@ -1,20 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-/* 
- * TURRET CONTROLLER
- * Instantiates and destroys turrets
- * TODO : Work on UnitOld Abstraction Hierarchy (UnitOld System -> Turrets || Single Use -> Specific Turret / SU classes)
- * All units have a cost and a gameobject associated with them. All units will have an Action function. Turrets may
- * repeat shooting actions where single use items may not.
- * TODO : Rework Turret Aim to work with this new script
- * TODO : Make sure the TurretController keeps track of turrets and does not exceed turret cap, where 0 = infinite turrets
- * TODO : Add in all desired subclasses of turrets
- * TODO : Turrets in wall
- */
-public class TurretController : MonoBehaviour
+public class DemoUnitController : MonoBehaviour
 {
     // Blank turret model reference
     [SerializeField] GameObject blankModel;
@@ -43,11 +31,11 @@ public class TurretController : MonoBehaviour
 
     // UnitOld type
     private GameObject unitToSpawn;
-    
+
     // Layermask
     [SerializeField]
     private LayerMask physicalMask;
- 
+
     private void Awake()
     {
         blankModel.SetActive(false);
@@ -67,8 +55,9 @@ public class TurretController : MonoBehaviour
     }
 
     // Escape key pressed to leave place mode
-    public void OnEscape()
+    public void OnEscapeTurret()
     {
+        Debug.Log("SHIFT DETECTED!");
         // Set place mode to false
         if (placeMode)
         {
@@ -99,7 +88,8 @@ public class TurretController : MonoBehaviour
         if (valid)
         {
             SetColor(blankModel, Color.green);
-        } else
+        }
+        else
         {
             SetColor(blankModel, Color.red);
         }
@@ -113,15 +103,15 @@ public class TurretController : MonoBehaviour
     }
 
     // Place the turret
-    public void PlaceTurret()
+    public void OnPlaceTurret()
     {
-        
+        Debug.Log("Place Turret DETECTED");
         // If we are in spawn mode, check validity to spawn
         if (placeMode)
         {
             // Get validity
             bool valid = CheckValid();
-            
+
 
             // Get spawn location
             (Vector3 pos, Vector3 rot) = GetTransform();
@@ -129,11 +119,11 @@ public class TurretController : MonoBehaviour
             // Check validity
             if (valid)
             {
-                
+
                 // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
-                if (unitToSpawn.GetComponent<UnitOld>() != null)
+                if (unitToSpawn.GetComponent<DemoUnit>() != null)
                 {
-                    GameObject newUnit = Instantiate(unitToSpawn, pos, Quaternion.identity);
+                    GameObject newUnit = Instantiate(unitToSpawn, pos + new Vector3(0, 1, 0), Quaternion.identity);
                     newUnit.transform.up = rot;
                 }
                 else
@@ -150,7 +140,8 @@ public class TurretController : MonoBehaviour
         if (model.GetComponent<Renderer>() != null)
         {
             model.GetComponent<Renderer>().material.color = color;
-        } else
+        }
+        else
         {
             Renderer r = model.AddComponent<Renderer>();
             r.material.color = color;
@@ -165,12 +156,14 @@ public class TurretController : MonoBehaviour
         Ray camToWorld = mainCamera.ScreenPointToRay(Input.mousePosition);
 
         // If no surface hit, return not valid
-        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, physicalMask)) {
+        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, physicalMask))
+        {
             return false;
         }
 
         // If surface is not placeable, return false (it still needs to hit layer though)
-        if (hit.collider.gameObject.layer != LayerMask.NameToLayer("Placeable")) {
+        if (hit.collider.gameObject.layer != LayerMask.NameToLayer("Placeable"))
+        {
             return false;
         }
 
@@ -245,5 +238,4 @@ public class TurretController : MonoBehaviour
             }
         }
     }
-
 }
