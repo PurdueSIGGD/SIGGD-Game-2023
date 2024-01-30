@@ -21,7 +21,7 @@ public class DemoUnitController : MonoBehaviour
     [SerializeField] private float MAX_PLACE_ANGLE;
 
     // The position of the player
-    [HideInInspector] public Vector3 playerPosition;
+    [HideInInspector] public Transform playerTransform;
 
     // Bool for if in place mode
     private bool placeMode = false;
@@ -39,6 +39,7 @@ public class DemoUnitController : MonoBehaviour
     private void Awake()
     {
         blankModel.SetActive(false);
+        playerTransform = FindObjectOfType<DemoMovement>().transform;
     }
 
     // Turret selected from button
@@ -168,6 +169,7 @@ public class DemoUnitController : MonoBehaviour
         }
 
         // If distance too far, return not valid
+        Vector3 playerPosition = playerTransform.position;
         if (!((Vector3.Distance(hit.point, playerPosition) >= PLACE_MIN) && (Vector3.Distance(hit.point, playerPosition) <= PLACE_MAX)))
         {
             return false;
