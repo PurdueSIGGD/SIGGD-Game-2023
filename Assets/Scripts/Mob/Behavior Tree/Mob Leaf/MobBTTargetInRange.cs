@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MobBTTargetInRange : BTLeafNode
+public class MobBTTargetInRange : BTConditionalNode
 {
 	private MobNavigationController mobNavigationController;
 	private MobTargetingController mobTargetingController;
@@ -43,19 +43,4 @@ public class MobBTTargetInRange : BTLeafNode
 
         return (BTResult.Failure, null);
     }
-
-    public override void NodeUpdate()
-	{
-
-	}
-
-	public override void StartRunning()
-	{
-
-	}
-
-	public override void StopRunning()
-	{
-
-	}
 }

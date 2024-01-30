@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MobBTIdle: BTLeafNode
+public class MobBTIdle: BTAction
 {
     private MobNavigationController mobNavigationController;
     private MobTargetingController mobTargetingController;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BTWait : BTLeafNode
+public class BTWait : BTAction
 {
     private double waitTime;
     private bool forceTick;

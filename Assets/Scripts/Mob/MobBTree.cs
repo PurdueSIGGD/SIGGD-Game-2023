@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class MobBTree : MonoBehaviour
 {
     public BTDecoratorNode rootNode;
-    public BTLeafNode activeNode;
+    public BTAction activeNode;
 
     private MobNavigationController mobNavigationController;
     private MobTargetingController mobTargetingController;
@@ -39,7 +39,7 @@ public class MobBTree : MonoBehaviour
         if (tickTimer >= TICK_LENGTH) 
         {
             tickTimer -= TICK_LENGTH;
-            (BTNode.BTResult _, BTLeafNode newActive) = rootNode.Evaluate();
+            (BTNode.BTResult _, BTAction newActive) = rootNode.Evaluate();
             
             if (activeNode != newActive)
             {

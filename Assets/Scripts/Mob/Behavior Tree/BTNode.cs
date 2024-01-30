@@ -10,9 +10,8 @@ public abstract class BTNode
         Success,
         Running,
     }
- 
 
-    public abstract (BTResult, BTLeafNode) Evaluate();
+    public abstract (BTResult, BTActionNode) Evaluate();
 
     public BTNode parent;
     public GameObject gameObject;
@@ -88,11 +87,23 @@ public abstract class BTDecoratorNode : BTNode
 
 public abstract class BTLeafNode : BTNode
 {
+    public BTLeafNode(BTCompositeNode parent) : base(parent) { }
+    public BTLeafNode(BTDecoratorNode parent) : base(parent) { }
+}
+
+public abstract class BTConditionalNode : BTLeafNode
+{
+    public BTConditionalNode(BTCompositeNode parent) : base(parent) { }
+    public BTConditionalNode(BTDecoratorNode parent) : base(parent) { }
+}
+
+public abstract class BTActionNode : BTLeafNode
+{
+    public BTActionNode(BTCompositeNode parent) : base(parent) { }
+    public BTActionNode(BTDecoratorNode parent) : base(parent) { }
+
     public abstract void StartRunning();
     public abstract void StopRunning();
 
     public abstract void NodeUpdate();
-
-    public BTLeafNode(BTCompositeNode parent) : base(parent) { }
-    public BTLeafNode(BTDecoratorNode parent) : base(parent) { }
 }
