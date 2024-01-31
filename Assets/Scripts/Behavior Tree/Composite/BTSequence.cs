@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class BTSequence : BTCompositeNode
 {
-    private int currentIndex;
-
     public BTSequence(BTCompositeNode parent) : base(parent) { }
     public BTSequence(BTDecoratorNode parent) : base(parent) { }
 
     public override (BTResult, BTLeafNode) Evaluate()
     {
-        for (int i = currentIndex; i < children.Count; i++)
+        for (int i = 0; i < children.Count; i++)
         {
             BTNode child = children[i];
             (BTResult result, BTLeafNode activeNode) = child.Evaluate();
@@ -20,18 +18,13 @@ public class BTSequence : BTCompositeNode
             switch (result)
             {
                 case BTResult.Failure:
-                    currentIndex = 0;
                     return (result, activeNode);
                     break;
                 case BTResult.Running:
-                    currentIndex = 0;
                     return (result, activeNode);
                     break;
             }
-            currentIndex++;
         }
-
-        currentIndex = 0;
         return (BTResult.Success, null);
     }
 }

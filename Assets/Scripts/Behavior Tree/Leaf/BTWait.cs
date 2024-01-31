@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BTWait : BTAction
+public class BTWait : BTLeafNode
 {
     private double waitTime;
     private bool forceTick;
@@ -20,32 +20,15 @@ public class BTWait : BTAction
         this.forceTick = forceTick;
     }
 
-    public override (BTResult, BTLeafNode) Evaluate()
-    {
-        if (isCompleted) return (BTResult.Success, null);
-        else return (BTResult.Running, this);
-    }
-
     private double timer;
-    public override void NodeUpdate()
+    public override (BTResult, BTLeafNode) Evaluate()
     {
         timer += Time.deltaTime;
         if (timer >= waitTime)
         {
-            if (forceTick) { }; // TODO force a tick when complete
-            isCompleted = true;
+            timer = 0;
+            return (BTResult.Success, null);
         }
-    }
-
-    public override void StartRunning()
-    {
-
-
-    }
-
-    public override void StopRunning()
-    {
-        timer = 0;
-        isCompleted = false;
+        else return (BTResult.Running, this);
     }
 }

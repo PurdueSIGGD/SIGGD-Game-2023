@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MobBTIdle: BTAction
+public class MobBTIdle: BTLeafNode
 {
     private MobNavigationController mobNavigationController;
     private MobTargetingController mobTargetingController;
@@ -23,21 +23,8 @@ public class MobBTIdle: BTAction
 
     public override (BTResult, BTLeafNode) Evaluate()
     {
-        return (BTResult.Running, this);
-    }
-
-    public override void NodeUpdate()
-    {
         mobNavigationController.behavior = MobNavigationController.NavBehavior.Idle;
-    }
 
-    public override void StartRunning()
-    {
-
-    }
-
-    public override void StopRunning()
-    {
-
+        return (BTResult.Running, this);
     }
 }

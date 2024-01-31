@@ -69,8 +69,10 @@ public class MobNavigationController : MonoBehaviour
         if (targetingController.target == null) return;
         targetTransform = targetingController.target.transform;
 
-        // Rotate towards target
         NavMesh.CalculatePath(selfTransform.position, targetTransform.position, NavMesh.AllAreas, navPath);
+        if (navPath.corners.Length < 1) return;
+        
+        // Rotate towards target
         Vector3 targetLookDir = navPath.corners[1] - selfTransform.position;
         Vector3 newLookDir = Vector3.RotateTowards(selfTransform.forward, targetLookDir, turnSpeed * pursueTurnFactor * Time.fixedDeltaTime, 0.0f);
         selfTransform.rotation = Quaternion.LookRotation(newLookDir);
