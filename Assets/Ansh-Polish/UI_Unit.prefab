@@ -274,7 +274,7 @@ MonoBehaviour:
         m_MethodName: Z_SwitchCurrentUnit
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 2407677696583088605, guid: e2906771101124dfaaf668f9aa09b10f, type: 3}
+          m_ObjectArgument: {fileID: 2122521397291697729, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -305,6 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f432d14d4f3b5419a7b19bd309f945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &5535462041413449504
 GameObject:
   m_ObjectHideFlags: 0
