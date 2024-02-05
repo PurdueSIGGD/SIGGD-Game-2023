@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class uiManager : MonoBehaviour
+public class uiBarManager : MonoBehaviour
 {
 
     [SerializeField] private Slider healthSlider;
@@ -18,51 +18,63 @@ public class uiManager : MonoBehaviour
     private float currLight;
 
     void UpdateHealth() {
+        if (currHealth < 0) {
+            currHealth = 0;
+        }
+        else if (currHealth > maxHealth) {
+            currHealth = maxHealth;
+        }
         healthSlider.value = (float)(currHealth / maxHealth);
         healthText.SetText("" + (int)currHealth);
     }
 
     void UpdateLight() {
+        if (currLight < 0) {
+            currLight = 0;
+        }
+        else if (currLight > maxLight) {
+            currLight = maxLight;
+        }
         lightSlider.value = (float)(currLight / maxLight);
         lightText.SetText("" + (int)currLight);
     }
 
-    void SetHealth(float newH) {
+    public void SetHealth(float newH) {
         currHealth = newH;
         UpdateHealth();
     }
 
-    void ChangeHealthBy(float deltaH) {
+    public void ChangeHealthBy(float deltaH) {
         currHealth += deltaH;
         UpdateHealth();
     }
 
-    void SetFullHealth() {
+    public void SetFullHealth() {
         currHealth = maxHealth;
         UpdateHealth();
     }
 
-    void SetEmptyHealth() {
+    public void SetEmptyHealth() {
         currHealth = 0;
         UpdateHealth();
     }
 
-    void SetLight(float newL) {
+    public void SetLight(float newL) {
         currLight = newL;
         UpdateLight();
     }
 
-    void ChangeLightBy(float deltaL) {
+    public void ChangeLightBy(float deltaL) {
         currLight += deltaL;
         UpdateLight();
     }
 
-    void SetFullLight() {
+    public void SetFullLight() {
         currLight = maxLight;
         UpdateLight();
     }
 
-    void SetEmptyLight() {
+    public void SetEmptyLight() {
         currLight = 0;
         UpdateLight();
     }
