@@ -5,7 +5,7 @@ using UnityEngine;
 public class pauseScript : MonoBehaviour
 {
 
-    [SerializeField] private Canvas mainCanvas;
+    [SerializeField] private Canvas[] mainCanvas;
     [SerializeField] private Canvas pauseCanvas;
     private bool paused;
     // Start is called before the first frame update
@@ -28,11 +28,15 @@ public class pauseScript : MonoBehaviour
         if (paused) {
             Time.timeScale = 1;
             pauseCanvas.enabled = false;
-            mainCanvas.enabled = true;
+            foreach (Canvas c in mainCanvas) {
+                c.enabled = true;
+            }
         }
         else {
             Time.timeScale = 0;
-            mainCanvas.enabled = false;
+            foreach (Canvas c in mainCanvas) {
+                c.enabled = false;
+            }
             pauseCanvas.enabled = true;
         }
         paused = !paused;
