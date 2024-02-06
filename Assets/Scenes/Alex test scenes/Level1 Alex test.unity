@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 840081028}
-  m_IndirectSpecularColor: {r: 0, g: 0.08514287, b: 0.1691455, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.08524165, b: 0.16901693, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -848,10 +848,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3167065127079489930, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 2122521397291697729, guid: 52e67a880b4293a4ea8147d16a1a277d, type: 3}
     - target: {fileID: 5683132004079740496, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -9803,15 +9799,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5185042753802823862, guid: ee8d461c8ed019149a45e3eef7508651, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 952.4793
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5185042753802823862, guid: ee8d461c8ed019149a45e3eef7508651, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 552.2341
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5185042753802823862, guid: ee8d461c8ed019149a45e3eef7508651, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.031363
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5185042753802823862, guid: ee8d461c8ed019149a45e3eef7508651, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10331,14 +10327,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3842317467654201641, guid: 39d4ec3cb91795a44b69e5786fbb0b82, type: 3}
-      propertyPath: mainCanvas
-      value: 
-      objectReference: {fileID: 1884085131}
-    - target: {fileID: 3842317467654201641, guid: 39d4ec3cb91795a44b69e5786fbb0b82, type: 3}
-      propertyPath: mainCanvas.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3842317467654201641, guid: 39d4ec3cb91795a44b69e5786fbb0b82, type: 3}
       propertyPath: mainCanvas.Array.data[0]
       value: 
       objectReference: {fileID: 1884085131}
@@ -10346,10 +10334,6 @@ PrefabInstance:
       propertyPath: mainCanvas.Array.data[1]
       value: 
       objectReference: {fileID: 1818538199}
-    - target: {fileID: 4379024943238260165, guid: 39d4ec3cb91795a44b69e5786fbb0b82, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4663469638516343894, guid: 39d4ec3cb91795a44b69e5786fbb0b82, type: 3}
       propertyPath: m_Name
       value: pauseMenu
