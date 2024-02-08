@@ -19,5 +19,6 @@ public abstract class Unit : MonoBehaviour
     protected Collider Collider;
 
     // TODO: Health Object
+    protected HealthPoints Health;
 
 }
