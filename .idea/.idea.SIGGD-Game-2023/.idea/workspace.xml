@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8130f3f5-8d47-4562-8804-e908289867a6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SIGGD-Game-2023/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SIGGD-Game-2023/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Floor.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Floor.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/BlankModel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/BlankModel.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SIGGD Game 2023.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SIGGD Game 2023.inputactions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TurretAbstraction/TurretController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TurretAbstraction/TurretController.cs" afterDir="false" />
-    </list>
+    <list default="true" id="8130f3f5-8d47-4562-8804-e908289867a6" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,7 +34,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Unit-System",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -105,6 +99,7 @@
       <workItem from="1698278719676" duration="755000" />
       <workItem from="1699060311844" duration="489000" />
       <workItem from="1705713701008" duration="913000" />
+      <workItem from="1706923238449" duration="191000" />
     </task>
     <servers />
   </component>
