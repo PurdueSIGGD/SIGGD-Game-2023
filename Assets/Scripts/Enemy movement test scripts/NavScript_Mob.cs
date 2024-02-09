@@ -27,6 +27,9 @@ public class NavScript_Mob : MonoBehaviour
     }
     void FixedUpdate()
     {
+        Debug.Log("updaet");
+
+        if (!enabled) return;
         RaycastHit hit;
         //LayerMask mask = LayerMask.GetMask("Enemy");
         //LayerMask mask2 = LayerMask.GetMask("Player");
@@ -35,8 +38,11 @@ public class NavScript_Mob : MonoBehaviour
         if (seeThroughWalls) {
             mask = mask & mask2;
         }
-        if (Physics.Raycast(GetComponent<Transform>().position, player.position - this_enemy.position, out hit, Mathf.Infinity, mask)) {
-            Debug.Log("Hit");
+
+        Debug.Log("aaaaaa");
+
+        if (Physics.Raycast(GetComponent<Transform>().position, player.position - this_enemy.position, out hit, Mathf.Infinity, ~mask)) {
+            Debug.Log("rrrrrr");
             if (hit.collider.gameObject.transform == player) {
                 NavMesh.CalculatePath(this_enemy.position, player.position, NavMesh.AllAreas, path);
                 //agent.SetDestination(player.position);
@@ -54,17 +60,26 @@ public class NavScript_Mob : MonoBehaviour
                 RaycastHit rightHit;
                 bool leftHitBool = Physics.Raycast((this_enemy.position + (this_enemy.right * -1 * boxSize.x * 0.51f)), (this_enemy.right * -1), out leftHit, rayDist, mask);
                 bool rightHitBool = Physics.Raycast((this_enemy.position + (this_enemy.right * boxSize.x * 0.51f)), this_enemy.right, out rightHit, rayDist, mask);
+                Debug.Log("Pre");
                 if (leftHitBool && !rightHitBool) {
+                    Debug.Log("Side1");
                     move_offset += this_enemy.right * 1;
                 }
                 else if (!leftHitBool && rightHitBool) {
+                    Debug.Log("Side2");
                     move_offset += this_enemy.right * -1;
                 }
                 else if (leftHitBool && rightHitBool) {
+                    Debug.Log("Side3");
                     move_offset += this_enemy.right * (rightHit.distance- leftHit.distance) * -1;
+                } 
+                else if (!leftHitBool && !rightHitBool)
+                {
+                    Debug.Log("None");
                 }
                 RaycastHit frontHit;
                 if (hit.distance < flankDist) {
+                    Debug.Log("Flank");
                     Vector3 targetPos = player.position;
                     float angle = Vector3.Angle(this_enemy.right, (this_enemy.position - targetPos));
                     if (angle < 90) {
@@ -82,6 +97,8 @@ public class NavScript_Mob : MonoBehaviour
                 }
 
                 if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, rayDist, mask)) {
+                    Debug.Log("Flank2");
+
                     Vector3 targetPos = frontHit.collider.gameObject.transform.position;
                     float angle = Vector3.Angle(this_enemy.right, (this_enemy.position - targetPos));
                     if (angle < 90) {
