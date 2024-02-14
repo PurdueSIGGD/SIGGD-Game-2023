@@ -23,6 +23,12 @@ public class BTAction : BTLeafNode
 
     public override (BTResult, string) Evaluate(GameObject gameObject, Dictionary<string, bool> blackboard)
     {
-        return (BTResult.Running, actionName);
+        bool result = blackboard[actionName];
+
+        if (result)
+        {
+            return (BTResult.Success, null);
+        }
+        else return (BTResult.Failure, null);
     }
 }

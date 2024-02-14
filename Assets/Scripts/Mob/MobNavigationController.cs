@@ -12,7 +12,6 @@ public class MobNavigationController : MonoBehaviour
         Dash,
     }
 
-    public bool isActive;
     public NavBehavior behavior;
 
     [SerializeField] private float moveSpeed;
@@ -64,8 +63,6 @@ public class MobNavigationController : MonoBehaviour
 
     private void Pursue()
     {
-        if (!isActive) return;
-
         if (targetingController.target == null) return;
         targetTransform = targetingController.target.transform;
 
@@ -122,8 +119,6 @@ public class MobNavigationController : MonoBehaviour
 
     private void Dash()
     {
-        if (!isActive) return;
-
         if (targetingController.target == null) return;
         targetTransform = targetingController.target.transform;
 

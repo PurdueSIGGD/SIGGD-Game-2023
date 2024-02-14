@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MobTargetingController : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class MobTargetingController : MonoBehaviour
 
     void Awake()
     {
+        targetChanged = new UnityEvent();
         targetWeightDict = new Dictionary<GameObject, TargetWeight>();
         enemyMask = LayerMask.GetMask("Enemy");
         distanceToTarget = -1;
@@ -109,9 +111,6 @@ public class MobTargetingController : MonoBehaviour
                 nextTarget = currentTarget;
             }
         }
-
-
-        target = nextTarget;
     }
 
     public void AddTarget(GameObject target)

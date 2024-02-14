@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BTConditionalNode : BTLeafNode
+public class BTConditional : BTLeafNode
 {
     private string conditionName;
 
-    public BTConditionalNode(string conditionName) : base()
+    public BTConditional(string conditionName) : base()
     {
         this.conditionName = conditionName;
     }
 
-    public BTConditionalNode(BTCompositeNode parent, string conditionName) : base(parent)
+    public BTConditional(BTCompositeNode parent, string conditionName) : base(parent)
     {
         this.conditionName = conditionName;
     }
 
-    public BTConditionalNode(BTDecoratorNode parent, string conditionName) : base(parent)
+    public BTConditional(BTDecoratorNode parent, string conditionName) : base(parent)
     {
         this.conditionName = conditionName;
     }
