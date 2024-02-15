@@ -35,7 +35,7 @@ public class Item : MonoBehaviour {
     // Item Numbers are 1 indexed but the array is 0 indexed
     private int[] cooldowns = {50, 500, 5, 10, 153};
     private Sprite[] sprites;
-    private int currentCooldown;
+    private float currentCooldown;
     private bool onCooldown;
     void Awake() {
         currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
@@ -50,10 +50,13 @@ public class Item : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (onCooldown) {
-            currentCooldown--; // TODO: Make cooldown in seconds and not frames or find a good frame cooldowns
-            durationText.text = currentCooldown.ToString();
-            if (currentCooldown == 0) {
+            currentCooldown -= Time.deltaTime;
+            //currentCooldown--; // TODO: Make cooldown in seconds and not frames or find a good frame cooldowns
+            durationText.text = ((int) (currentCooldown + 0.999)).ToString();
+            if (currentCooldown <= 0) {
                 onCooldown = false;
+                currentCooldown = 0;
+                durationText.text = ((int) currentCooldown).ToString();
             }
         }
 
@@ -65,10 +68,9 @@ public class Item : MonoBehaviour {
                     onCooldown = true;
                     currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
                     durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
-                    // TODO: Run Item 1
-                    Debug.Log("Item Running: " + itemId);
+                    useCooldown1();
                 } else {
-                    Debug.Log("Item Cooldown: " + itemId);
+                    useOnCooldown();
                 }
             }
         }
@@ -80,10 +82,9 @@ public class Item : MonoBehaviour {
                     onCooldown = true;
                     currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
                     durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
-                    // TODO: Run Item 2
-                    Debug.Log("Item Running: " + itemId);
+                    useCooldown2();
                 } else {
-                    Debug.Log("Item Cooldown: " + itemId);
+                    useOnCooldown();
                 }
             }
         }
@@ -95,10 +96,9 @@ public class Item : MonoBehaviour {
                     onCooldown = true;
                     currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
                     durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
-                    // TODO: Run Item 3
-                    Debug.Log("Item Running: " + itemId);
+                    useCooldown3();
                 } else {
-                    Debug.Log("Item Cooldown: " + itemId);
+                    useOnCooldown();
                 }
             }
         }
@@ -110,10 +110,9 @@ public class Item : MonoBehaviour {
                     onCooldown = true;
                     currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
                     durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
-                    // TODO: Run Item 4
-                    Debug.Log("Item Running: " + itemId);
+                    useCooldown4();
                 } else {
-                    Debug.Log("Item Cooldown: " + itemId);
+                    useOnCooldown();
                 }
             }
         }
@@ -125,20 +124,35 @@ public class Item : MonoBehaviour {
                     onCooldown = true;
                     currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
                     durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
-                    // TODO: Run Item 5
-                    Debug.Log("Item Running: " + itemId);
+                    useCooldown5();
                 } else {
-                    Debug.Log("Item Cooldown: " + itemId);
+                    useOnCooldown();
                 }
             }
-        }
-        
-        
-        
-        
+        }        
     }
 
-    void updateDurationText() {
+    private void useOnCooldown() {
+        Debug.Log("Item: " + itemId + " is on cooldown for " + currentCooldown + " more seconds");
+    }
 
+    private void useCooldown1() {
+        Debug.Log("Item Running: " + itemId);
+    }
+
+    private void useCooldown2() {
+        Debug.Log("Item Running: " + itemId);
+    }
+
+    private void useCooldown3() {
+        Debug.Log("Item Running: " + itemId);
+    }
+
+    private void useCooldown4() {
+        Debug.Log("Item Running: " + itemId);
+    }
+
+    private void useCooldown5() {
+        Debug.Log("Item Running: " + itemId);
     }
 }
