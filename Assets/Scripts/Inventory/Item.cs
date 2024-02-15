@@ -33,63 +33,98 @@ public class Item : MonoBehaviour {
     private int[] cooldowns = {50, 500, 5, 10, 153};
     private Sprite[] sprites;
     private int currentCooldown;
+    private bool onCooldown;
     void Awake() {
         currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
         durationText.text = currentCooldown.ToString();
+        onCooldown = false;
     }
 
     private int itemNum2ArrayIndex(int ind) {return ind - 1;}
 
     // Update is called once per frame
     void Update() {
-        if (currentCooldown != 0) {
+        if (onCooldown) {
             currentCooldown--; // TODO: Make cooldown in seconds and not frames or find a good frame cooldowns
             durationText.text = currentCooldown.ToString();
+            if (currentCooldown == 0) {
+                onCooldown = false;
+            }
         }
 
         if (itemId == 1) {
             if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)) {
-                Debug.Log(itemId + "1 Pressed either above the keyboard or on the numpad");
+                Debug.Log(itemId + ": Pressed either above the keyboard or on the numpad");
             
-                currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
-                durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
-
+                if (!onCooldown) {
+                    onCooldown = true;
+                    currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
+                    durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
+                    // TODO: Run Item 1
+                    Debug.Log("Item Running: " + itemId);
+                } else {
+                    Debug.Log("Item Cooldown: " + itemId);
+                }
             }
         }
         else if (itemId == 2) {
             if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2)) {
-                Debug.Log(itemId + "2 Pressed either above the keyboard or on the numpad");
+                Debug.Log(itemId + ": Pressed either above the keyboard or on the numpad");
             
-                currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
-                durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
-
+                if (!onCooldown) {
+                    onCooldown = true;
+                    currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
+                    durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
+                    // TODO: Run Item 2
+                    Debug.Log("Item Running: " + itemId);
+                } else {
+                    Debug.Log("Item Cooldown: " + itemId);
+                }
             }
         }
         else if (itemId == 3) {
             if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3)) {
-                Debug.Log(itemId + "3 Pressed either above the keyboard or on the numpad");
-
-                currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
-                durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
-
+                Debug.Log(itemId + ": Pressed either above the keyboard or on the numpad");
+            
+                if (!onCooldown) {
+                    onCooldown = true;
+                    currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
+                    durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
+                    // TODO: Run Item 3
+                    Debug.Log("Item Running: " + itemId);
+                } else {
+                    Debug.Log("Item Cooldown: " + itemId);
+                }
             }
         }
         else if (itemId == 4) {
             if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4)) {
-                Debug.Log(itemId + "4 Pressed either above the keyboard or on the numpad");
-
-                currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
-                durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
-
+                Debug.Log(itemId + ": Pressed either above the keyboard or on the numpad");
+            
+                if (!onCooldown) {
+                    onCooldown = true;
+                    currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
+                    durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
+                    // TODO: Run Item 4
+                    Debug.Log("Item Running: " + itemId);
+                } else {
+                    Debug.Log("Item Cooldown: " + itemId);
+                }
             }
         }
         else if (itemId == 5) {
             if (Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5)) {
-                Debug.Log(itemId + "5 Pressed either above the keyboard or on the numpad");
-
-                currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
-                durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
-
+                Debug.Log(itemId + ": Pressed either above the keyboard or on the numpad");
+            
+                if (!onCooldown) {
+                    onCooldown = true;
+                    currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
+                    durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
+                    // TODO: Run Item 5
+                    Debug.Log("Item Running: " + itemId);
+                } else {
+                    Debug.Log("Item Cooldown: " + itemId);
+                }
             }
         }
         
