@@ -264,7 +264,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   Range: 5
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 354620882897817373, guid: 48da7eaf123b5ab4daff052db4a04456, type: 3}
+  mask:
+    serializedVersion: 2
+    m_Bits: 8388608
+  fireCooldown: 3
+  height: 5
+  duration: 1
+  target: {fileID: 0}
+  canFire: 0
 --- !u!114 &1082469069796825953
 MonoBehaviour:
   m_ObjectHideFlags: 0

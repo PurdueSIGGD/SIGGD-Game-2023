@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(Stationary))]
 [RequireComponent(typeof(Rigidbody))]
@@ -9,9 +10,22 @@ using UnityEngine;
 
 public class Torpedoer : Attack
 {
+    // -- Serialize Field --
+    [SerializeField]
+    LayerMask mask;
+
+    [SerializeField]
+    float fireCooldown;
+
+    [SerializeField]
+    float height;
+
+    [SerializeField]
+    float duration;
+
     // -- Private Fields --
-    GameObject empObj;
-    SphereCollider attackField;
+    public GameObject target;
+    public bool canFire;
 
     // -- Override Methods --
 
@@ -21,49 +35,67 @@ public class Torpedoer : Attack
         this.RB = GetComponent<Rigidbody>();
         this.Collider = GetComponent<BoxCollider>();
         this.Movement = GetComponent<Stationary>();
-
-        // Setup Colliders
-        empObj = new GameObject("AttackField");
-        empObj.transform.parent = this.transform;
-        attackField = empObj.AddComponent<SphereCollider>();
-        attackField.isTrigger = true;
-        attackField.radius = Range;
-        TriggerCallback callback = empObj.AddComponent<TriggerCallback>();
-        callback.SetEnterCallback(this.gameObject, "EnterRange");
-        callback.SetExitCallback(this.gameObject, "ExitRange");
+        canFire = true;
     }
 
     void Update()
     {
+        Aim();
+        if (target != null && canFire)
+        {
+            Fire();
+        }
     }
 
-    public override void Aim()
+    public void Aim()
     {
-        throw new System.NotImplementedException();
+        // Look at target
+        this.target = FindTarget();
+        if (target != null)
+        {
+            this.transform.LookAt(target.transform.position);
+        }
     }
 
-    public override GameObject FindTarget()
+    public GameObject FindTarget()
     {
-        throw new System.NotImplementedException();
+        // Get objects in range
+        Collider[] hits = Physics.OverlapSphere(this.transform.position, Range, mask);
+
+        // Find closest target
+        float minDist = float.PositiveInfinity;
+        GameObject target = null;
+
+        foreach (Collider hit in hits)
+        {
+            float dist = Mathf.Abs((hit.gameObject.transform.position - this.transform.position).magnitude);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                target = hit.gameObject;
+            }
+        }
+
+        return target;
     }
 
-    public override void Fire()
+    public void Fire()
     {
-        throw new System.NotImplementedException();
+        if (target != null)
+        {
+            var bullet = Instantiate(projectilePrefab, this.transform.position, Quaternion.identity).GetComponent<Torpedo>();
+            bullet.SetTarget(target);
+            bullet.SetDuration(duration);
+            bullet.SetHeight(height);
+
+            StartCoroutine(Cooldown());
+        }
     }
 
-    // -- Callbacks --
-
-    void EnterRange(Collider collider)
+    public IEnumerator Cooldown()
     {
-        if (collider.gameObject.CompareTag("Enemy"))
-            Debug.Log("Entered Range!");
+        canFire = false;
+        yield return new WaitForSeconds(fireCooldown);
+        canFire = true;
     }
-
-    void ExitRange(Collider collider)
-    {
-        if (collider.gameObject.CompareTag("Enemy"))
-            Debug.Log("Exited Range!");
-    }
-    
 }

@@ -5,10 +5,11 @@ using UnityEngine;
 public abstract class Attack : Unit
 {
     [SerializeField]
-    GameObject projectilePrefab;
-    public abstract GameObject FindTarget();
+    protected GameObject projectilePrefab;
+    //public abstract GameObject FindTarget();
 
-    public abstract void Aim();
+    //public abstract void Aim();
 
-    public abstract void Fire();
+    //public abstract void Fire();
+
 }
