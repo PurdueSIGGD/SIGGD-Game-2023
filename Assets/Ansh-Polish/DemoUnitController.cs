@@ -113,7 +113,6 @@ public class DemoUnitController : MonoBehaviour
             // Get validity
             bool valid = CheckValid();
 
-
             // Get spawn location
             (Vector3 pos, Vector3 rot) = GetTransform();
 
@@ -122,7 +121,7 @@ public class DemoUnitController : MonoBehaviour
             {
 
                 // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
-                if (unitToSpawn.GetComponent<DemoUnit>() != null)
+                if (unitToSpawn.GetComponent<Unit>() != null)
                 {
                     GameObject newUnit = Instantiate(unitToSpawn, pos + new Vector3(0, 1, 0), Quaternion.identity);
                     newUnit.transform.up = rot;

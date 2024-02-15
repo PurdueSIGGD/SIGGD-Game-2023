@@ -5,62 +5,45 @@ using UnityEngine.UIElements;
 
 public class Stationary : UnitMovement
 {
-    [Header("Boundries & Materials")]
-
-    // Default material when within range
-    [SerializeField]
-    Material defaultMaterial;
-
-    // Warning material when outside range 
-    [SerializeField] 
-    Material warningMaterial;
+    // -- Serialize Fields --
+    [Header("Boundries")]
 
     // Warning boundary (beyond)
     [SerializeField]
-    float warningBoundary;
+    float warning;
 
     // Self-Destruct boundary (beyond)
     [SerializeField]
-    float selfDestructBoundary;
+    float selfDestruct;
 
-    // Private Fields
+    // -- Private Fields --
     private GameObject player;
-    private MeshRenderer mesh;
 
-    // Start is called before the first frame update
+    // -- Override Methods --
     void Start()
     {
         // Fetch player/owner
         player = GameObject.FindGameObjectWithTag("Player");
-
-        // Fetch MeshRenderer component
-        mesh = player.GetComponent<MeshRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Find distancew from player
+        // Find distance from player
         float dist = Mathf.Abs((this.transform.position - player.transform.position).magnitude);
 
         // Check if WARNING or DESTRUCT
-        if (dist <= warningBoundary) 
+        if (dist <= warning) 
         {
-            // -- Set material to default --
-            this.GetComponentInChildren<MeshRenderer>().material = defaultMaterial;
+            // -- TODO: Some Indicator --
         } 
-        else if (dist <= selfDestructBoundary)
+        else if (dist <= selfDestruct)
         {
-            // -- Set material to warning --
-            this.GetComponent<MeshRenderer>().material = warningMaterial;
+            // -- TODO: Some Indicator --
         }
         else
         {
             // -- Destroy game object --
             Destroy(this.gameObject);
         }
-
     }
-
-
 }

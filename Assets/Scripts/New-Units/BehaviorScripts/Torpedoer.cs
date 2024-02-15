@@ -1,22 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+
+[RequireComponent(typeof(Stationary))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
 
 public class Torpedoer : Attack
 {
-    // Private Fields
-     
+    // -- Private Fields --
+    GameObject empObj;
+    SphereCollider attackField;
 
-    // Start is called before the first frame update
+    // -- Override Methods --
+
     void Start()
     {
         // Fetch Components of Unit
         this.RB = GetComponent<Rigidbody>();
         this.Collider = GetComponent<BoxCollider>();
         this.Movement = GetComponent<Stationary>();
+
+        // Setup Colliders
+        empObj = new GameObject("AttackField");
+        empObj.transform.parent = this.transform;
+        attackField = empObj.AddComponent<SphereCollider>();
+        attackField.isTrigger = true;
+        attackField.radius = Range;
+        TriggerCallback callback = empObj.AddComponent<TriggerCallback>();
+        callback.SetEnterCallback(this.gameObject, "EnterRange");
+        callback.SetExitCallback(this.gameObject, "ExitRange");
     }
 
-    // Update is called once per frame
     void Update()
     {
     }
@@ -36,5 +52,18 @@ public class Torpedoer : Attack
         throw new System.NotImplementedException();
     }
 
+    // -- Callbacks --
+
+    void EnterRange(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("Enemy"))
+            Debug.Log("Entered Range!");
+    }
+
+    void ExitRange(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("Enemy"))
+            Debug.Log("Exited Range!");
+    }
     
 }
