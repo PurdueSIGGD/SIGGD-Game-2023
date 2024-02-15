@@ -47,6 +47,8 @@ public class TurretController : MonoBehaviour
     // Layermask
     [SerializeField]
     private LayerMask physicalMask;
+    [SerializeField]
+    private LayerMask upgradeMask;
  
     private void Awake()
     {
@@ -144,6 +146,14 @@ public class TurretController : MonoBehaviour
         }
     }
 
+    public void UpgradeTurret() {
+        // Check that were holding shift when implemented (turret mode)
+        GameObject turret = GetTurret();
+        if(turret != null) {
+            
+        }
+    }
+
     // Set the blank model color
     void SetColor(GameObject model, Color color)
     {
@@ -155,6 +165,18 @@ public class TurretController : MonoBehaviour
             Renderer r = model.AddComponent<Renderer>();
             r.material.color = color;
         }
+    }
+
+    GameObject GetTurret() {
+        Ray camToWorld = mainCamera.ScreenPointToRay(Input.mousePosition);
+        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, upgradeMask)) {
+            return null;
+        }
+        if (!closeToPlayer(hit)) { return null; }
+        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Unit")) {
+            return hit.collider.gameObject;
+        }
+        return null;
     }
 
     // Returns true if the proposed turret placement position is valid, false otherwise
@@ -175,7 +197,7 @@ public class TurretController : MonoBehaviour
         }
 
         // If distance too far, return not valid
-        if (!((Vector3.Distance(hit.point, playerPosition) >= PLACE_MIN) && (Vector3.Distance(hit.point, playerPosition) <= PLACE_MAX)))
+        if (!closeToPlayer(hit))
         {
             return false;
         }
@@ -188,6 +210,13 @@ public class TurretController : MonoBehaviour
 
         // If point is on placeable surface close to player, return valid
         return true;
+    }
+
+    // If distance too far, return false
+    bool closeToPlayer(RaycastHit hit) {
+        bool farEnough = Vector3.Distance(hit.point, playerPosition) >= PLACE_MIN;
+        bool closeEnough = Vector3.Distance(hit.point, playerPosition) <= PLACE_MAX;
+        return farEnough && closeEnough;
     }
 
     // Return the position and rotation of raycast hit of mouse

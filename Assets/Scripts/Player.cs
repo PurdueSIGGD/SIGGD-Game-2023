@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     // Place turret
     public void OnPlaceTurret() => tc.PlaceTurret();
 
+    public void OnUpgradeturret() => tc.UpgradeTurret();
+
     private void FixedUpdate()
     {
         // Move the player to the appropriate position
