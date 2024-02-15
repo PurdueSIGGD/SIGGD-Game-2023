@@ -21,6 +21,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+using System.IO;
 
 public class Item : MonoBehaviour {
     [SerializeField] Image border;
@@ -28,6 +29,8 @@ public class Item : MonoBehaviour {
     [SerializeField] Image itemImage;
     [SerializeField] int itemId;
     [SerializeField] TextMeshProUGUI durationText;
+
+    [SerializeField] Sprite icon;
 
     // Item Numbers are 1 indexed but the array is 0 indexed
     private int[] cooldowns = {50, 500, 5, 10, 153};
@@ -38,6 +41,8 @@ public class Item : MonoBehaviour {
         currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
         durationText.text = currentCooldown.ToString();
         onCooldown = false;
+        itemImage.sprite = icon;
+        itemImage.enabled = true;
     }
 
     private int itemNum2ArrayIndex(int ind) {return ind - 1;}
