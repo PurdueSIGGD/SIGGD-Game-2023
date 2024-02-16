@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NavScript_Lunge : MonoBehaviour
+public class LungeNav : MonoBehaviour
 {
 
     [SerializeField] private NavMeshAgent agent;

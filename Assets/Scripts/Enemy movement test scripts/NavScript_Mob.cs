@@ -13,7 +13,6 @@ public class NavScript_Mob : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float turnSpeed;
     private Vector3 boxSize;
-    private bool flankDir;
     [SerializeField] private float rayDist;
     [SerializeField] private float flankDist;
     private LayerMask detectEnemies;
