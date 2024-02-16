@@ -49,102 +49,92 @@ public class NavScript_Lunge : MonoBehaviour
     }
     void FixedUpdate()
     {
-        RaycastHit hit;
-        LayerMask mask = LayerMask.GetMask("Enemy");
-        LayerMask mask2 = LayerMask.GetMask("Player");
-        if (seeThroughWalls) {
-            mask = ~mask2;
-        }
-        if (Physics.Raycast(GetComponent<Transform>().position, player.position - this_enemy.position, out hit, Mathf.Infinity, ~mask)) {
-            if (hit.collider.gameObject.transform == player) {
-                
-                float distToPlayer = Vector3.Distance(player.position, this_enemy.position);
-                Vector3 move_offset = Vector3.zero;
 
-                if (inPounce == false) {
+        float distToPlayer = Vector3.Distance(player.position, this_enemy.position);
+        Vector3 move_offset = Vector3.zero;
 
-                    NavMesh.CalculatePath(this_enemy.position, player.position, NavMesh.AllAreas, path);
-                    //agent.SetDestination(player.position);
-                    //Vector3 targetDir = player.position - this_enemy.position;
-                    Vector3 targetDir = path.corners[1] - this_enemy.position;
-                    //Debug.Log(path.corners[1]);
-                    Vector3 newDir = Vector3.RotateTowards(this_enemy.forward, targetDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
-                    this_enemy.rotation = Quaternion.LookRotation(newDir);
+        if (inPounce == false) {
 
-                    // for (int i = 0; i < path.corners.Length - 1; i++) {
-                    //     Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
-                    // }
+            NavMesh.CalculatePath(this_enemy.position, player.position, NavMesh.AllAreas, path);
+            //agent.SetDestination(player.position);
+            //Vector3 targetDir = player.position - this_enemy.position;
+            Vector3 targetDir = path.corners[1] - this_enemy.position;
+            //Debug.Log(path.corners[1]);
+            Vector3 newDir = Vector3.RotateTowards(this_enemy.forward, targetDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
+            this_enemy.rotation = Quaternion.LookRotation(newDir);
+
+            // for (int i = 0; i < path.corners.Length - 1; i++) {
+            //     Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
+            // }
 
 
-                    if (distToPlayer < minRangeDist) {
-                        //Debug.Log("back back");
-                        move_offset = this_enemy.forward * -1 * retreatSpeed;
-                    }
-                    else if (distToPlayer < (tempRange - 0.5f)) {
-                        //Debug.Log("back faster");
-                        move_offset = this_enemy.forward * -1;
-                    }
-                    if (path.corners.Length > 2 || distToPlayer > (tempRange + 0.5f)) {
-                        //Debug.Log("Hello");
-                        move_offset = this_enemy.forward;
-                    }
+            if (distToPlayer < minRangeDist) {
+                //Debug.Log("back back");
+                move_offset = this_enemy.forward * -1 * retreatSpeed;
+            }
+            else if (distToPlayer < (tempRange - 0.5f)) {
+                //Debug.Log("back faster");
+                move_offset = this_enemy.forward * -1;
+            }
+            if (path.corners.Length > 2 || distToPlayer > (tempRange + 0.5f)) {
+                //Debug.Log("Hello");
+                move_offset = this_enemy.forward;
+            }
 
-                    
-                    move_offset = move_offset.normalized;
+            
+            move_offset = move_offset.normalized;
 
-                    if (path.corners.Length <= 2) {
-                        move_offset += this_enemy.right * flankDir * flankSpeed;
-                    }
-                    else {
-                        lastPounceTime = Time.time;
-                    }
+            if (path.corners.Length <= 2) {
+                move_offset += this_enemy.right * flankDir * flankSpeed;
+            }
+            else {
+                lastPounceTime = Time.time;
+            }
 
 
-                    if ((lastChangeTime + timeToNextChange) < Time.time) {
-                        lastChangeTime = Time.time;
-                        timeToNextChange = Random.Range(minChange, maxChange);
-                        tempRange = minRangeDist + Random.Range(0f, rangeVariability);
-                        if (Random.value > 0.5f) {
-                            flankDir = -1;
-                        }
-                        else {
-                            flankDir = 1;
-                        }
-                    }
+            if ((lastChangeTime + timeToNextChange) < Time.time) {
+                lastChangeTime = Time.time;
+                timeToNextChange = Random.Range(minChange, maxChange);
+                tempRange = minRangeDist + Random.Range(0f, rangeVariability);
+                if (Random.value > 0.5f) {
+                    flankDir = -1;
                 }
-
-
-                if (inPounce) {
-                    tempSpeed = pounceSpeed * Mathf.Exp(-1 * pounceDecay * (Time.time - lastPounceTime));
-                    move_offset += this_enemy.forward * tempSpeed;
-                    if (tempSpeed < 0.5f) {
-                        //End pounce
-                        inPounce = false;
-                        lastPounceTime = Time.time;
-                        timeToNextPounce = Random.Range(minPounceTime, maxPounceTime);
-                    }
-                }
-
-                if (inPounce == false) {
-                    RaycastHit frontHit;
-                    if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position))) {
-                        if (frontHit.collider.gameObject.transform == player) {
-                            //Debug.Log("player available");
-                            if ((lastPounceTime + timeToNextPounce) < Time.time) {
-                                //Debug.Log("pounce!!!");
-                                lastPounceTime = Time.time;
-                                inPounce = true;
-                            }
-                        }
-                    }
-                }
-                //move_offset = move_offset.normalized;
-                
-                Debug.DrawLine(this_enemy.position, (this_enemy.position + 2 * move_offset), Color.blue);
-                if (move_offset != Vector3.zero) {
-                    agent.Move(move_offset * speed * Time.fixedDeltaTime);
+                else {
+                    flankDir = 1;
                 }
             }
+        }
+
+
+        if (inPounce) {
+            tempSpeed = pounceSpeed * Mathf.Exp(-1 * pounceDecay * (Time.time - lastPounceTime));
+            move_offset += this_enemy.forward * tempSpeed;
+            if (tempSpeed < 0.5f) {
+                //End pounce
+                inPounce = false;
+                lastPounceTime = Time.time;
+                timeToNextPounce = Random.Range(minPounceTime, maxPounceTime);
+            }
+        }
+
+        if (inPounce == false) {
+            RaycastHit frontHit;
+            if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position))) {
+                if (frontHit.collider.gameObject.transform == player) {
+                    //Debug.Log("player available");
+                    if ((lastPounceTime + timeToNextPounce) < Time.time) {
+                        //Debug.Log("pounce!!!");
+                        lastPounceTime = Time.time;
+                        inPounce = true;
+                    }
+                }
+            }
+        }
+        //move_offset = move_offset.normalized;
+        
+        Debug.DrawLine(this_enemy.position, (this_enemy.position + 2 * move_offset), Color.blue);
+        if (move_offset != Vector3.zero) {
+            agent.Move(move_offset * speed * Time.fixedDeltaTime);
         }
 
         
