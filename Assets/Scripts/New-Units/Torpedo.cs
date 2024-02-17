@@ -5,6 +5,20 @@ using static UnityEditor.PlayerSettings;
 
 public class Torpedo : MonoBehaviour
 {
+    // -- Serialize Fields --
+
+    [SerializeField]
+    float radius;
+
+    [SerializeField]
+    float damage;
+
+    [SerializeField]
+    float knockback;
+
+    [SerializeField]
+    LayerMask enemyMask;
+
     // -- Private Fields --
     float duration;
     float height;
@@ -12,6 +26,7 @@ public class Torpedo : MonoBehaviour
     Vector3 startPos;
     Vector3 endPos;
     float time;
+    bool canBoom;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +35,7 @@ public class Torpedo : MonoBehaviour
         endPos = (target.transform.position - this.transform.position) / 2 + this.transform.position;
         endPos.y = height;
         startPos = this.transform.position;
+        canBoom = false;
     }
 
     // Update is called once per frame
@@ -28,19 +44,42 @@ public class Torpedo : MonoBehaviour
         time += Time.deltaTime;
         float t = Mathf.Pow(time / duration, 2);
 
-        Vector3 pos = Vector3.Lerp(startPos, endPos, t);
-        pos.y = Func(t, height);
+        Vector3 pos = Vector3.Lerp(startPos, target.transform.position, t);
+        pos.y = Func(t, height) + startPos.y;
 
         this.transform.rotation = Quaternion.LookRotation(pos - this.transform.position);
 
         this.transform.position = pos;
+
+        // Set Boom On
+        if (t > 0.5f)
+        {
+            canBoom = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (canBoom)
+        {
+            if (other.gameObject.CompareTag("RegionColliders"))
+            {
+                Collider[] colliders = Physics.OverlapSphere(this.transform.position, radius, enemyMask);
+                foreach (Collider enemy in colliders)
+                {
+                    enemy.GetComponent<HealthPoints>().damageEntity(damage);
+
+                    // TODO: Apply Explosion Force Enemy
+                }
+            }
+        }
     }
 
     // -- Helper Functions --
 
-    float Func(float x, float scale)
+    float Func(float time, float scale)
     {
-        float y = -4 * Mathf.Pow((x - 0.5f), 2) + 1;
+        float y = -4 * Mathf.Pow((time - 0.5f), 2) + 1;
         return scale * y;
     }
 

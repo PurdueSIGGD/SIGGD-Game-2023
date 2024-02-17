@@ -23,9 +23,12 @@ public class Torpedoer : Attack
     [SerializeField]
     float duration;
 
+    [SerializeField]
+    GameObject bulletPoint;
+
     // -- Private Fields --
-    public GameObject target;
-    public bool canFire;
+    GameObject target;
+    bool canFire;
 
     // -- Override Methods --
 
@@ -83,7 +86,7 @@ public class Torpedoer : Attack
     {
         if (target != null)
         {
-            var bullet = Instantiate(projectilePrefab, this.transform.position, Quaternion.identity).GetComponent<Torpedo>();
+            var bullet = Instantiate(projectilePrefab, bulletPoint.transform.position, Quaternion.identity).GetComponent<Torpedo>();
             bullet.SetTarget(target);
             bullet.SetDuration(duration);
             bullet.SetHeight(height);
