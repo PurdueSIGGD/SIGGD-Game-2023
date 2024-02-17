@@ -16,6 +16,7 @@ public class Roamer : UnitMovement
     private void Awake()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
+        range = 10;
     }
 
     private void CheckDist()
@@ -25,9 +26,10 @@ public class Roamer : UnitMovement
         {
             if (attacking)
             {
-                // STOP!
+                attacking = !attacking;
             }
-            NavMesh.SetDestination(Player.transform.position);
+            // Go to 2 units away frem the player in the proper direction
+            NavMesh.SetDestination(Player.transform.position + ((gameObject.transform.position - Player.transform.position) / playerDist) * 2);
         }
     }
 
