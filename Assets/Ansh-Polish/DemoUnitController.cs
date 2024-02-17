@@ -154,12 +154,13 @@ public class DemoUnitController : MonoBehaviour
 
     GameObject GetTurret() {
         Ray camToWorld = mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, upgradeMask)) {
-            return null;
-        }
-        if (!closeToPlayer(hit)) { return null; }
-        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Unit")) {
-            return hit.collider.gameObject;
+        if (Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, upgradeMask, QueryTriggerInteraction.Ignore)) {
+            Debug.DrawLine(hit.point, hit.point + Vector3.up * 2, Color.green, 2.0f);
+            Debug.DrawRay(mainCamera.transform.position, camToWorld.direction * hit.distance, Color.yellow, 2.0f);
+            if (!closeToPlayer(hit)) { return null; }   
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Unit")) {
+                return hit.collider.gameObject;
+            }      
         }
         return null;
     }
@@ -210,7 +211,7 @@ public class DemoUnitController : MonoBehaviour
     // Return the position and rotation of raycast hit of mouse
     (Vector3, Vector3) GetTransform()
     {
-        // Ray from mouse position into screen
+        // Ray from mouse position into screen+
         Ray camToWorld = mainCamera.ScreenPointToRay(Input.mousePosition);
 
         // If no surface, return + infinity for position and zero rotation
