@@ -5701,7 +5701,7 @@ MonoBehaviour:
     m_Bits: 8
   upgradeMask:
     serializedVersion: 2
-    m_Bits: 16777216
+    m_Bits: 29360136
 --- !u!114 &1056946790
 MonoBehaviour:
   m_ObjectHideFlags: 0

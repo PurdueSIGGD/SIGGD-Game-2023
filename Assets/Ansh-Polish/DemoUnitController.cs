@@ -131,9 +131,10 @@ public class DemoUnitController : MonoBehaviour
 
     public void OnUpgradeTurret() {
         // Check that were holding shift when implemented (turret mode)
-        Debug.Log("upgrade turret");
         GameObject turret = GetTurret();
         if(turret != null) {
+            Upgrade up = turret.GetComponent<Upgrade>();
+            up.ReplaceTurret();
             Debug.Log("UPGRADE TURRET");
         }
     }

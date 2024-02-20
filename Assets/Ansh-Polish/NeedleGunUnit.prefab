@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 931306401340375360}
   - component: {fileID: 5106702376469772050}
   - component: {fileID: 3010914900627108219}
+  - component: {fileID: 8600030380234252608}
   m_Layer: 24
   m_Name: NeedleGunUnit
   m_TagString: Untagged
@@ -276,6 +277,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 1
   lerpSpeed: 2
+--- !u!114 &8600030380234252608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122521397291697729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d89c9f797c86a46a849cf58a861018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradedTurret: {fileID: 2122521397291697729}
 --- !u!1 &2542550660568134934
 GameObject:
   m_ObjectHideFlags: 0
