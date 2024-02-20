@@ -64,12 +64,16 @@ public class Torpedo : MonoBehaviour
         {
             if (other.gameObject.CompareTag("RegionColliders"))
             {
+                Debug.Log("BOOM!");
+                Debug.Log(other.gameObject.name);
                 Collider[] colliders = Physics.OverlapSphere(this.transform.position, radius, enemyMask);
+                Debug.Log(colliders.Length);
                 foreach (Collider enemy in colliders)
                 {
                     enemy.GetComponent<HealthPoints>().damageEntity(damage);
-
-                    // TODO: Apply Explosion Force Enemy
+                    Rigidbody rb = enemy.GetComponent<Rigidbody>();
+                    rb.isKinematic = false;
+                    rb.AddExplosionForce(knockback, this.transform.position, radius);
                 }
             }
         }
