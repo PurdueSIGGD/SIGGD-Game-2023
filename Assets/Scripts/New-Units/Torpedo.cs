@@ -32,8 +32,7 @@ public class Torpedo : MonoBehaviour
     void Start()
     {
         // Initialize fields
-        endPos = (target.transform.position - this.transform.position) / 2 + this.transform.position;
-        endPos.y = height;
+        endPos = target.transform.position;
         startPos = this.transform.position;
         canBoom = false;
     }
@@ -44,7 +43,11 @@ public class Torpedo : MonoBehaviour
         time += Time.deltaTime;
         float t = Mathf.Pow(time / duration, 2);
 
-        Vector3 pos = Vector3.Lerp(startPos, target.transform.position, t);
+        if (target != null)
+        {
+            endPos = target.transform.position;
+        }
+        Vector3 pos = Vector3.Lerp(startPos, endPos, t);
         pos.y = Func(t, height) + startPos.y;
 
         this.transform.rotation = Quaternion.LookRotation(pos - this.transform.position);
@@ -62,20 +65,20 @@ public class Torpedo : MonoBehaviour
     {
         if (canBoom)
         {
-            if (other.gameObject.CompareTag("RegionColliders"))
+            Debug.Log("BOOM!");
+            Debug.Log(other.gameObject.name);
+            Collider[] colliders = Physics.OverlapSphere(this.transform.position, radius, enemyMask);
+            Debug.Log(colliders.Length);
+            foreach (Collider enemy in colliders)
             {
-                Debug.Log("BOOM!");
-                Debug.Log(other.gameObject.name);
-                Collider[] colliders = Physics.OverlapSphere(this.transform.position, radius, enemyMask);
-                Debug.Log(colliders.Length);
-                foreach (Collider enemy in colliders)
-                {
-                    enemy.GetComponent<HealthPoints>().damageEntity(damage);
-                    Rigidbody rb = enemy.GetComponent<Rigidbody>();
-                    rb.isKinematic = false;
-                    rb.AddExplosionForce(knockback, this.transform.position, radius);
-                }
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                Vector3 explosionPoint = this.transform.position - Vector3.up;
+                explosionPoint.y = 0;
+                enemy.GetComponent<KinematicReset>().Knockback();
+                enemy.GetComponent<Rigidbody>().AddExplosionForce(knockback, explosionPoint, radius, knockback / 3);
+                enemy.GetComponent<HealthPoints>().damageEntity(damage);
             }
+            Destroy(this.gameObject);
         }
     }
 
