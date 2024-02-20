@@ -51,7 +51,6 @@ public class Item : MonoBehaviour {
     void Update() {
         if (onCooldown) {
             currentCooldown -= Time.deltaTime;
-            //currentCooldown--; // TODO: Make cooldown in seconds and not frames or find a good frame cooldowns
             durationText.text = ((int) (currentCooldown + 0.999)).ToString();
             if (currentCooldown <= 0) {
                 onCooldown = false;
