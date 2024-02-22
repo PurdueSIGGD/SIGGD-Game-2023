@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 6289356632119902598}
   - component: {fileID: 8489195423720543074}
   - component: {fileID: 409289390630371160}
+  - component: {fileID: 7169976407542728968}
+  - component: {fileID: 9026126879669305254}
   m_Layer: 0
   m_Name: HealerDummy
   m_TagString: Untagged
@@ -121,3 +123,47 @@ MonoBehaviour:
   distFromPlayer: 5
   orbitalSpeed: 2.1
   clockwise: 0
+  height: 1.5
+--- !u!54 &7169976407542728968
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571080710664901485}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &9026126879669305254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571080710664901485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8aa5ba814ec4c54a9917e60c486f703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  Range: 0
+  healAmount: 10
+  healCooldown: 5

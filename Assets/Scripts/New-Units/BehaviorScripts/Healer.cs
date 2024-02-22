@@ -13,15 +13,13 @@ public class Healer : Unit
     float healCooldown;
 
     // -- Private Fields --
-    GameObject player;
-    HealthPoints playerHealth;
+    private GameObject player;
 
     // -- Override Methods --
     void Start()
     {
         // Initialize fields
         player = GameObject.FindGameObjectWithTag("Player");
-        playerHealth = player.GetComponent<HealthPoints>();
 
         // Start Healing
         StartCoroutine(Heal());
@@ -32,10 +30,10 @@ public class Healer : Unit
 
     IEnumerator Heal()
     {
-        while(true)
+        while (true)
         {
-            yield return new WaitForSeconds(healAmount);
-            playerHealth.healEntity(healAmount);
+            yield return new WaitForSeconds(healCooldown);
+            player.GetComponent<HealthPoints>().healEntity(healAmount);
             Debug.Log("Healed!");
         }
     }

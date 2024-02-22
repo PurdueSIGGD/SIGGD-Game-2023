@@ -18,6 +18,9 @@ public class Orbital : UnitMovement
     [SerializeField]
     bool clockwise;
 
+    [SerializeField]
+    float height;
+
     // -- Private Fields --
     private GameObject player;
     private float time;
@@ -45,7 +48,7 @@ public class Orbital : UnitMovement
         float y = Mathf.Cos(time * orbitalSpeed);
 
 
-        Vector3 pos = player.transform.position + new Vector3(x * distFromPlayer, 0, y * distFromPlayer);
+        Vector3 pos = player.transform.position + new Vector3(x * distFromPlayer, height, y * distFromPlayer);
         this.transform.position = pos;
     }
 }
