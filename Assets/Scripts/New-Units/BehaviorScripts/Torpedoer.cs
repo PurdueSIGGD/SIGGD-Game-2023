@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-[RequireComponent(typeof(Stationary))]
+//[RequireComponent(typeof(Stationary))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
 

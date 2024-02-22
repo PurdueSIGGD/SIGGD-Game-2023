@@ -177,8 +177,8 @@ GameObject:
   - component: {fileID: 16897420764240092}
   - component: {fileID: 7108375034503580085}
   - component: {fileID: 931306401340375360}
-  - component: {fileID: 2524950775967707245}
-  - component: {fileID: 1082469069796825953}
+  - component: {fileID: -1705366656105652204}
+  - component: {fileID: -2495285007906077526}
   m_Layer: 0
   m_Name: NeedleGunUnit
   m_TagString: Untagged
@@ -251,7 +251,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.072253525, y: 0.06442535, z: 0.05415089}
   m_Center: {x: -0.00047441127, y: 0.0005471945, z: -0.049693167}
---- !u!114 &2524950775967707245
+--- !u!114 &-1705366656105652204
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,33 +260,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 2122521397291697729}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ba53a3fcc661f54980c88e9fdd13e9c, type: 3}
+  m_Script: {fileID: 11500000, guid: c4bb3b30d08e34d409feb95a6f7f698a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distFromPlayer: 5
+  orbitalSpeed: 6.28
+  clockwise: 0
+--- !u!114 &-2495285007906077526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122521397291697729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1328f77974221174d9cdab7d7acbc15c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  Range: 5
-  projectilePrefab: {fileID: 354620882897817373, guid: 48da7eaf123b5ab4daff052db4a04456, type: 3}
-  mask:
-    serializedVersion: 2
-    m_Bits: 8388608
-  fireCooldown: 3
-  height: 5
-  duration: 1
-  bulletPoint: {fileID: 2380061005313734036}
---- !u!114 &1082469069796825953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122521397291697729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9b7fdd87e5ba314dad282f5f9a938ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  warning: 5
-  selfDestruct: 10
+  Range: 0
 --- !u!1 &2380061005313734036
 GameObject:
   m_ObjectHideFlags: 0
