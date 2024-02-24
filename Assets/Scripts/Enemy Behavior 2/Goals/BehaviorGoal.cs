@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class BehaviorGoal
 {
-    public float creationTime;
+    public abstract bool GoalUpdate();
 }

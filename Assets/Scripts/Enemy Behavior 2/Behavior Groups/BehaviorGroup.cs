@@ -7,11 +7,11 @@ public abstract class BehaviorGroup
     List<BehaviorGroup> subGroups;
     List<Behavior> subBehaviors;
 
-    private abstract bool evaluatePreConditions();
+    protected abstract bool EvaluatePreConditions();
 
-    public virtual void getAvailableBehaviors(ref List<Behavior> behaviorList)
+    public virtual void GetAvailableBehaviors(List<Behavior> behaviorList)
     {
-        if (!evaluatePreConditions())
+        if (!EvaluatePreConditions())
         {
             return;
         }
@@ -19,7 +19,7 @@ public abstract class BehaviorGroup
         // Append child behaviors
         foreach (Behavior subBehavior in subBehaviors)
         {
-            if (!subBehavior.evaluatePreConditions())
+            if (subBehavior.InitializeAndGetPriority() == -1)
             {
                 continue;
             }
@@ -27,10 +27,10 @@ public abstract class BehaviorGroup
             behaviorList.Add(subBehavior);
         }
 
-        // Append child groups
+        // Append child behaviors from child groups
         foreach (BehaviorGroup subGroup in subGroups)
         {
-            subGroup.getAvailableBehaviors(ref behaviorList);
+            subGroup.GetAvailableBehaviors(behaviorList);
         }
 
     }

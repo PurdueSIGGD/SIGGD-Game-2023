@@ -39,7 +39,6 @@ public class MobTargetingController : MonoBehaviour
 
     void Awake()
     {
-        targetChanged = new UnityEvent();
         targetWeightDict = new Dictionary<GameObject, TargetWeight>();
         enemyMask = LayerMask.GetMask("Enemy");
         distanceToTarget = -1;

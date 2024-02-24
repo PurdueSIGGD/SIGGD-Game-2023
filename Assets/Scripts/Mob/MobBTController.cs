@@ -89,7 +89,7 @@ public class MobBTController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (shouldEvaluate) AttepmtSwitch();
+        if (shouldEvaluate) AttemptSwitch();
         shouldEvaluate = false;
     }
 }
