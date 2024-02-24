@@ -16,6 +16,9 @@ public class NavScript_Mob : MonoBehaviour
     [SerializeField] private float rayDist;
     [SerializeField] private float flankDist;
     private LayerMask detectEnemies;
+    [SerializeField] private bool fleeing;
+    [SerializeField] private bool attacksUnits;
+    [SerializeField] private float unitPriorityRadius;
 
     void Start() {
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
@@ -38,6 +41,9 @@ public class NavScript_Mob : MonoBehaviour
             Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
         }
         Vector3 move_offset = this_enemy.forward;
+        if (fleeing) {
+            move_offset = this_enemy.forward * -1;
+        }
         RaycastHit leftHit;
         RaycastHit rightHit;
         bool leftHitBool = Physics.Raycast(this_enemy.position + (this_enemy.right * -1 * boxSize.x * 0.51f), (this_enemy.right * -1), out leftHit, rayDist, detectEnemies);

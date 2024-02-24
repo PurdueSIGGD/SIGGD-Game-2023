@@ -17,8 +17,10 @@ public class MobNav : MonoBehaviour
     [SerializeField] private float rayDist;
     [SerializeField] private float flankDist;
     private LayerMask detectEnemies;
-    [SerializeField] bool flanksEnemies;
-    [SerializeField] bool flanksPlayer;
+    [SerializeField] private bool flanksEnemies;
+    [SerializeField] private bool flanksPlayer;
+    [SerializeField] private bool fleeing;
+
 
     void Start() {
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
@@ -30,7 +32,6 @@ public class MobNav : MonoBehaviour
     {
 
 
-
         NavMesh.CalculatePath(this_enemy.position, player.position, NavMesh.AllAreas, path);
         Vector3 targetDir = path.corners[1] - this_enemy.position;
         //Debug.Log(path.corners[1]);
@@ -40,7 +41,13 @@ public class MobNav : MonoBehaviour
         for (int i = 0; i < path.corners.Length - 1; i++) {
             Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
         }
-        Vector3 move_offset = this_enemy.forward;
+
+        if (fleeing == false) {
+            Vector3 move_offset = this_enemy.forward;
+        }
+        else {
+            Vector3 move_offset = this_enemy.forward * -1;
+        }
 
         if (flanksEnemies) {
             RaycastHit leftHit;
