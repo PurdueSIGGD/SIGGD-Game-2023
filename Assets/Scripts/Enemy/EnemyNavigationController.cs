@@ -32,9 +32,6 @@ public class EnemyNavigationController : MonoBehaviour
 
     [SerializeField] private float pursueMoveFactor = 1;
     [SerializeField] private float pursueTurnFactor = 1;
-    [SerializeField] private float pursueDuration = -1;
-    [SerializeField] private float pursueCooldown = -1;
-    private float pursueCurrentCooldown = 0;
 
     private void Pursue()
     {
@@ -117,6 +114,8 @@ public class EnemyNavigationController : MonoBehaviour
         navAgent.Move(moveOffset);
     }
 
+    // Behavior Selection
+
     private enum NavBehavior
     {
         Pursue,
@@ -131,8 +130,7 @@ public class EnemyNavigationController : MonoBehaviour
         if (targetingController.target == null)
         {
             currentBehavior = NavBehavior.Pursue;
-            currentBehaviorRemainingTime = pursueDuration;
-            pursueCurrentCooldown = pursueCooldown + pursueDuration;
+            currentBehaviorRemainingTime = 0;
             return;
         }
 
@@ -148,8 +146,7 @@ public class EnemyNavigationController : MonoBehaviour
         }
 
         currentBehavior = NavBehavior.Pursue;
-        currentBehaviorRemainingTime = pursueDuration;
-        pursueCurrentCooldown = pursueCooldown + pursueDuration;
+        currentBehaviorRemainingTime = 0;
     }
 
     private void UpdateTimers()
@@ -159,11 +156,6 @@ public class EnemyNavigationController : MonoBehaviour
         if (currentBehaviorRemainingTime > 0)
         {
             currentBehaviorRemainingTime -= deltaTime;
-        }
-    
-        if (pursueCurrentCooldown > 0)
-        {
-            pursueCurrentCooldown -= deltaTime;
         }
 
         if (dashCurrentCooldown > 0)
@@ -176,7 +168,7 @@ public class EnemyNavigationController : MonoBehaviour
     {
         UpdateTimers();
 
-        if (currentBehaviorRemainingTime <= 0 || targetingController.target == null)
+        if (currentBehaviorRemainingTime <= 0 || targetingController.target == null) // Only change state if current state is not blocking or there is no target
         {
             SetCurrentBehavior();
         }
