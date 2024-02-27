@@ -105,7 +105,7 @@ public class Item : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4)) {
                 Debug.Log(itemId + ": Pressed either above the keyboard or on the numpad");
             
-                if (!onCooldown) {
+                if (!onCooldown) { 
                     onCooldown = true;
                     currentCooldown = cooldowns[itemNum2ArrayIndex(itemId)];
                     durationText.text = cooldowns[itemNum2ArrayIndex(itemId)].ToString();
