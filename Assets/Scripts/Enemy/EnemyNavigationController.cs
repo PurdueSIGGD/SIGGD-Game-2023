@@ -104,7 +104,7 @@ public class EnemyNavigationController : MonoBehaviour
         // Rotate towards target
         NavMesh.CalculatePath(selfTransform.position, targetTransform.position, NavMesh.AllAreas, navPath);
         Vector3 targetLookDir = navPath.corners[1] - selfTransform.position;
-        Vector3 newLookDir = Vector3.RotateTowards(selfTransform.forward, targetLookDir, turnSpeed * dashMoveFactor * Time.fixedDeltaTime, 0.0f);
+        Vector3 newLookDir = Vector3.RotateTowards(selfTransform.forward, targetLookDir, turnSpeed * dashTurnFactor * Time.fixedDeltaTime, 0.0f);
         selfTransform.rotation = Quaternion.LookRotation(newLookDir);
 
         // Move towards target
