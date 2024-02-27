@@ -42,11 +42,13 @@ public class MobNav : MonoBehaviour
             Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
         }
 
+        Vector3 move_offset;
+
         if (fleeing == false) {
-            Vector3 move_offset = this_enemy.forward;
+            move_offset = this_enemy.forward;
         }
         else {
-            Vector3 move_offset = this_enemy.forward * -1;
+            move_offset = this_enemy.forward * -1;
         }
 
         if (flanksEnemies) {
