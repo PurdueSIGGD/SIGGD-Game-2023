@@ -34,23 +34,22 @@ public class MobNav : MonoBehaviour
 
         NavMesh.CalculatePath(this_enemy.position, player.position, NavMesh.AllAreas, path);
         Vector3 targetDir = path.corners[1] - this_enemy.position;
+        targetDir = targetDir.normalized;
+        if (fleeing) {
+            targetDir = targetDir * -1;
+            targetDir.y = targetDir.y * -1;
+        }
         //Debug.Log(path.corners[1]);
         Vector3 newDir = Vector3.RotateTowards(this_enemy.forward, targetDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
-        this_enemy.rotation = Quaternion.LookRotation(newDir);
 
-        for (int i = 0; i < path.corners.Length - 1; i++) {
-            Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
-        }
-
+        // for (int i = 0; i < path.corners.Length - 1; i++) {
+        //     Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
+        // }
 
         Vector3 move_offset;
 
-        if (fleeing == false) {
+            this_enemy.rotation = Quaternion.LookRotation(newDir);
             move_offset = this_enemy.forward;
-        }
-        else {
-            move_offset = this_enemy.forward * -1;
-        }
 
         if (flanksEnemies) {
             RaycastHit leftHit;
@@ -106,9 +105,11 @@ public class MobNav : MonoBehaviour
 
         
         move_offset = move_offset.normalized;
-        //string pos_debug = "" + move_offset.x + " " + move_offset.y + " " + move_offset.z;
+        //Debug.Log(move_offset);
+
         Debug.DrawLine(this_enemy.position, (this_enemy.position + 2 * move_offset), Color.blue);
         agent.Move(move_offset * speed * Time.fixedDeltaTime);
+        //Debug.Log(move_offset.magnitude * speed * Time.fixedDeltaTime);
 
         
     }
