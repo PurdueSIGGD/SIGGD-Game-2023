@@ -96,6 +96,30 @@ public class EnemyNavigationController : MonoBehaviour
     [SerializeField] private float dashCooldown = -1;
     private float dashCurrentCooldown = 0;
 
+    private bool CheckDashPreconditions()
+    {
+        if (dashCurrentCooldown > 0)
+        {
+            return false;
+        }
+
+        Transform targetTransform = targetingController.target.transform;
+        Vector3 targetDirection = targetTransform.position - selfTransform.position;
+        float distanceToTarget = targetDirection.magnitude;
+        if (distanceToTarget > dashRangeThreshold)
+        {
+            return false;
+        }
+
+        float dot = Vector3.Dot(selfTransform.forward, targetDirection / distanceToTarget);
+        if (dot < 0.9)
+        {
+            return false;
+        } 
+
+        return true;
+    }
+
     private void Dash()
     {
         if (targetingController.target == null) return;
@@ -104,7 +128,7 @@ public class EnemyNavigationController : MonoBehaviour
         // Rotate towards target
         NavMesh.CalculatePath(selfTransform.position, targetTransform.position, NavMesh.AllAreas, navPath);
         Vector3 targetLookDir = navPath.corners[1] - selfTransform.position;
-        Vector3 newLookDir = Vector3.RotateTowards(selfTransform.forward, targetLookDir, turnSpeed * dashMoveFactor * Time.fixedDeltaTime, 0.0f);
+        Vector3 newLookDir = Vector3.RotateTowards(selfTransform.forward, targetLookDir, turnSpeed * dashTurnFactor * Time.fixedDeltaTime, 0.0f);
         selfTransform.rotation = Quaternion.LookRotation(newLookDir);
 
         // Move towards target
@@ -133,11 +157,8 @@ public class EnemyNavigationController : MonoBehaviour
             currentBehaviorRemainingTime = 0;
             return;
         }
-
-        Transform targetTransform = targetingController.target.transform;
-        float distanceToTarget = Vector3.Distance(targetTransform.position, selfTransform.position);
         
-        if (distanceToTarget <= dashRangeThreshold && dashCurrentCooldown <= 0)
+        if (CheckDashPreconditions())
         {
             currentBehavior = NavBehavior.Dash;
             currentBehaviorRemainingTime = dashDuration;

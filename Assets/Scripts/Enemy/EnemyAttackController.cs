@@ -42,11 +42,12 @@ public class EnemyAttackController : MonoBehaviour
 
 		// Spawn Attack Collision Check
 		Vector3 normalizedDirection = Vector3.Normalize(targetDirection) * attackDistance; // Change to always be at target position?
-		Collider[] hitTargets = Physics.OverlapSphere(selfTransform.position + normalizedDirection, attackRadius, targetMask, QueryTriggerInteraction.Ignore);
+		Collider[] hitTargets = Physics.OverlapSphere(selfTransform.position + normalizedDirection, attackRadius);
 		foreach (Collider targetCollider in hitTargets)
 		{
 			GameObject target = targetCollider.gameObject;
-			Debug.Log("Enemy Attack hit target" + target);
+			if (target.tag != "Player") continue; // << Bandaid; Layermask in OverlapSphere not working
+			Debug.Log("Enemy Attack hit target: " + target);
 			// Do stuff
 		}
 

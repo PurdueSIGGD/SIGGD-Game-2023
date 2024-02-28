@@ -28,7 +28,6 @@ public class EnemyTargetingController : MonoBehaviour
 
     [SerializeField] private float aggroRange;
     [SerializeField] private float visibilityDecayRate;
-    [SerializeField] private float aggressionDecayRate;
 
     private Dictionary<GameObject, TargetWeight> targetWeightDict;
     private LayerMask enemyMask;
@@ -41,6 +40,12 @@ public class EnemyTargetingController : MonoBehaviour
         enemyMask = LayerMask.GetMask("Enemy");
 
         selfTransform = GetComponent<Transform>();
+    }
+
+    void Start()
+    {
+        GameObject player = GameObject.Find("Player");
+        AddTarget(player);
     }
 
     private const double TICK_LENGTH = 1.0;
