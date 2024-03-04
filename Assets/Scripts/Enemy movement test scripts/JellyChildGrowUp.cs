@@ -8,6 +8,7 @@ public class JellyChildGrowUp : MonoBehaviour
 
     [SerializeField] private float timeToMature;
     [SerializeField] private float randomBuffer;
+    [SerializeField] private GameObject matureJelly;
     private float birthTime;
     private float matureTime;
 
@@ -28,5 +29,6 @@ public class JellyChildGrowUp : MonoBehaviour
 
     private void SpawnAdult() {
         Debug.Log("new adult!");
+        Instantiate(matureJelly, this.gameObject.transform.position, Quaternion.identity);
     }
 }
