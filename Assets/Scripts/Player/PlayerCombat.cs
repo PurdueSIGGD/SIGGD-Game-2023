@@ -1,108 +1,81 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public GameObject[] weaponPrefabs; // Stores weapons inserted into the list in the editor
-    private GameObject[] weaponObjects; // Stores the specific instances of all chosen weapons
-    private GameObject currentWeapon;
-    private IWeapon currentWeaponScript;
-    private int currentWeaponIndex;
+    [SerializeField]
+    private GameObject gun;
+    [SerializeField]
+    private GameObject bullet;
+    [SerializeField]
+    private GameObject sword;
+    private int mLight; // The amount of light the player has. May be from an external script in the future.
+
+    [SerializeField]
+    private float bulletSpeed; // Projectile speed in meters/sec
+    [SerializeField]
+    private float fireRate; // Fire rate in seconds
+    [SerializeField]
+    private float fireCost; // Cost, in light, of each weapon fire
 
     // Initializes weaponObjects array and other variables.
     void Start()
     {
-        // Create weapon objects from prefabs
-        weaponObjects = new GameObject[weaponPrefabs.Length];
-        for (int i = 0; i < weaponPrefabs.Length; i++) {
-            if (weaponPrefabs[i] != null) {
-                GameObject weapon = Instantiate(weaponPrefabs[i]);
-                weapon.transform.parent = this.transform;
-                weaponObjects[i] = weapon;
-                weapon.GetComponent<IWeapon>().SetEnabled(false);
-            }
+        // Ensure weapon objects are properly specified
+        if ((gun == null) || (bullet == null) || (sword == null)) {
+            Debug.Log("One or more player weapon objects are not assigned!");
         }
 
-        // If no prefabs were provided, make a single null entry so the script works
-        if (weaponObjects.Length == 0) {
-            weaponObjects = new GameObject[1];
-        }
-
-        // Set the current weapon to be the first one in the list (even if null)
-        currentWeapon = weaponObjects[0];
-        currentWeaponIndex = 0;
-        if (currentWeapon != null) {
-            currentWeaponScript = currentWeapon.GetComponent<IWeapon>();
-        }
+        mLight = 100;
     }
 
-    // Enables the current weapon.
-    public void EnableWeapon() {
-        currentWeaponScript?.SetEnabled(true); // ? is null check
-    }
-
-    // Disables the current weapon.
-    public void DisableWeapon() {
-        currentWeaponScript?.SetEnabled(false); // ? is null check
-    }
-
-    // Sets the current weapon to be weaponObjects[index], enables it, and disables the previous weapon.
-    public bool ChangeWeapon(int index) {
-        if (currentWeapon != null) {
-            this.DisableWeapon();
-        }
-        if ((index >= 0) && (index < weaponPrefabs.Length)) {
-            currentWeapon = weaponObjects[index];
-            currentWeaponIndex = index;
-            if (currentWeapon != null) {
-                currentWeaponScript = currentWeapon.GetComponent<IWeapon>();
-                this.EnableWeapon();
-            }
-            return true;
-        }
-        return false;
-    }
-
-    // Sets the current weapon to be the provided GameObject if it's in the weaponObjects array,
-    // enables it, and disables the previous weapon.
-    public bool ChangeWeapon(GameObject weapon) {
-        // Check if list contains the weapon object specified, and switch to it
-        for (int i = 0; i < weaponObjects.Length; i++) {
-            if (weaponObjects[i] = weapon) {
-                ChangeWeapon(i);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // Triggered by primary action button.
+    // Triggered by primary action button. Shoots light gun.
     void OnAttack1() {
-        currentWeaponScript?.PerformAttack(1); // ? is null check
-    }
 
-    // Triggered by secondary action button.
-    void OnAttack2() {
-        currentWeaponScript?.PerformAttack(2); // ? is null check
-    }
+        Debug.Log("Attack 1 triggered");
 
-    // Triggered by the scroll wheel. This changes the weapon to the next or previous one in the
-    // weaponObjects array, wrapping to the opposite end of the array if needed.
-    void OnChangeItem(InputValue val) {
-        if (val.Get<float>() > 0) {
-            if (currentWeaponIndex == weaponObjects.Length - 1) {
-                ChangeWeapon(0);
-            } else {
-                ChangeWeapon(currentWeaponIndex + 1);
-            }
-        } else if (val.Get<float>() < 0) {
-            if (currentWeaponIndex == 0) {
-                ChangeWeapon(weaponObjects.Length - 1);
-            } else {
-                ChangeWeapon(currentWeaponIndex - 1);
+        // Check if light is zero
+        if (mLight <= 0) { return; }
+
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit,
+            float.PositiveInfinity)) {
+
+            // If a collider was hit
+            if (hit.collider != null) {
+                Vector3 clickPoint = hit.point;
+                // Draw a line hitbox from character to click point, purposefully aiming the
+                // line a specified distance above the ground (if the click point is ground)
+                Vector3 bulletDir = clickPoint - transform.position;
+                Physics.Raycast(transform.position, bulletDir, out RaycastHit bulletHit);
+
+                // Determine spot where bullet path ends
+                Vector3 bulletEnd;
+                if (bulletHit.collider != null) {
+                    bulletEnd = bulletHit.point;
+                } else {
+                    bulletEnd = Vector3.zero;
+                }
+
+                // Create projectile clone
+                GameObject shotBullet = Instantiate<GameObject>(bullet);
+                shotBullet.transform.parent = transform;
+                shotBullet.transform.localPosition = Vector3.zero;
+
+                // Set bullet velocity
+                Vector3 bulletVel = Vector3.Normalize(new Vector3(bulletEnd.x - transform.position.x,
+                        bulletEnd.y - transform.position.y,
+                        bulletEnd.z - transform.position.z)) * bulletSpeed;
+                shotBullet.GetComponent<Rigidbody>().velocity = bulletVel;
             }
         }
+    }
+
+    // Triggered by secondary action button. Swings sword.
+    void OnAttack2() {
+        // Trigger invisible hitbox in front of player. Also trigger animations.
     }
 }
