@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class DemoUnitController : MonoBehaviour
 {
+
+    //Player Light Bar
+    [SerializeField] public LightResource playerLight;
+
     // Blank turret model reference
     [SerializeField] GameObject blankModel;
 
@@ -123,6 +127,7 @@ public class DemoUnitController : MonoBehaviour
             if (unitToSpawn.GetComponent<DemoUnit>() != null) {
                 GameObject newUnit = Instantiate(unitToSpawn, pos + new Vector3(0, 1, 0), Quaternion.identity);
                 newUnit.transform.up = rot;
+                playerLight.consumeLight(25);
             } else {
                 Debug.LogWarning("The object you are trying to instantiate is not a unit; please ensure you are using a unit!");
             }

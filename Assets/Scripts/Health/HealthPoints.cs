@@ -5,8 +5,11 @@ using UnityEngine;
 public class HealthPoints : MonoBehaviour
 {
 
-    [SerializeField] private int maximumHealth;
-    private float currentHealth;
+    [SerializeField] public int maximumHealth;
+    public float currentHealth;
+
+    [SerializeField] public int healDEV;
+    [SerializeField] public int damageDEV;
 
 
     // Start is called before the first frame update
@@ -72,6 +75,18 @@ public class HealthPoints : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (healDEV > 0)
+        {
+            healEntity(healDEV);
+            healDEV = 0;
+        }
+
+        if (damageDEV > 0)
+        {
+            damageEntity(damageDEV);
+            damageDEV = 0;
+        }
+
     }
 }
