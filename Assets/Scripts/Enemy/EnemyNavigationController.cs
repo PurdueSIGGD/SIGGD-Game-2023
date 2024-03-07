@@ -52,8 +52,8 @@ public class EnemyNavigationController : MonoBehaviour
         // Avoid contact on left/right side w/ other enemies
         RaycastHit leftHit;
         RaycastHit rightHit;
-        bool leftHitBool = Physics.Raycast((selfTransform.position + (selfTransform.right * -1 * colliderRadius * 0.51f)), (selfTransform.right * -1), out leftHit, avoidDistance, ~enemyMask);
-        bool rightHitBool = Physics.Raycast((selfTransform.position + (selfTransform.right * colliderRadius * 0.51f)), selfTransform.right, out rightHit, avoidDistance, ~enemyMask);
+        bool leftHitBool = Physics.Raycast((selfTransform.position + (selfTransform.right * -1 * colliderRadius * 0.51f)), (selfTransform.right * -1), out leftHit, avoidDistance, enemyMask);
+        bool rightHitBool = Physics.Raycast((selfTransform.position + (selfTransform.right * colliderRadius * 0.51f)), selfTransform.right, out rightHit, avoidDistance, enemyMask);
         if (leftHitBool && rightHitBool)
         {
             moveOffset += selfTransform.right * (leftHit.distance - rightHit.distance);
@@ -68,17 +68,16 @@ public class EnemyNavigationController : MonoBehaviour
 
         // Flank if within range & visible
         RaycastHit targetHit;
-        bool targetIsVisible = Physics.Raycast(selfTransform.position, targetTransform.position - selfTransform.position, out targetHit, Mathf.Infinity, enemyMask);
+        bool targetIsVisible = Physics.Raycast(selfTransform.position, targetTransform.position - selfTransform.position, out targetHit, Mathf.Infinity, ~enemyMask);
         if (targetIsVisible && targetHit.distance < flankThreshold)
         {
             angle = Vector3.Angle(selfTransform.right, (selfTransform.position - targetTransform.position));
-            isFlankingRight = (angle < 90);
-            moveOffset += selfTransform.right * (isFlankingRight ? 1 : -1);
+            moveOffset = Vector3.Lerp(moveOffset, selfTransform.right, 2 * (flankThreshold - targetHit.distance) / flankThreshold);
         }
 
         // Avoid contact ahead of enemy
         RaycastHit frontHit;
-        if (Physics.Raycast(selfTransform.position + (selfTransform.forward * colliderRadius * 0.51f), selfTransform.forward, out frontHit, avoidDistance, enemyMask))
+        if (Physics.Raycast(selfTransform.position + (selfTransform.forward * colliderRadius * 0.51f), selfTransform.forward, out frontHit, avoidDistance, ~enemyMask))
         {
             angle = Vector3.Angle(selfTransform.right, (selfTransform.position - frontHit.collider.gameObject.transform.position));
             isFlankingRight = (angle < 90);
@@ -92,6 +91,7 @@ public class EnemyNavigationController : MonoBehaviour
     [SerializeField] private float dashRangeThreshold;
     [SerializeField] private float dashMoveFactor = 1;
     [SerializeField] private float dashTurnFactor = 1;
+    [SerializeField] private float dashExpDecay = 1;
     [SerializeField] private float dashDuration = -1;
     [SerializeField] private float dashCooldown = -1;
     private float dashCurrentCooldown = 0;
@@ -134,7 +134,7 @@ public class EnemyNavigationController : MonoBehaviour
         // Move towards target
         Vector3 moveOffset = selfTransform.forward;
 
-        moveOffset = moveOffset.normalized * (moveSpeed * dashMoveFactor * Time.fixedDeltaTime);
+        moveOffset = moveOffset.normalized * moveSpeed * dashMoveFactor * Mathf.Exp(-dashExpDecay * (dashDuration - currentBehaviorRemainingTime)) * Time.fixedDeltaTime;
         navAgent.Move(moveOffset);
     }
 
