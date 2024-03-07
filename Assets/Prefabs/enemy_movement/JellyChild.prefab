@@ -177,6 +177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a97d8703677804580ba502ff67fc44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToMature: 5
+  timeToMature: 3
   randomBuffer: 2
   matureJelly: {fileID: 8079511848009728111, guid: 67656c0e8e887e3418dd3f59b01e8625, type: 3}

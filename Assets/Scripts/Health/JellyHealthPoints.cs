@@ -25,6 +25,7 @@ public class JellyHealthPoints : HealthPoints
     public void kill() {
         Debug.Log("kill jelly");
         for (int i = 0; i < childCount; i++) {
+            Debug.Log("child" + i);
             Instantiate(jellyChild, this.gameObject.transform.position, Quaternion.identity);
         }
         Destroy(this.gameObject);
