@@ -14,6 +14,8 @@ public class LightResource : MonoBehaviour
 
     [SerializeField] public int maximumLight;
     public float currentLight;
+    public bool blackout;
+    private bool blackoutInit;
 
 
     //private int[] maxLightPerLevel = { 0, 0, 0 };
@@ -47,6 +49,8 @@ public class LightResource : MonoBehaviour
         //currentMaxLight = maxLightPerLevel[0];
         //currentLightGeneratedPerSecond = lightperSecondPerLevel[0];
         currentLight = 0f;
+        blackout = false;
+        blackoutInit = false;
 
         //previousTickTime = Time.time;
     }
@@ -65,6 +69,11 @@ public class LightResource : MonoBehaviour
     /// </returns>
     public float addLight(float light)
     {
+        if (blackout)
+        {
+            return 0f;
+        }
+
         //float addedLight = (currentLight + light >= currentMaxLight) ? currentMaxLight - currentLight : light;
         float addedLight = (currentLight + light >= maximumLight) ? maximumLight - currentLight : light;
         currentLight += addedLight;
@@ -85,6 +94,11 @@ public class LightResource : MonoBehaviour
     /// </returns>
     public float consumeLight(float light)
     {
+        if (blackout)
+        {
+            return 0f;
+        }
+
         float consumedLight = (currentLight - light <= 0f) ? currentLight : light;
         currentLight -= consumedLight;
         return consumedLight;
@@ -130,6 +144,13 @@ public class LightResource : MonoBehaviour
             levelUpGenerator();
             setLevelDEV = false;
         }*/
+
+
+        if (blackout && !blackoutInit)
+        {
+            currentLight = 0;
+            blackoutInit = true;
+        }
 
     }
 }

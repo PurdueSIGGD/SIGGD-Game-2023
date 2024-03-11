@@ -30,7 +30,7 @@ public class HealthPoints : MonoBehaviour
     /// <returns>
     /// The actual amount of damage dealt
     /// </returns>
-    public float damageEntity(float damage)
+    public virtual float damageEntity(float damage)
     {
         float damageDealt = (currentHealth - damage <= 0f) ? currentHealth : damage;
         currentHealth -= damageDealt;
@@ -46,7 +46,7 @@ public class HealthPoints : MonoBehaviour
     /// <summary>
     /// Destroys the entity owning this health script.
     /// </summary>
-    public void kill()
+    public virtual void kill()
     {
         Destroy(gameObject);
     }
@@ -63,7 +63,7 @@ public class HealthPoints : MonoBehaviour
     /// <returns>
     /// The actual amount of healing provided
     /// </returns>
-    public float healEntity(float healing)
+    public virtual float healEntity(float healing)
     {
         float healingDealt = (currentHealth + healing >= maximumHealth) ? maximumHealth - currentHealth : healing;
         currentHealth += healingDealt;
