@@ -11187,13 +11187,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 850737716076162902, guid: 67656c0e8e887e3418dd3f59b01e8625, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5665103292295400058, guid: 67656c0e8e887e3418dd3f59b01e8625, type: 3}
       propertyPath: countTime
-      value: 300
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 5665103292295400058, guid: 67656c0e8e887e3418dd3f59b01e8625, type: 3}
       propertyPath: childCount
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665103292295400058, guid: 67656c0e8e887e3418dd3f59b01e8625, type: 3}
+      propertyPath: spreadDist
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8079511848009728111, guid: 67656c0e8e887e3418dd3f59b01e8625, type: 3}
       propertyPath: m_Name

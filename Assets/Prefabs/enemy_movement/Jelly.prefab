@@ -166,4 +166,6 @@ MonoBehaviour:
   maximumHealth: 100
   jellyChild: {fileID: 8896971597394633038, guid: 4573745b21be07f47832d028ad7071a8, type: 3}
   childCount: 3
-  countTime: 1000
+  spreadDist: 3
+  spreadTime: 0.8
+  countTime: 400
