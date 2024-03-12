@@ -9,12 +9,12 @@ public class JellyHealthPoints : HealthPoints
     [SerializeField] private int childCount;
     [SerializeField] private float spreadDist;
     [SerializeField] private float spreadTime;
+    private GameObject[] children; 
+    private float angleDiff;
 
     //for debug purposes
     [SerializeField] private int countTime = 1000;
     private int count = 0;
-    private GameObject[] children; 
-    private float angleDiff;
     private bool beingKilled = false;
 
     public void Update() {
