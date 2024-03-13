@@ -7,7 +7,7 @@ using TMPro;
 public class uiBarManager : MonoBehaviour
 {
 
-    [SerializeField] public HealthPoints playerHealth;
+    [SerializeField] public PlayerHealthPoints playerHealth;
     [SerializeField] public LightResource playerLight;
     [SerializeField] public PlayerLevel playerLevel;
 
@@ -16,6 +16,9 @@ public class uiBarManager : MonoBehaviour
     [SerializeField] private Slider lightSlider;
     [SerializeField] private TMP_Text lightText;
     [SerializeField] private TMP_Text levelText;
+    [SerializeField] private Image blackoutMask;
+
+    private bool blackout;
 
     void UpdateHealth() {
         healthSlider.value = playerHealth.currentHealth / (float) playerHealth.maximumHealth;
@@ -32,12 +35,25 @@ public class uiBarManager : MonoBehaviour
         levelText.SetText("" + playerLevel.currentLevel);
     }
 
+    void UpdateBlackout()
+    {
+        if (playerHealth.blackout && !blackout)
+        {
+            blackout = true;
+            blackoutMask.enabled = true;
+            levelText.enabled = false;
+            healthText.enabled = false;
+            lightText.enabled = false;
+        }
+    }
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        blackout = false;
+        blackoutMask.enabled = false;
     }
 
     // Update is called once per frame
@@ -46,5 +62,6 @@ public class uiBarManager : MonoBehaviour
         UpdateHealth();
         UpdateLight();
         UpdateLevel();
+        UpdateBlackout();
     }
 }
