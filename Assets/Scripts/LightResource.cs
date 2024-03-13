@@ -84,7 +84,7 @@ public class LightResource : MonoBehaviour
 
     /// <summary>
     /// Removes the specified amount of light from the player's light resource pool.
-    /// This method enforces the light pool's minimum capacity of zero.
+    /// No light is removed if there isn't enough available in the player's light resource pool.
     /// </summary>
     /// <param name="light">
     /// The amount of light to remove from the light resource pool
@@ -99,7 +99,8 @@ public class LightResource : MonoBehaviour
             return 0f;
         }
 
-        float consumedLight = (currentLight - light <= 0f) ? currentLight : light;
+        //float consumedLight = (currentLight - light <= 0f) ? currentLight : light;
+        float consumedLight = (currentLight - light < 0f) ? 0f : light;
         currentLight -= consumedLight;
         return consumedLight;
     }

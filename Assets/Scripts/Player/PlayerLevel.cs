@@ -29,7 +29,7 @@ public class PlayerLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentLevel = 0;
+        currentLevel = 1;
         currentHealthGainRate = 0;
         currentLightGainRate = 0;
 
