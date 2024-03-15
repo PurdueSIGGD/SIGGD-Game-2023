@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 /* 
  * TURRET CONTROLLER
  * Instantiates and destroys turrets
- * TODO : Work on Unit Abstraction Hierarchy (Unit System -> Turrets || Single Use -> Specific Turret / SU classes)
+ * TODO : Work on UnitOld Abstraction Hierarchy (UnitOld System -> Turrets || Single Use -> Specific Turret / SU classes)
  * All units have a cost and a gameobject associated with them. All units will have an Action function. Turrets may
  * repeat shooting actions where single use items may not.
  * TODO : Rework Turret Aim to work with this new script
@@ -41,12 +41,14 @@ public class TurretController : MonoBehaviour
     // Bool for if the active position is placeable
     private bool canPlace = false;
 
-    // Unit type
+    // UnitOld type
     private GameObject unitToSpawn;
     
     // Layermask
     [SerializeField]
     private LayerMask physicalMask;
+    [SerializeField]
+    private LayerMask upgradeMask;
  
     private void Awake()
     {
@@ -131,7 +133,7 @@ public class TurretController : MonoBehaviour
             {
                 
                 // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
-                if (unitToSpawn.GetComponent<Unit>() != null)
+                if (unitToSpawn.GetComponent<UnitOld>() != null)
                 {
                     GameObject newUnit = Instantiate(unitToSpawn, pos, Quaternion.identity);
                     newUnit.transform.up = rot;
@@ -141,6 +143,14 @@ public class TurretController : MonoBehaviour
                     Debug.LogWarning("The object you are trying to instantiate is not a unit; please ensure you are using a unit!");
                 }
             }
+        }
+    }
+
+    public void UpgradeTurret() {
+        // Check that were holding shift when implemented (turret mode)
+        GameObject turret = GetTurret();
+        if(turret != null) {
+            
         }
     }
 
@@ -155,6 +165,18 @@ public class TurretController : MonoBehaviour
             Renderer r = model.AddComponent<Renderer>();
             r.material.color = color;
         }
+    }
+
+    GameObject GetTurret() {
+        Ray camToWorld = mainCamera.ScreenPointToRay(Input.mousePosition);
+        if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, upgradeMask)) {
+            return null;
+        }
+        if (!closeToPlayer(hit)) { return null; }
+        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Unit")) {
+            return hit.collider.gameObject;
+        }
+        return null;
     }
 
     // Returns true if the proposed turret placement position is valid, false otherwise
@@ -175,7 +197,7 @@ public class TurretController : MonoBehaviour
         }
 
         // If distance too far, return not valid
-        if (!((Vector3.Distance(hit.point, playerPosition) >= PLACE_MIN) && (Vector3.Distance(hit.point, playerPosition) <= PLACE_MAX)))
+        if (!closeToPlayer(hit))
         {
             return false;
         }
@@ -188,6 +210,13 @@ public class TurretController : MonoBehaviour
 
         // If point is on placeable surface close to player, return valid
         return true;
+    }
+
+    // If distance too far, return false
+    bool closeToPlayer(RaycastHit hit) {
+        bool farEnough = Vector3.Distance(hit.point, playerPosition) >= PLACE_MIN;
+        bool closeEnough = Vector3.Distance(hit.point, playerPosition) <= PLACE_MAX;
+        return farEnough && closeEnough;
     }
 
     // Return the position and rotation of raycast hit of mouse

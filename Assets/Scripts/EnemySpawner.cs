@@ -13,9 +13,11 @@ public class EnemySpawner : MonoBehaviour
     public float maxDistance = 10.0f;
 
     float constantSpawnTimer = 0.0f;
-    float constantSpawnInterval = 3.0f; //seconds
+    float constantSpawnInterval = 7.0f; //seconds
     float waveSpawnTimer = 0.0f;
-    float waveSpawnInterval = 45.0f; //seconds
+    float waveSpawnInterval = 60.0f; //seconds
+
+    int enemyCount = 0;
 
     [SerializeField]
     LayerMask mask;
@@ -73,6 +75,8 @@ public class EnemySpawner : MonoBehaviour
         randomPoint = generatePointInRing(degrees, spread);
         randomPoint3D = new Vector3(randomPoint.x, 0, randomPoint.y) +  player.transform.position;
         Instantiate(enemy, randomPoint3D, Quaternion.identity);
+        Debug.Log("Enemy Spawned, " + enemyCount + " total");
+        enemyCount++;
     }
 
     IEnumerator SpawnWave() {
@@ -80,8 +84,6 @@ public class EnemySpawner : MonoBehaviour
         int degrees = Random.Range(0, 360);
         // Deviation from degrees in one direction (2 * spread is the whole arc)
         int spread = Random.Range(45, 90);
-        Debug.Log("Degrees: " + degrees);
-        Debug.Log("Spread: " + spread);
         int currentTotalSpawns = 0;
         // Larger numbers make the wave have more enemy volume
         int waveVolume = 10;
