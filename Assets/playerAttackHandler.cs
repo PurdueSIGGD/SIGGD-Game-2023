@@ -56,7 +56,7 @@ public class playerAttackHandler : MonoBehaviour
                 return;
             }
             GameObject hurtBox = Instantiate(meleeHurtbox,
-                                             (gameObject.transform.localPosition + new Vector3(0, 1, 0)),
+                                             (gameObject.transform.position + new Vector3(0, 1, 0)),
                                              gameObject.transform.rotation,
                                              gameObject.transform);
             Destroy(hurtBox, meleeDuration);
