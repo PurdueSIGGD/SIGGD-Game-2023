@@ -238,3 +238,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightContained: 20
+  healthContained: 20

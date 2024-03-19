@@ -15,9 +15,11 @@ public class uiBarManager : MonoBehaviour
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private Slider lightSlider;
     [SerializeField] private TMP_Text lightText;
+    [SerializeField] private Image levelFrame;
     [SerializeField] private TMP_Text levelText;
-    [SerializeField] private Image blackoutMask;
-
+    [SerializeField] private Color blackoutColor;
+    //[SerializeField] private Image blackoutMask;
+    
     private bool blackout;
 
     void UpdateHealth() {
@@ -40,10 +42,12 @@ public class uiBarManager : MonoBehaviour
         if (playerHealth.blackout && !blackout)
         {
             blackout = true;
-            blackoutMask.enabled = true;
-            levelText.enabled = false;
+            //blackoutMask.enabled = true;
+            //levelFrame.color = new Color(70f, 70f, 70f, 255f);
+            levelFrame.color = blackoutColor;
             healthText.enabled = false;
             lightText.enabled = false;
+            levelText.enabled = false;
         }
     }
 
@@ -53,7 +57,7 @@ public class uiBarManager : MonoBehaviour
     void Start()
     {
         blackout = false;
-        blackoutMask.enabled = false;
+        //blackoutMask.enabled = false;
     }
 
     // Update is called once per frame
