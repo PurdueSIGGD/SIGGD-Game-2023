@@ -7,13 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCombat : MonoBehaviour
 {
+    // Objects
+    [SerializeField]
+    private GameObject centerPoint; // Center point of player, for spawning hitboxes and projectiles
     [SerializeField]
     private GameObject gun;
     [SerializeField]
     private GameObject bullet;
     [SerializeField]
     private GameObject sword;
-    private int mLight; // The amount of light the player has. May be from an external script in the future.
+
+    // Gun attributes
+
 
     [SerializeField]
     private float bulletSpeed; // Projectile speed in meters/sec
@@ -22,60 +27,59 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField]
     private float fireCost; // Cost, in light, of each weapon fire
 
+    // Sword attributes
+
+
+    // Testing variables for now. These will eventually be pulled from other scripts.
+    [SerializeField]
+    private int mLight = 100;
+    [SerializeField]
+    private int lightRegen = 2; // Light regenerated per second
+
     // Initializes weaponObjects array and other variables.
     void Start()
     {
         // Ensure weapon objects are properly specified
-        if ((gun == null) || (bullet == null) || (sword == null)) {
-            Debug.Log("One or more player weapon objects are not assigned!");
+        if ((gun == null) || (bullet == null) || (sword == null) || (centerPoint == null)) {
+            Debug.Log("One or more required player combat objects are not assigned to serialized variables!");
         }
 
-        mLight = 100;
+        // Initialize player light supply and make sure it's >= 0
+        if (mLight < 0) {
+            mLight = 0;
+        }
     }
 
-    // Triggered by primary action button. Shoots light gun.
-    void OnAttack1() {
+    // Triggered by right click. Shoots light gun.
+    void OnShootGun() {
 
-        Debug.Log("Attack 1 triggered");
+        Debug.Log("Shooting gun");
 
         // Check if light is zero
         if (mLight <= 0) { return; }
 
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit,
-            float.PositiveInfinity)) {
+        // Check which direction the player is facing
+        Vector3 playerLook = transform.forward;
 
-            // If a collider was hit
-            if (hit.collider != null) {
-                Vector3 clickPoint = hit.point;
-                // Draw a line hitbox from character to click point, purposefully aiming the
-                // line a specified distance above the ground (if the click point is ground)
-                Vector3 bulletDir = clickPoint - transform.position;
-                Physics.Raycast(transform.position, bulletDir, out RaycastHit bulletHit);
+        // Create projectile clone
+        GameObject shotBullet = Instantiate<GameObject>(bullet);
+        shotBullet.transform.SetLocalPositionAndRotation(centerPoint.transform.position, new Quaternion(0, 0, 0, 0));
 
-                // Determine spot where bullet path ends
-                Vector3 bulletEnd;
-                if (bulletHit.collider != null) {
-                    bulletEnd = bulletHit.point;
-                } else {
-                    bulletEnd = Vector3.zero;
-                }
+        // Set bullet velocity
+        shotBullet.GetComponent<Rigidbody>().velocity = playerLook * bulletSpeed;
 
-                // Create projectile clone
-                GameObject shotBullet = Instantiate<GameObject>(bullet);
-                shotBullet.transform.parent = transform;
-                shotBullet.transform.localPosition = Vector3.zero;
+        Debug.Log("Player look vector: " + playerLook);
+        Debug.Log("Bullet position: " + shotBullet.transform.position);
+        Debug.Log("Bullet velocity: " + shotBullet.GetComponent<Rigidbody>().velocity);
 
-                // Set bullet velocity
-                Vector3 bulletVel = Vector3.Normalize(new Vector3(bulletEnd.x - transform.position.x,
-                        bulletEnd.y - transform.position.y,
-                        bulletEnd.z - transform.position.z)) * bulletSpeed;
-                shotBullet.GetComponent<Rigidbody>().velocity = bulletVel;
-            }
-        }
     }
 
-    // Triggered by secondary action button. Swings sword.
-    void OnAttack2() {
+    // Triggered by left click. Swings sword.
+    void OnSwingSword() {
         // Trigger invisible hitbox in front of player. Also trigger animations.
+    }
+
+    void LightRegen() {
+
     }
 }
