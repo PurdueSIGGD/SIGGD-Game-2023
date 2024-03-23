@@ -39,6 +39,7 @@ public class DemoUnitController : MonoBehaviour
     private void Awake()
     {
         blankModel.SetActive(false);
+        playerPosition = gameObject.transform.position;
     }
 
     // Turret selected from button
@@ -200,6 +201,7 @@ public class DemoUnitController : MonoBehaviour
     // In update, perform place mode updates if canPlace is true
     private void FixedUpdate()
     {
+        playerPosition = gameObject.transform.position;
         if (placeMode)
         {
             //Get valid
