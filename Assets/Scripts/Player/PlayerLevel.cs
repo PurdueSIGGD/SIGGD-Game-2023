@@ -58,8 +58,8 @@ public class PlayerLevel : MonoBehaviour
         //Heal over time and Light gain over time
         if (Time.time - previousTickTime >= tickRate)
         {
-            playerHealth.healEntity(currentHealthGainRate * tickRate);
-            playerLight.addLight(currentLightGainRate * tickRate);
+            playerHealth.healEntity(currentHealthGainRate * (Time.time - previousTickTime) /*tickRate*/);
+            playerLight.addLight(currentLightGainRate * (Time.time - previousTickTime) /*tickRate*/);
             previousTickTime = Time.time;
         }
 
