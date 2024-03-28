@@ -17,6 +17,7 @@ public class NavScript_Mob : MonoBehaviour
     [SerializeField] private float rayDist;
     [SerializeField] private float flankDist;
     [SerializeField] private bool seeThroughWalls;
+    [SerializeField] LayerMask testMask;
 
 
     void Start() {
@@ -27,10 +28,12 @@ public class NavScript_Mob : MonoBehaviour
     void FixedUpdate()
     {
         RaycastHit hit;
-        LayerMask mask = LayerMask.GetMask("Enemy");
-        LayerMask mask2 = LayerMask.GetMask("Player");
+        //LayerMask mask = LayerMask.GetMask("Enemy");
+        //LayerMask mask2 = LayerMask.GetMask("Player");
+        LayerMask mask = testMask;
+        LayerMask mask2 = ~LayerMask.GetMask("Default");
         if (seeThroughWalls) {
-            mask = ~mask2;
+            mask = mask & mask2;
         }
         if (Physics.Raycast(GetComponent<Transform>().position, player.position - this_enemy.position, out hit, Mathf.Infinity, mask)) {
             //Debug.Log("Hit");

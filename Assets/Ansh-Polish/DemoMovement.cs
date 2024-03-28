@@ -35,7 +35,7 @@ public class DemoMovement : MonoBehaviour
         Ray camToWorld = mainCamera.ScreenPointToRay(UnityEngine.Input.mousePosition);
         Plane xz = new Plane(Vector3.up, Vector3.zero);
         xz.Raycast(camToWorld, out float dist);
-        Vector3 hit = camToWorld.GetPoint(dist);
+        Vector3 hit = camToWorld.GetPoint(dist) + Vector3.up;
 
         this.transform.LookAt(hit);
     }
