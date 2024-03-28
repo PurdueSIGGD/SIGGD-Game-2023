@@ -13,9 +13,6 @@ public class DemoUnitController : MonoBehaviour
     // Turret cap (0 = inf)
     [SerializeField] private int TURRET_CAP;
 
-    // An array with the counts of each type of turret [Num needles, Num torpedos]
-    private int[] turrentCounts = new int[2];
-
     // How far away and close to player turret can be placed (min distance prevents clipping)
     [SerializeField] private float PLACE_MIN;
     [SerializeField] private float PLACE_MAX;
@@ -24,7 +21,7 @@ public class DemoUnitController : MonoBehaviour
     [SerializeField] private float MAX_PLACE_ANGLE;
 
     // The position of the player
-    [HideInInspector] public Transform playerTransform;
+    [HideInInspector] public Vector3 playerPosition;
 
     // Bool for if in place mode
     private bool placeMode = false;
@@ -39,13 +36,10 @@ public class DemoUnitController : MonoBehaviour
     [SerializeField]
     private LayerMask physicalMask;
 
-    [SerializeField]
-    private LayerMask upgradeMask;
-
     private void Awake()
     {
         blankModel.SetActive(false);
-        playerTransform = FindObjectOfType<DemoMovement>().transform;
+        playerPosition = gameObject.transform.position;
     }
 
     // Turret selected from button
@@ -58,7 +52,6 @@ public class DemoUnitController : MonoBehaviour
         placeMode = true;
 
         // Enter place mode
-        //if (turrentCounts)
         EnterPlaceMode();
     }
 
@@ -113,29 +106,32 @@ public class DemoUnitController : MonoBehaviour
     // Place the turret
     public void OnPlaceTurret()
     {
-        // Debug.Log("Place Turret DETECTED");
+        Debug.Log("Place Turret DETECTED");
         // If we are in spawn mode, check validity to spawn
-        if (placeMode && CheckValid()) {
+        if (placeMode)
+        {
+            // Get validity
+            bool valid = CheckValid();
+
+
             // Get spawn location
             (Vector3 pos, Vector3 rot) = GetTransform();
 
-            // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
-            if (unitToSpawn.GetComponent<DemoUnit>() != null) {
-                GameObject newUnit = Instantiate(unitToSpawn, pos + new Vector3(0, 1, 0), Quaternion.identity);
-                newUnit.transform.up = rot;
-            } else {
-                Debug.LogWarning("The object you are trying to instantiate is not a unit; please ensure you are using a unit!");
-            }
-        }
-    }
+            // Check validity
+            if (valid)
+            {
 
-    public void OnUpgradeTurret() {
-        // Check that were holding shift when implemented (turret mode)
-        GameObject turret = GetTurret();
-        if(turret != null) {
-            Upgrade up = turret.GetComponent<Upgrade>();
-            up.ReplaceTurret();
-            Debug.Log("UPGRADE TURRET");
+                // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
+                if (unitToSpawn.GetComponent<Unit>() != null)
+                {
+                    GameObject newUnit = Instantiate(unitToSpawn, pos + new Vector3(0, 1, 0), Quaternion.identity);
+                    newUnit.transform.up = rot;
+                }
+                else
+                {
+                    Debug.LogWarning("The object you are trying to instantiate is not a unit; please ensure you are using a unit!");
+                }
+            }
         }
     }
 
@@ -151,19 +147,6 @@ public class DemoUnitController : MonoBehaviour
             Renderer r = model.AddComponent<Renderer>();
             r.material.color = color;
         }
-    }
-
-    GameObject GetTurret() {
-        Ray camToWorld = mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, upgradeMask, QueryTriggerInteraction.Ignore)) {
-            Debug.DrawLine(hit.point, hit.point + Vector3.up * 2, Color.green, 2.0f);
-            Debug.DrawRay(mainCamera.transform.position, camToWorld.direction * hit.distance, Color.yellow, 2.0f);
-            if (!closeToPlayer(hit)) { return null; }   
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Unit")) {
-                return hit.collider.gameObject;
-            }      
-        }
-        return null;
     }
 
     // Returns true if the proposed turret placement position is valid, false otherwise
@@ -186,8 +169,7 @@ public class DemoUnitController : MonoBehaviour
         }
 
         // If distance too far, return not valid
-        Vector3 playerPosition = playerTransform.position;
-        if (!closeToPlayer(hit))
+        if (!((Vector3.Distance(hit.point, playerPosition) >= PLACE_MIN) && (Vector3.Distance(hit.point, playerPosition) <= PLACE_MAX)))
         {
             return false;
         }
@@ -202,17 +184,10 @@ public class DemoUnitController : MonoBehaviour
         return true;
     }
 
-    bool closeToPlayer(RaycastHit hit) {
-        Vector3 playerPos = playerTransform.position;
-        bool farEnough = Vector3.Distance(hit.point, playerPos) >= PLACE_MIN;
-        bool closeEnough = Vector3.Distance(hit.point, playerPos) <= PLACE_MAX;
-        return farEnough && closeEnough;
-    }
-
     // Return the position and rotation of raycast hit of mouse
     (Vector3, Vector3) GetTransform()
     {
-        // Ray from mouse position into screen+
+        // Ray from mouse position into screen
         Ray camToWorld = mainCamera.ScreenPointToRay(Input.mousePosition);
 
         // If no surface, return + infinity for position and zero rotation
@@ -226,6 +201,7 @@ public class DemoUnitController : MonoBehaviour
     // In update, perform place mode updates if canPlace is true
     private void FixedUpdate()
     {
+        playerPosition = gameObject.transform.position;
         if (placeMode)
         {
             //Get valid

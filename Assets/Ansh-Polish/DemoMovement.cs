@@ -20,7 +20,6 @@ public class DemoMovement : MonoBehaviour
     private Rigidbody RB;
     private DemoPlayerData data;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +39,7 @@ public class DemoMovement : MonoBehaviour
 
         this.transform.LookAt(hit);
     }
+
 
     // Input Action (Move) - Update Move Direction
     public void OnMove(InputValue value)
