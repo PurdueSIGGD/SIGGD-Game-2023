@@ -13,6 +13,8 @@ public class Roamer : UnitMovement
 
     private int range;
 
+    private float attackRange;
+
     private bool attacking = true;
 
     GameObject Target = null;
@@ -23,6 +25,7 @@ public class Roamer : UnitMovement
         NavMesh = gameObject.GetComponent<NavMeshAgent>();
         Player = GameObject.FindGameObjectWithTag("Player");
         range = 10;
+        attackRange = 3;
     }
 
     private void CheckDist()
@@ -30,17 +33,15 @@ public class Roamer : UnitMovement
         float playerDist = Vector3.Magnitude((gameObject.transform.position - Player.transform.position));
         if (playerDist > range)
         {
-            if (attacking)
+            if (attacking && Target == null)
             {
-                Debug.Log("Halting attack");
                 attacking = !attacking;
+                Debug.Log("Halting attack");
             }
-            // Go to 2 units away frem the player in the proper direction
-            NavMesh.SetDestination(Player.transform.position + ((gameObject.transform.position - Player.transform.position) / playerDist) * 2);
-        } else if (!attacking && playerDist <= 3)
+        } else if (!attacking && playerDist <= attackRange)
         {
-            Debug.Log("Attacking again");
             attacking = true;
+            Debug.Log("Resuming attack");
         }
     }
 
@@ -49,7 +50,7 @@ public class Roamer : UnitMovement
         CheckDist();
         if (attacking)
         {
-            if (Target == null || Vector3.Magnitude(Target.transform.position - Player.transform.position) > range)
+            if (Target == null)
             {
                 //Debug.Log("Finding Target...");
                 Target = FindTarget();
@@ -61,12 +62,16 @@ public class Roamer : UnitMovement
             else
             {
                 NavMesh.destination = Target.transform.position;
-                //Debug.Log(NavMesh.remainingDistance);
-                if (NavMesh.remainingDistance < 1.2)
+                
+                if (NavMesh.remainingDistance < attackRange)
                 {
                     Destroy(Target);
                 }
             }
+        } else {
+            Debug.Log("Returning to player");
+            // Go to 2 units away frem the player in the proper direction
+            NavMesh.SetDestination(Player.transform.position);
         }
     }
 
