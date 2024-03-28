@@ -69,7 +69,6 @@ public class Roamer : UnitMovement
                 }
             }
         } else {
-            Debug.Log("Returning to player");
             // Go to 2 units away frem the player in the proper direction
             NavMesh.SetDestination(Player.transform.position);
         }
