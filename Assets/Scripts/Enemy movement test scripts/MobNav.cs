@@ -27,6 +27,7 @@ public class MobNav : MonoBehaviour
         path = new NavMeshPath();
         boxSize = GetComponent<BoxCollider>().size;
         detectEnemies = LayerMask.NameToLayer("Enemy");
+        detectEnemies = ~detectEnemies;
     }
     void FixedUpdate()
     {
@@ -39,12 +40,8 @@ public class MobNav : MonoBehaviour
             targetDir = targetDir * -1;
             targetDir.y = targetDir.y * -1;
         }
-        //Debug.Log(path.corners[1]);
         Vector3 newDir = Vector3.RotateTowards(this_enemy.forward, targetDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
 
-        // for (int i = 0; i < path.corners.Length - 1; i++) {
-        //     Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
-        // }
 
         Vector3 move_offset = Vector3.zero;
 
@@ -57,39 +54,31 @@ public class MobNav : MonoBehaviour
             bool leftHitBool = Physics.Raycast(this_enemy.position + (this_enemy.right * -1 * boxSize.x * 0.51f), (this_enemy.right * -1), out leftHit, rayDist, detectEnemies);
             bool rightHitBool = Physics.Raycast(this_enemy.position + (this_enemy.right * boxSize.x * 0.51f), this_enemy.right, out rightHit, rayDist, detectEnemies);
             if (leftHitBool && !rightHitBool) {
-                Debug.Log("Side1");
                 move_offset += this_enemy.right * 1;
             }
             else if (!leftHitBool && rightHitBool) {
-                Debug.Log("Side2");
                 move_offset += this_enemy.right * -1;
             }
             else if (leftHitBool && rightHitBool) {
-                Debug.Log("Side3");
                 move_offset += this_enemy.right * (rightHit.distance- leftHit.distance) * -1;
             } 
             else if (!leftHitBool && !rightHitBool)
             {
-                Debug.Log("None");
             }
             RaycastHit frontHit;
 
 
             //flank if behind other enemy
             if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, rayDist, detectEnemies)) {
-                Debug.Log("Flank2");
                 Vector3 targetPos = frontHit.collider.gameObject.transform.position;
                 float angle = Vector3.Angle(this_enemy.right, this_enemy.position - targetPos);
                 Vector3 flank_offset = this_enemy.right;
                 if (angle > 90) {
                     flank_offset *= -1;
                 }
-                //Debug.DrawLine(this_enemy.position, (this_enemy.position + flank_offset), Color.white);
                 move_offset += flank_offset;
             }
-            //Debug.Log(move_offset - this_enemy.forward);
         }
-        //Debug.Log(move_offset - this_enemy.forward);
 
         
         if (flanksPlayer) {
@@ -97,12 +86,10 @@ public class MobNav : MonoBehaviour
             if (Vector3.Distance(this_enemy.position, player.position) < flankDist) {
                 Vector3 targetPos = player.position;
                 float angle = Vector3.Angle(this_enemy.right, this_enemy.position - targetPos);
-                Debug.Log(angle);
                 Vector3 flank_offset = this_enemy.right;
                 if (angle > 90) {
                     flank_offset *= -1;
                 }
-                Debug.DrawLine(this_enemy.position, (this_enemy.position + flank_offset), Color.blue);
                 move_offset += flank_offset;
                 move_offset += 2 * this_enemy.forward;
             }
@@ -110,12 +97,8 @@ public class MobNav : MonoBehaviour
 
         
         move_offset = move_offset.normalized;
-        //Debug.Log(move_offset);
 
-        Debug.DrawLine(this_enemy.position, (this_enemy.position + 4 * move_offset), Color.white);
-        Debug.DrawLine(this_enemy.position, (this_enemy.position + 3 * this_enemy.forward), Color.red);
         agent.Move(move_offset * speed * Time.fixedDeltaTime);
-        //Debug.Log(move_offset.magnitude * speed * Time.fixedDeltaTime);
 
         
     }
