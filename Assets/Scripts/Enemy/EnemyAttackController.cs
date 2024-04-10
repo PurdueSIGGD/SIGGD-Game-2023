@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,21 +13,18 @@ public class EnemyAttackController : MonoBehaviour
 	//[SerializeField] private float attackDistance; // The radius around the entity within which attacks will be made. Attacks will also be made at this distance from the entity.
 	//[SerializeField] private float attackRadius;
 	private SphereCollider attackCollider;
-	private float DAMAGE;
+	[SerializeField] private float DAMAGE;
 
-	private EnemyTargetingController targetingController;
-	private Transform selfTransform;
-	private LayerMask targetMask;
 	private bool onCooldown;
+
+	private List<GameObject> overlapping;	
 
 	void Start()
 	{
-		targetingController = GetComponent<EnemyTargetingController>();
-		selfTransform = GetComponent<Transform>();
-		//targetMask = LayerMask.GetMask("Player"); // TODO add units to this mask
 		attackCollider = this.GetComponent<SphereCollider>();
 		onCooldown = false;
 		currentCooldownStart = Time.time;
+		overlapping = new List<GameObject>();
 	}
 
 	void FixedUpdate()
@@ -34,10 +32,22 @@ public class EnemyAttackController : MonoBehaviour
 		// if (currentCooldown > 0) currentCooldown -= Time.fixedDeltaTime;
 		// if (currentCooldown > 0) return;
 
+		if (onCooldown == false) {
+			onCooldown = true;
+			currentCooldownStart = Time.time;
+
+			foreach (GameObject obj in overlapping) {
+				HealthPoints healhscript = obj.GetComponent<HealthPoints>();
+				if (healhscript) {
+					healhscript.damageEntity(DAMAGE);
+				}
+			}
+		}
 
 		if (onCooldown && (Time.time - currentCooldownStart > cooldownTime)) {
 			onCooldown = false;
 		}
+
 		// if (!targetingController.target) 
 		// { 
 		// 	return; 
@@ -67,9 +77,14 @@ public class EnemyAttackController : MonoBehaviour
 	}
 
 	private void OnTriggerEnter(Collider col) {
-		if (onCooldown == false) {
-			currentCooldownStart = Time.time;
-			HealthPoints enemyHealthPoint
+		if (overlapping.Contains(col.gameObject) == false) {
+			overlapping.Add(col.gameObject);
+		}
+	}
+
+	private void OnTriggerExit(Collider col) {
+		if (overlapping.Contains(col.gameObject)) {
+			overlapping.Remove(col.gameObject);
 		}
 	}
 }
