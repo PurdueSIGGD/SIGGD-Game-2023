@@ -120,10 +120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4bb3b30d08e34d409feb95a6f7f698a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distFromPlayer: 5
-  orbitalSpeed: 2.1
-  clockwise: 0
-  height: 1.5
+  distFromPlayer: 4
+  orbitalSpeed: 10
+  clockwise: 1
+  height: 4
 --- !u!54 &7169976407542728968
 Rigidbody:
   m_ObjectHideFlags: 0
