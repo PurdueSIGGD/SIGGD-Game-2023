@@ -15,6 +15,7 @@ public class DirectionalSprite : MonoBehaviour
     private static readonly int Direction = Animator.StringToHash("Direction");
     [SerializeField] private float rotationOffset;
     public Vector3 lookDirection;
+    private float initialXScale;
 
     // To make things easier, dupe sprites over the y axis so the number is ~/2, probably just do this in the
     // animator
@@ -34,6 +35,7 @@ public class DirectionalSprite : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         cameraTransform = Camera.main.transform;
+        initialXScale = transform.localScale.x;
     }
 
     // Update is called once per frame
@@ -58,15 +60,11 @@ public class DirectionalSprite : MonoBehaviour
             rot += 360;
         }
 
-        // Turn rotation into an integer direction
-        var dir = (int)(rot * directionNumber / 360);
-
         // Set plane rotation
         spritePlane.localRotation = Quaternion.Euler(0, 0, rotationOffset - rot);
 
-        // Switch sprite based on direction
-        animator.SetInteger(Direction, dir);
-        
+        var localScale = transform.localScale;
+        transform.localScale = new Vector3(rot >= 180 ? initialXScale : -initialXScale, localScale.y, localScale.z);
     }
 
     private Vector3 ClearVectorY(Vector3 vector3)

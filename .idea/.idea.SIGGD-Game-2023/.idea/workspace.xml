@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8130f3f5-8d47-4562-8804-e908289867a6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Level1 Rotation.unity" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Level1 Rotation.unity.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DirectionalSprite.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DirectionalSprite.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SIGGD-Game-2023/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SIGGD-Game-2023/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Alex test scenes/Level1 Alex test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Alex test scenes/Level1 Alex test.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DirectionalSprite.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DirectionalSprite.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,6 +109,7 @@
       <workItem from="1707525810397" duration="3829000" />
       <workItem from="1707784823208" duration="2781000" />
       <workItem from="1707962525347" duration="2130000" />
+      <workItem from="1708131459747" duration="2859000" />
     </task>
     <servers />
   </component>
