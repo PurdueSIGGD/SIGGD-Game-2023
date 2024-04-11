@@ -3,45 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Roamer : UnitMovement
+public class RoamerMovement : UnitMovement
 {
-    private GameObject Player;
+    // Define attack, detect, mandatory return ranges
+    /*
+        Roamer will attack any enemy in the detect range and deal damage when 
+        within the attack range. If farther than mandatory return range will
+        return no matter what
+    */
+    protected override int detectRange => 10;
+    protected override int attackRange => 3;
+    private int mandatoryReturnRange = 15;
 
-    //private RoamerTestAttack attack;
+    // Move speed modifier
+    protected override float moveSpeedModifier => 10;
+
+    [HideInInspector]
+    public UnitAttack attack;
 
     private NavMeshAgent NavMesh;
-
-    private int range;
-
-    private float attackRange;
 
     private bool attacking = true;
 
     GameObject Target = null;
 
-    private void Awake()
+    private void Start()
     {
-        
         NavMesh = gameObject.GetComponent<NavMeshAgent>();
-        Player = GameObject.FindGameObjectWithTag("Player");
-        range = 10;
-        attackRange = 3;
+        NavMesh.speed = moveSpeedModifier;
     }
 
     private void CheckDist()
     {
-        float playerDist = Vector3.Magnitude((gameObject.transform.position - Player.transform.position));
-        if (playerDist > range)
+        if (playerDist() > detectRange)
         {
             if (attacking && Target == null)
             {
                 attacking = !attacking;
-                Debug.Log("Halting attack");
+                //Debug.Log("Halting attack");
             }
-        } else if (!attacking && playerDist <= attackRange)
+        } else if (!attacking && playerDist() <= attackRange)
         {
             attacking = true;
-            Debug.Log("Resuming attack");
+            //Debug.Log("Resuming attack");
         }
     }
 
@@ -76,10 +80,10 @@ public class Roamer : UnitMovement
 
     private GameObject FindTarget()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, range);
+        Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, detectRange);
         if (hitColliders.Length != 0)
         {
-            float dist = range + 1;
+            float dist = detectRange + 1;
             Collider closest = null;
             foreach (Collider col in hitColliders)
             {
