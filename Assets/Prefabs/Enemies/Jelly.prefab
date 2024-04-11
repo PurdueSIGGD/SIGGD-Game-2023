@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 4277291996877546279}
   - component: {fileID: 4817915885633404522}
   - component: {fileID: 6678837838991243209}
-  - component: {fileID: 5665103292295400058}
   - component: {fileID: 7596933445314008190}
+  - component: {fileID: 2535682569600085547}
   m_Layer: 23
   m_Name: Jelly
   m_TagString: Enemy
@@ -152,24 +152,6 @@ MonoBehaviour:
   flanksEnemies: 0
   flanksPlayer: 0
   fleeing: 0
---- !u!114 &5665103292295400058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8079511848009728111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba09508b0bd28754091a0687268d08dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maximumHealth: 100
-  jellyChild: {fileID: 8896971597394633038, guid: 4573745b21be07f47832d028ad7071a8, type: 3}
-  childCount: 3
-  spreadDist: 3
-  spreadTime: 0.8
-  countTime: 400
 --- !u!135 &7596933445314008190
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -191,3 +173,23 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2535682569600085547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8079511848009728111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b23dc1837d261b4482d4ad6a5a610eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maximumHealth: 300
+  currentHealth: 300
+  healDEV: 0
+  damageDEV: 0
+  jellyChild: {fileID: 8896971597394633038, guid: 4573745b21be07f47832d028ad7071a8, type: 3}
+  childCount: 20
+  spreadDist: 10
+  spreadTime: 2
