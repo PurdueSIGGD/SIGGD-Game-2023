@@ -120,7 +120,6 @@ public class DemoUnitController : MonoBehaviour
             // Check validity
             if (valid)
             {
-
                 // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
                 if (unitToSpawn.GetComponent<Unit>() != null)
                 {

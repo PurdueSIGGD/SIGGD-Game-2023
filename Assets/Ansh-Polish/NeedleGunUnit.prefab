@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6128121149938994303}
   - component: {fileID: 3483838987920333362}
   - component: {fileID: 9191195364422097670}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: p_levitate_fr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2760836161276101089}
   - component: {fileID: 5633434379340408256}
   - component: {fileID: 2582143995623843482}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: p_booster_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,10 +177,9 @@ GameObject:
   - component: {fileID: 16897420764240092}
   - component: {fileID: 7108375034503580085}
   - component: {fileID: 931306401340375360}
-  - component: {fileID: 5106702376469772050}
-  - component: {fileID: 3010914900627108219}
-  - component: {fileID: 8600030380234252608}
-  m_Layer: 24
+  - component: {fileID: 6830266518243429679}
+  - component: {fileID: -2399620918392556478}
+  m_Layer: 0
   m_Name: NeedleGunUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,6 +200,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 347122141422429944}
+  - {fileID: 7991430093800549317}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &7108375034503580085
@@ -251,7 +251,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.072253525, y: 0.06442535, z: 0.05415089}
   m_Center: {x: -0.00047441127, y: 0.0005471945, z: -0.049693167}
---- !u!114 &5106702376469772050
+--- !u!114 &6830266518243429679
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,10 +260,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2122521397291697729}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bba792ef963ac0f43b9a0853b5c95a21, type: 3}
+  m_Script: {fileID: 11500000, guid: b9b7fdd87e5ba314dad282f5f9a938ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3010914900627108219
+  warning: 15
+  selfDestruct: 20
+--- !u!114 &-2399620918392556478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,24 +274,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 2122521397291697729}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496566f9a09774c41895dc78bb149f86, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ba53a3fcc661f54980c88e9fdd13e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 1
-  lerpSpeed: 2
---- !u!114 &8600030380234252608
-MonoBehaviour:
+  Player: {fileID: 0}
+  Range: 20
+  projectilePrefab: {fileID: 354620882897817373, guid: 48da7eaf123b5ab4daff052db4a04456, type: 3}
+  mask:
+    serializedVersion: 2
+    m_Bits: 8388608
+  fireCooldown: 3
+  height: 2.25
+  duration: 1.3
+  bulletPoint: {fileID: 2380061005313734036}
+--- !u!1 &2380061005313734036
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122521397291697729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4d89c9f797c86a46a849cf58a861018, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradedTurret: {fileID: 2122521397291697729}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7991430093800549317}
+  m_Layer: 0
+  m_Name: BulletPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7991430093800549317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2380061005313734036}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0004744053, y: 0.0631, z: -0.00088430644}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 16897420764240092}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2542550660568134934
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +329,7 @@ GameObject:
   - component: {fileID: 6751413521732279817}
   - component: {fileID: 3607887585063168117}
   - component: {fileID: 8822328262264754909}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: p_booster_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,7 +412,7 @@ GameObject:
   - component: {fileID: 6902552113057480312}
   - component: {fileID: 3547753929049945693}
   - component: {fileID: 6526666852810264504}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: p_body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -467,7 +495,7 @@ GameObject:
   - component: {fileID: 2106468159993560156}
   - component: {fileID: 7060401450497898846}
   - component: {fileID: 7818969993739021016}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: p_levitate_br
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,7 +576,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8394383516551022398}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Shoot Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -581,7 +609,7 @@ GameObject:
   - component: {fileID: 6882026435876386385}
   - component: {fileID: 8230975353589527094}
   - component: {fileID: 2924796495301508439}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: p_barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -662,7 +690,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 347122141422429944}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -704,7 +732,7 @@ GameObject:
   - component: {fileID: 1188430412196039060}
   - component: {fileID: 8553780157762899421}
   - component: {fileID: 3393528688717249474}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: p_levitate_fl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -787,7 +815,7 @@ GameObject:
   - component: {fileID: 1807796547451802724}
   - component: {fileID: 6931518962774222113}
   - component: {fileID: 3970651621936385519}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: p_levitate_bl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
