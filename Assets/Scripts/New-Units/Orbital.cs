@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class Orbital : UnitMovement
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    protected override int attackRange => throw new System.NotImplementedException();
+    protected override int detectRange => throw new System.NotImplementedException();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // Move speed modifier
+    protected override float moveSpeedModifier => throw new System.NotImplementedException();
 }
