@@ -5,14 +5,12 @@ using UnityEngine;
 public abstract class Unit : MonoBehaviour
 {
     // Properties
-    [SerializeField]
-    public GameObject Player;
+    protected GameObject player;
 
-    [SerializeField]
-    public float Range;
-    public float ManaCost { get; private set; }
-    public float SellCost { get; private set; }
-    public UnitMovement Movement { get; private set; }
+    protected float Range;
+    protected float ManaCost { get; private set; }
+    protected float SellCost { get; private set; }
+    protected UnitMovement Movement;
 
     // Private Fields
     protected Rigidbody RB;
