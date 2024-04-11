@@ -848,6 +848,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3951378992019305434, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951378992019305434, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951378992019305434, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951378992019305434, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951378992019305434, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951378992019305434, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3996068774151119912, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
       propertyPath: player
       value: 
@@ -5735,13 +5759,10 @@ MonoBehaviour:
   PLACE_MIN: 1
   PLACE_MAX: 10
   MAX_PLACE_ANGLE: 360
-  playerTransform: {fileID: 0}
+  playerPosition: {x: 0, y: 0, z: 0}
   physicalMask:
     serializedVersion: 2
     m_Bits: 8
-  upgradeMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &1056946790
 MonoBehaviour:
   m_ObjectHideFlags: 0
