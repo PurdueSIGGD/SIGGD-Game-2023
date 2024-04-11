@@ -20,7 +20,9 @@ public class MobNav : MonoBehaviour
     [SerializeField] private bool flanksEnemies;
     [SerializeField] private bool flanksPlayer;
     [SerializeField] private bool fleeing;
-
+    [SerializeField] private bool attacksTurrets;
+    [SerializeField] private float turretDetectionRad;
+    private LayerMask detectTurrets;
 
     void Start() {
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
@@ -28,12 +30,26 @@ public class MobNav : MonoBehaviour
         boxSize = GetComponent<BoxCollider>().size;
         detectEnemies = LayerMask.NameToLayer("Enemy");
         detectEnemies = ~detectEnemies;
+        detectTurrets = LayerMask.NameToLayer("Unit");
     }
     void FixedUpdate()
     {
-
-
-        NavMesh.CalculatePath(this_enemy.position, player.position, NavMesh.AllAreas, path);
+        Vector3 targetLoc = Vector3.zero;
+        if (attacksTurrets) {
+            float theminDisnas = turretDetectionRad + 1;
+            Collider[] potentialTargets = Physics.OverlapSphere(this_enemy.position, turretDetectionRad, detectTurrets);
+            foreach (Collider c in potentialTargets) {
+                float tempDsisf = Vector3.Distance(this_enemy.position, c.gameObject.transform.position);
+                if (tempDsisf < theminDisnas) {
+                    targetLoc = c.gameObject.transform.position;
+                    theminDisnas = tempDsisf;
+                }
+            }
+        }
+        if (targetLoc == Vector3.zero) {
+            targetLoc = player.position;
+        }
+        NavMesh.CalculatePath(this_enemy.position, targetLoc, NavMesh.AllAreas, path);
         Vector3 targetDir = path.corners[1] - this_enemy.position;
         targetDir = targetDir.normalized;
         if (fleeing) {

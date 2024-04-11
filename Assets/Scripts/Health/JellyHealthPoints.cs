@@ -13,16 +13,16 @@ public class JellyHealthPoints : HealthPoints
     private float angleDiff;
 
     //for debug purposes
-    //[SerializeField] private int countTime = 1000;
-    //private int count = 0;
+    // [SerializeField] private int countTime = 1000;
+    // private int count = 0;
     private bool beingKilled = false;
 
     public void Update() {
-        /*count += 1;
-        if (count > countTime && !beingKilled) {
-            this.kill();
-            beingKilled = true;
-        }*/
+        // count += 1;
+        // if (count > countTime && !beingKilled) {
+        //     this.kill();
+        //     beingKilled = true;
+        // }
     }
 
 

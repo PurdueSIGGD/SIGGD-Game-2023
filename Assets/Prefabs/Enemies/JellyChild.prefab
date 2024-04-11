@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5329541378575075558}
   - component: {fileID: 3223430084875692947}
   - component: {fileID: 1509410257006943073}
-  - component: {fileID: 1483786640777647946}
+  - component: {fileID: 3742923189434834589}
   m_Layer: 23
   m_Name: JellyChild
   m_TagString: Enemy
@@ -152,6 +152,8 @@ MonoBehaviour:
   flanksEnemies: 0
   flanksPlayer: 0
   fleeing: 1
+  attacksTurrets: 0
+  turretDetectionRad: 0
 --- !u!114 &1509410257006943073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,11 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ed21e89c4a87748a8649cec45ebc99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumHealth: 10
-  currentHealth: 10
-  healDEV: 0
-  damageDEV: 0
---- !u!114 &1483786640777647946
+  maximumHealth: 100
+--- !u!114 &3742923189434834589
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,6 +179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f244c5e02f97d2419214737cfcc9b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToMature: 30
+  timeToMature: 4
   randomBuffer: 4
   matureJelly: {fileID: 8079511848009728111, guid: 67656c0e8e887e3418dd3f59b01e8625, type: 3}
