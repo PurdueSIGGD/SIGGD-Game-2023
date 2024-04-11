@@ -5,8 +5,7 @@ using UnityEngine;
 public abstract class Unit : MonoBehaviour
 {
     // Properties
-    [SerializeField]
-    public GameObject Player;
+    protected GameObject player;
 
     [SerializeField]
     public float Range;
