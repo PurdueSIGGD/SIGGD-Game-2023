@@ -43,7 +43,7 @@ public class HealthPoints : MonoBehaviour
     /// <summary>
     /// Destroys the entity owning this health script.
     /// </summary>
-    public void kill()
+    public virtual void kill()
     {
         Destroy(gameObject);
     }

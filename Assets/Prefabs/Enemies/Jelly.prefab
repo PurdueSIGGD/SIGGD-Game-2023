@@ -1,5 +1,73 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6737472189967695077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7476191805143492707}
+  - component: {fileID: 6693029388425586520}
+  - component: {fileID: 2619630267479850307}
+  m_Layer: 0
+  m_Name: attackChild
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7476191805143492707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6737472189967695077}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8236911125072843511}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &6693029388425586520
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6737472189967695077}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 20971520
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2619630267479850307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6737472189967695077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c384f41714b134ea5205bb93807879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTime: 1
+  DAMAGE: 40
 --- !u!1 &8079511848009728111
 GameObject:
   m_ObjectHideFlags: 0
@@ -14,8 +82,7 @@ GameObject:
   - component: {fileID: 4277291996877546279}
   - component: {fileID: 4817915885633404522}
   - component: {fileID: 6678837838991243209}
-  - component: {fileID: 5665103292295400058}
-  - component: {fileID: 7596933445314008190}
+  - component: {fileID: 3064949639615042346}
   m_Layer: 23
   m_Name: Jelly
   m_TagString: Enemy
@@ -35,7 +102,8 @@ Transform:
   m_LocalPosition: {x: 7.037799, y: 3.27, z: -13.271486}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7476191805143492707}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &699796562218346853
@@ -152,7 +220,9 @@ MonoBehaviour:
   flanksEnemies: 0
   flanksPlayer: 0
   fleeing: 0
---- !u!114 &5665103292295400058
+  attacksTurrets: 1
+  turretDetectionRad: 20
+--- !u!114 &3064949639615042346
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,33 +231,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8079511848009728111}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba09508b0bd28754091a0687268d08dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b23dc1837d261b4482d4ad6a5a610eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maximumHealth: 100
   jellyChild: {fileID: 8896971597394633038, guid: 4573745b21be07f47832d028ad7071a8, type: 3}
   childCount: 3
   spreadDist: 3
-  spreadTime: 0.8
-  countTime: 400
---- !u!135 &7596933445314008190
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8079511848009728111}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 20971520
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.2
-  m_Center: {x: 0, y: 0, z: 0}
+  spreadTime: 1.5
