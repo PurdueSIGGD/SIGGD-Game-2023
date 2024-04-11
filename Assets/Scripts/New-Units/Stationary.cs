@@ -5,13 +5,12 @@ using UnityEngine.UIElements;
 
 public class Stationary : UnitMovement
 {
-<<<<<<< HEAD
     protected override int attackRange => throw new System.NotImplementedException();
     protected override int detectRange => throw new System.NotImplementedException();
 
     // Move speed modifier
     protected override float moveSpeedModifier => throw new System.NotImplementedException();
-=======
+
     // -- Serialize Fields --
     [Header("Boundries")]
 
@@ -39,10 +38,10 @@ public class Stationary : UnitMovement
         float dist = Mathf.Abs((this.transform.position - player.transform.position).magnitude);
 
         // Check if WARNING or DESTRUCT
-        if (dist <= warning) 
+        if (dist <= warning)
         {
             // -- TODO: Some Indicator --
-        } 
+        }
         else if (dist <= selfDestruct)
         {
             // -- TODO: Some Indicator --
@@ -53,5 +52,4 @@ public class Stationary : UnitMovement
             Destroy(this.gameObject);
         }
     }
->>>>>>> main
 }
