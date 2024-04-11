@@ -6,6 +6,7 @@ public class LightOrb : MonoBehaviour
 {
 
     [SerializeField] private int lightContained;
+    [SerializeField] private int healthContained;
     private bool playerHit = false;
 
 
@@ -18,7 +19,8 @@ public class LightOrb : MonoBehaviour
         {
             playerHit = true;
             float addedLight = player.GetComponentInParent<LightResource>().addLight(lightContained);
-            if (addedLight <= 0)
+            float healing = player.GetComponent<HealthPoints>().healEntity(healthContained);
+            if (addedLight <= 0 && healing <= 0)
             {
                 playerHit = false;
             } else

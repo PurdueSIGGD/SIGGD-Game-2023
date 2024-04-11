@@ -5,8 +5,11 @@ using UnityEngine;
 public class HealthPoints : MonoBehaviour
 {
 
-    [SerializeField] private int maximumHealth;
-    private float currentHealth;
+    [SerializeField] public int maximumHealth;
+    public float currentHealth;
+
+    [SerializeField] public int healDEV;
+    [SerializeField] public int damageDEV;
 
 
     // Start is called before the first frame update
@@ -27,7 +30,7 @@ public class HealthPoints : MonoBehaviour
     /// <returns>
     /// The actual amount of damage dealt
     /// </returns>
-    public float damageEntity(float damage)
+    public virtual float damageEntity(float damage)
     {
         float damageDealt = (currentHealth - damage <= 0f) ? currentHealth : damage;
         currentHealth -= damageDealt;
@@ -60,7 +63,7 @@ public class HealthPoints : MonoBehaviour
     /// <returns>
     /// The actual amount of healing provided
     /// </returns>
-    public float healEntity(float healing)
+    public virtual float healEntity(float healing)
     {
         float healingDealt = (currentHealth + healing >= maximumHealth) ? maximumHealth - currentHealth : healing;
         currentHealth += healingDealt;
@@ -72,6 +75,18 @@ public class HealthPoints : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (healDEV > 0)
+        {
+            healEntity(healDEV);
+            healDEV = 0;
+        }
+
+        if (damageDEV > 0)
+        {
+            damageEntity(damageDEV);
+            damageDEV = 0;
+        }
+
     }
 }

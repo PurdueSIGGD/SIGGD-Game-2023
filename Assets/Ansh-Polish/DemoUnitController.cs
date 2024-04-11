@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class DemoUnitController : MonoBehaviour
 {
+
+    //Player Light Bar
+    [SerializeField] public LightResource playerLight;
+
     // Blank turret model reference
     [SerializeField] GameObject blankModel;
 

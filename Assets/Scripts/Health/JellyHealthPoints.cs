@@ -15,7 +15,7 @@ public class JellyHealthPoints : HealthPoints
     //for debug purposes
     // [SerializeField] private int countTime = 1000;
     // private int count = 0;
-    // private bool beingKilled = false;
+    private bool beingKilled = false;
 
     public void Update() {
         // count += 1;
@@ -29,12 +29,16 @@ public class JellyHealthPoints : HealthPoints
     // Start is called before the first frame update
 
     public override void kill() {
-        Debug.Log("kill jelly");
-        spawnJellies();
-        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
-        this.gameObject.GetComponent<BoxCollider>().enabled = false;
-        this.gameObject.GetComponent<MobNav>().enabled = false;
-        StartCoroutine(die());
+        if (!beingKilled)
+        {
+            beingKilled = true;
+            Debug.Log("kill jelly");
+            spawnJellies();
+            this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            this.gameObject.GetComponent<BoxCollider>().enabled = false;
+            this.gameObject.GetComponent<MobNav>().enabled = false;
+            StartCoroutine(die());
+        }
     }
 
     private void spawnJellies() {
