@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DemoUnitController : MonoBehaviour
+public class UnitController : MonoBehaviour
 {
     // Blank turret model reference
     [SerializeField] GameObject blankModel;
@@ -29,7 +29,7 @@ public class DemoUnitController : MonoBehaviour
     // Bool for if the active position is placeable
     private bool canPlace = false;
 
-    // UnitOld type
+    // Unit to spawn
     private GameObject unitToSpawn;
 
     // Layermask
@@ -38,8 +38,8 @@ public class DemoUnitController : MonoBehaviour
 
     private void Awake()
     {
+        // Hide blank model
         blankModel.SetActive(false);
-        playerPosition = gameObject.transform.position;
     }
 
     // Turret selected from button
@@ -55,7 +55,39 @@ public class DemoUnitController : MonoBehaviour
         EnterPlaceMode();
     }
 
-    // Escape key pressed to leave place mode
+    // Input Action -- Place the turret (if able)
+    public void OnPlaceTurret()
+    {
+        Debug.Log("Place Turret DETECTED");
+        // If we are in spawn mode, check validity to spawn
+        if (placeMode)
+        {
+            // Get validity
+            bool valid = CheckValid();
+
+
+            // Get spawn location
+            (Vector3 pos, Vector3 rot) = GetTransform();
+
+            // Check validity
+            if (valid)
+            {
+
+                // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
+                if (unitToSpawn.GetComponent<DemoUnit>() != null)
+                {
+                    GameObject newUnit = Instantiate(unitToSpawn, pos + new Vector3(0, 1, 0), Quaternion.identity);
+                    newUnit.transform.up = rot;
+                }
+                else
+                {
+                    Debug.LogWarning("The object you are trying to instantiate is not a unit; please ensure you are using a unit!");
+                }
+            }
+        }
+    }
+
+    // Input Action -- Leave unit placement mode
     public void OnEscapeTurret()
     {
         Debug.Log("SHIFT DETECTED!");
@@ -101,37 +133,6 @@ public class DemoUnitController : MonoBehaviour
     {
         // Set the blank model to be inactive
         blankModel.SetActive(false);
-    }
-
-    // Place the turret
-    public void OnPlaceTurret()
-    {
-        Debug.Log("Place Turret DETECTED");
-        // If we are in spawn mode, check validity to spawn
-        if (placeMode)
-        {
-            // Get validity
-            bool valid = CheckValid();
-
-
-            // Get spawn location
-            (Vector3 pos, Vector3 rot) = GetTransform();
-
-            // Check validity
-            if (valid)
-            {
-                // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
-                if (unitToSpawn.GetComponent<Unit>() != null)
-                {
-                    GameObject newUnit = Instantiate(unitToSpawn, pos + new Vector3(0, 1, 0), Quaternion.identity);
-                    newUnit.transform.up = rot;
-                }
-                else
-                {
-                    Debug.LogWarning("The object you are trying to instantiate is not a unit; please ensure you are using a unit!");
-                }
-            }
-        }
     }
 
     // Set the blank model color
@@ -200,7 +201,6 @@ public class DemoUnitController : MonoBehaviour
     // In update, perform place mode updates if canPlace is true
     private void FixedUpdate()
     {
-        playerPosition = gameObject.transform.position;
         if (placeMode)
         {
             //Get valid
