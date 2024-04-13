@@ -32,6 +32,7 @@ public class LungeNav : MonoBehaviour
     private float lastChangeTime;
     private float timeToNextChange;
     private float tempRange;
+    private LayerMask playerMask;
 
 
 
@@ -45,6 +46,8 @@ public class LungeNav : MonoBehaviour
         timeToNextPounce = Random.Range(minPounceTime, maxPounceTime);
         lastPounceTime = 0f;
         tempRange = minRangeDist;
+        playerMask = LayerMask.NameToLayer("Player");
+        playerMask = ~playerMask;
     }
     void FixedUpdate()
     {
@@ -118,14 +121,10 @@ public class LungeNav : MonoBehaviour
 
         if (inPounce == false) {
             RaycastHit frontHit;
-            if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position))) {
-                if (frontHit.collider.gameObject.transform == player) {
-                    //Debug.Log("player available");
-                    if ((lastPounceTime + timeToNextPounce) < Time.time) {
-                        //Debug.Log("pounce!!!");
-                        lastPounceTime = Time.time;
-                        inPounce = true;
-                    }
+            if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position) + 999, playerMask)) {
+                if ((lastPounceTime + timeToNextPounce) < Time.time) {
+                    lastPounceTime = Time.time;
+                    inPounce = true;
                 }
             }
         }

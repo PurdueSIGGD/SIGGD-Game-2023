@@ -31,6 +31,7 @@ public class MobNav : MonoBehaviour
         detectEnemies = LayerMask.NameToLayer("Enemy");
         detectEnemies = ~detectEnemies;
         detectTurrets = LayerMask.NameToLayer("Unit");
+        detectTurrets = ~detectTurrets;
     }
     void FixedUpdate()
     {
