@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 840081028}
-  m_IndirectSpecularColor: {r: 0, g: 0.0851428, b: 0.16914535, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.08514287, b: 0.1691455, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -853,6 +853,62 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3951378992019305434, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951378992019305434, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951378992019305434, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951378992019305434, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951378992019305434, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3951378992019305434, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996068774151119912, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1056946787}
+    - target: {fileID: 4394667766174213024, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1056946787}
+    - target: {fileID: 4564045517046688030, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4564045517046688030, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2131187720}
+    - target: {fileID: 4564045517046688030, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Z_SwitchCurrentUnit
+      objectReference: {fileID: 0}
+    - target: {fileID: 4564045517046688030, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Btn_Unit, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4564045517046688030, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 5571080710664901485, guid: 9106d36992c6c904e9743da561ad73e8, type: 3}
+    - target: {fileID: 4564045517046688030, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5683132004079740496, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -961,6 +1017,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1056946787}
+    - target: {fileID: 8497176395301849808, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 307025735581727929, guid: 8a1942ccb694145d59a32f2620d07058, type: 3}
     - target: {fileID: 9186058902188744639, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
       propertyPath: m_Name
       value: UI_Unit
@@ -2795,7 +2855,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 1
   m_VoxelSize: 0.5
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: dd7280a2a2abac841945bd6dc94def4c, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: d59693cc249d6024d9ef4544dff83e91, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &519708696
 Transform:
@@ -6395,13 +6455,10 @@ MonoBehaviour:
   PLACE_MIN: 1
   PLACE_MAX: 10
   MAX_PLACE_ANGLE: 360
-  playerTransform: {fileID: 0}
+  playerPosition: {x: 0, y: 0, z: 0}
   physicalMask:
     serializedVersion: 2
     m_Bits: 8
-  upgradeMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &1056946790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13002,6 +13059,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f76e6d4d2a5d544fa2f66909ac464e3, type: 3}
+--- !u!114 &2131187720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3996068774151119912, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+  m_PrefabInstance: {fileID: 133914947}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f432d14d4f3b5419a7b19bd309f945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4580101246051990969
 PrefabInstance:
   m_ObjectHideFlags: 0

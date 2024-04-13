@@ -8,7 +8,7 @@ public abstract class UnitMovement : MonoBehaviour
     public GameObject Player { get; private set; }
 
     // Movement speed modifier
-    protected abstract float moveSpeedModifier { get; }
+    protected float moveSpeedModifier { get; }
 
     // Get player reference
     public void Awake()
@@ -23,7 +23,7 @@ public abstract class UnitMovement : MonoBehaviour
     }
 
     // Ranges for detecting enemies and attacking enemies
-    protected abstract int detectRange { get; }
-    protected abstract int attackRange { get; }
+    protected int detectRange { get; }
+    protected int attackRange { get; }
 
 }

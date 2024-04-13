@@ -5,17 +5,14 @@ using UnityEngine;
 public abstract class Unit : MonoBehaviour
 {
     // Properties
-    protected abstract float ManaCost { get; }
-    protected abstract float SellCost { get; }
-    protected abstract float Health { get; }
+    protected float ManaCost { get; }
+    protected float SellCost { get; }
+    protected float Health { get; }
+
 
     // Behaviors
-    protected UnitAttack attack;
     protected UnitMovement movement;
 
     // Health Object
     protected UnitHealthPoints healthPoints;
-
-    // Define function
-    protected abstract void DefineBehavior();
 }

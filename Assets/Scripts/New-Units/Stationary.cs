@@ -5,11 +5,8 @@ using UnityEngine.UIElements;
 
 public class Stationary : UnitMovement
 {
-    protected override int attackRange => throw new System.NotImplementedException();
-    protected override int detectRange => throw new System.NotImplementedException();
 
     // Move speed modifier
-    protected override float moveSpeedModifier => throw new System.NotImplementedException();
 
     // -- Serialize Fields --
     [Header("Boundries")]

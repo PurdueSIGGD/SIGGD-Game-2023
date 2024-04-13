@@ -50,6 +50,10 @@ public class MobNav : MonoBehaviour
             targetLoc = player.position;
         }
         NavMesh.CalculatePath(this_enemy.position, targetLoc, NavMesh.AllAreas, path);
+        if (path.corners.Length <= 1)
+        {
+            return;
+        }
         Vector3 targetDir = path.corners[1] - this_enemy.position;
         targetDir = targetDir.normalized;
         if (fleeing) {
