@@ -65,9 +65,10 @@ public class LungeNav : MonoBehaviour
             Vector3 newDir = Vector3.RotateTowards(this_enemy.forward, targetDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
             this_enemy.rotation = Quaternion.LookRotation(newDir);
 
-            // for (int i = 0; i < path.corners.Length - 1; i++) {
-            //     Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
-            // }
+            Debug.Log("hi");
+            for (int i = 0; i < path.corners.Length - 1; i++) {
+                Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
+            }
 
 
             if (distToPlayer < minRangeDist) {
@@ -79,7 +80,7 @@ public class LungeNav : MonoBehaviour
                 move_offset = this_enemy.forward * -1;
             }
             if (path.corners.Length > 2 || distToPlayer > (tempRange + 0.5f)) {
-                //Debug.Log("Hello");
+                Debug.Log("Hello");
                 move_offset = this_enemy.forward;
             }
 
