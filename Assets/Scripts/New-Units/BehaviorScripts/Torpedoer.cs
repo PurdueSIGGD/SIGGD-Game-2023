@@ -8,7 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
 
-public class Torpedoer : Attack
+public class Torpedoer : Unit
 {
     // -- Serialize Field --
     [SerializeField]
@@ -26,18 +26,27 @@ public class Torpedoer : Attack
     [SerializeField]
     GameObject bulletPoint;
 
+    [SerializeField]
+    float Range;
+
+    [SerializeField]
+    GameObject projectilePrefab;
+
     // -- Private Fields --
     GameObject target;
     bool canFire;
+    Rigidbody RB;
+    BoxCollider collider;
+
 
     // -- Override Methods --
 
     void Start()
     {
         // Fetch Components of Unit
-        this.RB = GetComponent<Rigidbody>();
-        this.Collider = GetComponent<BoxCollider>();
-        this.Movement = GetComponent<Stationary>();
+        RB = GetComponent<Rigidbody>();
+        collider = GetComponent<BoxCollider>();
+        this.movement = GetComponent<Stationary>();
         canFire = true;
     }
 

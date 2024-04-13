@@ -143,9 +143,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 7493171445776079697}
   this_enemy: {fileID: 2686616731740071022}
-  maxDistance: 0
   speed: 5
   turnSpeed: 2.5
   rayDist: 5
   flankDist: 2
   seeThroughWalls: 1
+  testMask:
+    serializedVersion: 2
+    m_Bits: 0

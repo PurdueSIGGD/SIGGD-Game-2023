@@ -2723,7 +2723,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 1
   m_VoxelSize: 0.5
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: dd7280a2a2abac841945bd6dc94def4c, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: dc324ce36c8d13c48843c5629e5f87f6, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &519708696
 Transform:
@@ -5753,6 +5753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539b3d932128f7046baec3bb84050add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLight: {fileID: 0}
   blankModel: {fileID: 1255556186}
   mainCamera: {fileID: 1136153981}
   TURRET_CAP: 3
@@ -5921,6 +5922,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maximumHealth: 100
+  currentHealth: 0
+  healDEV: 0
+  damageDEV: 0
 --- !u!1001 &1058428882
 PrefabInstance:
   m_ObjectHideFlags: 0
