@@ -11,12 +11,8 @@ public class RoamerMovement : UnitMovement
         within the attack range. If farther than mandatory return range will
         return no matter what
     */
-    protected override int detectRange => 10;
-    protected override int attackRange => 3;
-    private int mandatoryReturnRange = 15;
 
     // Move speed modifier
-    protected override float moveSpeedModifier => 10;
 
     [HideInInspector]
     public UnitAttack attack;
