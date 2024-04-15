@@ -237,5 +237,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19175df22fea1469d793554ff5b2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightContained: 20
-  healthContained: 20
+  lightContained: 10
+  healthContained: 10
