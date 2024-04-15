@@ -20,7 +20,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Wall
   - 
   - RegionLayer
   - 
@@ -33,7 +33,7 @@ TagManager:
   - Enemy
   - Unit
   - 
-  - 
+  - Projectile
   - 
   - 
   - 

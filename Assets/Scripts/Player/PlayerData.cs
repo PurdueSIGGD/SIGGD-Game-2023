@@ -1,33 +1,32 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace DefaultNamespace
+public class PlayerData : MonoBehaviour
 {
-    //[CreateAssetMenu(menuName = "Player Run Data")] //Create a new playerData object by right clicking in the Project Menu then Create/Player/Player Data and drag onto the player
-    public class PlayerData : MonoBehaviour
-    {
-        [Header("Run")]
-        [SerializeField] private float maxMoveSpeed; //Target speed
-        [SerializeField] private float acceleration; //Time to accelerate from 0 to the runMaxSpeed.
-        [SerializeField] private float accelAmount; //The actual force (multiplied with speedDiff) applied to the player.
-        [SerializeField] private float deceleration; //Time to decelerate from runMaxSpeed to 0.
-        [SerializeField] private float decelAmount; //Actual force (multiplied with speedDiff) applied to the player .
-        [SerializeField] private float lerpAmount;
-        [SerializeField] private float turnSpeed;
+    [Header("Movement Values")]
+    [SerializeField] private float targetSpeed; //Target speed
+    [SerializeField] private float accelDuration; //Time to accelerate from 0 to the runMaxSpeed.
+    [SerializeField] private float accelAmount; //The actual force (multiplied with speedDiff) applied to the player.
+    [SerializeField] private float decelDuration; //Time to decelerate from runMaxSpeed to 0.
+    [SerializeField] private float decelAmount; //Actual force (multiplied with speedDiff) applied to the player .
+    [SerializeField] private float lerpAmount;
+    [SerializeField] private float turnSpeed;
 
-
-        public float GetMaxSpeed()
+    // Getters
+            public float GetMaxSpeed()
         {
-            return this.maxMoveSpeed;
+            return this.targetSpeed;
         }
 
         public float GetAcceleration()
         {
-            return this.acceleration;
+            return this.accelDuration;
         }
 
         public float GetDeceleration()
         {
-            return this.deceleration;
+            return this.decelDuration;
         }
         
         public float GetAccelAmount()
@@ -50,12 +49,10 @@ namespace DefaultNamespace
         private void OnValidate()
         {
             //Calculate are run accelDuration & decelDuration forces using formula: amount = ((1 / Time.fixedDeltaTime) * accelDuration) / runMaxSpeed
-            float runAccelAmount = (acceleration) / maxMoveSpeed;
-            float runDecelAmount = (deceleration) / maxMoveSpeed;
+            float runAccelAmount = (accelDuration) / targetSpeed;
+            float runDecelAmount = (decelDuration) / targetSpeed;
 
-            float runAcceleration = Mathf.Clamp(acceleration, 0.01f, maxMoveSpeed);
-            float runDeceleration = Mathf.Clamp(deceleration, 0.01f, maxMoveSpeed);
+            float runAcceleration = Mathf.Clamp(accelDuration, 0.01f, targetSpeed);
+            float runDeceleration = Mathf.Clamp(decelDuration, 0.01f, targetSpeed);
         }
-        
-    }
 }
