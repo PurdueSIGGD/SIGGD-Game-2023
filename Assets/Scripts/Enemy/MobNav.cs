@@ -23,6 +23,7 @@ public class MobNav : MonoBehaviour
     [SerializeField] private bool attacksTurrets;
     [SerializeField] private float turretDetectionRad;
     private LayerMask detectTurrets;
+    public Vector3 move_offset { get; private set; }
 
     void Start() {
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
@@ -64,7 +65,7 @@ public class MobNav : MonoBehaviour
         Vector3 newDir = Vector3.RotateTowards(this_enemy.forward, targetDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
 
 
-        Vector3 move_offset = Vector3.zero;
+        move_offset = Vector3.zero;
 
         this_enemy.rotation = Quaternion.LookRotation(newDir);
         move_offset = this_enemy.forward;
