@@ -32,6 +32,7 @@ public class LungeNav : MonoBehaviour
     private float lastChangeTime;
     private float timeToNextChange;
     private float tempRange;
+    private LayerMask playerMask;
 
 
 
@@ -45,6 +46,8 @@ public class LungeNav : MonoBehaviour
         timeToNextPounce = Random.Range(minPounceTime, maxPounceTime);
         lastPounceTime = 0f;
         tempRange = minRangeDist;
+        playerMask = LayerMask.NameToLayer("Player");
+        playerMask = ~playerMask;
     }
     void FixedUpdate()
     {
@@ -62,9 +65,10 @@ public class LungeNav : MonoBehaviour
             Vector3 newDir = Vector3.RotateTowards(this_enemy.forward, targetDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
             this_enemy.rotation = Quaternion.LookRotation(newDir);
 
-            // for (int i = 0; i < path.corners.Length - 1; i++) {
-            //     Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
-            // }
+            Debug.Log("hi");
+            for (int i = 0; i < path.corners.Length - 1; i++) {
+                Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
+            }
 
 
             if (distToPlayer < minRangeDist) {
@@ -76,7 +80,7 @@ public class LungeNav : MonoBehaviour
                 move_offset = this_enemy.forward * -1;
             }
             if (path.corners.Length > 2 || distToPlayer > (tempRange + 0.5f)) {
-                //Debug.Log("Hello");
+                Debug.Log("Hello");
                 move_offset = this_enemy.forward;
             }
 
@@ -118,14 +122,10 @@ public class LungeNav : MonoBehaviour
 
         if (inPounce == false) {
             RaycastHit frontHit;
-            if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position))) {
-                if (frontHit.collider.gameObject.transform == player) {
-                    //Debug.Log("player available");
-                    if ((lastPounceTime + timeToNextPounce) < Time.time) {
-                        //Debug.Log("pounce!!!");
-                        lastPounceTime = Time.time;
-                        inPounce = true;
-                    }
+            if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position) + 999, playerMask)) {
+                if ((lastPounceTime + timeToNextPounce) < Time.time) {
+                    lastPounceTime = Time.time;
+                    inPounce = true;
                 }
             }
         }
