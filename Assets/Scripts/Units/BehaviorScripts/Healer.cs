@@ -5,6 +5,7 @@ using UnityEngine;
 public class Healer : Unit
 {
     // -- Serialize Fields --
+    [Header("Unit Fields")]
 
     [SerializeField]
     float healAmount;
@@ -15,9 +16,11 @@ public class Healer : Unit
     // -- Private Fields --
     private GameObject player;
 
-    // -- Override Methods --
-    void Start()
+    // -- Behavior --
+    protected override void Start()
     {
+        base.Start();
+
         // Initialize fields
         player = GameObject.FindGameObjectWithTag("Player");
 

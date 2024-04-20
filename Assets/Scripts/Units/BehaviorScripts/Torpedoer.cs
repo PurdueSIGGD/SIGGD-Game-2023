@@ -4,48 +4,57 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-//[RequireComponent(typeof(Stationary))]
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Collider))]
-
 public class Torpedoer : Unit
 {
     // -- Serialize Field --
-    [SerializeField]
-    LayerMask mask;
+
+    [Header("Unit Fields")]
 
     [SerializeField]
     float fireCooldown;
 
     [SerializeField]
-    float height;
-
-    [SerializeField]
-    float duration;
+    float range;
 
     [SerializeField]
     GameObject bulletPoint;
 
-    [SerializeField]
-    float Range;
+
+    [Header("Projectile Fields")]
 
     [SerializeField]
-    GameObject projectilePrefab;
+    GameObject projPrefab;
+
+    [SerializeField]
+    float projDuration;
+
+    [SerializeField]
+    float projHeight;
+
+    [SerializeField]
+    float projDamage;
+
+    [SerializeField]
+    float projDmgRadius;
+
+    [SerializeField]
+    float projKnockback;
+
+    [SerializeField]
+    LayerMask projMask;
 
     // -- Private Fields --
     GameObject target;
     bool canFire;
-    Rigidbody RB;
-    BoxCollider collider;
 
 
-    // -- Override Methods --
+    // -- Behavior --
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         // Fetch Components of Unit
-        RB = GetComponent<Rigidbody>();
-        collider = GetComponent<BoxCollider>();
         this.movement = GetComponent<Stationary>();
         canFire = true;
     }
@@ -72,7 +81,7 @@ public class Torpedoer : Unit
     public GameObject FindTarget()
     {
         // Get objects in range
-        Collider[] hits = Physics.OverlapSphere(this.transform.position, Range, mask);
+        Collider[] hits = Physics.OverlapSphere(this.transform.position, range, projMask);
 
         // Find closest target
         float minDist = float.PositiveInfinity;
@@ -95,10 +104,14 @@ public class Torpedoer : Unit
     {
         if (target != null)
         {
-            var bullet = Instantiate(projectilePrefab, bulletPoint.transform.position, Quaternion.identity).GetComponent<Torpedo>();
-            bullet.SetTarget(target);
-            bullet.SetDuration(duration);
-            bullet.SetHeight(height);
+            var bullet = Instantiate(projPrefab, bulletPoint.transform.position, Quaternion.identity).GetComponent<Torpedo>();
+            bullet.target = target;
+            bullet.duration = projDuration;
+            bullet.height = projHeight;
+            bullet.damage = projDamage;
+            bullet.dmgRadius = projDmgRadius;
+            bullet.knockback = projKnockback;
+            bullet.enemyMask = projMask;
 
             StartCoroutine(Cooldown());
         }

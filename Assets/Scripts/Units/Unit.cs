@@ -7,12 +7,14 @@ public abstract class Unit : MonoBehaviour
     // Properties
     protected float ManaCost { get; }
     protected float SellCost { get; }
-    protected float Health { get; }
+    protected HealthPoints Health { get; }
 
 
     // Behaviors
     protected UnitMovement movement;
 
-    // Health Object
-    protected UnitHealthPoints healthPoints;
+    protected virtual void Start()
+    {
+        this.movement = GetComponent<UnitMovement>();
+    }
 }
