@@ -161,18 +161,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 5014159842628626497}
   this_enemy: {fileID: 1453218837188479805}
-  speed: 2
-  turnSpeed: 4
-  flankSpeed: 4
-  retreatSpeed: 4
-  minRangeDist: 4
+  speed: 4
+  turnSpeed: 10
+  flankSpeed: 2
+  retreatSpeed: 3
+  minRangeDist: 7
   rangeVariability: 4
-  pounceSpeed: 20
-  pounceDecay: 4
-  maxPounceTime: 6
-  minPounceTime: 4
-  minChange: 4
-  maxChange: 4
+  pounceSpeed: 7
+  pounceDecay: 3.9
+  maxPounceTime: 12
+  minPounceTime: 6
+  minChange: 5
+  maxChange: 10
 --- !u!1 &7744819030321038155
 GameObject:
   m_ObjectHideFlags: 0
