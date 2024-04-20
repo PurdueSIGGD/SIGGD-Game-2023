@@ -13,9 +13,9 @@ public class EnemySpawner : MonoBehaviour
     public float maxDistance = 10.0f;
 
     float constantSpawnTimer = 0.0f;
-    float constantSpawnInterval = 7.0f; //seconds
+    [SerializeField] public float constantSpawnInterval = 7.0f; //seconds
     float waveSpawnTimer = 0.0f;
-    float waveSpawnInterval = 60.0f; //seconds
+    [SerializeField] public float waveSpawnInterval = 60.0f; //seconds
 
     int enemyCount = 0;
 

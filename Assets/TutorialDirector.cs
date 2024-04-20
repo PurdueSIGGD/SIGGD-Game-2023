@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using UnityEditorInternal;
 
 public class TutorialDirector : MonoBehaviour
 {
+
+    [SerializeField] public bool fastSequencesDEV;
 
     [SerializeField] public Movement playerMovement;
     [SerializeField] public LightResource playerLightResource;
@@ -210,20 +209,23 @@ public class TutorialDirector : MonoBehaviour
         //ASP exo-suit start up
         playerMovement.enabled = false;
         fadeScreenImage.enabled = true;
-        yield return new WaitForSeconds(1f);
-        yield return messanger.showMessage("", startUpSender, false);
-        yield return new WaitForSeconds(0.75f);
-        yield return messanger.showMessage(startUpMessage1, startUpSender, false);
-        yield return new WaitForSeconds(2f);
-        yield return messanger.showMessage(startUpMessage2, startUpSender, false);
-        yield return new WaitForSeconds(0.25f);
-        //yield return messanger.showMessage(startUpMessage3, startUpSender, false);
-        //yield return new WaitForSeconds(1f);
-        yield return messanger.showMessage("", startUpSender, false);
-        yield return new WaitForSeconds(0.5f);
-        yield return messanger.showMessage(startUpMessage4, startUpSender, false);
-        yield return new WaitForSeconds(1.5f);
-        messanger.hideMessage();
+        if (!fastSequencesDEV)
+        {
+            yield return new WaitForSeconds(1f);
+            yield return messanger.showMessage("", startUpSender, false);
+            yield return new WaitForSeconds(0.75f);
+            yield return messanger.showMessage(startUpMessage1, startUpSender, false);
+            yield return new WaitForSeconds(2f);
+            yield return messanger.showMessage(startUpMessage2, startUpSender, false);
+            yield return new WaitForSeconds(0.25f);
+            //yield return messanger.showMessage(startUpMessage3, startUpSender, false);
+            //yield return new WaitForSeconds(1f);
+            yield return messanger.showMessage("", startUpSender, false);
+            yield return new WaitForSeconds(0.5f);
+            yield return messanger.showMessage(startUpMessage4, startUpSender, false);
+            yield return new WaitForSeconds(1.5f);
+            messanger.hideMessage();
+        }
 
         //Fade into scene
         yield return new WaitForSeconds(0.5f);
@@ -237,21 +239,24 @@ public class TutorialDirector : MonoBehaviour
         fadeScreenImage.enabled = false;
 
         //Robinson tutorial intro
-        yield return new WaitForSeconds(1f);
-        yield return messanger.showMessage("", tutorialSender, false);
-        yield return new WaitForSeconds(0.75f);
-        yield return messanger.showMessage(tutorialMessage1, tutorialSender, false);
-        yield return new WaitForSeconds(2f);
-        yield return messanger.showMessage(tutorialMessage2, tutorialSender, false);
-        yield return new WaitForSeconds(1.25f);
-        yield return messanger.showMessage(tutorialMessage3, tutorialSender, false);
-        yield return new WaitForSeconds(1.25f);
-        yield return messanger.showMessage(tutorialMessage4, tutorialSender, false);
-        yield return new WaitForSeconds(1.5f);
-        yield return messanger.showMessage(tutorialMessage5, tutorialSender, false);
-        yield return new WaitForSeconds(1.25f);
-        yield return messanger.showMessage(tutorialMessage6, tutorialSender, false);
-        yield return new WaitForSeconds(1.25f);
+        if (!fastSequencesDEV)
+        {
+            yield return new WaitForSeconds(1f);
+            yield return messanger.showMessage("", tutorialSender, false);
+            yield return new WaitForSeconds(0.75f);
+            yield return messanger.showMessage(tutorialMessage1, tutorialSender, false);
+            yield return new WaitForSeconds(2f);
+            yield return messanger.showMessage(tutorialMessage2, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(tutorialMessage3, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(tutorialMessage4, tutorialSender, false);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(tutorialMessage5, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(tutorialMessage6, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+        }
         playerMovement.enabled = true;
         interactPrompt.showPrompt(movementTutorialPrompt);
         yield return new WaitForSeconds(0.75f);
@@ -272,15 +277,18 @@ public class TutorialDirector : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
         interactPrompt.hidePrompt();
-        yield return new WaitForSeconds(0.5f);
-        yield return messanger.showMessage("", tutorialSender, false);
-        yield return new WaitForSeconds(0.75f);
-        yield return messanger.showMessage(movementTutorialMessage1, tutorialSender, false);
-        yield return new WaitForSeconds(1.25f);
-        yield return messanger.showMessage(movementTutorialMessage2, tutorialSender, false);
-        yield return new WaitForSeconds(1.25f);
-        yield return messanger.showMessage(movementTutorialMessage3, tutorialSender, false);
-        yield return new WaitForSeconds(1.25f);
+        if (!fastSequencesDEV)
+        {
+            yield return new WaitForSeconds(0.5f);
+            yield return messanger.showMessage("", tutorialSender, false);
+            yield return new WaitForSeconds(0.75f);
+            yield return messanger.showMessage(movementTutorialMessage1, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(movementTutorialMessage2, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(movementTutorialMessage3, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+        }
         objectivePrompt.showPrompt(lightSearchObjective);
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
@@ -299,10 +307,13 @@ public class TutorialDirector : MonoBehaviour
         lightSearchState = sequenceState.RUNNING;
 
         objectivePrompt.hidePrompt();
-        yield return messanger.showMessage("", tutorialSender, false);
-        yield return new WaitForSeconds(0.75f);
-        yield return messanger.showMessage(lightSearchMessage1, tutorialSender, false);
-        yield return new WaitForSeconds(0.75f);
+        if (!fastSequencesDEV)
+        {
+            yield return messanger.showMessage("", tutorialSender, false);
+            yield return new WaitForSeconds(0.75f);
+            yield return messanger.showMessage(lightSearchMessage1, tutorialSender, false);
+            yield return new WaitForSeconds(0.75f);
+        }
         objectivePrompt.showPrompt(lightPickupObjective);
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
@@ -319,16 +330,19 @@ public class TutorialDirector : MonoBehaviour
         lightPickupState = sequenceState.RUNNING;
 
         objectivePrompt.hidePrompt();
-        yield return messanger.showMessage("", tutorialSender, false);
-        yield return new WaitForSeconds(0.75f);
-        yield return messanger.showMessage(lightPickupMessage1, tutorialSender, false);
-        yield return new WaitForSeconds(1.25f);
-        yield return messanger.showMessage(lightPickupMessage2, tutorialSender, false);
-        yield return new WaitForSeconds(1.25f);
-        yield return messanger.showMessage(lightPickupMessage3, tutorialSender, false);
-        yield return new WaitForSeconds(1.25f);
-        yield return messanger.showMessage(lightPickupMessage4, tutorialSender, false);
-        yield return new WaitForSeconds(0.75f);
+        if (!fastSequencesDEV)
+        {
+            yield return messanger.showMessage("", tutorialSender, false);
+            yield return new WaitForSeconds(0.75f);
+            yield return messanger.showMessage(lightPickupMessage1, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(lightPickupMessage2, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(lightPickupMessage3, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(lightPickupMessage4, tutorialSender, false);
+            yield return new WaitForSeconds(0.75f);
+        }
         objectivePrompt.showPrompt(lightHuntObjective);
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
@@ -336,6 +350,10 @@ public class TutorialDirector : MonoBehaviour
         lightPickupState = sequenceState.COMPLETE;
         lightHuntState = sequenceState.READY;
     }
+
+
+
+
 }
 
 

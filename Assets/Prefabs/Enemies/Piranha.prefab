@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6756880969025080411}
   - component: {fileID: 8130563863247800727}
   - component: {fileID: 8911020290426855943}
+  - component: {fileID: 94373824575605140}
   m_Layer: 23
   m_Name: Piranha
   m_TagString: Enemy
@@ -153,6 +154,22 @@ MonoBehaviour:
   fleeing: 0
   attacksTurrets: 0
   turretDetectionRad: 0
+--- !u!114 &94373824575605140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932233891626951811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ed21e89c4a87748a8649cec45ebc99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maximumHealth: 60
+  currentHealth: 60
+  healDEV: 0
+  damageDEV: 0
 --- !u!1 &7194394080034200774
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8221208505737866538}
   - component: {fileID: 5014159842628626497}
   - component: {fileID: 4971300748787690425}
+  - component: {fileID: 477018923115918863}
   m_Layer: 23
   m_Name: Barracuda
   m_TagString: Enemy
@@ -138,20 +139,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 3929528446240850241}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6782107aacfbaec499ca321cbe5414eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 31ed21e89c4a87748a8649cec45ebc99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maximumHealth: 100
+  currentHealth: 0
+  healDEV: 0
+  damageDEV: 0
+--- !u!114 &477018923115918863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3929528446240850241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed600898d77a66442ac76521f2aeaa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 5014159842628626497}
   this_enemy: {fileID: 1453218837188479805}
-  speed: 6
-  turnSpeed: 7
-  flankSpeed: 2
-  retreatSpeed: 1
-  minRangeDist: 6
-  rangeVariability: 3
-  pounceSpeed: 6
-  pounceDecay: 2
-  maxPounceTime: 8
-  minPounceTime: 5
-  minChange: 2
-  maxChange: 6
+  speed: 2
+  turnSpeed: 4
+  flankSpeed: 4
+  retreatSpeed: 4
+  minRangeDist: 4
+  rangeVariability: 4
+  pounceSpeed: 20
+  pounceDecay: 4
+  maxPounceTime: 6
+  minPounceTime: 4
+  minChange: 4
+  maxChange: 4
