@@ -37,8 +37,10 @@ public class EnemyAttackController : MonoBehaviour
 			currentCooldownStart = Time.time;
 
 			foreach (GameObject obj in overlapping) {
+				Debug.Log("obj");
 				HealthPoints healhscript = obj.GetComponent<HealthPoints>();
 				if (healhscript) {
+					Debug.Log("damage");
 					healhscript.damageEntity(DAMAGE);
 				}
 			}

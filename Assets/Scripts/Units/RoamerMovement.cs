@@ -5,13 +5,12 @@ using UnityEngine.AI;
 
 public class RoamerMovement : UnitMovement
 {
-    // Define attack, detect, mandatory return ranges
     /*
         Roamer will attack any enemy in the detect range and deal damage when 
         within the attack range. If farther than mandatory return range will
         return no matter what
     */
-
+    
     // Move speed modifier
 
     [HideInInspector]
@@ -25,6 +24,11 @@ public class RoamerMovement : UnitMovement
 
     private void Start()
     {
+        // Define attack, detect, mandatory return ranges
+        assignRanges(5, 10);
+        // Move speed modifier
+        moveSpeedModifier = 10;
+
         NavMesh = gameObject.GetComponent<NavMeshAgent>();
         NavMesh.speed = moveSpeedModifier;
     }
@@ -52,7 +56,6 @@ public class RoamerMovement : UnitMovement
         {
             if (Target == null)
             {
-                //Debug.Log("Finding Target...");
                 Target = FindTarget();
                 if (Target != null)
                 {

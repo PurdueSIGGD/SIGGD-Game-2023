@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChargePylon : Interactable
@@ -16,6 +15,7 @@ public class ChargePylon : Interactable
     private float previousTickTime;
 
     private bool isCharging;
+    private bool chargeDone;
 
     // Start is called before the first frame update
     public override void Start()
@@ -40,19 +40,47 @@ public class ChargePylon : Interactable
 
         if (currentCharge >= 100f && isCharging)
         {
-            isCharging = false;
-            playerLevel.levelUp();
-            objectivePrompt.hidePrompt();
+            markPylonDone();
+            
+            // Mark the objective as completed and save the game once automatically
+            SavePylon();
         }
 
         base.Update();
     }
 
+    private void SavePylon()
+    {
+        var saveManager = FindObjectOfType<SaveManager>();
+        saveManager.SetSpawnPoint(transform.position + Vector3.right * 10f);
+        saveManager.MarkObjective(gameObject, SaveManager.ObjectiveType.Pylon);
+    }
+
+    public void markPylonDone()
+    {
+        isCharging = false;
+        playerLevel.levelUp();
+        objectivePrompt.hidePrompt();
+        chargeDone = true;
+        isUsed = false;
+        promptMessage = "E | Save Game";
+        Debug.Log("Done");
+    }
 
     public override void interact()
     {
-        isCharging = true;
-        previousTickTime = Time.time;
+        if (!chargeDone)
+        {
+            isCharging = true;
+            previousTickTime = Time.time;
+        }
+        else
+        {
+            // Save the game
+            isUsed = false;
+            SavePylon();
+        }
+
         base.interact();
     }
 }
