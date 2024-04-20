@@ -12,7 +12,7 @@ public class RoamerTest : Unit
     protected void DefineBehavior()
     {
         //attack = gameObject.AddComponent<RoamerTestAttack>();
-        movement = gameObject.AddComponent<RoamerMovement>();
+        //movement = gameObject.AddComponent<RoamerMovement>();
         //healthPoints = gameObject.AddComponent<UnitHealthPoints>();
         //healthPoints.SetMaxHealth(Health);
     }

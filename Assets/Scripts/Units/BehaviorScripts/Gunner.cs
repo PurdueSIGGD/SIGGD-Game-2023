@@ -45,10 +45,12 @@ public class Gunner : Unit
     protected override void Start()
     {
         base.Start();
+        canFire = true;
     }
 
     void Update()
     {
+        Debug.Log("HI");
         Aim();
         if (target != null && canFire)
         {
@@ -90,9 +92,9 @@ public class Gunner : Unit
 
     public void Fire()
     {
+        Debug.Log("FIREED!");
         if (target != null)
         {
-            Debug.Log("FIREED!");
             var bullet = Instantiate(projPrefab, bulletPoint.transform.position, Quaternion.identity).GetComponent<Bullet>();
             bullet.target = target.transform.position;
             bullet.duration = projDuration;

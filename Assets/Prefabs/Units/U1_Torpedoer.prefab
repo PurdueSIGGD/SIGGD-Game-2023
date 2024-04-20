@@ -397,17 +397,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireCooldown: 3
-  range: 0
+  range: 5
   bulletPoint: {fileID: 2380061005313734036}
   projMask:
     serializedVersion: 2
     m_Bits: 8388608
   projPrefab: {fileID: 354620882897817373, guid: 48da7eaf123b5ab4daff052db4a04456, type: 3}
-  projDuration: 0
-  projHeight: 0
-  projDamage: 0
-  projDmgRadius: 0
-  projKnockback: 0
+  projDuration: 1.3
+  projHeight: 2.25
+  projDamage: 10
+  projDmgRadius: 5
+  projKnockback: 100
 --- !u!114 &-5096365367377326977
 MonoBehaviour:
   m_ObjectHideFlags: 0

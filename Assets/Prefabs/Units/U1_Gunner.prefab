@@ -278,10 +278,10 @@ MonoBehaviour:
   projMask:
     serializedVersion: 2
     m_Bits: 8388608
-  projPrefab: {fileID: 0}
-  projDuration: 0
-  projDamage: 0
-  projSpeed: 0
+  projPrefab: {fileID: 354620882897817373, guid: 006840180321b504f8f76f1ba47bf693, type: 3}
+  projDuration: 5
+  projDamage: 10
+  projSpeed: 10
 --- !u!114 &-8015260997049726275
 MonoBehaviour:
   m_ObjectHideFlags: 0
