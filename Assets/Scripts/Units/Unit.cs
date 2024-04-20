@@ -5,16 +5,17 @@ using UnityEngine;
 public abstract class Unit : MonoBehaviour
 {
     // Properties
-    protected float ManaCost { get; }
-    protected float SellCost { get; }
-    protected HealthPoints Health { get; }
+    public float ManaCost { get; protected set;  }
+    public float SellCost { get; protected set; }
+    public HealthPoints Health { get; protected set; }
 
 
     // Behaviors
-    protected UnitMovement movement;
+    public UnitMovement Movement { get; protected set; }
 
     protected virtual void Start()
     {
-        this.movement = GetComponent<UnitMovement>();
+        this.Movement = GetComponent<UnitMovement>();
+        this.Health = GetComponent<HealthPoints>();
     }
 }

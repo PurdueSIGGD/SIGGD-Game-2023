@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 931306401340375360}
   - component: {fileID: 6830266518243429679}
   - component: {fileID: -2399620918392556478}
+  - component: {fileID: -5096365367377326977}
   m_Layer: 0
   m_Name: U1_Torpedoer
   m_TagString: Untagged
@@ -398,15 +399,31 @@ MonoBehaviour:
   fireCooldown: 3
   range: 0
   bulletPoint: {fileID: 2380061005313734036}
+  projMask:
+    serializedVersion: 2
+    m_Bits: 8388608
   projPrefab: {fileID: 354620882897817373, guid: 48da7eaf123b5ab4daff052db4a04456, type: 3}
   projDuration: 0
   projHeight: 0
   projDamage: 0
   projDmgRadius: 0
   projKnockback: 0
-  projMask:
-    serializedVersion: 2
-    m_Bits: 0
+--- !u!114 &-5096365367377326977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122521397291697729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ed21e89c4a87748a8649cec45ebc99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maximumHealth: 1000
+  currentHealth: 0
+  healDEV: 0
+  damageDEV: 0
 --- !u!1 &2380061005313734036
 GameObject:
   m_ObjectHideFlags: 0

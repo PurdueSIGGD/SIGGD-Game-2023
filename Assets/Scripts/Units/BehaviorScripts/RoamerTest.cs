@@ -13,8 +13,8 @@ public class RoamerTest : Unit
     {
         //attack = gameObject.AddComponent<RoamerTestAttack>();
         movement = gameObject.AddComponent<RoamerMovement>();
-        healthPoints = gameObject.AddComponent<UnitHealthPoints>();
-        healthPoints.SetMaxHealth(Health);
+        //healthPoints = gameObject.AddComponent<UnitHealthPoints>();
+        //healthPoints.SetMaxHealth(Health);
     }
 
     // Awake

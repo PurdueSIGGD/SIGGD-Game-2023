@@ -92,6 +92,5 @@ public class Torpedo : MonoBehaviour
     {
         float y = -4 * Mathf.Pow((time - 0.5f), 2) + 1;
         return scale * y;
-    }
-
+    }   
 }
