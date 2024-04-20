@@ -8,12 +8,23 @@ public abstract class UnitMovement : MonoBehaviour
     public GameObject Player { get; private set; }
 
     // Movement speed modifier
-    protected float moveSpeedModifier { get; }
+    protected float moveSpeedModifier;
+
+    // Ranges for detecting enemies and attacking enemies
+    protected int detectRange { get; private set; }
+    protected int attackRange { get; private set; }
 
     // Get player reference
     public void Awake()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    // Assign ranges
+    public void assignRanges (int attackR, int detectR)
+    {
+        attackRange = attackR;
+        detectRange = detectR;
     }
 
     // Get difference to player
@@ -22,8 +33,5 @@ public abstract class UnitMovement : MonoBehaviour
         return Vector3.Distance(Player.transform.position, transform.position);
     }
 
-    // Ranges for detecting enemies and attacking enemies
-    protected int detectRange { get; }
-    protected int attackRange { get; }
 
 }
