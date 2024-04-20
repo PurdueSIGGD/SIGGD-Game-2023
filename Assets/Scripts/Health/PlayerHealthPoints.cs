@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealthPoints : HealthPoints
 {
@@ -11,9 +12,8 @@ public class PlayerHealthPoints : HealthPoints
     [SerializeField] private LightResource lightResource;
     public bool blackout;
     private bool flickerActive;
-
-
-
+    private bool dying;
+    private float deadCount = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -23,9 +23,6 @@ public class PlayerHealthPoints : HealthPoints
         blackout = false;
         flickerActive = false;
     }
-
-
-
 
     /// <summary>
     /// Deals the specified amount of damage to the entity owning this health script.
@@ -41,14 +38,17 @@ public class PlayerHealthPoints : HealthPoints
     {
         if (blackout)
         {
-            Destroy(gameObject);
+            if (!dying)
+            {
+                dying = true;
+                // Start fading out entire screen
+            }
+            
             return 0f;
         }
 
         return base.damageEntity(damage);
     }
-
-
 
     /// <summary>
     /// Destroys the entity owning this health script.
@@ -105,6 +105,17 @@ public class PlayerHealthPoints : HealthPoints
         if (!flickerActive && currentHealth <= 30)
         {
             StartCoroutine(flicker());
+        }
+
+        // Fade out the screen
+        if (dying)
+        {
+            deadCount -= Time.deltaTime;
+            if (deadCount <= 0)
+            {
+                // Move to the death screen
+                //SceneManager.LoadScene();
+            }
         }
 
         if (healDEV > 0)
