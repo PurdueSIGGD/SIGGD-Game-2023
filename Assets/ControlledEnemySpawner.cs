@@ -80,17 +80,19 @@ public class ControlledEnemySpawner : MonoBehaviour
     {
         Debug.Log("spawnEnemyWavePassive run");
         canPassiveWaveSpawn = false;
+        enemyType spawnType;
+        if (Random.Range(0, 100) < passiveWaveSpawnBarracudaChance)
+        {
+            spawnType = enemyType.BARRACUDA;
+        }
+        else
+        {
+            spawnType = enemyType.PIRANHA;
+        }
         for (int i = 0; i < passiveWaveSpawnCount; i++)
         {
             //int baracudaSpawn = Random.Range(0, 100);
-            if (Random.Range(0, 100) < passiveWaveSpawnBarracudaChance)
-            {
-                spawnEnemyRandom(enemyType.BARRACUDA);
-            }
-            else
-            {
-                spawnEnemyRandom(enemyType.PIRANHA);
-            }
+            spawnEnemyRandom(spawnType);
             yield return new WaitForSeconds(0.5f);
         }
         StartCoroutine(passiveWaveSpawnCooldownTimer());
