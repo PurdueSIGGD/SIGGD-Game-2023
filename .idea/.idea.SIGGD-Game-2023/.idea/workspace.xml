@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8130f3f5-8d47-4562-8804-e908289867a6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SIGGD-Game-2023/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SIGGD-Game-2023/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main Level.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main Level.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/World/ChargePylon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/World/ChargePylon.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Saving/SaveManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Saving/SaveManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +108,7 @@
       <workItem from="1713561831975" duration="3890000" />
       <workItem from="1713572651209" duration="3006000" />
       <workItem from="1713577006050" duration="11255000" />
-      <workItem from="1713632992058" duration="4669000" />
+      <workItem from="1713632992058" duration="4980000" />
     </task>
     <servers />
   </component>

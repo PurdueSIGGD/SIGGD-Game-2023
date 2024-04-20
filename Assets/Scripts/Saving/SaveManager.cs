@@ -14,6 +14,10 @@ internal class SaveManagerEditor : Editor {
         if (GUILayout.Button("Print Current Save String"))
         {
             var currentSaveString = saveManager.GetSaveString();
+            if (string.IsNullOrEmpty(currentSaveString))
+            {
+                currentSaveString = "Save String is empty";
+            }
             Debug.Log(currentSaveString);
         }
         
@@ -143,7 +147,9 @@ public class SaveManager : MonoBehaviour
         // Move the player to the spawn point if it is set
         if (saveData.spawnPoint != Vector3.zero)
         {
-            FindObjectOfType<Movement>().gameObject.transform.position = saveData.spawnPoint;
+            var spawnPoint = saveData.spawnPoint;
+            spawnPoint.y = 1;
+            FindObjectOfType<Movement>().gameObject.transform.position = spawnPoint;
         }
 
         for (var i = 0; i < saveData.playerLevel; i++) {
