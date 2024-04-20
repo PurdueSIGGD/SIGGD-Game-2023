@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.VirtualTexturing;
+using UnityEngine.UIElements;
 
 public class MobNav : MonoBehaviour
 {
@@ -49,15 +50,20 @@ public class MobNav : MonoBehaviour
             }
         }
         if (targetLoc == Vector3.zero) {
+            Debug.Log("targeting player");
             targetLoc = player.position;
         }
         NavMesh.CalculatePath(this_enemy.position, targetLoc, NavMesh.AllAreas, path);
+        for (int i = 1; i < path.corners.Length; i++) {
+            Debug.DrawLine(path.corners[i-1], path.corners[i], Color.green);
+        }
         if (path.corners.Length <= 1)
         {
             return;
         }
         Vector3 targetDir = path.corners[1] - this_enemy.position;
         targetDir = targetDir.normalized;
+        //Debug.Log(path.corners[0]);
         if (fleeing) {
             targetDir = targetDir * -1;
             targetDir.y = targetDir.y * -1;

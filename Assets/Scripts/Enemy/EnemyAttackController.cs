@@ -24,14 +24,13 @@ public class EnemyAttackController : MonoBehaviour
 
 	void FixedUpdate()
 	{
-
-		if (onCooldown == false) {
+		if (onCooldown == false && overlapping.Count > 0) {
 			onCooldown = true;
 			currentCooldownStart = Time.time;
-
+			List<GameObject> toRemove = new List<GameObject>();
 			foreach (GameObject obj in overlapping) {
 				if (obj == null) {
-					overlapping.Remove(obj);
+					toRemove.Add(obj);
 				}
 				else {
 					HealthPoints healhscript = obj.GetComponent<HealthPoints>();
@@ -40,6 +39,10 @@ public class EnemyAttackController : MonoBehaviour
 					}
 				}
 			}
+			foreach (GameObject obj in toRemove) {
+				overlapping.Remove(obj);
+			}
+			toRemove = null;
 		}
 
 		if (onCooldown && (Time.time - currentCooldownStart > cooldownTime)) {

@@ -80,7 +80,6 @@ public class LungeNav : MonoBehaviour
                 move_offset = this_enemy.forward * -1;
             }
             if (path.corners.Length > 2 || distToPlayer > (tempRange + 0.5f)) {
-                Debug.Log("Hello");
                 move_offset = this_enemy.forward;
             }
 
@@ -122,7 +121,7 @@ public class LungeNav : MonoBehaviour
 
         if (inPounce == false) {
             RaycastHit frontHit;
-            if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position) + 999, playerMask)) {
+            if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position) + 9, playerMask)) {
                 if ((lastPounceTime + timeToNextPounce) < Time.time) {
                     lastPounceTime = Time.time;
                     inPounce = true;
