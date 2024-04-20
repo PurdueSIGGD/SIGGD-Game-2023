@@ -20,10 +20,10 @@ public class SirenNav : MonoBehaviour
     [SerializeField] private float rangeVariability;
     [SerializeField] private float minChange;
     [SerializeField] private float maxChange;
-    private float lastChangeTime;
     private float timeToNextChange;
     private float tempRange;
     private int flankDir;
+    public bool canMove;
 
 
     // Start is called before the first frame update
@@ -31,9 +31,10 @@ public class SirenNav : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         path = new NavMeshPath();
-        lastChangeTime = 0f;
         flankDir = -1;
         tempRange = maxRangeDist;
+        canMove = true;
+        StartCoroutine(swapDirs());
     }
 
     void FixedUpdate() {
@@ -55,19 +56,9 @@ public class SirenNav : MonoBehaviour
             move_offset += this_enemy.forward * -1f;
         }
 
-        if ((lastChangeTime + timeToNextChange) < Time.time) {
-            lastChangeTime = Time.time;
-            timeToNextChange = Random.Range(minChange, maxChange);
-            tempRange = maxRangeDist - Random.Range(0f, rangeVariability);
-            if (Random.value > 0.5f) {
-                flankDir = -1;
-            }
-            else {
-                flankDir = 1;
-            }
-        }
+        
 
-        if (move_offset != Vector3.zero) {
+        if (move_offset != Vector3.zero && canMove) {
             agent.Move(move_offset * speed * Time.fixedDeltaTime);
         }
     }
@@ -76,5 +67,19 @@ public class SirenNav : MonoBehaviour
     void Update()
     {
         
+    }
+
+    IEnumerator swapDirs() {
+        while (true) {
+            timeToNextChange = Random.Range(minChange, maxChange);
+            tempRange = maxRangeDist - Random.Range(0f, rangeVariability);
+            if (Random.value > 0.5f) {
+                flankDir = -1;
+            }
+            else {
+                flankDir = 1;
+            }
+            yield return new WaitForSeconds(timeToNextChange);
+        }
     }
 }
