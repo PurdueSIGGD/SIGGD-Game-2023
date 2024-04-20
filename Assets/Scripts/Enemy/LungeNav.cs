@@ -61,24 +61,24 @@ public class LungeNav : MonoBehaviour
             //Vector3 playerPos = player.position;
             NavMesh.CalculatePath(this_enemy.position, player.position, NavMesh.AllAreas, path);
             Vector3 targetDir = path.corners[1] - this_enemy.position;
-            Debug.DrawLine(path.corners[1], this_enemy.position, Color.magenta);
+            //Debug.DrawLine(path.corners[1], this_enemy.position, Color.magenta);
             Vector3 newDir = Vector3.RotateTowards(this_enemy.forward, targetDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
             this_enemy.rotation = Quaternion.LookRotation(newDir);
 
 
             if (distToPlayer < minRangeDist) {
-                Debug.Log("back faster");
+                //Debug.Log("back faster");
                 move_offset = this_enemy.forward * -1 * retreatSpeed;
             }
             else if (distToPlayer < tempRange - 0.5f) {
-                Debug.Log("back back");
+                //Debug.Log("back back");
                 move_offset = this_enemy.forward * -0.5f * retreatSpeed;
             }
             if (path.corners.Length > 2 || distToPlayer > tempRange) {
-                Debug.Log("forward");
+                //Debug.Log("forward");
                 move_offset = this_enemy.forward * speed;
             }
-            Debug.DrawLine(this_enemy.position, this_enemy.position + (move_offset * 5), Color.green);
+            //Debug.DrawLine(this_enemy.position, this_enemy.position + (move_offset * 5), Color.green);
             
 
             if (path.corners.Length <= 2) {
@@ -125,7 +125,7 @@ public class LungeNav : MonoBehaviour
             }
         }
         
-        Debug.DrawLine(this_enemy.position, this_enemy.position + (move_offset * 5), Color.red);
+        //Debug.DrawLine(this_enemy.position, this_enemy.position + (move_offset * 5), Color.red);
         if (move_offset != Vector3.zero) {
             agent.Move(move_offset * speed * Time.fixedDeltaTime);
         }
