@@ -114,7 +114,7 @@ public class PlayerHealthPoints : HealthPoints
             if (deadCount <= 0)
             {
                 // Move to the death screen
-                //SceneManager.LoadScene();
+                SceneManager.LoadScene("DeathScene");
             }
         }
 
