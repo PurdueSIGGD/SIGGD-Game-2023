@@ -28,7 +28,6 @@ public class JellyChildGrowUp : MonoBehaviour
     }
 
     private void SpawnAdult() {
-        Debug.Log("new adult!");
         Instantiate(matureJelly, this.gameObject.transform.position, Quaternion.identity);
     }
 }

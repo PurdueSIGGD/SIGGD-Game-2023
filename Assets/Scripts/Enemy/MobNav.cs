@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.VirtualTexturing;
+using UnityEngine.UIElements;
 
 public class MobNav : MonoBehaviour
 {
@@ -41,23 +42,33 @@ public class MobNav : MonoBehaviour
             float theminDisnas = turretDetectionRad + 1;
             Collider[] potentialTargets = Physics.OverlapSphere(this_enemy.position, turretDetectionRad, detectTurrets);
             foreach (Collider c in potentialTargets) {
-                float tempDsisf = Vector3.Distance(this_enemy.position, c.gameObject.transform.position);
-                if (tempDsisf < theminDisnas) {
-                    targetLoc = c.gameObject.transform.position;
-                    theminDisnas = tempDsisf;
+                if (c.gameObject.layer == ~detectTurrets) {
+                    float tempDsisf = Vector3.Distance(this_enemy.position, c.gameObject.transform.position);
+                    if (tempDsisf < theminDisnas) {
+                        targetLoc = c.gameObject.transform.position;
+                        theminDisnas = tempDsisf;
+                    }
                 }
             }
         }
         if (targetLoc == Vector3.zero) {
+            Debug.Log("targeting player");
             targetLoc = player.position;
         }
+        else {
+            Debug.Log("not targeting player");
+        }
         NavMesh.CalculatePath(this_enemy.position, targetLoc, NavMesh.AllAreas, path);
+        for (int i = 1; i < path.corners.Length; i++) {
+            Debug.DrawLine(path.corners[i-1], path.corners[i], Color.green);
+        }
         if (path.corners.Length <= 1)
         {
             return;
         }
         Vector3 targetDir = path.corners[1] - this_enemy.position;
         targetDir = targetDir.normalized;
+        //Debug.Log(path.corners[0]);
         if (fleeing) {
             targetDir = targetDir * -1;
             targetDir.y = targetDir.y * -1;

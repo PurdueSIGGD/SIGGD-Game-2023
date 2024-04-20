@@ -39,13 +39,13 @@ public class LungeNav : MonoBehaviour
     void Start() {
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         path = new NavMeshPath();
-        boxSize = GetComponent<BoxCollider>().size;
+        boxSize = this_enemy.localScale;
         lastChangeTime = 0f;
         flankDir = -1;
         timeToNextChange = Random.Range(minChange, maxChange);
         timeToNextPounce = Random.Range(minPounceTime, maxPounceTime);
         lastPounceTime = 0f;
-        tempRange = minRangeDist;
+        tempRange = minRangeDist + 0.5f;
         playerMask = LayerMask.NameToLayer("Player");
         playerMask = ~playerMask;
     }
@@ -57,35 +57,29 @@ public class LungeNav : MonoBehaviour
 
         if (inPounce == false) {
 
+            move_offset = Vector3.zero;
+            //Vector3 playerPos = player.position;
             NavMesh.CalculatePath(this_enemy.position, player.position, NavMesh.AllAreas, path);
-            //agent.SetDestination(player.position);
-            //Vector3 targetDir = player.position - this_enemy.position;
             Vector3 targetDir = path.corners[1] - this_enemy.position;
-            //Debug.Log(path.corners[1]);
+            Debug.DrawLine(path.corners[1], this_enemy.position, Color.magenta);
             Vector3 newDir = Vector3.RotateTowards(this_enemy.forward, targetDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
             this_enemy.rotation = Quaternion.LookRotation(newDir);
 
-            Debug.Log("hi");
-            for (int i = 0; i < path.corners.Length - 1; i++) {
-                Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
-            }
-
 
             if (distToPlayer < minRangeDist) {
-                //Debug.Log("back back");
+                Debug.Log("back faster");
                 move_offset = this_enemy.forward * -1 * retreatSpeed;
             }
-            else if (distToPlayer < (tempRange - 0.5f)) {
-                //Debug.Log("back faster");
-                move_offset = this_enemy.forward * -1;
+            else if (distToPlayer < tempRange - 0.5f) {
+                Debug.Log("back back");
+                move_offset = this_enemy.forward * -0.5f * retreatSpeed;
             }
-            if (path.corners.Length > 2 || distToPlayer > (tempRange + 0.5f)) {
-                Debug.Log("Hello");
-                move_offset = this_enemy.forward;
+            if (path.corners.Length > 2 || distToPlayer > tempRange) {
+                Debug.Log("forward");
+                move_offset = this_enemy.forward * speed;
             }
-
+            Debug.DrawLine(this_enemy.position, this_enemy.position + (move_offset * 5), Color.green);
             
-            move_offset = move_offset.normalized;
 
             if (path.corners.Length <= 2) {
                 move_offset += this_enemy.right * flankDir * flankSpeed;
@@ -98,7 +92,7 @@ public class LungeNav : MonoBehaviour
             if ((lastChangeTime + timeToNextChange) < Time.time) {
                 lastChangeTime = Time.time;
                 timeToNextChange = Random.Range(minChange, maxChange);
-                tempRange = minRangeDist + Random.Range(0f, rangeVariability);
+                tempRange = minRangeDist + 0.5f + Random.Range(0f, rangeVariability);
                 if (Random.value > 0.5f) {
                     flankDir = -1;
                 }
@@ -111,7 +105,7 @@ public class LungeNav : MonoBehaviour
 
         if (inPounce) {
             tempSpeed = pounceSpeed * Mathf.Exp(-1 * pounceDecay * (Time.time - lastPounceTime));
-            move_offset += this_enemy.forward * tempSpeed;
+            move_offset = this_enemy.forward * tempSpeed;
             if (tempSpeed < 0.5f) {
                 //End pounce
                 inPounce = false;
@@ -122,16 +116,16 @@ public class LungeNav : MonoBehaviour
 
         if (inPounce == false) {
             RaycastHit frontHit;
-            if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position) + 999, playerMask)) {
+            move_offset = move_offset.normalized;
+            if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position) + 9, playerMask)) {
                 if ((lastPounceTime + timeToNextPounce) < Time.time) {
                     lastPounceTime = Time.time;
                     inPounce = true;
                 }
             }
         }
-        //move_offset = move_offset.normalized;
         
-        Debug.DrawLine(this_enemy.position, (this_enemy.position + 2 * move_offset), Color.blue);
+        Debug.DrawLine(this_enemy.position, this_enemy.position + (move_offset * 5), Color.red);
         if (move_offset != Vector3.zero) {
             agent.Move(move_offset * speed * Time.fixedDeltaTime);
         }
