@@ -14,6 +14,11 @@ public class SirenAttack : MonoBehaviour
     [SerializeField] private float minAttackRange;
     [SerializeField] private GameObject bulletHand;
     [SerializeField] private float bulletSpeed;
+    [SerializeField] private float bulletLifeTime;
+    [SerializeField] private float bulletReelTime;
+    [SerializeField] private float bulletDAMAGE;
+    [SerializeField] private float pullStrength;
+    [SerializeField] private float bulletGrabTime;
     private float lastAttackTime;
     private float nextAttackTime;
     [SerializeField] private float attackPause;
@@ -47,7 +52,8 @@ public class SirenAttack : MonoBehaviour
 
     private void ThrowHands() {
         Debug.Log("throwing hands");
-        GameObject hand = Instantiate(bulletHand, this_enemy.position + this_enemy.forward, this_enemy.rotation);
+        GameObject hand = Instantiate(bulletHand, this_enemy.position + (this_enemy.forward * 1.6f) + this_enemy.up, this_enemy.rotation);
+        hand.GetComponent<HandMechanics>().SetFields(this.gameObject.transform, bulletDAMAGE, bulletLifeTime, bulletReelTime, pullStrength, bulletGrabTime);
         hand.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, bulletSpeed));
     }
     IEnumerator attack() {

@@ -18,11 +18,13 @@ public class Movement : MonoBehaviour
     private Vector2 inputDirection;
     private Rigidbody RB;
     private PlayerData data;
+    public bool sirend;
 
     // Start is called before the first frame update
     void Start()
     {
         // Get Components
+        sirend = false;
         RB = GetComponent<Rigidbody>();
         data = GetComponent<PlayerData>();
     }
@@ -57,9 +59,14 @@ public class Movement : MonoBehaviour
         Vector3 cameraForward = new Vector3(mainCamera.transform.forward.x, 0, mainCamera.transform.forward.z);
         Vector3 rotated = Quaternion.AngleAxis(angle, Vector3.up) * cameraForward;
 
-        // Calcualte Target Velocity
-        Vector3 targetVelocity = (rotated * inputVector.magnitude).normalized * data.GetMaxSpeed();
-        RB.velocity = targetVelocity;
+        if (sirend == false) {
+            // Calcualte Target Velocity
+            Vector3 targetVelocity = (rotated * inputVector.magnitude).normalized * data.GetMaxSpeed();
+            RB.velocity = targetVelocity;
+        }
+        else {
+            RB.velocity = Vector3.zero;
+        }
     }
 
     // Physics Update

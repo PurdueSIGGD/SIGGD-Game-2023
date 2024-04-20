@@ -42,7 +42,6 @@ public class EnemyAttackController : MonoBehaviour
 			foreach (GameObject obj in toRemove) {
 				overlapping.Remove(obj);
 			}
-			toRemove = null;
 		}
 
 		if (onCooldown && (Time.time - currentCooldownStart > cooldownTime)) {
