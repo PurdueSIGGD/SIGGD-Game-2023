@@ -4,14 +4,16 @@ using UnityEngine;
 
 public abstract class Unit : MonoBehaviour
 {
+    // Fields
+    [Header("Unit - Base")]
+    public float manaCost;
+    public float sellCost;
+    public UnitType type;
+    public int level;
+
     // Properties
-    public float ManaCost { get; protected set;  }
-    public float SellCost { get; protected set; }
-    public HealthPoints Health { get; protected set; }
-
-
-    // Behaviors
     public UnitMovement Movement { get; protected set; }
+    public HealthPoints Health { get; protected set; }
 
     protected virtual void Start()
     {
