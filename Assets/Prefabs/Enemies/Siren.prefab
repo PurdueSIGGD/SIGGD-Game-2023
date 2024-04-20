@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownTime: 0.1
-  DAMAGE: 100
+  DAMAGE: 0
 --- !u!1 &5497866761594921072
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
   speed: 3
   turnSpeed: 9
   flankSpeed: 1
-  maxRangeDist: 0
-  rangeVariability: 0
+  maxRangeDist: 17
+  rangeVariability: 3
   minChange: 5
   maxChange: 10

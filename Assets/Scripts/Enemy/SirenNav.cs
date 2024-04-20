@@ -47,14 +47,17 @@ public class SirenNav : MonoBehaviour
         this_enemy.rotation = Quaternion.LookRotation(newDir);  
 
         if (path.corners.Length > 2 || distToPlayer > (tempRange + 0.5f)) {
-            move_offset = this_enemy.forward;
+            Debug.Log("far from player");
+            move_offset += this_enemy.forward * 1.5f;
         }
 
         if (path.corners.Length <= 2) {
             move_offset += this_enemy.right * flankDir * flankSpeed;
+            move_offset += this_enemy.forward * -1f;
         }
 
         if ((lastChangeTime + timeToNextChange) < Time.time) {
+            Debug.Log("flank dir changed");
             lastChangeTime = Time.time;
             timeToNextChange = Random.Range(minChange, maxChange);
             tempRange = maxRangeDist - Random.Range(0f, rangeVariability);
