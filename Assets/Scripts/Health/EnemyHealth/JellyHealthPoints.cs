@@ -14,9 +14,7 @@ public class JellyHealthPoints : HealthPoints
     private GameObject[] children; 
     private float angleDiff;
 
-    //for debug purposes
-    // [SerializeField] private int countTime = 1000;
-    // private int count = 0;
+
     private bool beingKilled = false;
 
     public void Update() {
@@ -34,7 +32,6 @@ public class JellyHealthPoints : HealthPoints
         if (!beingKilled)
         {
             beingKilled = true;
-            Debug.Log("kill jelly");
             spawnJellies();
             this.gameObject.GetComponent<MeshRenderer>().enabled = false;
             spriteRenderer.SetActive(false);
@@ -54,6 +51,7 @@ public class JellyHealthPoints : HealthPoints
             Quaternion randQuat = Quaternion.Euler(0, (randDir + (angleDiff * i)), 0);
             children[i] = Instantiate(jellyChild, this.gameObject.transform.position, randQuat);
             children[i].GetComponent<MobNav>().enabled = false;
+            Debug.Log("set invul");
             StartCoroutine(moveToTarget(children[i], Time.time));
         }
 
@@ -69,9 +67,6 @@ public class JellyHealthPoints : HealthPoints
             if (jellyCh == null) {
                 yield return null;
             }
-            if (jellyCh.GetComponent<ChildJellyHealthPoints>().inDeath == true) {
-                yield return null;
-            }
             currTime = Time.time - startTime;
             currSpeed = Mathf.Pow((currTime - spreadTime), 2);
             currSpeed *= speedCoeff;
@@ -81,7 +76,10 @@ public class JellyHealthPoints : HealthPoints
 
             yield return new WaitForFixedUpdate();
         }
-        jellyCh.GetComponent<MobNav>().enabled = true;
+        if (jellyCh != null) {
+            jellyCh.GetComponent<MobNav>().enabled = true;
+            jellyCh.GetComponent<ChildJellyHealthPoints>().invulnerable = false;
+        }
         yield return null;
     }
 

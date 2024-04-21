@@ -90,12 +90,12 @@ public class DirectionalSprite : MonoBehaviour
         {
             rot = -correctedRot;
             scaleY = -scaleY;
-            Debug.Log("Over");
+            //Debug.Log("Over");
         }
         else
         {
             rot = -correctedRot;
-            Debug.Log("Under");
+            //Debug.Log("Under");
         }
 
         // Set plane rotation

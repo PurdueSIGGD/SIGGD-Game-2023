@@ -9,15 +9,21 @@ public class ChildJellyHealthPoints : HealthPoints
     [SerializeField] private float spriteFadeTime;
     [SerializeField] private GameObject spritePlane;
     [SerializeField] private Material deathMaterial;
-    public bool inDeath = false;
     private float startTime;
 
+
+    public override void Start()
+    {
+        this.invulnerable = true;
+        this.currentHealth = this.maximumHealth;
+    }
     public override void kill() {
-        inDeath = true;
+        Debug.Log("kill children");
         this.gameObject.GetComponent<MobNav>().enabled = false;
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
         StartCoroutine(fadeSprite());
     }
+
 
     IEnumerator fadeSprite() {
         startTime = Time.time;
