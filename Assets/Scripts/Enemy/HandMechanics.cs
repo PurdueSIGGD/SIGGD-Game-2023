@@ -68,6 +68,7 @@ public class HandMechanics : MonoBehaviour
         Movement playerMove = curPlayer.GetComponent<Movement>();
         if (playerMove.sirend == false) {
             playerMove.sirend = true;
+            curPlayer.GetComponent<Rigidbody>().velocity = Vector3.zero;
             yield return new WaitForSeconds(grabTime);
             IEnumerator pull = pullPlayer();
             StartCoroutine(pull);

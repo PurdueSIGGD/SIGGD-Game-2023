@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7137504399669868711}
   - component: {fileID: 2779566577873924925}
-  - component: {fileID: 7541518781343141869}
+  - component: {fileID: 8522357932471085825}
   m_Layer: 0
   m_Name: attackChild
   m_TagString: Untagged
@@ -28,8 +28,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2516750537075814574}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -53,8 +53,8 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 1.1
-  m_Center: {x: 0, y: 0, z: 1.37}
---- !u!114 &7541518781343141869
+  m_Center: {x: 0, y: 0, z: 0.95}
+--- !u!114 &8522357932471085825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,11 +63,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5441205953695733153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79c384f41714b134ea5205bb93807879, type: 3}
+  m_Script: {fileID: 11500000, guid: eaa4948e7c5f0d346ac9acaf91bd2b44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 0.1
-  DAMAGE: 0
+  finalMultiplier: 1.5
+  initialWait: 0.2
+  intermediateWait: 0.6
+  recoverTime: 1
+  cooldownTime: 4
+  DAMAGE: 30
 --- !u!1 &5497866761594921072
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,6 +87,7 @@ GameObject:
   - component: {fileID: 3945748145084633607}
   - component: {fileID: 7335979738849046808}
   - component: {fileID: 720638813228383749}
+  - component: {fileID: 2561037324609688674}
   m_Layer: 23
   m_Name: Siren
   m_TagString: Enemy
@@ -101,7 +106,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.090801, y: 2.23, z: -17.479755}
   m_LocalScale: {x: 1.75, y: 1.75, z: 1.75}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7137504399669868711}
   m_Father: {fileID: 0}
@@ -232,7 +237,33 @@ MonoBehaviour:
   speed: 3
   turnSpeed: 9
   flankSpeed: 1
-  maxRangeDist: 17
-  rangeVariability: 3
+  maxRangeDist: 18
+  rangeVariability: 4
   minChange: 5
   maxChange: 10
+  canMove: 0
+--- !u!114 &2561037324609688674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5497866761594921072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5ba93f0a4c5af043b0cbb02b7923c27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  this_enemy: {fileID: 2516750537075814574}
+  minAttackDelay: 5
+  attackRandomTimeBuffer: 3
+  maxAttackRange: 20
+  minAttackRange: 8
+  bulletHand: {fileID: 6578298527351434429, guid: 817a93dbf61502f46a7258c10cd17007, type: 3}
+  bulletSpeed: 2000
+  bulletLifeTime: 2
+  bulletReelTime: 3
+  bulletDAMAGE: 10
+  pullStrength: 10
+  bulletGrabTime: 0.3
+  attackPause: 1

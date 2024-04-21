@@ -28,21 +28,7 @@ public class EnemyAttackController : MonoBehaviour
 		if (onCooldown == false && overlapping.Count > 0) {
 			onCooldown = true;
 			currentCooldownStart = Time.time;
-			List<GameObject> toRemove = new List<GameObject>();
-			foreach (GameObject obj in overlapping) {
-				if (obj == null) {
-					toRemove.Add(obj);
-				}
-				else {
-					HealthPoints healhscript = obj.GetComponent<HealthPoints>();
-					if (healhscript) {
-						Damg(healhscript, DAMAGE);
-					}
-				}
-			}
-			foreach (GameObject obj in toRemove) {
-				overlapping.Remove(obj);
-			}
+			Damg(DAMAGE);
 		}
 
 		if (onCooldown && (Time.time - currentCooldownStart > cooldownTime)) {
@@ -51,8 +37,22 @@ public class EnemyAttackController : MonoBehaviour
 
 	}
 
-	public virtual void Damg(HealthPoints point, float dmg) {
-		point.damageEntity(dmg);
+	public virtual void Damg(float dmgs) {
+		List<GameObject> toRemove = new List<GameObject>();
+		foreach (GameObject obj in overlapping) {
+			if (obj == null) {
+				toRemove.Add(obj);
+			}
+			else {
+				HealthPoints healhscript = obj.GetComponent<HealthPoints>();
+				if (healhscript) {
+					healhscript.damageEntity(dmgs);
+				}
+			}
+		}
+		foreach (GameObject obj in toRemove) {
+			overlapping.Remove(obj);
+		}
 	}
 
 	private void OnTriggerEnter(Collider col) {
