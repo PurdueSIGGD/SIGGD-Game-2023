@@ -16,6 +16,8 @@ public class DirectionalSprite : MonoBehaviour
     public Vector3 lookDirectionOverride = Vector3.zero;
     [Header("How many degrees off from \"up\" the image is (likely 90 or -90)")]
     [SerializeField] private float rotationOffset;
+    private bool breakIt;
+    [SerializeField] private bool calculateOnce;
     // Saved values for later
     private float initialYScale;
     private MobNav mobNav;
@@ -53,6 +55,9 @@ public class DirectionalSprite : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (breakIt == true) {
+            return;
+        }
         var transform1 = transform;
         var position = transform1.position;
         var cameraForward = cameraTransform.forward;
@@ -98,6 +103,9 @@ public class DirectionalSprite : MonoBehaviour
         
         var localScale = spritePlane.localScale;
         spritePlane.localScale = new Vector3(localScale.x, scaleY, localScale.z);
+        if (calculateOnce) {
+            breakIt = true;
+        }
     }
 
     // Returns the direction this object should be facing

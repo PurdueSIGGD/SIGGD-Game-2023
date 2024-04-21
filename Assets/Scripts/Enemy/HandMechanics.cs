@@ -15,6 +15,7 @@ public class HandMechanics : MonoBehaviour
     private float birthTime;
     private bool attached;
     private GameObject curPlayer;
+    [SerializeField] private GameObject spriteRenderer;
 
 
     public void SetFields(Transform parent, float dmg, float life, float reel, float pull, float grab) {
@@ -63,6 +64,7 @@ public class HandMechanics : MonoBehaviour
 
     IEnumerator waitAndDie() {
         this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        spriteRenderer.SetActive(false);
         this.gameObject.GetComponent<SphereCollider>().enabled = false;
         curPlayer.GetComponent<HealthPoints>().damageEntity(DAMAGE);
         Movement playerMove = curPlayer.GetComponent<Movement>();
