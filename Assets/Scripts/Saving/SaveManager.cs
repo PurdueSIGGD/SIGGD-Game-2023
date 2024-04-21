@@ -34,7 +34,7 @@ internal class SaveManagerEditor : Editor {
         
         if (GUILayout.Button("Clear Save Data"))
         {
-            saveManager.ClearSave();
+            SaveManager.ClearSave();
         }
     }
 }
@@ -174,7 +174,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    public void ClearSave()
+    public static void ClearSave()
     {
         PlayerPrefs.DeleteKey(SaveGameKey);
     }
