@@ -234,7 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 3945748145084633607}
   this_enemy: {fileID: 2516750537075814574}
-  speed: 3
+  speed: 5
   turnSpeed: 9
   flankSpeed: 1
   maxRangeDist: 18
