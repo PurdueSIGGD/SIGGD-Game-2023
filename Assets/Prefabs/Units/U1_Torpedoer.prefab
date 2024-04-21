@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6128121149938994303}
   - component: {fileID: 3483838987920333362}
   - component: {fileID: 9191195364422097670}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: p_levitate_fr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2760836161276101089}
   - component: {fileID: 5633434379340408256}
   - component: {fileID: 2582143995623843482}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: p_booster_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,9 +298,9 @@ GameObject:
   - component: {fileID: 6830266518243429679}
   - component: {fileID: -2399620918392556478}
   - component: {fileID: -5096365367377326977}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: U1_Torpedoer
-  m_TagString: Untagged
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -396,6 +396,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba53a3fcc661f54980c88e9fdd13e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manaCost: 0
+  sellCost: 0
+  type: 0
+  level: 0
   fireCooldown: 3
   range: 5
   bulletPoint: {fileID: 2380061005313734036}
@@ -433,7 +437,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7991430093800549317}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: BulletPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -466,7 +470,7 @@ GameObject:
   - component: {fileID: 6751413521732279817}
   - component: {fileID: 3607887585063168117}
   - component: {fileID: 8822328262264754909}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: p_booster_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,7 +553,7 @@ GameObject:
   - component: {fileID: 6902552113057480312}
   - component: {fileID: 3547753929049945693}
   - component: {fileID: 6526666852810264504}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: p_body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,7 +636,7 @@ GameObject:
   - component: {fileID: 2106468159993560156}
   - component: {fileID: 7060401450497898846}
   - component: {fileID: 7818969993739021016}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: p_levitate_br
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -713,7 +717,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8394383516551022398}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Shoot Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -746,7 +750,7 @@ GameObject:
   - component: {fileID: 6882026435876386385}
   - component: {fileID: 8230975353589527094}
   - component: {fileID: 2924796495301508439}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: p_barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -827,7 +831,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 347122141422429944}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -870,7 +874,7 @@ GameObject:
   - component: {fileID: 1188430412196039060}
   - component: {fileID: 8553780157762899421}
   - component: {fileID: 3393528688717249474}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: p_levitate_fl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -953,7 +957,7 @@ GameObject:
   - component: {fileID: 1807796547451802724}
   - component: {fileID: 6931518962774222113}
   - component: {fileID: 3970651621936385519}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: p_levitate_bl
   m_TagString: Untagged
   m_Icon: {fileID: 0}

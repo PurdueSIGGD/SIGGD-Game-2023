@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 241651421101600615}
   - component: {fileID: 2304264470393562962}
   - component: {fileID: 2122388715153848340}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,9 +123,9 @@ GameObject:
   - component: {fileID: 3626989306885195234}
   - component: {fileID: 7858634275146849821}
   - component: {fileID: -8015260997049726275}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: U1_Gunner
-  m_TagString: Untagged
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -271,6 +271,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f23088ee90e0e3d40b8c11e99ab435d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manaCost: 0
+  sellCost: 0
+  type: 0
+  level: 0
   fireCooldown: 0.5
   range: 10
   burstCount: 1
@@ -307,7 +311,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8583060371236846665}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: BulletPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
