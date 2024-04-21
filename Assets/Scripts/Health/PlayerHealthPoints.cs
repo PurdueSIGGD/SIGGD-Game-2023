@@ -42,6 +42,7 @@ public class PlayerHealthPoints : HealthPoints
             {
                 dying = true;
                 // Start fading out entire screen
+                StartCoroutine(waitForDeath());
             }
             
             return 0f;
@@ -107,17 +108,6 @@ public class PlayerHealthPoints : HealthPoints
             StartCoroutine(flicker());
         }
 
-        // Fade out the screen
-        if (dying)
-        {
-            deadCount -= Time.deltaTime;
-            if (deadCount <= 0)
-            {
-                // Move to the death screen
-                SceneManager.LoadScene("DeathScene");
-            }
-        }
-
         if (healDEV > 0)
         {
             healEntity(healDEV);
@@ -131,14 +121,20 @@ public class PlayerHealthPoints : HealthPoints
         }
     }
 
-    /*private IEnumerator wait(float seconds)
+    private IEnumerator waitForDeath()
     {
-        Debug.Log("hehe");
-        yield return new WaitForSeconds(seconds);
-        Debug.Log("hoho");
-    }*/
+        var deathTime = 2f;
+        var fader = FindObjectOfType<Fader>();
+        if (fader == null)
+        {
+            Debug.LogError("You need to drag the fader prefab into the scene");
+        }
+        fader.FadeOut(Color.red, deathTime);
+        yield return new WaitForSeconds(deathTime);
+        SceneManager.LoadScene("DeathScene");
+    }
 
-    public IEnumerator flickerOut()
+    private IEnumerator flickerOut()
     {
         float baseLightIntensity = playerLight.intensity;
         playerLight.intensity = baseLightIntensity * 0.1f;
