@@ -8,5 +8,11 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/WhiteboxIsometricCamera1.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Main Level.unity
+    guid: 76c3d5699eb317f4d8d858ecc1a56aa5
+  - enabled: 1
+    path: Assets/Scenes/DeathScene.unity
+    guid: 46b79647db12f6a4a8bab09a453cd33c
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: e56a6f84b5eddbd49880e2e877b05afb, type: 2}
