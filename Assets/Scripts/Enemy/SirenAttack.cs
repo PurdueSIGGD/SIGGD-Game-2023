@@ -14,9 +14,15 @@ public class SirenAttack : MonoBehaviour
     [SerializeField] private float minAttackRange;
     [SerializeField] private GameObject bulletHand;
     [SerializeField] private float bulletSpeed;
+    [SerializeField] private float bulletLifeTime;
+    [SerializeField] private float bulletReelTime;
+    [SerializeField] private float bulletDAMAGE;
+    [SerializeField] private float pullStrength;
+    [SerializeField] private float bulletGrabTime;
     private float lastAttackTime;
     private float nextAttackTime;
     [SerializeField] private float attackPause;
+    private GameObject curHand;
     private SirenNav thisNav;
 
 
@@ -29,6 +35,12 @@ public class SirenAttack : MonoBehaviour
         lastAttackTime = Time.time;
         nextAttackTime = minAttackDelay + Random.Range(0, attackRandomTimeBuffer);
         thisNav = this.GetComponent<SirenNav>();
+    }
+
+    public void ShutItDown() {
+        if (curHand != null) {
+            curHand.GetComponent<HandMechanics>().ShutItDown();
+        }
     }
 
     // Update is called once per frame
@@ -47,8 +59,9 @@ public class SirenAttack : MonoBehaviour
 
     private void ThrowHands() {
         Debug.Log("throwing hands");
-        GameObject hand = Instantiate(bulletHand, this_enemy.position + this_enemy.forward, this_enemy.rotation);
-        hand.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, bulletSpeed));
+        curHand = Instantiate(bulletHand, this_enemy.position + (this_enemy.forward * 1.6f) + (this_enemy.up * 0.5f), this_enemy.rotation);
+        curHand.GetComponent<HandMechanics>().SetFields(this.gameObject.transform, bulletDAMAGE, bulletLifeTime, bulletReelTime, pullStrength, bulletGrabTime);
+        curHand.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, bulletSpeed));
     }
     IEnumerator attack() {
         thisNav.canMove = false;
