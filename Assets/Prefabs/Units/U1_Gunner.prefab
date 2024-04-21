@@ -120,10 +120,10 @@ GameObject:
   - component: {fileID: 7097862754350361211}
   - component: {fileID: 727375071639867880}
   - component: {fileID: 3491251581931398392}
-  - component: {fileID: 7858634275146849821}
   - component: {fileID: -8015260997049726275}
   - component: {fileID: 4335786500199236161}
   - component: {fileID: 8757531461867564329}
+  - component: {fileID: -5357328320494314655}
   m_Layer: 24
   m_Name: U1_Gunner
   m_TagString: Unit
@@ -246,33 +246,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7858634275146849821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2364344640900868031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f23088ee90e0e3d40b8c11e99ab435d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manaCost: 0
-  sellCost: 0
-  type: 0
-  level: 0
-  fireCooldown: 0.5
-  range: 10
-  burstCount: 1
-  bulletPoint: {fileID: 5599145242775151421}
-  projMask:
-    serializedVersion: 2
-    m_Bits: 8388608
-  projPrefab: {fileID: 354620882897817373, guid: 006840180321b504f8f76f1ba47bf693, type: 3}
-  projDuration: 5
-  projDamage: 10
-  projSpeed: 10
 --- !u!114 &-8015260997049726275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,6 +296,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e2d68519710f042a9e4342a5a476c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-5357328320494314655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2364344640900868031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cdfc8b69ee6ee0429e40a3868968abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaCost: 0
+  sellCost: 0
+  type: 0
+  level: 0
+  fireCooldown: 5
+  range: 10
+  burstCount: 3
+  burstDuration: 0.6
+  bulletPoint: {fileID: 5599145242775151421}
+  projMask:
+    serializedVersion: 2
+    m_Bits: 8388608
+  projPrefab: {fileID: 354620882897817373, guid: 006840180321b504f8f76f1ba47bf693, type: 3}
+  projDuration: 10
+  projDamage: 10
+  projSpeed: 10
 --- !u!1 &5599145242775151421
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gunner1 : Unit
+public class Gunner2 : Unit
 {
     // -- Serialize Field --
 
@@ -13,6 +13,12 @@ public class Gunner1 : Unit
 
     [SerializeField]
     float range;
+
+    [SerializeField]
+    float burstCount;
+
+    [SerializeField]
+    float burstDuration;
 
     [SerializeField]
     GameObject bulletPoint;
@@ -37,20 +43,24 @@ public class Gunner1 : Unit
     // -- Private Variables --
     GameObject target;
     bool canFire;
+    bool isBurst;
+    float burstTime;
 
     // -- Behavior --
     protected override void Start()
     {
         base.Start();
         canFire = true;
+        burstTime = burstDuration / burstCount;
+        isBurst = false;
     }
 
     void Update()
     {
         Aim();
-        if (target != null && canFire)
+        if (target != null && canFire && !isBurst)
         {
-            Fire();
+            StartCoroutine(Burst());
         }
     }
 
@@ -95,7 +105,6 @@ public class Gunner1 : Unit
             bullet.duration = projDuration;
             bullet.damage = projDamage;
             bullet.speed = projSpeed;
-            StartCoroutine(Cooldown());
         }
     }
 
@@ -104,5 +113,17 @@ public class Gunner1 : Unit
         canFire = false;
         yield return new WaitForSeconds(fireCooldown);
         canFire = true;
+    }
+
+    IEnumerator Burst()
+    {
+        isBurst = true;
+        for (int i = 0; i < burstCount; i++)
+        {
+            Fire();
+            yield return new WaitForSeconds(burstTime);
+        }
+        isBurst = false;
+        StartCoroutine(Cooldown());
     }
 }
