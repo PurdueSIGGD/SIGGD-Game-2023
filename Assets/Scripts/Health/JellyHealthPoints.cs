@@ -6,6 +6,7 @@ using UnityEngine;
 public class JellyHealthPoints : HealthPoints
 {
 
+    [SerializeField] private GameObject spriteRenderer;
     [SerializeField] private GameObject jellyChild;
     [SerializeField] private int childCount;
     [SerializeField] private float spreadDist;
@@ -36,6 +37,7 @@ public class JellyHealthPoints : HealthPoints
             Debug.Log("kill jelly");
             spawnJellies();
             this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            spriteRenderer.SetActive(false);
             this.gameObject.GetComponent<BoxCollider>().enabled = false;
             this.gameObject.GetComponent<MobNav>().enabled = false;
             StartCoroutine(die());
