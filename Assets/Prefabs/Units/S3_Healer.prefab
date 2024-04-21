@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9026126879669305254}
   - component: {fileID: -2859459311688634453}
   m_Layer: 24
-  m_Name: S1_Healer
+  m_Name: S3_Healer
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7169976407542728968
 Rigidbody:
@@ -143,6 +143,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2030057096266679849}
     m_Modifications:
+    - target: {fileID: 1918089813142433913, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918089813142433913, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918089813142433913, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2556013608154476887, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1177168572, guid: 84a170c6bef63ba4b9a9fd61bbb11f48, type: 3}
     - target: {fileID: 2815949836696418997, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_Name
       value: UnitSpriteHolder
@@ -150,7 +166,7 @@ PrefabInstance:
     - target: {fileID: 5534250454328293290, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 03e2b04e7e7e673419aa623e16f1700e, type: 2}
+      objectReference: {fileID: 9100000, guid: f982f342e59122d468e7641331aefd68, type: 2}
     - target: {fileID: 8391964224929998665, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

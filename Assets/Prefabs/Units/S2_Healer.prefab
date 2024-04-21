@@ -56,7 +56,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1
+  m_Radius: 0.65
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7169976407542728968
 Rigidbody:
@@ -145,15 +145,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1918089813142433913, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 1918089813142433913, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 1918089813142433913, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.5
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 2556013608154476887, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_Sprite

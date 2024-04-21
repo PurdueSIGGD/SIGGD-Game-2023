@@ -19,6 +19,8 @@ MonoBehaviour:
   - family: 1
     members:
     - {fileID: 5571080710664901485, guid: 7b57cbc138671ec429c794f374921727, type: 3}
+    - {fileID: 5571080710664901485, guid: f3b8ad3c6057f774aafef5c11d22ae03, type: 3}
+    - {fileID: 5571080710664901485, guid: 9bb32022283435d45b71963f5a7a1f63, type: 3}
   - family: 2
     members:
     - {fileID: 2364344640900868031, guid: f414f8ac3987fc24fa056b745434db4e, type: 3}
