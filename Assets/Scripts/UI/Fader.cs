@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Fader : MonoBehaviour
 {
     private Image image;
+    private SoundSystem soundSystem;
     [SerializeField] private float fadeLength;
     [SerializeField] private Color startColor;
     [SerializeField] private Color endColor;
@@ -15,6 +16,7 @@ public class Fader : MonoBehaviour
     private void Start()
     {
         image = GetComponentInChildren<Image>();
+        soundSystem = FindObjectOfType<SoundSystem>();
     }
 
     // Creates a fade effect
@@ -50,5 +52,8 @@ public class Fader : MonoBehaviour
             image.gameObject.SetActive(true);
             image.color = newColor;
         }
+        
+        // This makes the audio fade on scene transitions as well
+        soundSystem.volumeFaderMod = 1 - newColor.a;
     }
 }
