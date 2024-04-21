@@ -295,9 +295,10 @@ GameObject:
   - component: {fileID: 16897420764240092}
   - component: {fileID: 7108375034503580085}
   - component: {fileID: 931306401340375360}
-  - component: {fileID: 6830266518243429679}
   - component: {fileID: -2399620918392556478}
   - component: {fileID: -5096365367377326977}
+  - component: {fileID: -5319064999804677976}
+  - component: {fileID: -5278755861076913442}
   m_Layer: 24
   m_Name: U1_Torpedoer
   m_TagString: Unit
@@ -370,20 +371,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.072253525, y: 0.06442535, z: 0.05415089}
   m_Center: {x: -0.00047441127, y: 0.0005471945, z: -0.049693167}
---- !u!114 &6830266518243429679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122521397291697729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9b7fdd87e5ba314dad282f5f9a938ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  warning: 15
-  selfDestruct: 20
 --- !u!114 &-2399620918392556478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,6 +415,40 @@ MonoBehaviour:
   currentHealth: 0
   healDEV: 0
   damageDEV: 0
+--- !u!114 &-5319064999804677976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122521397291697729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78e2d68519710f042a9e4342a5a476c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!195 &-5278755861076913442
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122521397291697729}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &2380061005313734036
 GameObject:
   m_ObjectHideFlags: 0

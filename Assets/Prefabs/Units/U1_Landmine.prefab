@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 6670873171707676633}
   - component: {fileID: 4165494177006157127}
   - component: {fileID: 2243980670509013941}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: U1_Landmine
-  m_TagString: Untagged
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
