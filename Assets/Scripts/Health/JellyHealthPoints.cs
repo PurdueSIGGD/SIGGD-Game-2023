@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 
 public class JellyHealthPoints : HealthPoints
@@ -63,6 +64,9 @@ public class JellyHealthPoints : HealthPoints
         float currSpeed;
         Vector3 offset;
         while (currTime < spreadTime) {
+            if (jellyCh == null) {
+                yield return null;
+            }
             currTime = Time.time - startTime;
             currSpeed = Mathf.Pow((currTime - spreadTime), 2);
             currSpeed *= speedCoeff;
@@ -79,7 +83,9 @@ public class JellyHealthPoints : HealthPoints
     IEnumerator die() {
         yield return new WaitForSeconds(spreadTime);
         for (int i = 0; i < childCount; i++) {
-            children[i].GetComponent<MobNav>().enabled = true;
+            if (children[i] != null) {
+                children[i].GetComponent<MobNav>().enabled = true;
+            }
         }
         Destroy(this.gameObject);
         yield return null;

@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownTime: 1
-  DAMAGE: 40
+  DAMAGE: 0
 --- !u!1 &8079511848009728111
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,6 +235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maximumHealth: 100
+  currentHealth: 0
+  healDEV: 0
+  damageDEV: 0
   jellyChild: {fileID: 8896971597394633038, guid: 4573745b21be07f47832d028ad7071a8, type: 3}
   childCount: 3
   spreadDist: 3
