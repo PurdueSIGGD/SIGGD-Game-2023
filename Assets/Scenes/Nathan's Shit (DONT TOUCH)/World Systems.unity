@@ -523,6 +523,7 @@ GameObject:
   - component: {fileID: 43889669}
   - component: {fileID: 43889668}
   - component: {fileID: 43889671}
+  - component: {fileID: 43889672}
   m_Layer: 13
   m_Name: Cube (15)
   m_TagString: Wall
@@ -635,6 +636,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &43889672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43889666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!4 &47644319 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8437172915862267709, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
@@ -1461,6 +1483,7 @@ GameObject:
   - component: {fileID: 176700233}
   - component: {fileID: 176700232}
   - component: {fileID: 176700235}
+  - component: {fileID: 176700236}
   m_Layer: 13
   m_Name: Cube (8)
   m_TagString: Wall
@@ -1573,6 +1596,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &176700236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176700230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!1 &178833365
 GameObject:
   m_ObjectHideFlags: 0
@@ -3486,6 +3530,7 @@ GameObject:
   - component: {fileID: 303973289}
   - component: {fileID: 303973288}
   - component: {fileID: 303973291}
+  - component: {fileID: 303973292}
   m_Layer: 13
   m_Name: Cube (25)
   m_TagString: Wall
@@ -3598,6 +3643,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &303973292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303973286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!4 &320573897 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8437172915862267709, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
@@ -3698,6 +3764,7 @@ GameObject:
   - component: {fileID: 338944455}
   - component: {fileID: 338944454}
   - component: {fileID: 338944457}
+  - component: {fileID: 338944458}
   m_Layer: 13
   m_Name: Cube (4)
   m_TagString: Wall
@@ -3810,6 +3877,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &338944458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338944452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!4 &342638511 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8437172915862267709, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
@@ -3833,6 +3921,7 @@ GameObject:
   - component: {fileID: 356618814}
   - component: {fileID: 356618813}
   - component: {fileID: 356618817}
+  - component: {fileID: 356618818}
   m_Layer: 13
   m_Name: Cube (2)
   m_TagString: Wall
@@ -3945,6 +4034,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &356618818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356618812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!4 &359043542 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8437172915862267709, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
@@ -4250,6 +4360,7 @@ GameObject:
   - component: {fileID: 393544075}
   - component: {fileID: 393544074}
   - component: {fileID: 393544077}
+  - component: {fileID: 393544078}
   m_Layer: 13
   m_Name: Cube (6)
   m_TagString: Wall
@@ -4362,6 +4473,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &393544078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393544072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!4 &407188647 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5620208418202457436, guid: 7f76e6d4d2a5d544fa2f66909ac464e3, type: 3}
@@ -4385,6 +4517,7 @@ GameObject:
   - component: {fileID: 414371646}
   - component: {fileID: 414371645}
   - component: {fileID: 414371648}
+  - component: {fileID: 414371649}
   m_Layer: 13
   m_Name: Cube (19)
   m_TagString: Wall
@@ -4497,6 +4630,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &414371649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414371643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!4 &424005369 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8437172915862267709, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
@@ -5380,6 +5534,7 @@ GameObject:
   - component: {fileID: 550137889}
   - component: {fileID: 550137888}
   - component: {fileID: 550137891}
+  - component: {fileID: 550137892}
   m_Layer: 13
   m_Name: Cube (23)
   m_TagString: Wall
@@ -5492,6 +5647,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &550137892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550137886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!4 &560813637 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8437172915862267709, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
@@ -5525,6 +5701,7 @@ GameObject:
   - component: {fileID: 581206258}
   - component: {fileID: 581206257}
   - component: {fileID: 581206260}
+  - component: {fileID: 581206261}
   m_Layer: 13
   m_Name: Cube (12)
   m_TagString: Wall
@@ -5637,6 +5814,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &581206261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581206255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!1001 &583757629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5732,6 +5930,7 @@ GameObject:
   - component: {fileID: 588870170}
   - component: {fileID: 588870169}
   - component: {fileID: 588870172}
+  - component: {fileID: 588870173}
   m_Layer: 13
   m_Name: Cube (3)
   m_TagString: Wall
@@ -5844,6 +6043,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &588870173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588870167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!1 &590719164
 GameObject:
   m_ObjectHideFlags: 0
@@ -6269,6 +6489,7 @@ GameObject:
   - component: {fileID: 660315621}
   - component: {fileID: 660315620}
   - component: {fileID: 660315623}
+  - component: {fileID: 660315624}
   m_Layer: 13
   m_Name: Cube (22)
   m_TagString: Wall
@@ -6381,6 +6602,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &660315624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660315618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!1001 &662004219
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6471,6 +6713,7 @@ GameObject:
   - component: {fileID: 668227309}
   - component: {fileID: 668227308}
   - component: {fileID: 668227311}
+  - component: {fileID: 668227312}
   m_Layer: 13
   m_Name: Cube (20)
   m_TagString: Wall
@@ -6583,6 +6826,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &668227312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668227306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!4 &674591375 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8437172915862267709, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
@@ -8219,6 +8483,7 @@ GameObject:
   - component: {fileID: 787204809}
   - component: {fileID: 787204808}
   - component: {fileID: 787204811}
+  - component: {fileID: 787204812}
   m_Layer: 13
   m_Name: Cube (11)
   m_TagString: Wall
@@ -8331,6 +8596,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &787204812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787204806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!4 &790767176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8437172915862267709, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
@@ -9012,6 +9298,7 @@ GameObject:
   - component: {fileID: 844917952}
   - component: {fileID: 844917951}
   - component: {fileID: 844917955}
+  - component: {fileID: 844917956}
   m_Layer: 13
   m_Name: Cube
   m_TagString: Wall
@@ -9099,8 +9386,8 @@ Transform:
   m_GameObject: {fileID: 844917950}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.6427876, z: 0, w: 0.7660445}
-  m_LocalPosition: {x: 214.9, y: 1, z: 630.3}
-  m_LocalScale: {x: 100, y: 4, z: 100}
+  m_LocalPosition: {x: 195.3, y: 1, z: 628.3}
+  m_LocalScale: {x: 100, y: 4, z: 40}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1845920015}
@@ -9124,6 +9411,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &844917956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844917950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!4 &850692061 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8437172915862267709, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
@@ -9643,6 +9951,7 @@ GameObject:
   - component: {fileID: 917830725}
   - component: {fileID: 917830724}
   - component: {fileID: 917830728}
+  - component: {fileID: 917830729}
   m_Layer: 13
   m_Name: Cube (1)
   m_TagString: Wall
@@ -9755,6 +10064,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &917830729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917830723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!1001 &920832503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10783,6 +11113,7 @@ GameObject:
   - component: {fileID: 983347568}
   - component: {fileID: 983347567}
   - component: {fileID: 983347570}
+  - component: {fileID: 983347571}
   m_Layer: 13
   m_Name: Cube (18)
   m_TagString: Wall
@@ -10895,6 +11226,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &983347571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983347565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!1 &985182176
 GameObject:
   m_ObjectHideFlags: 0
@@ -11098,6 +11450,7 @@ GameObject:
   - component: {fileID: 1013804976}
   - component: {fileID: 1013804975}
   - component: {fileID: 1013804978}
+  - component: {fileID: 1013804979}
   m_Layer: 13
   m_Name: Cube (9)
   m_TagString: Wall
@@ -11210,6 +11563,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &1013804979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013804973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!4 &1015658647 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8437172915862267709, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
@@ -12312,6 +12686,7 @@ GameObject:
   - component: {fileID: 1123033390}
   - component: {fileID: 1123033389}
   - component: {fileID: 1123033392}
+  - component: {fileID: 1123033393}
   m_Layer: 13
   m_Name: Cube (17)
   m_TagString: Wall
@@ -12328,8 +12703,8 @@ Transform:
   m_GameObject: {fileID: 1123033387}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.5735764, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: 249.8, y: 1, z: 737}
-  m_LocalScale: {x: 100, y: 4, z: 100}
+  m_LocalPosition: {x: 226.7, y: 1, z: 729.1}
+  m_LocalScale: {x: 100, y: 4, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1845920015}
@@ -12424,6 +12799,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &1123033393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123033387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!1 &1136153977
 GameObject:
   m_ObjectHideFlags: 0
@@ -13235,6 +13631,7 @@ GameObject:
   - component: {fileID: 1187017031}
   - component: {fileID: 1187017030}
   - component: {fileID: 1187017033}
+  - component: {fileID: 1187017034}
   m_Layer: 13
   m_Name: Cube (21)
   m_TagString: Wall
@@ -13347,6 +13744,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &1187017034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187017028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!4 &1204446912 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8437172915862267709, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
@@ -14122,7 +14540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a52c7b7f2c48544e8bc4ae5cd23191d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fastSequencesDEV: 0
+  fastSequencesDEV: 1
   playerMovement: {fileID: 1056946806}
   playerLightResource: {fileID: 1056946797}
   playerHealthPoints: {fileID: 1056946799}
@@ -14935,6 +15353,7 @@ GameObject:
   - component: {fileID: 1381680437}
   - component: {fileID: 1381680436}
   - component: {fileID: 1381680439}
+  - component: {fileID: 1381680440}
   m_Layer: 13
   m_Name: Cube (13)
   m_TagString: Wall
@@ -15047,6 +15466,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &1381680440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381680434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!4 &1387453564 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8437172915862267709, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
@@ -15710,6 +16150,7 @@ GameObject:
   - component: {fileID: 1481426944}
   - component: {fileID: 1481426943}
   - component: {fileID: 1481426946}
+  - component: {fileID: 1481426947}
   m_Layer: 13
   m_Name: Cube (14)
   m_TagString: Wall
@@ -15822,6 +16263,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &1481426947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481426941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!1001 &1488324572
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15912,6 +16374,7 @@ GameObject:
   - component: {fileID: 1490104834}
   - component: {fileID: 1490104833}
   - component: {fileID: 1490104836}
+  - component: {fileID: 1490104837}
   m_Layer: 13
   m_Name: Cube (16)
   m_TagString: Wall
@@ -16024,6 +16487,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &1490104837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490104831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!1001 &1494450092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16367,6 +16851,153 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
+--- !u!1 &1552019267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1552019268}
+  - component: {fileID: 1552019273}
+  - component: {fileID: 1552019272}
+  - component: {fileID: 1552019271}
+  - component: {fileID: 1552019270}
+  - component: {fileID: 1552019269}
+  m_Layer: 13
+  m_Name: Cube (26)
+  m_TagString: Wall
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1552019268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552019267}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.5735764, z: 0, w: 0.8191521}
+  m_LocalPosition: {x: 202.4, y: 1, z: 625.8}
+  m_LocalScale: {x: 100, y: 4, z: 50}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1845920015}
+  m_LocalEulerAnglesHint: {x: 0, y: 70, z: 0}
+--- !u!114 &1552019269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552019267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
+--- !u!114 &1552019270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552019267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
+--- !u!65 &1552019271
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552019267}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1552019272
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552019267}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ae3d662c2bafdf84cab71a9cab76d425, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1552019273
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552019267}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1557511129 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8437172915862267709, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
@@ -18341,6 +18972,7 @@ GameObject:
   - component: {fileID: 1771335237}
   - component: {fileID: 1771335236}
   - component: {fileID: 1771335239}
+  - component: {fileID: 1771335240}
   m_Layer: 13
   m_Name: Cube (7)
   m_TagString: Wall
@@ -18453,6 +19085,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &1771335240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771335234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!1001 &1771976827
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19788,6 +20441,7 @@ Transform:
   - {fileID: 588870168}
   - {fileID: 844917954}
   - {fileID: 1123033388}
+  - {fileID: 1552019268}
   - {fileID: 917830727}
   - {fileID: 356618816}
   m_Father: {fileID: 0}
@@ -19884,7 +20538,7 @@ MonoBehaviour:
   canPassiveSpawn: 0
   canPassiveWaveSpawn: 0
   spawnWaveDEV: 0
-  waveEnemyTypesDEV: 0200000002000000020000000000000001000000
+  waveEnemyTypesDEV: 0100000001000000010000000100000001000000
 --- !u!1001 &1855559433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21673,6 +22327,7 @@ GameObject:
   - component: {fileID: 2004105233}
   - component: {fileID: 2004105232}
   - component: {fileID: 2004105235}
+  - component: {fileID: 2004105236}
   m_Layer: 13
   m_Name: Cube (10)
   m_TagString: Wall
@@ -21689,8 +22344,8 @@ Transform:
   m_GameObject: {fileID: 2004105230}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.21184433, z: -0, w: 0.9773035}
-  m_LocalPosition: {x: 206.35846, y: 1, z: 545.4753}
-  m_LocalScale: {x: 150, y: 4, z: 100}
+  m_LocalPosition: {x: 177.7, y: 1, z: 531.5}
+  m_LocalScale: {x: 100, y: 4, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1845920015}
@@ -21785,6 +22440,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &2004105236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004105230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!1001 &2005213314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22193,6 +22869,7 @@ GameObject:
   - component: {fileID: 2022965128}
   - component: {fileID: 2022965127}
   - component: {fileID: 2022965130}
+  - component: {fileID: 2022965131}
   m_Layer: 13
   m_Name: Cube (24)
   m_TagString: Wall
@@ -22305,6 +22982,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &2022965131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022965125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!1001 &2024324830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22400,6 +23098,7 @@ GameObject:
   - component: {fileID: 2030970461}
   - component: {fileID: 2030970460}
   - component: {fileID: 2030970463}
+  - component: {fileID: 2030970464}
   m_Layer: 13
   m_Name: Cube (5)
   m_TagString: Wall
@@ -22512,6 +23211,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &2030970464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030970458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 4
+  prefabScale: {x: 2, y: 2, z: 2}
+  seed: 0
 --- !u!1001 &2040791168
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class TutorialDirector : MonoBehaviour
     [SerializeField] public Movement playerMovement;
     [SerializeField] public LightResource playerLightResource;
     [SerializeField] public HealthPoints playerHealthPoints;
+    [SerializeField] public playerAttackHandler playerAttackHandler;
     [SerializeField] public EnemySpawner enemySpawner;
 
 
@@ -39,9 +40,9 @@ public class TutorialDirector : MonoBehaviour
                                      "- Neural link initialized \n" +
                                      "- - - - - \n\n\n" +
                                      "- Boot complete \n" +
-                                     "- - - - - - - - - \n" +
+                                     "- - - - - \n" +
                                      "- Establishing connection to SS Lawson... \n" +
-                                     "- - - - - - - - - \n";
+                                     "- - - - - \n";
 
     //private string startUpMessage3 = "- Boot complete \n" +
     //"- - - - - \n" +
@@ -72,9 +73,11 @@ public class TutorialDirector : MonoBehaviour
     private string tutorialMessage3 = "Now, this mission's simple. Remember, all we're doin' is gettin' you aquainted with " +
                                      "your new ride.";
 
-    private string tutorialMessage4 = "Make sure to take good care of 'er. As much as she costs, you'd be working in " +
-                                     "indentured servitude for the rest of your natural life if you didn't bring 'er back " +
-                                     "in one piece. Heh heh...";
+    //private string tutorialMessage4 = "Make sure to take good care of 'er. As much as she costs, you'd be working in " +
+    //"indentured servitude for the rest of your natural life if you didn't bring 'er back " +
+    //"in one piece. Heh heh...";
+
+    private string tutorialMessage4 = "Make sure to take good care of 'er. She's worth more than the U.S. defense budget. ";
 
     private string tutorialMessage5 = "Anywho, enough chit chat. Let's get a move on.";
 
@@ -89,14 +92,16 @@ public class TutorialDirector : MonoBehaviour
 
     private string movementTutorialPrompt = "WASD | Move Exo-suit";
 
-    private string movementTutorialMessage1 = "There, see? Your a dern natural. And now that you can drive that thing, " +
-                                              "it's time to put you to work.";
+    //private string movementTutorialMessage1 = "There, see? Your a dern natural. And now that you can drive that thing, " +
+    //"it's time to put you to work.";
 
-    private string movementTutorialMessage2 = "Remember, we're down here to collect two things: Light, and Echoes. First, let's " +
-                                              "start lookin' for Light.";
+    private string movementTutorialMessage1 = "There, see? Your a dern natural. Now time to put you to work.";
 
-    private string movementTutorialMessage3 = "Jet through this trench 'till you come across a bright glowin' orb on the ground. " +
-                                              "They're damn near impossible to miss. You'll know one when you see it.";
+    private string movementTutorialMessage2 = "Remember, we're down here to collect two things: Light, and Artifacts. Let's " +
+                                              "start off lookin' for Light.";
+
+    private string movementTutorialMessage3 = "Head down this trench 'till you see a glowin' orb on the ground. " +
+                                              "They're damn near impossible to miss.";
 
 
 
@@ -108,8 +113,7 @@ public class TutorialDirector : MonoBehaviour
 
     private string lightSearchObjective = "Search for Light";
 
-    private string lightSearchMessage1 = "Right there. See it? If you get close the suit will automatically absorb it. " +
-                                         "Give it a try.";
+    private string lightSearchMessage1 = "See it? If you get close, the suit will absorb it. Give it a try.";
 
 
 
@@ -136,6 +140,60 @@ public class TutorialDirector : MonoBehaviour
     public sequenceState lightHuntState = sequenceState.WAITING;
 
     private string lightHuntObjective = "Search for Light";
+
+    private string lightHuntMessage1 = "Oh, and I forgot to mention, there's some mutant wildlife down there that's " +
+                                       "attracted to all the light you're collecting.";
+
+    private string lightHuntMessage2 = "You'll probably only find small ones in this trench, so don't worry too much.";
+
+    private string lightHuntMessage3 = "But the things out there...";
+
+    private string lightHuntMessage4 = "Look, they can all get pretty agressive, so the R&D boys cooked up some " +
+                                       "weapons to defend yourself with.";
+
+    private string lightHuntMessage5 = "First, you can fend things off with a melee strike. Try it out now.";
+
+
+
+    //MELEE TUTORIAL SEQUENCE --------------------------------------------------------------------
+
+    public sequenceState meleeTutorialState = sequenceState.WAITING;
+
+    private string meleeTutorialPrompt = "Right Click | Melee";
+
+    private string meleeTutorialMessage1 = "That's useful if something gets too close. For longer distances, " +
+                                           "you've got a Light-powered blaster. Fire away.";
+
+
+
+    //BLASTER TUTORIAL SEQUENCE --------------------------------------------------------------------
+
+    public sequenceState blasterTutorialState = sequenceState.WAITING;
+
+    private string blasterTutorialPrompt = "Left Click | Shoot Blaster";
+
+    private string blasterTutorialMessage1 = "This beauty will chew through anything in your way, but it also " +
+                                             "chews through the Exo-suit's Light reserves.";
+
+    private string blasterTutorialMessage2 = "Check your HUD for a blue bar, that shows how much Light you have.";
+
+    private string blasterTutorialMessage3 = "The bar below it shows the suit's Armor status. If that gets to zero, " +
+                                             "you're in trouble.";
+
+    private string blasterTutorialMessage4 = "Even if it does though, you can always collect Light to repair " +
+                                             "yourself in a pinch.";
+
+    private string blasterTutorialMessage5 = "Alright, let's keep going. Should be more Light through that tight " +
+                                             "passageway to the north.";
+
+
+
+    //FIRST ENCOUNTER SEQUENCE --------------------------------------------------------------------
+
+    public sequenceState firstEncounterState = sequenceState.WAITING;
+
+    private string firstEncounterObjective = "Search for Light";
+
 
 
 
@@ -191,9 +249,27 @@ public class TutorialDirector : MonoBehaviour
         //Light Hunt Trigger
         if (lightHuntState == sequenceState.READY)
         {
-            if (playerLightResource.currentLight >= 50)
+            if (playerLightResource.currentLight >= 20)
             {
-                //StartCoroutine(lightHuntSequence());
+                StartCoroutine(lightHuntSequence());
+            }
+        }
+
+        //Melee Tutorial Trigger
+        if (meleeTutorialState == sequenceState.READY)
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                StartCoroutine(meleeTutorialSequence());
+            }
+        }
+
+        //Blaster Tutorial Trigger
+        if (blasterTutorialState == sequenceState.READY)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                StartCoroutine(blasterTutorialSequence());
             }
         }
 
@@ -208,6 +284,7 @@ public class TutorialDirector : MonoBehaviour
 
         //ASP exo-suit start up
         playerMovement.enabled = false;
+        playerAttackHandler.enabled = false;
         fadeScreenImage.enabled = true;
         if (!fastSequencesDEV)
         {
@@ -301,7 +378,7 @@ public class TutorialDirector : MonoBehaviour
 
 
 
-    //LIGHT SEARCH SEQUENCE--------------------------------------------------------------------
+    //LIGHT SEARCH SEQUENCE --------------------------------------------------------------------
     public IEnumerator lightSearchSequence()
     {
         lightSearchState = sequenceState.RUNNING;
@@ -310,7 +387,7 @@ public class TutorialDirector : MonoBehaviour
         if (!fastSequencesDEV)
         {
             yield return messanger.showMessage("", tutorialSender, false);
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(0.25f);
             yield return messanger.showMessage(lightSearchMessage1, tutorialSender, false);
             yield return new WaitForSeconds(0.75f);
         }
@@ -333,7 +410,7 @@ public class TutorialDirector : MonoBehaviour
         if (!fastSequencesDEV)
         {
             yield return messanger.showMessage("", tutorialSender, false);
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(0.5f);
             yield return messanger.showMessage(lightPickupMessage1, tutorialSender, false);
             yield return new WaitForSeconds(1.25f);
             yield return messanger.showMessage(lightPickupMessage2, tutorialSender, false);
@@ -350,6 +427,99 @@ public class TutorialDirector : MonoBehaviour
         lightPickupState = sequenceState.COMPLETE;
         lightHuntState = sequenceState.READY;
     }
+
+
+
+    //LIGHT HUNT SEQUENCE --------------------------------------------------------------------
+    public IEnumerator lightHuntSequence()
+    {
+        lightHuntState = sequenceState.RUNNING;
+
+        //objectivePrompt.hidePrompt();
+        if (!fastSequencesDEV)
+        {
+            yield return messanger.showMessage("", tutorialSender, false);
+            yield return new WaitForSeconds(0.5f);
+            yield return messanger.showMessage(lightHuntMessage1, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(lightHuntMessage2, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(lightHuntMessage3, tutorialSender, false);
+            yield return new WaitForSeconds(2f);
+            yield return messanger.showMessage(lightHuntMessage4, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(lightHuntMessage5, tutorialSender, false);
+            yield return new WaitForSeconds(0.75f);
+        }
+        //objectivePrompt.showPrompt(lightHuntObjective);
+        objectivePrompt.hidePrompt();
+        interactPrompt.showPrompt(meleeTutorialPrompt);
+        lightHuntState = sequenceState.COMPLETE;
+        meleeTutorialState = sequenceState.READY;
+        playerAttackHandler.enabled = true;
+        yield return new WaitForSeconds(0.75f);
+        messanger.hideMessage();
+    }
+
+
+
+    //MELEE TUTORIAL SEQUENCE --------------------------------------------------------------------
+    public IEnumerator meleeTutorialSequence()
+    {
+        meleeTutorialState = sequenceState.RUNNING;
+
+        yield return new WaitForSeconds(0.5f);
+        //objectivePrompt.hidePrompt();
+        interactPrompt.hidePrompt();
+        if (!fastSequencesDEV)
+        {
+            yield return messanger.showMessage("", tutorialSender, false);
+            yield return new WaitForSeconds(0.5f);
+            yield return messanger.showMessage(meleeTutorialMessage1, tutorialSender, false);
+            yield return new WaitForSeconds(0.75f);
+        }
+        //objectivePrompt.showPrompt(lightHuntObjective);
+        interactPrompt.showPrompt(blasterTutorialPrompt);
+        meleeTutorialState = sequenceState.COMPLETE;
+        blasterTutorialState = sequenceState.READY;
+        yield return new WaitForSeconds(0.75f);
+        messanger.hideMessage();
+    }
+
+
+
+    //BLASTER TUTORIAL SEQUENCE --------------------------------------------------------------------
+    public IEnumerator blasterTutorialSequence()
+    {
+        blasterTutorialState = sequenceState.RUNNING;
+
+        yield return new WaitForSeconds(0.75f);
+        //objectivePrompt.hidePrompt();
+        interactPrompt.hidePrompt();
+        if (!fastSequencesDEV)
+        {
+            yield return messanger.showMessage("", tutorialSender, false);
+            yield return new WaitForSeconds(0.5f);
+            yield return messanger.showMessage(blasterTutorialMessage1, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(blasterTutorialMessage2, tutorialSender, false);
+            yield return new WaitForSeconds(2f);
+            yield return messanger.showMessage(blasterTutorialMessage3, tutorialSender, false);
+            yield return new WaitForSeconds(2f);
+            yield return messanger.showMessage(blasterTutorialMessage4, tutorialSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(blasterTutorialMessage5, tutorialSender, false);
+            yield return new WaitForSeconds(0.75f);
+        }
+        objectivePrompt.showPrompt(firstEncounterObjective);
+        //objectivePrompt.hidePrompt();
+        //interactPrompt.showPrompt(TutorialPrompt);
+        blasterTutorialState = sequenceState.COMPLETE;
+        firstEncounterState = sequenceState.READY;
+        yield return new WaitForSeconds(0.75f);
+        messanger.hideMessage();
+    }
+
 
 
 

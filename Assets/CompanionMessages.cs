@@ -49,7 +49,8 @@ public class CompanionMessages : MonoBehaviour
             }
             if ((messageTextBox.text.LastIndexOf(".") == messageTextBox.text.Length - 2) ||
                 (messageTextBox.text.LastIndexOf("?") == messageTextBox.text.Length - 2) ||
-                (messageTextBox.text.LastIndexOf("!") == messageTextBox.text.Length - 2))
+                (messageTextBox.text.LastIndexOf("!") == messageTextBox.text.Length - 2) ||
+                (messageTextBox.text.LastIndexOf(":") == messageTextBox.text.Length - 2))
             {
                 yield return new WaitForSeconds(0.4f);
             }

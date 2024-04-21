@@ -53,6 +53,14 @@ PrefabInstance:
       value: SubMediumRock
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b5a1d044113dcf446bddb7fbe273bc30, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b5a1d044113dcf446bddb7fbe273bc30, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b5a1d044113dcf446bddb7fbe273bc30, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
