@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bubble : Unit
+public class Bubble1 : Unit
 {
     // -- Serialize Fields --
 

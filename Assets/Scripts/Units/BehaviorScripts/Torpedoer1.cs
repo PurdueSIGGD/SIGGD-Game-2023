@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
-public class Gunner : Unit
+public class Torpedoer1 : Unit
 {
     // -- Serialize Field --
 
@@ -13,9 +15,6 @@ public class Gunner : Unit
 
     [SerializeField]
     float range;
-
-    [SerializeField]
-    float burstCount;
 
     [SerializeField]
     GameObject bulletPoint;
@@ -37,11 +36,19 @@ public class Gunner : Unit
     [SerializeField]
     float projSpeed;
 
-    // -- Private Variables --
+    [SerializeField]
+    float projDmgRadius;
+
+    [SerializeField]
+    float projKnockback;
+
+    // -- Private Fields --
     GameObject target;
     bool canFire;
 
+
     // -- Behavior --
+
     protected override void Start()
     {
         base.Start();
@@ -50,7 +57,6 @@ public class Gunner : Unit
 
     void Update()
     {
-        Debug.Log("HI");
         Aim();
         if (target != null && canFire)
         {
@@ -90,16 +96,19 @@ public class Gunner : Unit
         return target;
     }
 
-    public void Fire()
+    void Fire()
     {
-        Debug.Log("FIREED!");
         if (target != null)
         {
-            var bullet = Instantiate(projPrefab, bulletPoint.transform.position, Quaternion.identity).GetComponent<Bullet>();
-            bullet.target = target.transform.position;
+            var bullet = Instantiate(projPrefab, bulletPoint.transform.position, Quaternion.identity).GetComponent<Torpedo>();
+            bullet.target = target;
             bullet.duration = projDuration;
             bullet.damage = projDamage;
             bullet.speed = projSpeed;
+            bullet.dmgRadius = projDmgRadius;
+            bullet.knockback = projKnockback;
+            bullet.enemyMask = projMask;
+
             StartCoroutine(Cooldown());
         }
     }

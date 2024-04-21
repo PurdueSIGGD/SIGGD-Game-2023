@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Landmine : Unit
+public class Landmine1 : Unit
 {
     // -- Serialize Fields --
 
