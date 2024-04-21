@@ -14,6 +14,7 @@ public class HandMechanics : MonoBehaviour
     private float grabTime;
     private float birthTime;
     private bool attached;
+    private GameObject curPlayer;
 
 
     public void SetFields(Transform parent, float dmg, float life, float reel, float pull, float grab) {
@@ -40,28 +41,39 @@ public class HandMechanics : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision col) {
+    private void OnTriggerEnter(Collider col) {
+        Debug.Log(col.gameObject.tag);
         if (col.gameObject.tag == "Player") {
             attached = true;
-            StartCoroutine(waitAndDie(col.gameObject));
+            curPlayer = col.gameObject;
+            StartCoroutine(waitAndDie());
         }
         else {
             Destroy(this.gameObject);
         }
     }
 
-    IEnumerator waitAndDie(GameObject player) {
+    public void ShutItDown() {
+        StopAllCoroutines();
+        if (curPlayer != null) {
+            curPlayer.GetComponent<Movement>().sirend = false;
+        }
+        Destroy(this.gameObject);
+    }
+
+    IEnumerator waitAndDie() {
         this.gameObject.GetComponent<MeshRenderer>().enabled = false;
         this.gameObject.GetComponent<SphereCollider>().enabled = false;
-        player.GetComponent<HealthPoints>().damageEntity(DAMAGE);
-        Movement playerMove = player.GetComponent<Movement>();
+        curPlayer.GetComponent<HealthPoints>().damageEntity(DAMAGE);
+        Movement playerMove = curPlayer.GetComponent<Movement>();
         if (playerMove.sirend == false) {
             playerMove.sirend = true;
             yield return new WaitForSeconds(grabTime);
-            StartCoroutine(pullPlayer(player));
+            IEnumerator pull = pullPlayer();
+            StartCoroutine(pull);
             yield return new WaitForSeconds(reelTime);
-            StopCoroutine(pullPlayer(player));
-            if (player == null) {  //in case the player dies before the hand un-sticks
+            StopCoroutine(pull);            
+            if (curPlayer == null) {  //in case the player dies before the hand un-sticks
                 Destroy(this.gameObject);
                 yield return null;
             }
@@ -71,11 +83,15 @@ public class HandMechanics : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator pullPlayer(GameObject player) {
-        while (player != null) {
-            Vector3 newPos = player.transform.position + (pullStrength * (parentSiren.position - player.transform.position));
-            newPos.y = player.transform.position.y;
-            player.GetComponent<Rigidbody>().MovePosition(newPos);
+    IEnumerator pullPlayer() {
+        Rigidbody playerRB = curPlayer.GetComponent<Rigidbody>();
+        while (curPlayer != null) {
+            Debug.Log("moving");
+            Vector3 dir = parentSiren.position - playerRB.position;
+            dir.y = curPlayer.transform.position.y;
+            Vector3 newPos = curPlayer.transform.position + (Time.deltaTime * pullStrength * dir.normalized);
+            playerRB.MovePosition(newPos);
+            yield return new WaitForEndOfFrame();
         }
         yield return null;
     }

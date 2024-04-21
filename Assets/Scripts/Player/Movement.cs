@@ -65,7 +65,7 @@ public class Movement : MonoBehaviour
             RB.velocity = targetVelocity;
         }
         else {
-            RB.velocity = Vector3.zero;
+            //RB.velocity = Vector3.zero;
         }
     }
 

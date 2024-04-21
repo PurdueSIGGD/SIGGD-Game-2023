@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -35,7 +36,7 @@ public class EnemyAttackController : MonoBehaviour
 				else {
 					HealthPoints healhscript = obj.GetComponent<HealthPoints>();
 					if (healhscript) {
-						healhscript.damageEntity(DAMAGE);
+						Damg(healhscript, DAMAGE);
 					}
 				}
 			}
@@ -48,6 +49,10 @@ public class EnemyAttackController : MonoBehaviour
 			onCooldown = false;
 		}
 
+	}
+
+	public virtual void Damg(HealthPoints point, float dmg) {
+		point.damageEntity(dmg);
 	}
 
 	private void OnTriggerEnter(Collider col) {
