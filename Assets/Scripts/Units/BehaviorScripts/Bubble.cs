@@ -15,7 +15,7 @@ public class Bubble : Unit
     float knockbackRadius;
 
     [SerializeField]
-    LayerMask layerMask;
+    LayerMask bubbleMask;
 
     // -- Behavior --
     protected override void Start()
@@ -26,7 +26,7 @@ public class Bubble : Unit
 
     void KnockbackEnemies()
     {
-        Collider[] colliders = Physics.OverlapSphere(this.transform.position, knockbackRadius, layerMask);
+        Collider[] colliders = Physics.OverlapSphere(this.transform.position, knockbackRadius, bubbleMask);
         foreach (Collider enemy in colliders)
         {
             Vector3 explosionPoint = this.transform.position - Vector3.up;
