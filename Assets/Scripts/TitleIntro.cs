@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using TMPro;
+using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
 public class TitleIntro : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class TitleIntro : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Image quoteBackground;
     [SerializeField] private TextMeshProUGUI quoteText;
     [SerializeField] private TextMeshProUGUI titleText;
-    [SerializeField] private List<TextMeshProUGUI> optionTexts;
+    [SerializeField] private List<Button> optionButtons;
 
     public Color backgroundColor;
     public Color textColor;
@@ -30,11 +32,15 @@ public class TitleIntro : MonoBehaviour
         titleColor = titleText.color;
         titleColor.a = 0;
         titleText.color = titleColor;
-        foreach (TextMeshProUGUI optionText in optionTexts)
+        foreach (var optionButton in optionButtons)
         {
-            Color optionColor = optionText.color;
+            var buttonText = optionButton.GetComponentInChildren<TextMeshProUGUI>();
+            Color buttonColor = optionButton.image.color;
+            Color optionColor = buttonText.color;
+            buttonColor.a = 0;
             optionColor.a = 0;
-            optionText.color = optionColor;
+            optionButton.image.color = buttonColor;
+            buttonText.color = optionColor;
         }
         StartCoroutine(titleSequence());
     }
@@ -71,13 +77,17 @@ public class TitleIntro : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
 
-        foreach (TextMeshProUGUI optionText in optionTexts)
+        foreach (var optionButton in optionButtons)
         {
-            Color optionColor = optionText.color;
+            var buttonText = optionButton.GetComponentInChildren<TextMeshProUGUI>();
+            Color buttonColor = optionButton.image.color;
+            Color optionColor = buttonText.color;
             for (int i = 0; i < 25; i++)
             {
+                buttonColor.a += 0.04f;
                 optionColor.a += 0.04f;
-                optionText.color = optionColor;
+                optionButton.image.color = buttonColor;
+                buttonText.color = optionColor;
                 yield return new WaitForSeconds(0.02f);
             }
         }
