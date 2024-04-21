@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -27,28 +28,31 @@ public class EnemyAttackController : MonoBehaviour
 		if (onCooldown == false && overlapping.Count > 0) {
 			onCooldown = true;
 			currentCooldownStart = Time.time;
-			List<GameObject> toRemove = new List<GameObject>();
-			foreach (GameObject obj in overlapping) {
-				if (obj == null) {
-					toRemove.Add(obj);
-				}
-				else {
-					HealthPoints healhscript = obj.GetComponent<HealthPoints>();
-					if (healhscript) {
-						healhscript.damageEntity(DAMAGE);
-					}
-				}
-			}
-			foreach (GameObject obj in toRemove) {
-				overlapping.Remove(obj);
-			}
-			toRemove = null;
+			Damg(DAMAGE);
 		}
 
 		if (onCooldown && (Time.time - currentCooldownStart > cooldownTime)) {
 			onCooldown = false;
 		}
 
+	}
+
+	public virtual void Damg(float dmgs) {
+		List<GameObject> toRemove = new List<GameObject>();
+		foreach (GameObject obj in overlapping) {
+			if (obj == null) {
+				toRemove.Add(obj);
+			}
+			else {
+				HealthPoints healhscript = obj.GetComponent<HealthPoints>();
+				if (healhscript) {
+					healhscript.damageEntity(dmgs);
+				}
+			}
+		}
+		foreach (GameObject obj in toRemove) {
+			overlapping.Remove(obj);
+		}
 	}
 
 	private void OnTriggerEnter(Collider col) {
