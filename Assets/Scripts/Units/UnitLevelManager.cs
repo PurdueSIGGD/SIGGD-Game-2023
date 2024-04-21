@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitLevelManager : MonoBehaviour
+[CreateAssetMenu(fileName = "Unit Config")]
+public class UnitLevelManager : ScriptableObject
 {
     // -- Serialize Fields --
     [SerializeField]
