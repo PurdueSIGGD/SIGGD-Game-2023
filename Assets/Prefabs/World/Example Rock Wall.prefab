@@ -118,12 +118,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce4ba05ea76fa940805ddbe9adc0fcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabsToUse:
-  - {fileID: 2846701390049075554, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
-  - {fileID: 4333653633959024449, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
-  - {fileID: 7482595144452507306, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
-  - {fileID: 1024517843226552792, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
-  - {fileID: 4672102410893811002, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
-  unitsPerPrefab: 4
+  prefabHolder: {fileID: 0}
+  bigPrefabsToUse:
+  - {fileID: 4661332477688813730, guid: c8d9d5330b68c714fa02be08cad54686, type: 3}
+  - {fileID: 4418456226561907388, guid: b6fa9c4e2dcd08f4299306a3cbac0f8b, type: 3}
+  smallPrefabsToUse:
+  - {fileID: 2301751444259285057, guid: b97273fe4dc8cd94190808b9cbf5f061, type: 3}
+  - {fileID: 1747003496000765699, guid: 3167b5eaf4f683f469de748e15652b43, type: 3}
+  - {fileID: 7247900668016588761, guid: bf5606735490e9e49bbe5c4ae5233ac0, type: 3}
+  unitsPerPrefab: 8
   prefabScale: {x: 2, y: 2, z: 2}
+  bigRatio: 1
+  smallRatio: 0.5
+  falloff: 0.9
+  smallDensityIncrease: 4
   seed: 0
