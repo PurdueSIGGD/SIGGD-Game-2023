@@ -6,6 +6,8 @@ TagManager:
   tags:
   - RegionColliders
   - Enemy
+  - UnitSystem
+  - Unit
   layers:
   - Default
   - TransparentFX
