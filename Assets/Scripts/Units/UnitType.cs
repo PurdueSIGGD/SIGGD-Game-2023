@@ -4,8 +4,10 @@ using UnityEngine;
 
 public enum UnitType
 {
-    NONE,
-    TORPEDOER,
-    HEALER,
-    GUNNER,
+    TORPEDOER = 0,
+    HEALER = 1,
+    GUNNER = 2,
+    BUBBLE = 3,
+    LANDMINE = 4,
+
 }

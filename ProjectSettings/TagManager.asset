@@ -6,6 +6,8 @@ TagManager:
   tags:
   - RegionColliders
   - Enemy
+  - UnitSystem
+  - Unit
   layers:
   - Default
   - TransparentFX
@@ -42,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Enemy
+    uniqueID: 2216410057
     locked: 0

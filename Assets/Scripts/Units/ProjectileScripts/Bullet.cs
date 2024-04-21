@@ -20,8 +20,13 @@ public class Bullet : MonoBehaviour
 
     // -- Private Fields --
     float time;
+    Vector3 direction;
 
     // -- Behavior --
+    void Start()
+    {
+        direction = (target - this.transform.position).normalized;
+    }
     void Update()
     {
         time += Time.deltaTime;
@@ -34,8 +39,8 @@ public class Bullet : MonoBehaviour
 
         // apply velocity and update position 
         Vector3 pos = this.transform.position;
-        pos += (target - pos).normalized * speed * Time.deltaTime;
-        this.transform.SetPositionAndRotation(pos, this.transform.rotation);
+        pos += direction * speed * Time.deltaTime;
+        this.transform.position = pos;
     }
 
     private void OnTriggerEnter(Collider other)

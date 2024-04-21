@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Torpedo : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class Torpedo : MonoBehaviour
     public float damage;
 
     [NonSerialized]
+    public float speed;
+
+    [NonSerialized]
     public float dmgRadius;
 
     [NonSerialized]
@@ -31,20 +35,53 @@ public class Torpedo : MonoBehaviour
     public LayerMask enemyMask;
 
     // -- Private Fields --
-    Vector3 startPos;
-    Vector3 endPos;
     float time;
-    bool canBoom;
+    Vector3 direction;
 
     // -- Behavior --
     void Start()
     {
         // Initialize fields
-        endPos = target.transform.position;
-        startPos = this.transform.position;
-        canBoom = false;
+        direction = (target.transform.position - this.transform.position).normalized;
     }
 
+    void Update()
+    {
+        time += Time.deltaTime;
+
+        // destroy gameobject after DURATION time has passed
+        if (time > duration)
+        {
+            Destroy(this.gameObject);
+        }
+
+        // apply velocity and update position 
+        Vector3 pos = this.transform.position;
+        pos += direction * speed * Time.deltaTime;
+        this.transform.position = pos;
+
+        // update direction
+        if (target != null)
+        {
+            direction = (target.transform.position - this.transform.position).normalized;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Vector3 explosionPoint = this.transform.position - Vector3.up;
+            explosionPoint.y = 0;
+            other.gameObject.GetComponent<HealthPoints>().damageEntity(damage);
+            other.GetComponent<KinematicReset>().Knockback();
+            other.GetComponent<Rigidbody>().AddExplosionForce(knockback, explosionPoint, dmgRadius, knockback / 3);
+            other.GetComponent<HealthPoints>().damageEntity(damage);
+        }
+        Destroy(this.gameObject);
+    }
+
+    /*
     void Update()
     {
         time += Time.deltaTime;
@@ -93,5 +130,6 @@ public class Torpedo : MonoBehaviour
     {
         float y = -4 * Mathf.Pow((time - 0.5f), 2) + 1;
         return scale * y;
-    }   
+    }  
+    */
 }

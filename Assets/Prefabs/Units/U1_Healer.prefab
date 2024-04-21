@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 409289390630371160}
   - component: {fileID: 9026126879669305254}
   - component: {fileID: -2859459311688634453}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: U1_Healer
-  m_TagString: Untagged
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164,6 +164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8aa5ba814ec4c54a9917e60c486f703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manaCost: 0
+  sellCost: 0
+  type: 0
+  level: 0
   healAmount: 10
   healCooldown: 5
 --- !u!114 &-2859459311688634453

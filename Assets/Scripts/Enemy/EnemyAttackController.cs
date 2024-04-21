@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,10 +10,6 @@ public class EnemyAttackController : MonoBehaviour
 {
 	[SerializeField] private float cooldownTime;
 	private float currentCooldownStart;
-	
-	//[SerializeField] private float attackDistance; // The radius around the entity within which attacks will be made. Attacks will also be made at this distance from the entity.
-	//[SerializeField] private float attackRadius;
-	private SphereCollider attackCollider;
 	[SerializeField] private float DAMAGE;
 
 	private bool onCooldown;
@@ -21,7 +18,6 @@ public class EnemyAttackController : MonoBehaviour
 
 	void Start()
 	{
-		attackCollider = this.GetComponent<SphereCollider>();
 		onCooldown = false;
 		currentCooldownStart = Time.time;
 		overlapping = new List<GameObject>();
@@ -29,51 +25,34 @@ public class EnemyAttackController : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		// if (currentCooldown > 0) currentCooldown -= Time.fixedDeltaTime;
-		// if (currentCooldown > 0) return;
-
-		if (onCooldown == false) {
+		if (onCooldown == false && overlapping.Count > 0) {
 			onCooldown = true;
 			currentCooldownStart = Time.time;
-
-			foreach (GameObject obj in overlapping) {
-				HealthPoints healhscript = obj.GetComponent<HealthPoints>();
-				if (healhscript) {
-					healhscript.damageEntity(DAMAGE);
-				}
-			}
+			Damg(DAMAGE);
 		}
 
 		if (onCooldown && (Time.time - currentCooldownStart > cooldownTime)) {
 			onCooldown = false;
 		}
 
-		// if (!targetingController.target) 
-		// { 
-		// 	return; 
-		// }
-	
-		//Transform targetTransform = targetingController.target.transform;
-		//Vector3 targetDirection = targetTransform.position - selfTransform.position;
+	}
 
-		// float distance = targetDirection.magnitude;
-		// if (distance > attackDistance)
-		// {
-		// 	return;
-		// }
-
-		// Spawn Attack Collision Check
-		// Vector3 normalizedDirection = Vector3.Normalize(targetDirection) * attackDistance; // Change to always be at target position?
-		// Collider[] hitTargets = Physics.OverlapSphere(selfTransform.position + normalizedDirection, attackRadius);
-		// foreach (Collider targetCollider in hitTargets)
-		// {
-		// 	GameObject target = targetCollider.gameObject;
-		// 	if (target.tag != "Player") continue; // << Bandaid; Layermask in OverlapSphere not working
-		// 	Debug.Log("Enemy Attack hit target: " + target);
-		// 	// Do stuff
-		// }
-
-		// currentCooldown = cooldownTime;
+	public virtual void Damg(float dmgs) {
+		List<GameObject> toRemove = new List<GameObject>();
+		foreach (GameObject obj in overlapping) {
+			if (obj == null) {
+				toRemove.Add(obj);
+			}
+			else {
+				HealthPoints healhscript = obj.GetComponent<HealthPoints>();
+				if (healhscript) {
+					healhscript.damageEntity(dmgs);
+				}
+			}
+		}
+		foreach (GameObject obj in toRemove) {
+			overlapping.Remove(obj);
+		}
 	}
 
 	private void OnTriggerEnter(Collider col) {

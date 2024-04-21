@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealthPoints : HealthPoints
 {
@@ -11,9 +12,8 @@ public class PlayerHealthPoints : HealthPoints
     [SerializeField] private LightResource lightResource;
     public bool blackout;
     private bool flickerActive;
-
-
-
+    private bool dying;
+    private float deadCount = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -23,9 +23,6 @@ public class PlayerHealthPoints : HealthPoints
         blackout = false;
         flickerActive = false;
     }
-
-
-
 
     /// <summary>
     /// Deals the specified amount of damage to the entity owning this health script.
@@ -41,14 +38,18 @@ public class PlayerHealthPoints : HealthPoints
     {
         if (blackout)
         {
-            Destroy(gameObject);
+            if (!dying)
+            {
+                dying = true;
+                // Start fading out entire screen
+                StartCoroutine(waitForDeath());
+            }
+            
             return 0f;
         }
 
         return base.damageEntity(damage);
     }
-
-
 
     /// <summary>
     /// Destroys the entity owning this health script.
@@ -120,14 +121,20 @@ public class PlayerHealthPoints : HealthPoints
         }
     }
 
-    /*private IEnumerator wait(float seconds)
+    private IEnumerator waitForDeath()
     {
-        Debug.Log("hehe");
-        yield return new WaitForSeconds(seconds);
-        Debug.Log("hoho");
-    }*/
+        var deathTime = 2f;
+        var fader = FindObjectOfType<Fader>();
+        if (fader == null)
+        {
+            Debug.LogError("You need to drag the fader prefab into the scene");
+        }
+        fader.FadeOut(Color.red, deathTime);
+        yield return new WaitForSeconds(deathTime);
+        SceneManager.LoadScene("DeathScene");
+    }
 
-    public IEnumerator flickerOut()
+    private IEnumerator flickerOut()
     {
         float baseLightIntensity = playerLight.intensity;
         playerLight.intensity = baseLightIntensity * 0.1f;
