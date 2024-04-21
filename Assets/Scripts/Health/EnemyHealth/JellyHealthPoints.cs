@@ -69,6 +69,9 @@ public class JellyHealthPoints : HealthPoints
             if (jellyCh == null) {
                 yield return null;
             }
+            if (jellyCh.GetComponent<ChildJellyHealthPoints>().inDeath == true) {
+                yield return null;
+            }
             currTime = Time.time - startTime;
             currSpeed = Mathf.Pow((currTime - spreadTime), 2);
             currSpeed *= speedCoeff;

@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 28210290271789177}
   - component: {fileID: 5329541378575075558}
   - component: {fileID: 3223430084875692947}
-  - component: {fileID: 1509410257006943073}
   - component: {fileID: 3742923189434834589}
+  - component: {fileID: 8718556383942883357}
   m_Layer: 23
   m_Name: JellyChild
   m_TagString: Enemy
@@ -155,22 +155,6 @@ MonoBehaviour:
   fleeing: 1
   attacksTurrets: 0
   turretDetectionRad: 0
---- !u!114 &1509410257006943073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8896971597394633038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31ed21e89c4a87748a8649cec45ebc99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maximumHealth: 100
-  currentHealth: 0
-  healDEV: 0
-  damageDEV: 0
 --- !u!114 &3742923189434834589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +170,27 @@ MonoBehaviour:
   timeToMature: 4
   randomBuffer: 4
   matureJelly: {fileID: 8079511848009728111, guid: 67656c0e8e887e3418dd3f59b01e8625, type: 3}
+--- !u!114 &8718556383942883357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8896971597394633038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c54af3afc6fb62d4da8381345ea22ac0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maximumHealth: 50
+  currentHealth: 0
+  healDEV: 0
+  damageDEV: 0
+  spriteHolder: {fileID: 777993359566326060}
+  spriteFadeSpeed: 1
+  spriteFadeTime: 1
+  spritePlane: {fileID: 4326274287814941018}
+  deathMaterial: {fileID: 2100000, guid: ac65f561a4eb91240aebfae3bd186bdd, type: 2}
 --- !u!1001 &1713809767918536214
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -279,6 +284,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54c6a920d6dc45c4098f7bc8417e584b, type: 3}
+--- !u!1 &777993359566326060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2090602827573448506, guid: 54c6a920d6dc45c4098f7bc8417e584b, type: 3}
+  m_PrefabInstance: {fileID: 1713809767918536214}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4326274287814941018 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3153275568904773452, guid: 54c6a920d6dc45c4098f7bc8417e584b, type: 3}
+  m_PrefabInstance: {fileID: 1713809767918536214}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6460836575083664592 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5647844082779132614, guid: 54c6a920d6dc45c4098f7bc8417e584b, type: 3}

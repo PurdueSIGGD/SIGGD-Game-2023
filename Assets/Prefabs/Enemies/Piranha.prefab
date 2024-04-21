@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6756880969025080411}
   - component: {fileID: 8130563863247800727}
   - component: {fileID: 8911020290426855943}
-  - component: {fileID: 3734323028716392185}
+  - component: {fileID: 1584416394962942311}
   m_Layer: 23
   m_Name: Piranha
   m_TagString: Enemy
@@ -155,7 +155,7 @@ MonoBehaviour:
   fleeing: 0
   attacksTurrets: 0
   turretDetectionRad: 0
---- !u!114 &3734323028716392185
+--- !u!114 &1584416394962942311
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,13 +164,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 932233891626951811}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31ed21e89c4a87748a8649cec45ebc99, type: 3}
+  m_Script: {fileID: 11500000, guid: 984518c86930dc748bd918c6fcb5d07c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maximumHealth: 100
   currentHealth: 0
   healDEV: 0
   damageDEV: 0
+  spriteHolder: {fileID: 6405791076158034928}
+  attackBox: {fileID: 7194394080034200774}
+  spriteFadeSpeed: 1
+  spriteFadeTime: 1
+  spritePlane: {fileID: 7936484210079531910}
+  deathMaterial: {fileID: 2100000, guid: f025e41c723559844b979c535c874da0, type: 2}
 --- !u!1 &7194394080034200774
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,5 +333,15 @@ PrefabInstance:
 --- !u!4 &830788235639819788 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5647844082779132614, guid: 54c6a920d6dc45c4098f7bc8417e584b, type: 3}
+  m_PrefabInstance: {fileID: 5036890506562706634}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6405791076158034928 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2090602827573448506, guid: 54c6a920d6dc45c4098f7bc8417e584b, type: 3}
+  m_PrefabInstance: {fileID: 5036890506562706634}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7936484210079531910 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3153275568904773452, guid: 54c6a920d6dc45c4098f7bc8417e584b, type: 3}
   m_PrefabInstance: {fileID: 5036890506562706634}
   m_PrefabAsset: {fileID: 0}

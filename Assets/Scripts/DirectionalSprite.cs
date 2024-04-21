@@ -17,7 +17,7 @@ public class DirectionalSprite : MonoBehaviour
     [Header("How many degrees off from \"up\" the image is (likely 90 or -90)")]
     [SerializeField] private float rotationOffset;
     private bool breakIt;
-    [SerializeField] private bool calculateOnce;
+    [SerializeField] public bool calculateOnce;
     // Saved values for later
     private float initialYScale;
     private MobNav mobNav;
