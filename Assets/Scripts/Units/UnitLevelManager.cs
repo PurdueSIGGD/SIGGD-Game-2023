@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class UnitLevelManager : MonoBehaviour
 {
+    // -- Serialize Fields --
     [SerializeField]
     UnitFamily[] unitFamilies;
 
-    public void Upgrade()
+    // -- Behavior --
+    public void Upgrade(Unit unit, UnitType type)
     {
+        UnitFamily family = unitFamilies[(int) type];
+        int nextLevel = Mathf.Max((unit.level + 1) % family.members.Length, unit.level);
+        GameObject upgrade = family.members[nextLevel];
+
+        // TODO: Implement what happends after upgrade
 
     }
 }

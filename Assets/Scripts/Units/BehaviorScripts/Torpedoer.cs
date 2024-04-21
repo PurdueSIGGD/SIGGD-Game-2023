@@ -31,10 +31,10 @@ public class Torpedoer : Unit
     float projDuration;
 
     [SerializeField]
-    float projHeight;
+    float projDamage;
 
     [SerializeField]
-    float projDamage;
+    float projSpeed;
 
     [SerializeField]
     float projDmgRadius;
@@ -103,8 +103,8 @@ public class Torpedoer : Unit
             var bullet = Instantiate(projPrefab, bulletPoint.transform.position, Quaternion.identity).GetComponent<Torpedo>();
             bullet.target = target;
             bullet.duration = projDuration;
-            bullet.height = projHeight;
             bullet.damage = projDamage;
+            bullet.speed = projSpeed;
             bullet.dmgRadius = projDmgRadius;
             bullet.knockback = projKnockback;
             bullet.enemyMask = projMask;
