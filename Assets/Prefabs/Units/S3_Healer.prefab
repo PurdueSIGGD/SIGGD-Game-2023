@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8489195423720543074}
   - component: {fileID: 7169976407542728968}
   - component: {fileID: 409289390630371160}
-  - component: {fileID: 9026126879669305254}
   - component: {fileID: -2859459311688634453}
+  - component: {fileID: 5277954938567719907}
   m_Layer: 24
   m_Name: S3_Healer
   m_TagString: Unit
@@ -101,24 +101,6 @@ MonoBehaviour:
   orbitalSpeed: 2
   clockwise: 1
   height: 0
---- !u!114 &9026126879669305254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5571080710664901485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8aa5ba814ec4c54a9917e60c486f703, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manaCost: 0
-  sellCost: 0
-  type: 0
-  level: 0
-  healAmount: 10
-  healCooldown: 5
 --- !u!114 &-2859459311688634453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +117,26 @@ MonoBehaviour:
   currentHealth: 0
   healDEV: 0
   damageDEV: 0
+--- !u!114 &5277954938567719907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571080710664901485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3313399b551964d9096eb21056a3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaCost: 0
+  sellCost: 0
+  type: 1
+  level: 3
+  healAmount: 30
+  healCooldown: 2
+  lightAmount: 30
+  lightCooldown: 2
 --- !u!1001 &8653755976832626984
 PrefabInstance:
   m_ObjectHideFlags: 0

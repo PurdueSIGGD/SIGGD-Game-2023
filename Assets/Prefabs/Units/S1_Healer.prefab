@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4bb3b30d08e34d409feb95a6f7f698a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distFromPlayer: 4
-  orbitalSpeed: 2
+  distFromPlayer: 3
+  orbitalSpeed: 0.5
   clockwise: 1
   height: 0
 --- !u!114 &9026126879669305254
@@ -115,10 +115,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaCost: 0
   sellCost: 0
-  type: 0
-  level: 0
+  type: 1
+  level: 1
   healAmount: 10
-  healCooldown: 5
+  healCooldown: 8
 --- !u!114 &-2859459311688634453
 MonoBehaviour:
   m_ObjectHideFlags: 0
