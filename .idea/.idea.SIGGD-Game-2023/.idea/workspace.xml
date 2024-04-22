@@ -6,9 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="8130f3f5-8d47-4562-8804-e908289867a6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SIGGD-Game-2023/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SIGGD-Game-2023/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main Level.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main Level.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SoundSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SoundSystem.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChildClearer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChildClearer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Saving/SaveManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Saving/SaveManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TitleIntro.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TitleIntro.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Materials/Barracuda.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Materials/Barracuda.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Materials/Hand.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Materials/Hand.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Materials/Jelly_Large.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Materials/Jelly_Large.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Materials/Jelly_Small.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Materials/Jelly_Small.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Materials/Piranha.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Materials/Piranha.mat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,9 +24,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Sonar.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Saving/SaveManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/Fader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/SceneTransitionButtons.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/World/Artifact.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/CanvasScaler.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -42,7 +49,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "sound-system",
+    "git-widget-placeholder": "Artifact-and-sonar",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
