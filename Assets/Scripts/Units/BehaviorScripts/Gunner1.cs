@@ -18,6 +18,9 @@ public class Gunner1 : Unit
     GameObject bulletPoint;
 
     [SerializeField]
+    GameObject gunObj;
+
+    [SerializeField]
     LayerMask projMask;
 
     [Header("Projectile Fields")]
@@ -47,6 +50,7 @@ public class Gunner1 : Unit
 
     void Update()
     {
+        Debug.Log("LOL1");
         Aim();
         if (target != null && canFire)
         {
@@ -60,7 +64,10 @@ public class Gunner1 : Unit
         this.target = FindTarget();
         if (target != null)
         {
-            this.transform.LookAt(target.transform.position);
+            //bulletPoint.transform.LookAt();
+            var dir = target.transform.position - transform.position;
+            Debug.Log("LOL2");
+            gunObj.GetComponent<DirectionalSprite>().lookDirectionOverride = dir;
         }
     }
 
