@@ -7,7 +7,7 @@ public class UnitLevelManager : ScriptableObject
 {
     // -- Serialize Fields --
     [SerializeField]
-    UnitFamily[] unitFamilies;
+    public UnitFamily[] unitFamilies;
 
     // -- Behavior --
     public void Upgrade(Unit unit, UnitType type)

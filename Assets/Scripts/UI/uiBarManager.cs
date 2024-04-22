@@ -6,10 +6,15 @@ using TMPro;
 
 public class uiBarManager : MonoBehaviour
 {
+    public Color unitLightColor;
 
     [SerializeField] public PlayerHealthPoints playerHealth;
     [SerializeField] public LightResource playerLight;
     [SerializeField] public PlayerLevel playerLevel;
+
+    private Color unobtainableUnitLight = new Color32(217, 128, 125, 255);
+    private Color nonacquirableUnitLight = new Color32(16, 91, 163, 255);
+    private Color acquirableUnitLight = new Color32(255, 232, 90, 255);
 
     [SerializeField] private Slider healthSlider;
     [SerializeField] private TMP_Text healthText;
@@ -51,10 +56,12 @@ public class uiBarManager : MonoBehaviour
         if (selectedCost / (float) playerLight.maximumLight > 1)
         {
             unitLightSlider.value = 1;
-            unitLight.GetComponent<RawImage>().color = new Color32(217, 128, 125, 255);
+            unitLight.GetComponent<RawImage>().color = unobtainableUnitLight;
 
             psudoUnitLightSlider.value = 1;
-            psudoUnitLight.GetComponent<RawImage>().color = new Color32(217, 128, 125, 255);
+            psudoUnitLight.GetComponent<RawImage>().color = unobtainableUnitLight;
+
+            unitLightColor = unobtainableUnitLight;
 
         // If the cost is within the maximum obtainable light
         } else
@@ -62,16 +69,20 @@ public class uiBarManager : MonoBehaviour
             unitLightSlider.value = selectedCost / (float) playerLight.maximumLight;
             psudoUnitLightSlider.value = selectedCost / (float) playerLight.maximumLight;
 
-            // If cost is not aquirable via current light
+            // If cost is not acquirable via current light
             if (playerLight.currentLight < selectedCost)
             {
-                unitLight.GetComponent<RawImage>().color = new Color32(16, 91, 163, 255);
-                psudoUnitLight.GetComponent<RawImage>().color = new Color32(16, 91, 163, 255);
+                unitLight.GetComponent<RawImage>().color = nonacquirableUnitLight;
+                psudoUnitLight.GetComponent<RawImage>().color = nonacquirableUnitLight;
 
-            // If cost is aquireable via current light
+                unitLightColor = nonacquirableUnitLight;
+
+            // If cost is acquirable via current light
             } else
             {
-                unitLight.GetComponent<RawImage>().color = new Color32(255, 232, 90, 255);
+                unitLight.GetComponent<RawImage>().color = acquirableUnitLight;
+
+                unitLightColor = acquirableUnitLight;
             }
         }
     }

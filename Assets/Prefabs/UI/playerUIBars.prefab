@@ -3102,6 +3102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 728819810ec3f98499ab94c2e5ebff21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitLightColor: {r: 0, g: 0, b: 0, a: 0}
   playerHealth: {fileID: 0}
   playerLight: {fileID: 0}
   playerLevel: {fileID: 0}
@@ -3141,6 +3142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedUnit: 0
   selectedCost: 300
+  unitLevelManager: {fileID: 11400000, guid: 740fbb279bade484fb5d9ce901bd6c0d, type: 2}
 --- !u!1 &8368958681592907404
 GameObject:
   m_ObjectHideFlags: 0
