@@ -6,21 +6,23 @@ public class lightSearchTrigger : MonoBehaviour
 {
 
     [SerializeField] public TutorialDirector tutorialDirector;
-    public Collider triggerCollider;
+    //public Collider triggerCollider;
 
     // Start is called before the first frame update
     void Start()
     {
-        triggerCollider = GetComponent<Collider>();
-        triggerCollider.enabled = false;
+        //triggerCollider = GetComponent<Collider>();
+        //triggerCollider.enabled = false;
+        GetComponent<Collider>().enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (tutorialDirector.lightSearchState == sequenceState.READY && !triggerCollider.enabled)
+        if (tutorialDirector.lightSearchTrigger.sequenceState == sequenceState.READY && !GetComponent<Collider>().enabled)//!triggerCollider.enabled)
         {
-            triggerCollider.enabled = true;
+            //triggerCollider.enabled = true;
+            GetComponent<Collider>().enabled = true;
         }
     }
 
@@ -29,10 +31,11 @@ public class lightSearchTrigger : MonoBehaviour
         if (other == null) return;
 
         if ((other.gameObject.tag == "Player") &&
-            (tutorialDirector.lightSearchState == sequenceState.READY))
+            (tutorialDirector.lightSearchTrigger.sequenceState == sequenceState.READY))
         {
-            tutorialDirector.lightSearchTrigger = true;
-            triggerCollider.enabled = false;
+            tutorialDirector.lightSearchTrigger.triggered = true;
+            //triggerCollider.enabled = false;
+            GetComponent<Collider>().enabled = false;
         }
     }
 }

@@ -46,7 +46,7 @@ public class ControlledEnemySpawner : MonoBehaviour
         if (spawnWaveDEV)
         {
             spawnWaveDEV = false;
-            StartCoroutine(spawnEnemyWave(waveEnemyTypesDEV));
+            spawnEnemyWave(waveEnemyTypesDEV);
         }
 
         if (canPassiveSpawn && passiveSpawnActive)
@@ -99,48 +99,68 @@ public class ControlledEnemySpawner : MonoBehaviour
     }
 
 
+    public List<GameObject> spawnEnemyWave(List<enemyType> enemyTypeList)
+    {
+        List<GameObject> enemyList = new List<GameObject>();
+        //foreach (enemyType enemyType in enemyTypeList)
+        //{
+            //enemyList.Add(spawnEnemyRandom(enemyType));
+        StartCoroutine(spawnEnemyWaveCo(enemyTypeList, enemyList));
+        //}
+        return enemyList;
+    }
 
-    public IEnumerator spawnEnemyWave(List<enemyType> enemyTypeList)
+
+    public IEnumerator spawnEnemyWaveCo(List<enemyType> enemyTypeList, List<GameObject> spawnedEnemies)
     {
         foreach (enemyType enemyType in enemyTypeList)
         {
-            spawnEnemyRandom(enemyType);
+            spawnedEnemies.Add(spawnEnemyRandom(enemyType));
             yield return new WaitForSeconds(0.5f);
+            //StartCoroutine(spawnEnemyWaveDelay());
         }
+        //yield return new WaitForSeconds(0.5f);
     }
 
-    public void spawnEnemyRandom(enemyType enemyType)
+    public GameObject spawnEnemyRandom(enemyType enemyType)
     {
         int spawnPointIndex = Random.Range(0, spawnPoints.Count);
-        spawnEnemy(enemyType, spawnPointIndex);
+        return spawnEnemy(enemyType, spawnPointIndex);
     }
 
-    public void spawnEnemy(enemyType enemyType, int spawnPointIndex)
+    public GameObject spawnEnemy(enemyType enemyType, int spawnPointIndex)
     {
         GameObject spawnPoint = spawnPoints[spawnPointIndex];
+        GameObject enemy;
 
         switch (enemyType)
         {
             case enemyType.PIRANHA:
-                Instantiate(piranha, spawnPoint.transform.position, spawnPoint.transform.rotation);
+                enemy = Instantiate(piranha, spawnPoint.transform.position, spawnPoint.transform.rotation);
                 break;
 
             case enemyType.BARRACUDA:
-                Instantiate(barracuda, spawnPoint.transform.position, spawnPoint.transform.rotation);
+                enemy = Instantiate(barracuda, spawnPoint.transform.position, spawnPoint.transform.rotation);
                 break;
 
             case enemyType.JELLY:
-                Instantiate(jelly, spawnPoint.transform.position, spawnPoint.transform.rotation);
+                enemy = Instantiate(jelly, spawnPoint.transform.position, spawnPoint.transform.rotation);
                 break;
 
             case enemyType.SIREN:
-                Instantiate(siren, spawnPoint.transform.position, spawnPoint.transform.rotation);
+                enemy = Instantiate(siren, spawnPoint.transform.position, spawnPoint.transform.rotation);
                 break;
 
             case enemyType.LEVIATHAN:
-                Instantiate(leviathan, spawnPoint.transform.position, spawnPoint.transform.rotation);
+                enemy = Instantiate(leviathan, spawnPoint.transform.position, spawnPoint.transform.rotation);
+                break;
+
+            default:
+                enemy = null;
                 break;
         }
+
+        return enemy;
     }
 
     private IEnumerator passiveSpawnCooldownTimer()
@@ -159,6 +179,33 @@ public class ControlledEnemySpawner : MonoBehaviour
         yield return new WaitForSeconds(passiveWaveSpawnCooldown);
         canPassiveWaveSpawn = true;
         Debug.Log("passiveWaveSpawnCooldownTimer complete");
+    }
+
+
+
+    public static bool isWaveDead(List<GameObject> enemies)
+    {
+        string debug = "";
+        foreach (GameObject enemy in enemies)
+        {
+            if (enemy == null)
+            {
+                debug += "null | ";
+            }
+            else
+            {
+                debug += enemy.name + " | ";
+            }
+        }
+
+        foreach (GameObject enemy in enemies)
+        {
+            if (enemy != null)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
 

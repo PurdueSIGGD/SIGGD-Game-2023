@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 8130563863247800727}
   this_enemy: {fileID: 2001994221166009705}
-  speed: 7
+  speed: 10
   turnSpeed: 2
   rayDist: 4
   flankDist: 2
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownTime: 1
-  DAMAGE: 50
+  DAMAGE: 25
 --- !u!135 &3989603554006225634
 SphereCollider:
   m_ObjectHideFlags: 0
