@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UnitHotbarUI : MonoBehaviour
 {
@@ -21,15 +23,13 @@ public class UnitHotbarUI : MonoBehaviour
         // Find hotbarUI
         GameObject playerUIBars = FindObjectOfType<uiBarManager>().gameObject;
         hotbarUI = playerUIBars.transform.GetChild(0).GetChild(5).gameObject;
+        StartCoroutine(UITest());
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Figure out scrolling -> get selectedUnit and selectedCost
-        //unit.GetComponent<Unit>().manaCost;
-        if (currentUnits > 0) 
-            selectedUnit = ((int) Input.mouseScrollDelta.y) % currentUnits;
+        SelectHotbarUnit();
     }
 
     // Inserts a new found unit into the hotbar
@@ -39,19 +39,73 @@ public class UnitHotbarUI : MonoBehaviour
         hotbar.Add(unitNumber);
 
         // Activate one of the hotbars and insert sprite into the hotbar
-        GameObject currentUnitSlot = hotbarUI.transform.GetChild(currentUnits).GetChild(1).gameObject;
+        GameObject currentUnitHotbar = hotbarUI.transform.GetChild(currentUnits).gameObject;
+        GameObject currentUnitSlot = currentUnitHotbar.transform.GetChild(1).gameObject;
+        GameObject unitSpirteObject = unitLevelManager.unitFamilies[(int)unitNumber].members[0];
+        var childCount = unitSpirteObject.transform.childCount;
+        Sprite unitSprite = unitSpirteObject.transform.GetChild(childCount - 1).GetChild(0).GetComponent<SpriteRenderer>().sprite;
+        currentUnitSlot.GetComponent<Image>().sprite = unitSprite;
+        currentUnitHotbar.SetActive(true);
 
-        GameObject unit = unitLevelManager.unitFamilies[(int) unitNumber].members[0];
-        //unit.sprite
-
-
-        currentUnitSlot.SetActive(true);
+        // If it's not the 1st unit, deactivate its overlay
+        GameObject currentUnitOverlay = hotbarUI.transform.GetChild(currentUnits).GetChild(0).gameObject;
+        currentUnitOverlay.GetComponent<Image>().color = FindObjectOfType<uiBarManager>().unitLightColor;
+        if (currentUnits != 0)
+        {
+            currentUnitOverlay.SetActive(false);
+        } else
+        {
+            GameObject unit = unitLevelManager.unitFamilies[(int)unitNumber].members[0];
+            selectedCost = unit.GetComponent<Unit>().manaCost;
+        }
 
         currentUnits++;
-
     }
 
+    // Uses the scrollwheel to locate the currently selected unit on the hotbar
     private void SelectHotbarUnit()
     {
+        if (currentUnits == 0)
+            return;
+
+        float mouseDelta = Input.mouseScrollDelta.y;
+        int newSelectedUnit = ((((int)mouseDelta + selectedUnit) % currentUnits) + currentUnits) % currentUnits;
+
+        GameObject currentUnitOverlay = hotbarUI.transform.GetChild(newSelectedUnit).GetChild(0).gameObject;
+        //byte rOverlayColor = (byte)(FindObjectOfType<uiBarManager>().unitLightColor.r * 255);
+        //byte gOverlayColor = (byte)(FindObjectOfType<uiBarManager>().unitLightColor.g * 255);
+        //byte bOverlayColor = (byte)(FindObjectOfType<uiBarManager>().unitLightColor.b * 255);
+        currentUnitOverlay.GetComponent<Image>().color = FindObjectOfType<uiBarManager>().unitLightColor;
+
+        if (selectedUnit == newSelectedUnit)
+            return;
+
+        // Deselect the previous unit and select the current unit
+        GameObject previousUnitOverlay = hotbarUI.transform.GetChild(selectedUnit).GetChild(0).gameObject;
+        previousUnitOverlay.SetActive(false);
+
+        UnitType unitNumber = hotbar[newSelectedUnit];
+        GameObject unit = unitLevelManager.unitFamilies[(int)unitNumber].members[0];
+        selectedCost = unit.GetComponent<Unit>().manaCost;
+
+        currentUnitOverlay.SetActive(true);
+
+        selectedUnit = newSelectedUnit;
+    }
+
+    // For testing purposes
+    IEnumerator UITest()
+    {
+        yield return new WaitForSeconds(3);
+
+        InsertUnitIntoHotbar(UnitType.HEALER);
+
+        yield return new WaitForSeconds(3);
+
+        InsertUnitIntoHotbar(UnitType.HEALER);
+
+        yield return new WaitForSeconds(3);
+
+        InsertUnitIntoHotbar(UnitType.HEALER);
     }
 }

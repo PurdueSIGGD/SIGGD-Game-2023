@@ -47,7 +47,6 @@ public class uiBarManager : MonoBehaviour
     void UpdateUnitLight()
     {
         // Update unit lights to be where it should be
-        //GameObject selectedUnit = GetComponent<UnitHotbarUI>().selectedUnit;
         float selectedCost = GetComponent<UnitHotbarUI>().selectedCost;
         GameObject unitLight = unitLightSlider.transform.GetChild(0).gameObject;
         GameObject psudoUnitLight = psudoUnitLightSlider.transform.GetChild(0).gameObject;
