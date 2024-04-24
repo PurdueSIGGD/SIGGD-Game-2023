@@ -6,6 +6,7 @@ using TMPro;
 
 public class uiBarManager : MonoBehaviour
 {
+    public bool blackout;
     public Color unitLightColor;
 
     [SerializeField] public PlayerHealthPoints playerHealth;
@@ -27,8 +28,6 @@ public class uiBarManager : MonoBehaviour
     [SerializeField] private Color blackoutColor;
     //[SerializeField] private Image blackoutMask;
     
-    private bool blackout;
-
     void UpdateHealth() {
         healthSlider.value = playerHealth.currentHealth / (float) playerHealth.maximumHealth;
         healthText.SetText("" + Mathf.CeilToInt(playerHealth.currentHealth));
