@@ -10,6 +10,7 @@ public class UnitHotbarUI : MonoBehaviour
     public int selectedUnit = 0;
     public float selectedCost = 100;
 
+    private bool blackout;
     private int currentUnits = 0;
     private const int maxUnits = 10;
     private List<UnitType> hotbar = new List<UnitType>(maxUnits);
@@ -29,6 +30,7 @@ public class UnitHotbarUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        blackout = FindObjectOfType<uiBarManager>().blackout;
         SelectHotbarUnit();
     }
 
@@ -59,12 +61,25 @@ public class UnitHotbarUI : MonoBehaviour
             selectedCost = unit.GetComponent<Unit>().manaCost;
         }
 
+        // If blackout happens, deactivate its overlay
+        if (blackout)
+        {
+            currentUnitOverlay.SetActive(false);
+        }
+
         currentUnits++;
     }
 
     // Uses the scrollwheel to locate the currently selected unit on the hotbar
     private void SelectHotbarUnit()
     {
+        // If blackout happens, deactivate its overlay
+        if (blackout)
+        {
+            hotbarUI.transform.GetChild(selectedUnit).GetChild(0).gameObject.SetActive(false);
+            return;
+        }
+
         if (currentUnits == 0)
             return;
 

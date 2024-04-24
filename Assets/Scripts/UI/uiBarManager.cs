@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class uiBarManager : MonoBehaviour
 {
@@ -49,6 +50,19 @@ public class uiBarManager : MonoBehaviour
         float selectedCost = GetComponent<UnitHotbarUI>().selectedCost;
         GameObject unitLight = unitLightSlider.transform.GetChild(0).gameObject;
         GameObject psudoUnitLight = psudoUnitLightSlider.transform.GetChild(0).gameObject;
+
+        // If blackout happens, deactivate light bars
+        if (blackout)
+        {
+            unitLight.SetActive(false);
+            psudoUnitLight.SetActive(false);
+            return;
+        }
+        else
+        {
+            unitLight.SetActive(true);
+            psudoUnitLight.SetActive(true);
+        }
 
         // If the cost is more than the maximum obtainable light
         if (selectedCost / (float) playerLight.maximumLight > 1)
