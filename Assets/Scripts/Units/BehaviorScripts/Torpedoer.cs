@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class Torpedoer1 : Unit
+public class Torpedoer : Unit
 {
     // -- Serialize Field --
 
@@ -15,6 +15,9 @@ public class Torpedoer1 : Unit
 
     [SerializeField]
     float range;
+
+    [SerializeField]
+    GameObject gunObj;
 
     [SerializeField]
     GameObject bulletPoint;
@@ -70,7 +73,9 @@ public class Torpedoer1 : Unit
         this.target = FindTarget();
         if (target != null)
         {
-            this.transform.LookAt(target.transform.position);
+            //this.transform.LookAt(target.transform.position);
+            var dir = target.transform.position - transform.position;
+            gunObj.GetComponent<DirectionalSprite>().lookDirectionOverride = dir;
         }
     }
 
