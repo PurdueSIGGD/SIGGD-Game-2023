@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class TutorialDirector : MonoBehaviour
 {
@@ -166,7 +167,7 @@ public class TutorialDirector : MonoBehaviour
 
     private string lightHuntObjective = "Search for Light";
 
-    private string lightHuntMessage1 = "Oh, and I forgot to mention, there's some wildlife down there that's " +
+    private string lightHuntMessage1 = "Oh, and I forgot to mention, there's usually some agressive wildlife that's " +
                                        "attracted to all the Light you're collecting.";
 
     //private string lightHuntMessage2 = "You'll probably only find small things in this trench, so don't worry too much.";
@@ -280,11 +281,10 @@ public class TutorialDirector : MonoBehaviour
 
     private string room2AttackEndMessage4 = "If you can reach it, it should help your chances.";
 
-
+    
 
     //ARTIFACT ROOM ATTACK SEQUENCE ----------------------------------------------------------------------
 
-    //public sequenceState artifactRoomAttackState = sequenceState.WAITING; //TODO: ADD TRIGGER BOX
     [SerializeField] public SequenceTrigger artifactRoomAttackTrigger;
 
     [SerializeField] public ControlledEnemySpawner artifactRoomEnemySpawner;
@@ -347,8 +347,6 @@ public class TutorialDirector : MonoBehaviour
 
     //BACKTRACK ARTIFACT ROOM SEQUENCE ------------------------------------------------------------------
 
-    //Artifact Room Attack Trigger
-
     private string backtrackArtifactRoomObjective = "Backtrack Towards the Submarine";
 
     private string backtrackArtifactRoomMessage1 = "Here they come!";
@@ -360,8 +358,6 @@ public class TutorialDirector : MonoBehaviour
 
 
     //BACKTRACK ROOM 3 SEQUENCE ------------------------------------------------------------------
-
-    //First Encounter Trigger
 
     [SerializeField] public ControlledEnemySpawner room3EnemySpawner;
 
@@ -406,8 +402,6 @@ public class TutorialDirector : MonoBehaviour
 
     // TELEPORT SEQUENCE --------------------------------------------------------------------
 
-    //[SerializeField] public SequenceTrigger teleportTrigger;
-
     public sequenceState teleportState = sequenceState.WAITING;
 
     private bool teleportFailed = false;
@@ -417,11 +411,12 @@ public class TutorialDirector : MonoBehaviour
     private string teleportObjective1 = "Teleporter Activating...   ";
 
     private string teleportMessage2 = "Real good work there, kid. We're goin' home. No doubt this'll make for one " +
-                                      "hell of a st--- - - - - -";
+                                      "hell of a st-----";
 
     private string backupSender = "EXO-SUIT BACKUP PROTOCOLS";
 
-    private string teleportMessage3 = "- ERROR REPORT: \n" +
+    private string teleportMessage3 = "- - - \n" +
+                                      "- ERROR REPORT: \n" +
                                       "- - - \n" +
                                       "- HOST SHIP CANNOT BE FOUND \n" +
                                       "- - - \n" +
@@ -436,7 +431,6 @@ public class TutorialDirector : MonoBehaviour
                                       "- - - ";
 
     private string teleportObjective2 = "Return to the Submarine";
-
 
 
 
@@ -1245,8 +1239,10 @@ public class TutorialDirector : MonoBehaviour
             //StopCoroutine(teleportActivatingSequence());
             teleportFailed = true;
             objectivePrompt.showPrompt(teleportObjective1 + "[ERR]");
-            yield return new WaitForSeconds(2.5f);
-
+            yield return new WaitForSeconds(1.5f);
+            messanger.hideMessage();
+            yield return new WaitForSeconds(1.25f);
+            
             yield return messanger.showMessage(teleportMessage3, backupSender, false);
             yield return new WaitForSeconds(1.25f);
             yield return messanger.showMessage(teleportMessage4, backupSender, false);

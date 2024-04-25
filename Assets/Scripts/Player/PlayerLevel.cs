@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerLevel : MonoBehaviour
 {
 
-    [SerializeField] public HealthPoints playerHealth;
+    [SerializeField] public PlayerHealthPoints playerHealth;
     [SerializeField] public LightResource playerLight;
 
     public int currentLevel;
@@ -58,9 +58,11 @@ public class PlayerLevel : MonoBehaviour
         //Heal over time and Light gain over time
         if (Time.time - previousTickTime >= tickRate)
         {
-            playerHealth.healEntity(currentHealthGainRate * (Time.time - previousTickTime) /*tickRate*/);
-            playerLight.addLight(currentLightGainRate * (Time.time - previousTickTime) /*tickRate*/);
-            previousTickTime = Time.time;
+            if (!playerHealth.blackout) {
+                playerHealth.healEntity(currentHealthGainRate * (Time.time - previousTickTime) /*tickRate*/);
+                playerLight.addLight(currentLightGainRate * (Time.time - previousTickTime) /*tickRate*/);
+                previousTickTime = Time.time;
+            }
         }
 
 

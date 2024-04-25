@@ -153,5 +153,10 @@ public class LightResource : MonoBehaviour
             blackoutInit = true;
         }
 
+        if (!blackout && blackoutInit)
+        {
+            blackoutInit = false;
+        }
+
     }
 }

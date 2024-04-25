@@ -41,20 +41,21 @@ internal class SaveManagerEditor : Editor {
 
 public class SaveManager : MonoBehaviour
 {
-    private SaveData saveData;
+    public SaveData saveData;
 
     private const string SaveGameKey = "SaveDate";
 
-    private class SaveData
+    public class SaveData
     {
         // Put all values that need to be saved here
         public int playerLevel;
+        public int tutorialProgress;
         public Vector3 spawnPoint;
         public ObjectiveData[] objectives;
     }
     
     [Serializable]
-    private struct ObjectiveData
+    public struct ObjectiveData
     {
         public string gameObjectName;
         public ObjectiveType objectiveType;
@@ -151,6 +152,10 @@ public class SaveManager : MonoBehaviour
             spawnPoint.y = 1;
             FindObjectOfType<Movement>().gameObject.transform.position = spawnPoint;
         }
+
+        //saveData.tutorialProgress;
+
+        //FindObjectOfType<TutorialDirector>().
 
         for (var i = 0; i < saveData.playerLevel; i++) {
             FindObjectOfType<PlayerLevel>().levelUp();

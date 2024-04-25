@@ -14,6 +14,9 @@ public class PlayerHealthPoints : HealthPoints
     private bool flickerActive;
     private bool dying;
     private float deadCount = 2f;
+    private bool isInvulnerable;
+    [SerializeField] public float iFrameDuration;
+    private float baseLightIntensity;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +25,7 @@ public class PlayerHealthPoints : HealthPoints
         blackoutLight.enabled = false;
         blackout = false;
         flickerActive = false;
+        baseLightIntensity = playerLight.intensity;
     }
 
     /// <summary>
@@ -36,6 +40,11 @@ public class PlayerHealthPoints : HealthPoints
     /// </returns>
     public override float damageEntity(float damage)
     {
+        if (isInvulnerable)
+        {
+            return 0f;
+        }
+
         if (blackout)
         {
             if (!dying)
@@ -48,7 +57,10 @@ public class PlayerHealthPoints : HealthPoints
             return 0f;
         }
 
-        return base.damageEntity(damage);
+        float damageDealt = base.damageEntity(damage);
+        setInvulnerable(iFrameDuration);
+        Debug.Log("INVULNERABLE CALLED - DAMAGE - " + iFrameDuration);
+        return damageDealt;
     }
 
     /// <summary>
@@ -90,9 +102,16 @@ public class PlayerHealthPoints : HealthPoints
     /// </returns>
     public override float healEntity(float healing)
     {
+        //Debug.Log("HEALING YOU");
         if (blackout)
         {
-            return 0f;
+            //return 0f;
+
+            blackout = false;
+            lightResource.blackout = false;
+            StartCoroutine(flickerIn());
+
+            //return 0f;
         }
 
         return base.healEntity(healing);
@@ -121,6 +140,22 @@ public class PlayerHealthPoints : HealthPoints
         }
     }
 
+
+    public void setInvulnerable(float duration)
+    {
+        Debug.Log("INVULNERABLE CALLED - SET - " + duration);
+        StartCoroutine(setInvulnerableCo(duration));
+    }
+
+    private IEnumerator setInvulnerableCo(float duration)
+    {
+        isInvulnerable = true;
+        Debug.Log("IS INVULNERABLE - CO - " + duration);
+        yield return new WaitForSeconds(duration);
+        isInvulnerable = false;
+    }
+
+
     private IEnumerator waitForDeath()
     {
         var deathTime = 2f;
@@ -147,6 +182,22 @@ public class PlayerHealthPoints : HealthPoints
         yield return new WaitForSeconds(0.037f);
         playerLight.enabled = false;
         blackoutLight.enabled = true;
+    }
+
+    private IEnumerator flickerIn()
+    {
+        playerLight.enabled = true;
+        blackoutLight.enabled = false;
+        //float baseLightIntensity = playerLight.intensity;
+        playerLight.intensity = baseLightIntensity * 0.1f;
+        yield return new WaitForSeconds(0.037f);
+        playerLight.intensity = baseLightIntensity * 0.4f;
+        yield return new WaitForSeconds(0.025f);
+        playerLight.intensity = baseLightIntensity * 0.9f;
+        yield return new WaitForSeconds(0.085f);
+        playerLight.intensity = baseLightIntensity * 0.3f;
+        yield return new WaitForSeconds(0.025f);
+        playerLight.intensity = baseLightIntensity;
     }
 
     public IEnumerator flicker()
