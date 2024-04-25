@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5559411555207786837}
   - component: {fileID: 8489791966907926392}
   m_Layer: 0
-  m_Name: U1_Spliiter
+  m_Name: U1_Splitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
