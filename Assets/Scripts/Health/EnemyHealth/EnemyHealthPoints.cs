@@ -12,9 +12,11 @@ public class EnemyHealthPoints : HealthPoints
     [SerializeField] private float spriteFadeTime;
     [SerializeField] private GameObject spritePlane;
     [SerializeField] private Material deathMaterial;
+    [SerializeField] private EnemyDeathSound deathSoundPlayer;
     private float startTime;
 
     public override void kill() {
+        deathSoundPlayer.playDeathSound();
         this.gameObject.transform.parent.GetComponent<LungeNav>().enabled = false;
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
         attackBox.SetActive(false);

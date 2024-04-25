@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HealthPoints : MonoBehaviour
@@ -11,6 +12,7 @@ public class HealthPoints : MonoBehaviour
     public bool invulnerable;
     [SerializeField] public int healDEV;
     [SerializeField] public int damageDEV;
+    [SerializeField] private AudioSource hitSound;
 
 
     // Start is called before the first frame update
@@ -35,6 +37,9 @@ public class HealthPoints : MonoBehaviour
     public virtual float damageEntity(float damage)
     {
         if (invulnerable == false) {
+            if (hitSound != null) {
+                hitSound.Play();
+            }
             Debug.Log("take damage");
             float damageDealt = (currentHealth - damage <= 0f) ? currentHealth : damage;
             currentHealth -= damageDealt;
