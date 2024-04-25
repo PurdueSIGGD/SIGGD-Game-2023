@@ -24,7 +24,7 @@ public class UnitHotbarUI : MonoBehaviour
         // Find hotbarUI
         GameObject playerUIBars = FindObjectOfType<uiBarManager>().gameObject;
         hotbarUI = playerUIBars.transform.GetChild(0).GetChild(5).gameObject;
-        StartCoroutine(UITest());
+        //StartCoroutine(UITest());
     }
 
     // Update is called once per frame
