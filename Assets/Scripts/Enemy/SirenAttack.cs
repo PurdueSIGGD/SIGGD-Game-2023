@@ -19,6 +19,7 @@ public class SirenAttack : MonoBehaviour
     [SerializeField] private float bulletDAMAGE;
     [SerializeField] private float pullStrength;
     [SerializeField] private float bulletGrabTime;
+    [SerializeField] private AudioSource fireSound;
     private float lastAttackTime;
     private float nextAttackTime;
     [SerializeField] private float attackPause;
@@ -58,6 +59,7 @@ public class SirenAttack : MonoBehaviour
     }
 
     private void ThrowHands() {
+        fireSound.Play();
         curHand = Instantiate(bulletHand, this_enemy.position + (this_enemy.forward * 3f) + (this_enemy.up * 0.2f), this_enemy.rotation);
         curHand.GetComponent<HandMechanics>().SetFields(this.gameObject.transform, bulletDAMAGE, bulletLifeTime, bulletReelTime, pullStrength, bulletGrabTime);
         curHand.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, bulletSpeed));

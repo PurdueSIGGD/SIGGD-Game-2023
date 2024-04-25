@@ -40,7 +40,6 @@ public class HealthPoints : MonoBehaviour
             if (hitSound != null) {
                 hitSound.Play();
             }
-            Debug.Log("take damage");
             float damageDealt = (currentHealth - damage <= 0f) ? currentHealth : damage;
             currentHealth -= damageDealt;
             if (currentHealth <= 0f)

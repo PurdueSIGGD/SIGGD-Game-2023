@@ -9,6 +9,8 @@ public class SirenMelee : MonoBehaviour
     [SerializeField] private float intermediateWait;
     [SerializeField] private float recoverTime;
     [SerializeField] private float cooldownTime;
+	[SerializeField] private AudioSource meleeSound;
+	[SerializeField] private AudioSource finalMeleeSound;
 	private float currentCooldownStart;private bool onCooldown;
 	private List<GameObject> overlapping;
     [SerializeField] private float DAMAGE;
@@ -56,10 +58,13 @@ public class SirenMelee : MonoBehaviour
         this_parent.GetComponent<SirenNav>().enabled = false;
         yield return new WaitForSeconds(initialWait);
         Damg(DAMAGE);
+		meleeSound.Play();
         yield return new WaitForSeconds(intermediateWait);
         Damg(DAMAGE);
+		meleeSound.Play();
         yield return new WaitForSeconds(intermediateWait);
         Damg(DAMAGE * finalMultiplier);
+		finalMeleeSound.Play();
         this_parent.GetComponent<SirenAttack>().ShutItDown();  //shuts down grab attack when siren finishes melee
         yield return new WaitForSeconds(recoverTime);
         this_parent.GetComponent<SirenNav>().enabled = true;
