@@ -52,16 +52,12 @@ public class MobNav : MonoBehaviour
             }
         }
         if (targetLoc == Vector3.zero) {
-            Debug.Log("targeting player");
             targetLoc = player.position;
         }
-        else {
-            Debug.Log("not targeting player");
-        }
         NavMesh.CalculatePath(this_enemy.position, targetLoc, NavMesh.AllAreas, path);
-        for (int i = 1; i < path.corners.Length; i++) {
-            Debug.DrawLine(path.corners[i-1], path.corners[i], Color.green);
-        }
+        // for (int i = 1; i < path.corners.Length; i++) {
+        //     Debug.DrawLine(path.corners[i-1], path.corners[i], Color.green);
+        // }
         if (path.corners.Length <= 1)
         {
             return;

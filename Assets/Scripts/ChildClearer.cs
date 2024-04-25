@@ -26,4 +26,13 @@ public class ChildClearer : MonoBehaviour
             DestroyImmediate(transform.GetChild(i).gameObject);
         }
     }
+
+    public static void ClearTransformChildren(Transform t)
+    {
+        // Clear children
+        for(var i = t.childCount - 1; i >= 0; i--)
+        {
+            DestroyImmediate(t.GetChild(i).gameObject);
+        }
+    }
 }
