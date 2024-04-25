@@ -19,7 +19,7 @@ public class WhaleAttack : MonoBehaviour
     {
         thisEnemy = gameObject.transform;
 
-        turretMask = LayerMask.NameToLayer("Unit");
+        turretMask = LayerMask.NameToLayer("Player");
         targetMask = turretMask | LayerMask.NameToLayer("Player");
 
         currentCooldown = 0.0f;
@@ -47,7 +47,9 @@ public class WhaleAttack : MonoBehaviour
         foreach (Collider c in hitTargets)
         {
             GameObject target = c.gameObject;
+
             if (target == null) continue;
+            if (target.layer != targetMask) continue;
 
             Debug.Log(target);
 
