@@ -36,7 +36,7 @@ public class Landmine1 : Unit
         collider.radius = triggerRadius;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {

@@ -125,7 +125,7 @@ MonoBehaviour:
   type: 0
   level: 0
   triggerRadius: 5
-  blastRadius: 10
+  blastRadius: 20
   blastDmg: 1000
   knockbackForce: 1000
   blastMask:
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ed21e89c4a87748a8649cec45ebc99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumHealth: 1
+  maximumHealth: 100
   currentHealth: 0
   healDEV: 0
   damageDEV: 0
