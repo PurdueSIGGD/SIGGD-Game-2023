@@ -8,13 +8,15 @@ public class HealthPoints : MonoBehaviour
     [SerializeField] public int maximumHealth;
     public float currentHealth;
 
+    public bool invulnerable;
     [SerializeField] public int healDEV;
     [SerializeField] public int damageDEV;
 
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
+        invulnerable = false;
         currentHealth = maximumHealth;
     }
 
@@ -32,13 +34,18 @@ public class HealthPoints : MonoBehaviour
     /// </returns>
     public virtual float damageEntity(float damage)
     {
-        float damageDealt = (currentHealth - damage <= 0f) ? currentHealth : damage;
-        currentHealth -= damageDealt;
-        if (currentHealth <= 0f)
-        {
-            kill();
+        if (invulnerable == false) {
+            Debug.Log("take damage");
+            float damageDealt = (currentHealth - damage <= 0f) ? currentHealth : damage;
+            currentHealth -= damageDealt;
+            if (currentHealth <= 0f)
+            {
+
+                kill();
+            }
+            return damageDealt;
         }
-        return damageDealt;
+        return 0f;
     }
 
 

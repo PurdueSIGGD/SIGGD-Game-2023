@@ -58,7 +58,7 @@ public class SirenAttack : MonoBehaviour
     }
 
     private void ThrowHands() {
-        curHand = Instantiate(bulletHand, this_enemy.position + (this_enemy.forward * 1.6f) + (this_enemy.up * 0.5f), this_enemy.rotation);
+        curHand = Instantiate(bulletHand, this_enemy.position + (this_enemy.forward * 3f) + (this_enemy.up * 0.2f), this_enemy.rotation);
         curHand.GetComponent<HandMechanics>().SetFields(this.gameObject.transform, bulletDAMAGE, bulletLifeTime, bulletReelTime, pullStrength, bulletGrabTime);
         curHand.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, bulletSpeed));
     }
