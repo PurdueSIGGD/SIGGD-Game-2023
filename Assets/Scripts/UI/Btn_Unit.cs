@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class Btn_Unit : MonoBehaviour
 {
-    [SerializeField] GameObject player;
+    GameObject player;
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
+    /// <summary>
+    /// Should be called from |Button| component in Unity editor
+    /// </summary>
+    /// <param name="unitPrefab"></param>
     public void Z_SwitchCurrentUnit(GameObject unitPrefab)
     {
         UnitController unitController = player.GetComponent<UnitController>();

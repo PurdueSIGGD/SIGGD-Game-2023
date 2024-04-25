@@ -6,8 +6,8 @@ TagManager:
   tags:
   - RegionColliders
   - Enemy
-  - Wall
-  - Floor
+  - UnitSystem
+  - Unit
   layers:
   - Default
   - TransparentFX

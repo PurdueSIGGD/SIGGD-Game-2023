@@ -102,6 +102,7 @@ public class SaveManager : MonoBehaviour
     {
         GameObjectDisabled, // If this objective exists, disable the GameObject
         Pylon, // If this objective exists, mark the Pylon as completed
+        Artifact, // If this objective exists, mark the Artifact as completed
     }
 
     public string GetSaveString()
@@ -172,6 +173,9 @@ public class SaveManager : MonoBehaviour
                     break;
                 case ObjectiveType.Pylon:
                     g.GetComponent<ChargePylon>().markPylonDone();
+                    break;
+                case ObjectiveType.Artifact:
+                    g.GetComponent<Artifact>().MarkArtifactDone();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
