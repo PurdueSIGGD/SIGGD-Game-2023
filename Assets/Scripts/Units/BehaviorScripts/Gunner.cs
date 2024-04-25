@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gunner1 : Unit
+public class Gunner : Unit
 {
     // -- Serialize Field --
 
@@ -15,10 +15,16 @@ public class Gunner1 : Unit
     float range;
 
     [SerializeField]
-    GameObject bulletPoint;
+    float burstCount;
+
+    [SerializeField]
+    float burstDuration;
 
     [SerializeField]
     GameObject gunObj;
+
+    [SerializeField]
+    GameObject bulletPoint;
 
     [SerializeField]
     LayerMask projMask;
@@ -40,21 +46,24 @@ public class Gunner1 : Unit
     // -- Private Variables --
     GameObject target;
     bool canFire;
+    bool isBurst;
+    float burstTime;
 
     // -- Behavior --
     protected override void Start()
     {
         base.Start();
         canFire = true;
+        burstTime = burstDuration / burstCount;
+        isBurst = false;
     }
 
     void Update()
     {
-        Debug.Log("LOL1");
         Aim();
-        if (target != null && canFire)
+        if (target != null && canFire && !isBurst)
         {
-            Fire();
+            StartCoroutine(Burst());
         }
     }
 
@@ -64,9 +73,8 @@ public class Gunner1 : Unit
         this.target = FindTarget();
         if (target != null)
         {
-            //bulletPoint.transform.LookAt();
+            //this.transform.LookAt(target.transform.position);
             var dir = target.transform.position - transform.position;
-            Debug.Log("LOL2");
             gunObj.GetComponent<DirectionalSprite>().lookDirectionOverride = dir;
         }
     }
@@ -102,7 +110,6 @@ public class Gunner1 : Unit
             bullet.duration = projDuration;
             bullet.damage = projDamage;
             bullet.speed = projSpeed;
-            StartCoroutine(Cooldown());
         }
     }
 
@@ -111,5 +118,17 @@ public class Gunner1 : Unit
         canFire = false;
         yield return new WaitForSeconds(fireCooldown);
         canFire = true;
+    }
+
+    IEnumerator Burst()
+    {
+        isBurst = true;
+        for (int i = 0; i < burstCount; i++)
+        {
+            Fire();
+            yield return new WaitForSeconds(burstTime);
+        }
+        isBurst = false;
+        StartCoroutine(Cooldown());
     }
 }

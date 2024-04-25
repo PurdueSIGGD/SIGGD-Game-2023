@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class Roamer : UnitMovement
 {
     // -- Serialize Fields --
