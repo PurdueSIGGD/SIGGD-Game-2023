@@ -73,7 +73,9 @@ public class SirenMelee : MonoBehaviour
 
     private void OnTriggerEnter(Collider col) {
 		if (overlapping.Contains(col.gameObject) == false) {
-			overlapping.Add(col.gameObject);
+			if (col.gameObject.tag == "Player") {
+				overlapping.Add(col.gameObject);
+			}
 		}
 	}
 

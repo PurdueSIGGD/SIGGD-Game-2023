@@ -11,6 +11,7 @@ public class JellyHealthPoints : HealthPoints
     [SerializeField] private int childCount;
     [SerializeField] private float spreadDist;
     [SerializeField] private float spreadTime;
+    [SerializeField] private AudioSource splitSound;
     private GameObject[] children; 
     private float angleDiff;
 
@@ -46,7 +47,7 @@ public class JellyHealthPoints : HealthPoints
 
         float randDir = Random.Range(0, 360);
         angleDiff = 360 / childCount;
-
+        splitSound.Play();
         for (int i = 0; i < childCount; i++) {
             Quaternion randQuat = Quaternion.Euler(0, (randDir + (angleDiff * i)), 0);
             children[i] = Instantiate(jellyChild, this.gameObject.transform.position, randQuat);
@@ -77,8 +78,8 @@ public class JellyHealthPoints : HealthPoints
             yield return new WaitForFixedUpdate();
         }
         if (jellyCh != null) {
-            jellyCh.GetComponent<MobNav>().enabled = true;
             jellyCh.GetComponent<ChildJellyHealthPoints>().invulnerable = false;
+            jellyCh.GetComponent<MobNav>().enabled = true;
         }
         yield return null;
     }
@@ -87,6 +88,7 @@ public class JellyHealthPoints : HealthPoints
         yield return new WaitForSeconds(spreadTime);
         for (int i = 0; i < childCount; i++) {
             if (children[i] != null) {
+                children[i].GetComponent<ChildJellyHealthPoints>().invulnerable = false;
                 children[i].GetComponent<MobNav>().enabled = true;
             }
         }
