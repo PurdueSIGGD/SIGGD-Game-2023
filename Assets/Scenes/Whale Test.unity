@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 840081028}
-  m_IndirectSpecularColor: {r: 0, g: 0.08514287, b: 0.1691455, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.08524165, b: 0.16901693, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -850,6 +850,54 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1234309725823152347, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2099590263632703228, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2099590263632703228, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2099590263632703228, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2099590263632703228, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2099590263632703228, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2099590263632703228, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589627638367231743, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589627638367231743, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589627638367231743, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589627638367231743, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589627638367231743, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2589627638367231743, guid: 389da32682ac3f4418826efbb2d22243, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -6656,6 +6704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1136153981}
+  sirend: 0
 --- !u!114 &1056946792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6825,8 +6874,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximumHealth: 100
   currentHealth: 100
+  invulnerable: 0
   healDEV: 0
   damageDEV: 0
+  hitSound: {fileID: 0}
   playerLight: {fileID: 1217360471}
   blackoutLight: {fileID: 1472319304}
   lightResource: {fileID: 1056946797}
@@ -8600,7 +8651,7 @@ GameObject:
   - component: {fileID: 1439397760}
   m_Layer: 22
   m_Name: Capsule
-  m_TagString: Unit
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11564,6 +11615,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4982661177024794754, guid: ee8d461c8ed019149a45e3eef7508651, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982661177024794754, guid: ee8d461c8ed019149a45e3eef7508651, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5094335665786185114, guid: ee8d461c8ed019149a45e3eef7508651, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.1
@@ -11642,6 +11701,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5185042753802823862, guid: ee8d461c8ed019149a45e3eef7508651, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497947108881489572, guid: ee8d461c8ed019149a45e3eef7508651, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497947108881489572, guid: ee8d461c8ed019149a45e3eef7508651, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5678286156757409011, guid: ee8d461c8ed019149a45e3eef7508651, type: 3}

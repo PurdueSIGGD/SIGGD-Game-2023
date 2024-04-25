@@ -45,9 +45,13 @@ public class WhaleAttack : MonoBehaviour
         foreach (Collider c in hitTargets)
         {
             GameObject target = c.gameObject;
-            Debug.Log(target);
 
+            Debug.Log(target.tag);
             if (target == null) continue;
+            if (!((target.tag == "Player") || (target.tag == "Unit")))
+            {
+                continue;
+            }
 
             HealthPoints health = target.GetComponent<HealthPoints>();
             if (health == null) continue;
