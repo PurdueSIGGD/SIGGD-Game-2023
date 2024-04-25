@@ -57,12 +57,12 @@ public class Roamer : UnitMovement
             }
             else
             {
-                NavMesh.destination = Target.transform.position;
+                /*NavMesh.destination = Target.transform.position;
 
                 if (NavMesh.remainingDistance < attackRange)
                 {
                     Destroy(Target);
-                }
+                }*/
             }
         }
         else

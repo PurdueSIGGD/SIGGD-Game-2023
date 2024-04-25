@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using TMPro;
-using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
 public class TitleIntro : MonoBehaviour
