@@ -17,6 +17,9 @@ public class Torpedoer : Unit
     float range;
 
     [SerializeField]
+    int clusterCount;
+
+    [SerializeField]
     GameObject gunObj;
 
     [SerializeField]
@@ -45,8 +48,30 @@ public class Torpedoer : Unit
     [SerializeField]
     float projKnockback;
 
+    [Header("Cluster Bomb Fields")]
+
+    [SerializeField]
+    GameObject clusterPrefab;
+
+    [SerializeField]
+    float clusterDuration;
+
+    [SerializeField]
+    float clusterDamage;
+
+    [SerializeField]
+    float clusterHeight;
+
+    [SerializeField]
+    float clusterDmgRadius;
+
+    [SerializeField]
+    float clusterKnockback;
+
+
     // -- Private Fields --
     GameObject target;
+    GameObject[] targets;
     bool canFire;
 
 
@@ -56,6 +81,7 @@ public class Torpedoer : Unit
     {
         base.Start();
         canFire = true;
+        targets = new GameObject[clusterCount + 1];
     }
 
     void Update()
@@ -70,8 +96,8 @@ public class Torpedoer : Unit
     void Aim()
     {
         // Look at target
-        this.target = FindTarget();
-        if (target != null)
+        FindTarget();
+        if (this.target != null)
         {
             //this.transform.LookAt(target.transform.position);
             var dir = target.transform.position - transform.position;
@@ -79,13 +105,14 @@ public class Torpedoer : Unit
         }
     }
 
-    GameObject FindTarget()
+    void FindTarget()
     {
         // Get objects in range
         Collider[] hits = Physics.OverlapSphere(this.transform.position, range, projMask);
 
-        // Find closest target
-        float minDist = float.PositiveInfinity;
+        // Find closest targets
+
+        /*float minDist = float.PositiveInfinity;
         GameObject target = null;
 
         foreach (Collider hit in hits)
@@ -96,9 +123,32 @@ public class Torpedoer : Unit
                 minDist = dist;
                 target = hit.gameObject;
             }
+        }*/
+
+        for (int i = 0; i < clusterCount + 1; i++) {
+            float minDist = float.PositiveInfinity;
+            GameObject closest = null;
+            int minIdx = -1;
+
+            for (int c = 0; c < hits.Length; c++)
+            {
+                Collider hit = hits[c];
+                if (hit == null) continue;
+
+                float dist = Mathf.Abs((hit.gameObject.transform.position - this.transform.position).magnitude);
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    closest = hit.gameObject;
+                    minIdx = c;
+                }
+            }
+
+            hits[minIdx] = null;
+            targets[i] = closest;
         }
 
-        return target;
+        this.target = targets[0];
     }
 
     void Fire()
@@ -115,6 +165,21 @@ public class Torpedoer : Unit
             bullet.enemyMask = projMask;
 
             StartCoroutine(Cooldown());
+        }
+
+        for (int i = 1; i < clusterCount + 1; i++)
+        {
+            GameObject clusterTarget = targets[i];
+            if (clusterTarget == null) continue;
+
+            var cluster = Instantiate(clusterPrefab, this.transform.position, Quaternion.identity).GetComponent<Cluster>();
+            cluster.target = clusterTarget;
+            cluster.duration = clusterDuration;
+            cluster.damage = clusterDamage;
+            cluster.height = clusterHeight;
+            cluster.dmgRadius = clusterDmgRadius;
+            cluster.knockback = clusterKnockback;
+            cluster.enemyMask = projMask;
         }
     }
 
