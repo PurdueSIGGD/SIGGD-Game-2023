@@ -19,7 +19,7 @@ public class WhaleAttack : MonoBehaviour
     {
         thisEnemy = gameObject.transform;
 
-        turretMask = LayerMask.NameToLayer("Player");
+        turretMask = LayerMask.NameToLayer("Unit");
         targetMask = turretMask | LayerMask.NameToLayer("Player");
 
         currentCooldown = 0.0f;
@@ -41,17 +41,13 @@ public class WhaleAttack : MonoBehaviour
     {
         // TODO Spawn SFX
 
-        Debug.Log("Pulse");
-
         Collider[] hitTargets = Physics.OverlapSphere(thisEnemy.position, turretDetectionRadius, ~targetMask);
         foreach (Collider c in hitTargets)
         {
             GameObject target = c.gameObject;
+            Debug.Log(target);
 
             if (target == null) continue;
-            if (target.layer != targetMask) continue;
-
-            Debug.Log(target);
 
             HealthPoints health = target.GetComponent<HealthPoints>();
             if (health == null) continue;

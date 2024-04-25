@@ -15,6 +15,7 @@ public class WhaleNav : MonoBehaviour
     private float currentDuration;
 
     private LayerMask enemyMask;
+    private LayerMask wallMask;
     private NavMeshPath path;
 
     [SerializeField] private float searchTurnSpeed;
@@ -35,7 +36,9 @@ public class WhaleNav : MonoBehaviour
         target = null;
 
         enemyMask = LayerMask.NameToLayer("Enemy");
+        wallMask = LayerMask.NameToLayer("Wall");
         path = new NavMeshPath();
+
 
         currentDuration = 0.0f;
 
@@ -70,21 +73,34 @@ public class WhaleNav : MonoBehaviour
             if (angleToTarget > angleThreshold) return;
 
             navMode = NavMode.PASSING;
-            Debug.Log("Whale switched to PASSING");
         }
 
         // Do a pass until duration runs out
         if (navMode == NavMode.PASSING)
         {
             currentDuration += Time.fixedDeltaTime;
-            if (currentDuration < passDuration) return;
 
+            /*
+            RaycastHit cast;
+            Vector3 castPosition = new Vector3(thisEnemy.position.x, 1, thisEnemy.position.y);
+            if (Physics.Raycast(thisEnemy.position, thisEnemy.forward, out cast, 10.0f, wallMask))
+            {
+                Debug.Log("Cast");
+                GameObject t = cast.collider.gameObject;
+                Debug.Log(t.tag);
+                if (t.layer == ~wallMask)
+                {
+                    navMode = NavMode.SEARCHING;
+                    currentDuration = 0;
+                    return;
+                }
+            }
+            */
+
+            if (currentDuration < passDuration) return;
             currentDuration -= passDuration;
 
-            // TODO Check for wall?
-
             navMode = NavMode.SEARCHING;
-            Debug.Log("Whale switched to SEARCHING");
         }
     }
 
