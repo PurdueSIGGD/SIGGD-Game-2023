@@ -16,6 +16,7 @@ public class HandMechanics : MonoBehaviour
     private bool attached;
     private GameObject curPlayer;
     [SerializeField] private GameObject spriteRenderer;
+    [SerializeField] private AudioSource soundEffect;
 
 
     public void SetFields(Transform parent, float dmg, float life, float reel, float pull, float grab) {
@@ -63,6 +64,7 @@ public class HandMechanics : MonoBehaviour
     }
 
     IEnumerator waitAndDie() {
+        soundEffect.Play();
         this.gameObject.GetComponent<MeshRenderer>().enabled = false;
         spriteRenderer.SetActive(false);
         this.gameObject.GetComponent<SphereCollider>().enabled = false;

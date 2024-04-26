@@ -9,6 +9,7 @@ public class JellyChildGrowUp : MonoBehaviour
     [SerializeField] private float timeToMature;
     [SerializeField] private float randomBuffer;
     [SerializeField] private GameObject matureJelly;
+    [SerializeField] private AudioSource growUpSound;
     private float birthTime;
     private float matureTime;
 
@@ -28,6 +29,7 @@ public class JellyChildGrowUp : MonoBehaviour
     }
 
     private void SpawnAdult() {
+        growUpSound.Play();
         Instantiate(matureJelly, this.gameObject.transform.position, Quaternion.identity);
     }
 }
