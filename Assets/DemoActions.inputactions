@@ -212,17 +212,6 @@
                 },
                 {
                     "name": "",
-                    "id": "08b210f1-1b0e-4a00-8c68-6fb63eb3616d",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PlaceTurret",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "f088c0a5-e046-47a9-bcb6-76e872d3205e",
                     "path": "<Keyboard>/shift",
                     "interactions": "Press(behavior=2)",
