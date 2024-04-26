@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class UnitHotbarUI : MonoBehaviour
 {
     public int selectedUnit = 0;
+    public UnitType selectedType;
     public float selectedCost = 100;
 
     private bool blackout;
@@ -42,6 +43,7 @@ public class UnitHotbarUI : MonoBehaviour
     {
         // Add the new unit to the list
         hotbar.Add(unitNumber);
+        selectedType = hotbar[selectedUnit];
 
         // Activate one of the hotbars and insert sprite into the hotbar
         GameObject currentUnitHotbar = hotbarUI.transform.GetChild(currentUnits).gameObject;
@@ -103,12 +105,14 @@ public class UnitHotbarUI : MonoBehaviour
         previousUnitOverlay.SetActive(false);
 
         UnitType unitNumber = hotbar[newSelectedUnit];
+        selectedType = hotbar[newSelectedUnit];
         GameObject unit = unitLevelManager.unitFamilies[(int)unitNumber].members[0];
         selectedCost = unit.GetComponent<Unit>().manaCost;
 
         currentUnitOverlay.SetActive(true);
 
         selectedUnit = newSelectedUnit;
+        Debug.Log(hotbar);
     }
 
     // For testing purposes
