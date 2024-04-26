@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "EscapeTurret",
+                    "name": "PlacementMode",
                     "type": "Button",
                     "id": "b0a14597-1df8-4d91-9351-0e8e6d76883c",
                     "expectedControlType": "Button",
@@ -30,15 +30,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "UpgradeTurret",
-                    "type": "Button",
-                    "id": "e9e5e8d7-a3d0-47e5-ab4b-ed0d636ab8d3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -188,17 +179,6 @@
                 },
                 {
                     "name": "",
-                    "id": "cc507975-5bc9-4c2a-b2c5-5c946a39fa70",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PlaceTurret",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "adc0862d-99c9-47a3-b0f2-86fc649af904",
                     "path": "<Touchscreen>/primaryTouch/tap",
                     "interactions": "",
@@ -232,23 +212,23 @@
                 },
                 {
                     "name": "",
-                    "id": "f088c0a5-e046-47a9-bcb6-76e872d3205e",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "Press",
+                    "id": "08b210f1-1b0e-4a00-8c68-6fb63eb3616d",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "EscapeTurret",
+                    "action": "PlaceTurret",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "8736e57c-0849-4ec8-86cf-85872b023196",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
+                    "id": "f088c0a5-e046-47a9-bcb6-76e872d3205e",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
-                    "action": "UpgradeTurret",
+                    "action": "PlacementMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
