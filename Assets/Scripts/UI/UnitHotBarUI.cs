@@ -18,6 +18,8 @@ public class UnitHotbarUI : MonoBehaviour
 
     [SerializeField] private UnitLevelManager unitLevelManager;
 
+    [SerializeField] bool isTest;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,7 @@ public class UnitHotbarUI : MonoBehaviour
         GameObject playerUIBars = FindObjectOfType<uiBarManager>().gameObject;
         hotbarUI = playerUIBars.transform.GetChild(0).GetChild(5).gameObject;
         //StartCoroutine(UITest());
+        if (isTest) InsertUnits();
     }
 
     // Update is called once per frame
@@ -122,5 +125,14 @@ public class UnitHotbarUI : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         InsertUnitIntoHotbar(UnitType.HEALER);
+    }
+
+    void InsertUnits()
+    {
+        UnitFamily[] units = unitLevelManager.unitFamilies;
+        foreach (UnitFamily fam in units)
+        {
+            InsertUnitIntoHotbar(fam.family);
+        }
     }
 }

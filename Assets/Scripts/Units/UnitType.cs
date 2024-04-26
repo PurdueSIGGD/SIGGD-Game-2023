@@ -7,7 +7,8 @@ public enum UnitType
     TORPEDOER = 0,
     HEALER = 1,
     GUNNER = 2,
-    BUBBLE = 3,
-    LANDMINE = 4,
+    LANDMINE = 3,
+    SPLITTER = 4,
+    BUBBLE = 5,
 
 }

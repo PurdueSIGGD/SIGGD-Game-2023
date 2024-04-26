@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 2804218151059169177}
   - component: {fileID: 6538159157015344884}
   m_Layer: 0
-  m_Name: PlayerRangedProjectile
-  m_TagString: PlayerBullet
+  m_Name: P1_Split
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

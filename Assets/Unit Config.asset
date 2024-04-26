@@ -15,18 +15,16 @@ MonoBehaviour:
   unitFamilies:
   - family: 0
     members:
-    - {fileID: 2122521397291697729, guid: 6b240d133002e9148ac1bce78b880c70, type: 3}
+    - {fileID: 2364344640900868031, guid: 17425a3554aafd64d98ce6b8d9ba2715, type: 3}
   - family: 1
     members:
     - {fileID: 5571080710664901485, guid: 7b57cbc138671ec429c794f374921727, type: 3}
-    - {fileID: 5571080710664901485, guid: f3b8ad3c6057f774aafef5c11d22ae03, type: 3}
-    - {fileID: 5571080710664901485, guid: 9bb32022283435d45b71963f5a7a1f63, type: 3}
   - family: 2
     members:
-    - {fileID: 2364344640900868031, guid: f414f8ac3987fc24fa056b745434db4e, type: 3}
-  - family: 3
-    members:
-    - {fileID: 3961891327117006521, guid: 693b92ba2ef9bcb4e8f210b4ba672cdd, type: 3}
+    - {fileID: 2364344640900868031, guid: f039e0f79734f4d45af0ae7eb6d72b6d, type: 3}
   - family: 4
     members:
-    - {fileID: 3652460213827929853, guid: 7a8fc01c60d6c814f9d873db36dd6258, type: 3}
+    - {fileID: 3984093504656500334, guid: 23665a14260a6fb40bb7cd67372a1aa7, type: 3}
+  - family: 3
+    members:
+    - {fileID: 3652460213827929853, guid: 29d2d473b70ed9f4ea1412fe668a2394, type: 3}
