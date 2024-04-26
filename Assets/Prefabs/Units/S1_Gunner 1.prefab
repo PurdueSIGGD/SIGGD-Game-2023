@@ -14,8 +14,7 @@ GameObject:
   - component: {fileID: -8015260997049726275}
   - component: {fileID: 4335786500199236161}
   - component: {fileID: 8757531461867564329}
-  - component: {fileID: -5357328320494314655}
-  - component: {fileID: 5104592894399710302}
+  - component: {fileID: 7470615975895078041}
   m_Layer: 24
   m_Name: S1_Gunner 1
   m_TagString: Unit
@@ -102,8 +101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximumHealth: 1000
   currentHealth: 0
+  invulnerable: 0
   healDEV: 0
   damageDEV: 0
+  hitSound: {fileID: 0}
 --- !u!195 &4335786500199236161
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -138,35 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e2d68519710f042a9e4342a5a476c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-5357328320494314655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2364344640900868031}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cdfc8b69ee6ee0429e40a3868968abf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manaCost: 0
-  sellCost: 0
-  type: 0
-  level: 0
-  fireCooldown: 5
-  range: 10
-  burstCount: 3
-  burstDuration: 0.6
-  bulletPoint: {fileID: 7364929669028330281}
-  projMask:
-    serializedVersion: 2
-    m_Bits: 8388608
-  projPrefab: {fileID: 354620882897817373, guid: 006840180321b504f8f76f1ba47bf693, type: 3}
-  projDuration: 10
-  projDamage: 10
-  projSpeed: 10
---- !u!114 &5104592894399710302
+--- !u!114 &7470615975895078041
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,24 +148,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 2364344640900868031}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f23088ee90e0e3d40b8c11e99ab435d2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cdfc8b69ee6ee0429e40a3868968abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 0
+  manaCost: 10
   sellCost: 0
-  type: 0
+  type: 2
   level: 0
   fireCooldown: 1
   range: 10
-  bulletPoint: {fileID: 0}
+  burstCount: 3
+  burstDuration: 0.6
   gunObj: {fileID: 231151934610537643}
+  bulletPoint: {fileID: 7364929669028330281}
   projMask:
     serializedVersion: 2
     m_Bits: 8388608
   projPrefab: {fileID: 354620882897817373, guid: 006840180321b504f8f76f1ba47bf693, type: 3}
   projDuration: 10
   projDamage: 10
-  projSpeed: 10
+  projSpeed: 20
 --- !u!1 &7364929669028330281
 GameObject:
   m_ObjectHideFlags: 0

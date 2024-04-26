@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Healer2 : Unit
+public class Healer : Unit
 {
     // -- Serialize Fields --
     [Header("Unit Fields")]

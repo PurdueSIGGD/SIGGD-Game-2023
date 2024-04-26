@@ -10,10 +10,11 @@ public class SirenHealthPoints : HealthPoints
     [SerializeField] private float spriteFadeTime;
     [SerializeField] private GameObject spritePlane;
     [SerializeField] private Material deathMaterial;
+    [SerializeField] private EnemyDeathSound deathSound;
     private float startTime;
 
     public override void kill() {
-        Debug.Log("die");
+        deathSound.playDeathSound();
         this.gameObject.GetComponent<SirenNav>().enabled = false;
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
         attackBox.SetActive(false);

@@ -113,7 +113,7 @@ public class DirectionalSprite : MonoBehaviour
     {
         if (lookDirectionOverride != Vector3.zero)
         {
-            Debug.Log("First");
+            //Debug.Log("First");
             return lookDirectionOverride;
         }
         

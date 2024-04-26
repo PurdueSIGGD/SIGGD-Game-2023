@@ -17,9 +17,6 @@ public class Torpedo : MonoBehaviour
     public float duration;
 
     [NonSerialized]
-    public float height;
-
-    [NonSerialized]
     public float damage;
 
     [NonSerialized]

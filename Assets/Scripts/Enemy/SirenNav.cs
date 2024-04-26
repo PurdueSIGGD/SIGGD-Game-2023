@@ -53,7 +53,7 @@ public class SirenNav : MonoBehaviour
 
         if (path.corners.Length <= 2) {
             move_offset += this_enemy.right * flankDir * flankSpeed;
-            move_offset += this_enemy.forward * -1;
+            move_offset += this_enemy.forward * -3;
         }
 
         if (distToPlayer > ((maxRangeDist - rangeVariability) * 0.3f) && path.corners.Length < 2) {

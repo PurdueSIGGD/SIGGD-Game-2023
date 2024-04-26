@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
-public class Torpedoer1 : Unit
+public class Gunner : Unit
 {
     // -- Serialize Field --
 
@@ -15,6 +13,15 @@ public class Torpedoer1 : Unit
 
     [SerializeField]
     float range;
+
+    [SerializeField]
+    float burstCount;
+
+    [SerializeField]
+    float burstDuration;
+
+    [SerializeField]
+    GameObject gunObj;
 
     [SerializeField]
     GameObject bulletPoint;
@@ -36,31 +43,27 @@ public class Torpedoer1 : Unit
     [SerializeField]
     float projSpeed;
 
-    [SerializeField]
-    float projDmgRadius;
-
-    [SerializeField]
-    float projKnockback;
-
-    // -- Private Fields --
+    // -- Private Variables --
     GameObject target;
     bool canFire;
-
+    bool isBurst;
+    float burstTime;
 
     // -- Behavior --
-
     protected override void Start()
     {
         base.Start();
         canFire = true;
+        burstTime = burstDuration / burstCount;
+        isBurst = false;
     }
 
     void Update()
     {
         Aim();
-        if (target != null && canFire)
+        if (target != null && canFire && !isBurst)
         {
-            Fire();
+            StartCoroutine(Burst());
         }
     }
 
@@ -70,7 +73,9 @@ public class Torpedoer1 : Unit
         this.target = FindTarget();
         if (target != null)
         {
-            this.transform.LookAt(target.transform.position);
+            //this.transform.LookAt(target.transform.position);
+            var dir = target.transform.position - transform.position;
+            gunObj.GetComponent<DirectionalSprite>().lookDirectionOverride = dir;
         }
     }
 
@@ -96,20 +101,15 @@ public class Torpedoer1 : Unit
         return target;
     }
 
-    void Fire()
+    public void Fire()
     {
         if (target != null)
         {
-            var bullet = Instantiate(projPrefab, bulletPoint.transform.position, Quaternion.identity).GetComponent<Torpedo>();
-            bullet.target = target;
+            var bullet = Instantiate(projPrefab, bulletPoint.transform.position, Quaternion.identity).GetComponent<Bullet>();
+            bullet.target = target.transform.position;
             bullet.duration = projDuration;
             bullet.damage = projDamage;
             bullet.speed = projSpeed;
-            bullet.dmgRadius = projDmgRadius;
-            bullet.knockback = projKnockback;
-            bullet.enemyMask = projMask;
-
-            StartCoroutine(Cooldown());
         }
     }
 
@@ -118,5 +118,17 @@ public class Torpedoer1 : Unit
         canFire = false;
         yield return new WaitForSeconds(fireCooldown);
         canFire = true;
+    }
+
+    IEnumerator Burst()
+    {
+        isBurst = true;
+        for (int i = 0; i < burstCount; i++)
+        {
+            Fire();
+            yield return new WaitForSeconds(burstTime);
+        }
+        isBurst = false;
+        StartCoroutine(Cooldown());
     }
 }

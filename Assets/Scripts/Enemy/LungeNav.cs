@@ -21,6 +21,7 @@ public class LungeNav : MonoBehaviour
     [SerializeField] private float pounceDecay;
     [SerializeField] private float maxPounceTime;
     [SerializeField] private float minPounceTime;
+    [SerializeField] private AudioSource pounceNoise;
     private bool inPounce;
     private float tempSpeed;
     private int flankDir;
@@ -119,6 +120,7 @@ public class LungeNav : MonoBehaviour
             move_offset = move_offset.normalized;
             if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position) + 9, playerMask)) {
                 if ((lastPounceTime + timeToNextPounce) < Time.time) {
+                    pounceNoise.Play();
                     lastPounceTime = Time.time;
                     inPounce = true;
                 }

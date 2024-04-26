@@ -36,6 +36,14 @@ public class UnitController : MonoBehaviour
     // UnitOld type
     private GameObject unitToSpawn;
 
+    // Placement Details
+    [SerializeField]
+    UnitHotbarUI unitUI;
+
+    [SerializeField]
+    UnitLevelManager unitConfig;
+
+
     // Layermask
     [SerializeField]
     private LayerMask physicalMask;
@@ -44,6 +52,22 @@ public class UnitController : MonoBehaviour
     {
         blankModel.SetActive(false);
         playerPosition = gameObject.transform.position;
+    }
+
+    public void OnPlacementMode()
+    {
+        Debug.Log("PLacement Mode Triggered!");
+        placeMode = !placeMode;
+
+        if (placeMode)
+        {
+            unitToSpawn = unitConfig.unitFamilies[unitUI.selectedUnit].members[0];
+
+            EnterPlaceMode();
+        } else
+        {
+            ExitPlaceMode();
+        }
     }
 
     // Turret selected from button
