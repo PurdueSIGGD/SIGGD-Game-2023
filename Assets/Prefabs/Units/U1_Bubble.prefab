@@ -107,7 +107,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5052585726925559406
 MonoBehaviour:
@@ -126,7 +126,7 @@ MonoBehaviour:
   type: 0
   level: 0
   knockbackForce: 1000
-  knockbackRadius: 7
+  knockbackRadius: 15
   bubbleMask:
     serializedVersion: 2
     m_Bits: 8388608
@@ -142,8 +142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ed21e89c4a87748a8649cec45ebc99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumHealth: 100
+  maximumHealth: 100000
   currentHealth: 0
+  invulnerable: 0
   healDEV: 0
   damageDEV: 0
 --- !u!114 &7792008798280537467

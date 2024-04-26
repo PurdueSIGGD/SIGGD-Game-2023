@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximumHealth: 1000
   currentHealth: 0
+  invulnerable: 0
   healDEV: 0
   damageDEV: 0
 --- !u!195 &4335786500199236161
@@ -166,13 +167,13 @@ MonoBehaviour:
   projDamage: 10
   projSpeed: 10
   projDmgRadius: 5
-  projKnockback: 1000
+  projKnockback: 4000
   clusterPrefab: {fileID: 354620882897817373, guid: a1a44f64e7245894b8dbfb3086240460, type: 3}
   clusterDuration: 1.3
   clusterDamage: 20
   clusterHeight: 2.25
   clusterDmgRadius: 5
-  clusterKnockback: 100
+  clusterKnockback: 2000
 --- !u!1 &7364929669028330281
 GameObject:
   m_ObjectHideFlags: 0
