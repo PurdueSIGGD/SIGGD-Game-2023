@@ -11337,6 +11337,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptTextBox: {fileID: 1094283159}
+--- !u!114 &956414539 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3024444904737211507, guid: ee8d461c8ed019149a45e3eef7508651, type: 3}
+  m_PrefabInstance: {fileID: 1983058414}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956414534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db56af677fea5d64d87fb4992bb1e028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &957517180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27903,6 +27914,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2618181805559991903, guid: 8a71c2c129ba5074e841393a5f640ad5, type: 3}
+      propertyPath: unitUI
+      value: 
+      objectReference: {fileID: 956414539}
+    - target: {fileID: 2618181805559991903, guid: 8a71c2c129ba5074e841393a5f640ad5, type: 3}
       propertyPath: blankModel
       value: 
       objectReference: {fileID: 1255556186}
@@ -27910,6 +27925,10 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1136153981}
+    - target: {fileID: 2618181805559991903, guid: 8a71c2c129ba5074e841393a5f640ad5, type: 3}
+      propertyPath: unitConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 740fbb279bade484fb5d9ce901bd6c0d, type: 2}
     - target: {fileID: 3128851865700870863, guid: 8a71c2c129ba5074e841393a5f640ad5, type: 3}
       propertyPath: m_Camera
       value: 
