@@ -68,6 +68,7 @@ public class EnemySpawner : MonoBehaviour
         for (int j = 0; j < collArray.Length; j++) {
             if (collArray[j].gameObject.TryGetComponent(out EnemyReference enemyReference)) {
                 enemy = enemyReference.enemy;
+                Debug.Log("Spawning " + enemy.name + "!");
             }
         }
 
