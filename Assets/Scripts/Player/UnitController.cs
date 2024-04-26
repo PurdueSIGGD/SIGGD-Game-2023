@@ -65,6 +65,7 @@ public class UnitController : MonoBehaviour
         {
             unitToSpawn = unitConfig.unitFamilies[unitUI.selectedUnit].members[0];
             OnPlaceTurret();
+            Debug.Log("Unit Name: " + unitToSpawn.name);
             //EnterPlaceMode();
         } else
         {
