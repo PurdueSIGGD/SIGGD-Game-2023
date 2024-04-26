@@ -8,6 +8,9 @@ TagManager:
   - Enemy
   - UnitSystem
   - Unit
+  - Undefined
+  - Floor
+  - Wall
   layers:
   - Default
   - TransparentFX

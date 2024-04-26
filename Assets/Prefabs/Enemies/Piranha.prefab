@@ -167,8 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984518c86930dc748bd918c6fcb5d07c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumHealth: 100
+  maximumHealth: 60
   currentHealth: 0
+  invulnerable: 0
   healDEV: 0
   damageDEV: 0
   spriteHolder: {fileID: 6405791076158034928}

@@ -72,7 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 5014159842628626497}
   this_enemy: {fileID: 1453218837188479805}
-  speed: 9
+  speed: 12
   turnSpeed: 10
   flankSpeed: 2
   retreatSpeed: 3
@@ -80,8 +80,8 @@ MonoBehaviour:
   rangeVariability: 4
   pounceSpeed: 7
   pounceDecay: 3.9
-  maxPounceTime: 12
-  minPounceTime: 6
+  maxPounceTime: 9
+  minPounceTime: 3
   minChange: 5
   maxChange: 10
 --- !u!1 &4808138464243670542
@@ -204,6 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximumHealth: 100
   currentHealth: 0
+  invulnerable: 0
   healDEV: 0
   damageDEV: 0
   spriteHolder: {fileID: 2493943102718086377}

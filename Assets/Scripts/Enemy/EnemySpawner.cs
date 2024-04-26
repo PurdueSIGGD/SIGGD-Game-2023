@@ -12,10 +12,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     public float maxDistance = 10.0f;
 
-    float constantSpawnTimer = 0.0f;
+    public float constantSpawnTimer = 0.0f;
     [SerializeField] public float constantSpawnInterval = 7.0f; //seconds
-    float waveSpawnTimer = 0.0f;
+    public float waveSpawnTimer = 0.0f;
     [SerializeField] public float waveSpawnInterval = 60.0f; //seconds
+    [SerializeField] public int waveVolume = 5;
+    [SerializeField] public float waveSpeed = 3f;
 
     int enemyCount = 0;
 
@@ -86,14 +88,14 @@ public class EnemySpawner : MonoBehaviour
         int spread = Random.Range(45, 90);
         int currentTotalSpawns = 0;
         // Larger numbers make the wave have more enemy volume
-        int waveVolume = 10;
+        //int waveVolume = 7;
         // As this approaches 1, the wave spawns much faster
         // Don't make it less than 1 or it'll probably break since we wait for speed - sin(x) seconds
-        float speed = 3;
+        //float waveSpeed = 3;
         while (currentTotalSpawns / waveVolume < Mathf.PI) {
             SpawnEnemy(degrees, spread);
             currentTotalSpawns++;
-            yield return new WaitForSeconds(speed - Mathf.Sin((float)currentTotalSpawns / (float)waveVolume));
+            yield return new WaitForSeconds(waveSpeed - Mathf.Sin((float)currentTotalSpawns / (float)waveVolume));
         }
     }
 }

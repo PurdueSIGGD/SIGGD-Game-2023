@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealthPoints : HealthPoints
+/*public class EnemyHealthPoints : HealthPoints
 {
     // Start is called before the first frame update
 
@@ -11,4 +11,4 @@ public class EnemyHealthPoints : HealthPoints
         Debug.Log("die");
         Destroy(this.transform.parent.gameObject);
     }
-}
+}*/
