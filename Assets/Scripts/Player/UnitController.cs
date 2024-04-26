@@ -48,6 +48,8 @@ public class UnitController : MonoBehaviour
     [SerializeField]
     private LayerMask physicalMask;
 
+    [SerializeField] bool isTest;
+
     private void Awake()
     {
         blankModel.SetActive(false);
@@ -62,11 +64,11 @@ public class UnitController : MonoBehaviour
         if (placeMode)
         {
             unitToSpawn = unitConfig.unitFamilies[unitUI.selectedUnit].members[0];
-
-            EnterPlaceMode();
+            OnPlaceTurret();
+            //EnterPlaceMode();
         } else
         {
-            ExitPlaceMode();
+            //ExitPlaceMode();
         }
     }
 
@@ -112,7 +114,7 @@ public class UnitController : MonoBehaviour
         // If position is defined, place on surface
         if (!pos.Equals(Vector3.positiveInfinity))
         {
-            blankModel.SetActive(true);
+            //blankModel.SetActive(true);
             blankModel.transform.position = pos;
         }
 
@@ -154,8 +156,16 @@ public class UnitController : MonoBehaviour
                 // If the proposed gameobject has a unit behavior, instantiate at position. If not, log warning
                 if (unitToSpawn.GetComponent<Unit>() != null)
                 {
-                    GameObject newUnit = Instantiate(unitToSpawn, pos + new Vector3(0, 1, 0), Quaternion.identity);
-                    newUnit.transform.up = rot;
+                    float consumedLight = playerLight.consumeLight(unitToSpawn.GetComponent<Unit>().manaCost);
+                    if (isTest || consumedLight >= unitToSpawn.GetComponent<Unit>().manaCost)
+                    {
+                        GameObject newUnit = Instantiate(unitToSpawn, pos + new Vector3(0, 1, 0), Quaternion.identity);
+                        newUnit.transform.up = rot;
+                    }
+                    else
+                    {
+                        playerLight.addLight(consumedLight);
+                    }
                 }
                 else
                 {
@@ -189,24 +199,29 @@ public class UnitController : MonoBehaviour
         // If no surface hit, return not valid
         if (!Physics.Raycast(camToWorld, out RaycastHit hit, float.PositiveInfinity, physicalMask))
         {
+            Debug.Log("Problem 1");
             return false;
         }
 
         // If surface is not placeable, return false (it still needs to hit layer though)
-        if (hit.collider.gameObject.layer != LayerMask.NameToLayer("Placeable"))
+        /*if (hit.collider.gameObject.layer != LayerMask.NameToLayer("Placeable") ||
+            (hit.collider.gameObject.layer != LayerMask.NameToLayer("Placeable"))
         {
+            Debug.Log("Problem 2");
             return false;
-        }
+        } */
 
         // If distance too far, return not valid
         if (!((Vector3.Distance(hit.point, playerPosition) >= PLACE_MIN) && (Vector3.Distance(hit.point, playerPosition) <= PLACE_MAX)))
         {
+            Debug.Log("Problem 3");
             return false;
         }
 
         // If hit normal y component is too low (slope too steep), return not valid
         if (Mathf.Abs(hit.normal.y) < Mathf.Cos(Mathf.Deg2Rad * MAX_PLACE_ANGLE))
         {
+            Debug.Log("Problem 4");
             return false;
         }
 
@@ -249,7 +264,7 @@ public class UnitController : MonoBehaviour
                 // Set active if hidden due to being off map
                 if (!blankModel.activeSelf)
                 {
-                    blankModel.SetActive(true);
+                    //blankModel.SetActive(true);
                 }
                 // If now valid after not being valid, make valid and set color to green
                 if (!canPlace && valid)
