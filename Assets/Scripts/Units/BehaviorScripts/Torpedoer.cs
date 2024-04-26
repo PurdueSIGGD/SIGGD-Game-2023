@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Linq;
 using static UnityEngine.GraphicsBuffer;
 
 public class Torpedoer : Unit
@@ -74,14 +75,13 @@ public class Torpedoer : Unit
     GameObject[] targets;
     bool canFire;
 
-
     // -- Behavior --
 
     protected override void Start()
     {
         base.Start();
         canFire = true;
-        targets = new GameObject[clusterCount + 1];
+        targets = new GameObject[clusterCount];
     }
 
     void Update()
@@ -108,7 +108,14 @@ public class Torpedoer : Unit
     void FindTarget()
     {
         // Get objects in range
-        Collider[] hits = Physics.OverlapSphere(this.transform.position, range, projMask);
+        List<Collider> hits = Physics.OverlapSphere(this.transform.position, range, projMask).ToList();
+
+        // If no hits, return
+        if (hits == null || hits.Count <= 0) return;
+
+        // Set targets array
+        int targetCount = (hits.Count > clusterCount) ? clusterCount : hits.Count;
+        targets = new GameObject[targetCount];
 
         // Find closest targets
 
@@ -125,19 +132,24 @@ public class Torpedoer : Unit
             }
         }*/
 
-        if (hits.Length > 0) return;
-
-        for (int i = 0; i < clusterCount + 1; i++) {
+        // Loop through hits until either no targets or cluster count exceeded
+        while ((targetCount - 1) >= 0) {
+            // Minimum distance of potential targets
             float minDist = float.PositiveInfinity;
+            // The closest object
             GameObject closest = null;
+            // Index in hits (-1 means unassigned)
             int minIdx = -1;
 
-            for (int c = 0; c < hits.Length; c++)
+            // Loop through hits
+            for (int c = 0; c < hits.Count; c++)
             {
+                // Get the collider
                 Collider hit = hits[c];
-                if (hit == null) continue;
 
+                // Get the distance
                 float dist = Mathf.Abs((hit.gameObject.transform.position - this.transform.position).magnitude);
+                // Replace closest object
                 if (dist < minDist)
                 {
                     minDist = dist;
@@ -146,10 +158,14 @@ public class Torpedoer : Unit
                 }
             }
 
-            hits[minIdx] = null;
-            targets[i] = closest;
+            // Remove found value, set the target to current
+            hits.RemoveAt(minIdx);
+            targets[targetCount - 1] = closest;
+            // Decrement target count
+            targetCount--;
         }
 
+        // Set target to the first of targets array
         this.target = targets[0];
     }
 
@@ -169,10 +185,9 @@ public class Torpedoer : Unit
             StartCoroutine(Cooldown());
         }
 
-        for (int i = 1; i < clusterCount + 1; i++)
+        for (int i = 1; i < targets.Length; i++)
         {
             GameObject clusterTarget = targets[i];
-            if (clusterTarget == null) continue;
 
             var cluster = Instantiate(clusterPrefab, this.transform.position, Quaternion.identity).GetComponent<Cluster>();
             cluster.target = clusterTarget;

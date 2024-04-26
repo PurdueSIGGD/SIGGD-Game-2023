@@ -47,12 +47,14 @@ public class SoundSystem : MonoBehaviour
     private void Start()
     {
         playerListener = FindObjectOfType<AudioListener>();
-
+        Debug.Log(musicSources[0].audioSource.clip.name);
     }
 
     // Update is called once per frame
     private void Update()
     {
+        musicSources[0].audioSource.Play();
+
         var sirenOn = GetSourceOn(sirenSources);
         var objectiveOn = GetSourceOn(objectiveSources);
         

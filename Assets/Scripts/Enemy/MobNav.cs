@@ -127,7 +127,10 @@ public class MobNav : MonoBehaviour
         
         move_offset = move_offset.normalized;
 
-        agent.Move(move_offset * speed * Time.fixedDeltaTime);
+        if (agent.isOnNavMesh)
+        {
+            agent.Move(move_offset * speed * Time.fixedDeltaTime);
+        }
 
         
     }
