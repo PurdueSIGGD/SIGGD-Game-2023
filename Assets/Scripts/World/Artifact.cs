@@ -5,7 +5,7 @@ using UnityEngine;
 public class Artifact : Interactable
 {
     // TODO: Replace this with the enum for the turret family
-    [SerializeField] private GameObject turret;
+    [SerializeField] private UnitType unitNumber;
     
     public override void interact()
     {
@@ -22,7 +22,9 @@ public class Artifact : Interactable
     // TODO: Have this function make the turret prefab available to the player
     private void GivePlayerArtifact()
     {
-        
+        GameObject unitUI =  GameObject.FindGameObjectWithTag("UIUnit");
+        unitUI.GetComponent<UnitHotbarUI>().InsertUnitIntoHotbar(unitNumber);
+        Destroy(this.gameObject);
     }
     
     public void MarkArtifactDone()

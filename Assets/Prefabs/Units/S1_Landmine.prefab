@@ -164,7 +164,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8388608
   mineAnimator: {fileID: 1056619841196554357}
-  detonator: {fileID: 0}
+  detonator: {fileID: 2921899259549748684}
 --- !u!114 &4165494177006157127
 MonoBehaviour:
   m_ObjectHideFlags: 0

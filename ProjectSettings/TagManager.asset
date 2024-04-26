@@ -11,6 +11,8 @@ TagManager:
   - Undefined
   - Floor
   - Wall
+  - PlayerBullet
+  - UIUnit
   layers:
   - Default
   - TransparentFX
