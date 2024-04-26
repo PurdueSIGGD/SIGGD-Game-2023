@@ -100,6 +100,9 @@ public class UnitController : MonoBehaviour
     // Enter place mode
     void EnterPlaceMode()
     {
+
+        Debug.Log("EnterPlaceMode");
+
         // Check the model
         bool valid = CheckValid();
 

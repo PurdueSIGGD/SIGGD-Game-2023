@@ -230,7 +230,7 @@ public class AreaOneDirector : MonoBehaviour
         {
             if (enemy != null)
             {
-                enemy.GetComponent<EnemyHealthPoints>().damageEntity(1000f);
+                enemy.GetComponent<HealthPoints>().damageEntity(1000f);
             }
         }
         //enemySpawner.enabled = true;
@@ -284,7 +284,7 @@ public class AreaOneDirector : MonoBehaviour
         {
             if (enemy != null)
             {
-                enemy.GetComponent<EnemyHealthPoints>().damageEntity(1000f);
+                enemy.GetComponent<HealthPoints>().damageEntity(1000f);
             }
         }
         //enemySpawner.enabled = true;
@@ -338,7 +338,7 @@ public class AreaOneDirector : MonoBehaviour
         {
             if (enemy != null)
             {
-                enemy.GetComponent<EnemyHealthPoints>().damageEntity(1000f);
+                enemy.GetComponent<HealthPoints>().damageEntity(1000f);
             }
         }
         //enemySpawner.enabled = true;
