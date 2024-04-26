@@ -63,7 +63,7 @@ public class UnitController : MonoBehaviour
 
         if (placeMode)
         {
-            unitToSpawn = unitConfig.unitFamilies[unitUI.selectedUnit].members[0];
+            unitToSpawn = unitConfig.unitFamilies[(int) unitUI.selectedType].members[0];
             OnPlaceTurret();
             //EnterPlaceMode();
         } else
