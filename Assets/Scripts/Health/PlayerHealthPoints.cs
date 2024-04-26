@@ -10,6 +10,7 @@ public class PlayerHealthPoints : HealthPoints
     [SerializeField] private Light playerLight;
     [SerializeField] private Light blackoutLight;
     [SerializeField] private LightResource lightResource;
+    [SerializeField] private AudioClip damagePlayerFX;
     public bool blackout;
     private bool flickerActive;
     private bool dying;
@@ -47,6 +48,9 @@ public class PlayerHealthPoints : HealthPoints
             
             return 0f;
         }
+
+        // Plays player damage FX
+        PlayerFXManager.instance.PlayFXClip(damagePlayerFX, transform, 1f, 0.3f);
 
         return base.damageEntity(damage);
     }
