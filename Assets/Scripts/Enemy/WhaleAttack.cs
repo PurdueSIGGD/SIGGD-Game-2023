@@ -13,6 +13,7 @@ public class WhaleAttack : MonoBehaviour
     [SerializeField] private float pulseRadius;
     [SerializeField] private float attackCooldown;
     [SerializeField] private float pulseDamage;
+    [SerializeField] private AudioSource pulseSound;
     private float currentCooldown;
 
     void Start()
@@ -31,22 +32,28 @@ public class WhaleAttack : MonoBehaviour
         if (currentCooldown < attackCooldown) return;
         currentCooldown -= attackCooldown;
 
+        bool doAttack = false;
         Collider[] potentialTargets = Physics.OverlapSphere(thisEnemy.position, turretDetectionRadius, ~turretMask);
-        if (potentialTargets.Length == 0) return;
+        foreach (Collider c in potentialTargets)
+        {
+            GameObject target = c.gameObject;
+            if (!((target.tag == "Player") || (target.tag == "Unit"))) continue;
+            doAttack = true;
+        }
 
-        Attack();
+        if (doAttack) Attack();
     }
 
     void Attack()
     {
-        // TODO Spawn SFX
 
-        Collider[] hitTargets = Physics.OverlapSphere(thisEnemy.position, turretDetectionRadius, ~targetMask);
+        pulseSound.Play();
+        Collider[] hitTargets = Physics.OverlapSphere(thisEnemy.position, pulseRadius, ~targetMask);
         foreach (Collider c in hitTargets)
         {
             GameObject target = c.gameObject;
 
-            Debug.Log(target.tag);
+            //Debug.Log(target.tag);
             if (target == null) continue;
             if (!((target.tag == "Player") || (target.tag == "Unit")))
             {

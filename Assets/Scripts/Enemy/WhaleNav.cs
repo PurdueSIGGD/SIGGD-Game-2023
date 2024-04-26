@@ -22,6 +22,7 @@ public class WhaleNav : MonoBehaviour
     [SerializeField] private float searchMoveSpeed;
     [SerializeField] private float angleThreshold;
     [SerializeField] private float passMoveSpeed;
+    [SerializeField] private bool targetPlayer;
 
     private enum NavMode
     {
@@ -48,7 +49,7 @@ public class WhaleNav : MonoBehaviour
     void UpdateTarget()
     {
         List<GameObject> targets = new List<GameObject>();
-        targets.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        if (targetPlayer) targets.AddRange(GameObject.FindGameObjectsWithTag("Player"));
         targets.AddRange(GameObject.FindGameObjectsWithTag("Unit"));
 
         // Select random target
@@ -106,6 +107,7 @@ public class WhaleNav : MonoBehaviour
 
     void SearchNavUpdate()
     {
+        Debug.Log("Search");
         NavMesh.CalculatePath(thisEnemy.position, target.position, NavMesh.AllAreas, path);
         for (int i = 1; i < path.corners.Length; i++) { Debug.DrawLine(path.corners[i - 1], path.corners[i], Color.green); }
         if (path.corners.Length <= 1) return;
