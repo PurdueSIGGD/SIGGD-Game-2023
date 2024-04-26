@@ -125,6 +125,8 @@ public class Torpedoer : Unit
             }
         }*/
 
+        if (hits.Length > 0) return;
+
         for (int i = 0; i < clusterCount + 1; i++) {
             float minDist = float.PositiveInfinity;
             GameObject closest = null;

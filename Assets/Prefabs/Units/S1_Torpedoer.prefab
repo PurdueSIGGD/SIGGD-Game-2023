@@ -104,6 +104,7 @@ MonoBehaviour:
   invulnerable: 0
   healDEV: 0
   damageDEV: 0
+  hitSound: {fileID: 0}
 --- !u!195 &4335786500199236161
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -150,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba53a3fcc661f54980c88e9fdd13e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 0
+  manaCost: 50
   sellCost: 0
   type: 0
   level: 0

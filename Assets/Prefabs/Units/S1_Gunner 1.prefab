@@ -101,8 +101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximumHealth: 1000
   currentHealth: 0
+  invulnerable: 0
   healDEV: 0
   damageDEV: 0
+  hitSound: {fileID: 0}
 --- !u!195 &4335786500199236161
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -149,9 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cdfc8b69ee6ee0429e40a3868968abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 0
+  manaCost: 10
   sellCost: 0
-  type: 0
+  type: 2
   level: 0
   fireCooldown: 1
   range: 10

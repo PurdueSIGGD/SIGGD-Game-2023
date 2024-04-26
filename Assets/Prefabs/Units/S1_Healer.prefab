@@ -115,8 +115,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximumHealth: 1000
   currentHealth: 0
+  invulnerable: 0
   healDEV: 0
   damageDEV: 0
+  hitSound: {fileID: 0}
 --- !u!114 &2060621024761021022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,9 +131,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3313399b551964d9096eb21056a3df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 0
+  manaCost: 20
   sellCost: 0
-  type: 0
+  type: 1
   level: 0
   healAmount: 10
   healCooldown: 8
