@@ -170,7 +170,7 @@ public class PlayerHealthPoints : HealthPoints
         {
             Debug.LogError("You need to drag the fader prefab into the scene");
         }
-        fader.FadeOut(Color.red, deathTime);
+        fader.FadeOut(Color.black, deathTime);
         yield return new WaitForSeconds(deathTime);
         SceneManager.LoadScene("DeathScene");
     }

@@ -32,7 +32,7 @@ public class SceneTransitionButtons : MonoBehaviour
     {
         StartFade(Color.black, 1);
         yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("Main Level");
+        SceneManager.LoadScene("World Systems");
         Debug.Log("a");
     }
 
