@@ -71,7 +71,6 @@ public class Cluster : MonoBehaviour
         if (canBoom)
         {
             Collider[] colliders = Physics.OverlapSphere(this.transform.position, dmgRadius, enemyMask);
-            Debug.Log(colliders.Length);
             foreach (Collider enemy in colliders)
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");

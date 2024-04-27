@@ -58,7 +58,7 @@ public class UnitController : MonoBehaviour
 
     public void OnPlacementMode()
     {
-        Debug.Log("PLacement Mode Triggered!");
+        //Debug.Log("PLacement Mode Triggered!");
         placeMode = !placeMode;
 
         if (placeMode)
@@ -140,7 +140,7 @@ public class UnitController : MonoBehaviour
     // Place the turret
     public void OnPlaceTurret()
     {
-        Debug.Log("Place Turret DETECTED");
+        //Debug.Log("Place Turret DETECTED");
         // If we are in spawn mode, check validity to spawn
         if (placeMode)
         {

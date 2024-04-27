@@ -71,7 +71,13 @@ public class Torpedo : MonoBehaviour
             Vector3 explosionPoint = this.transform.position - Vector3.up;
             explosionPoint.y = 0;
             other.gameObject.GetComponent<HealthPoints>().damageEntity(damage);
-            other.GetComponent<KinematicReset>().Knockback();
+            if (other.GetComponent<KinematicReset>() != null)
+            {
+                other.GetComponent<KinematicReset>().Knockback();
+            } else
+            {
+                Debug.LogWarning("'Other' has no KinematicReset component!");
+            }
             other.GetComponent<Rigidbody>().AddExplosionForce(knockback, explosionPoint, dmgRadius, knockback / 3);
             other.GetComponent<HealthPoints>().damageEntity(damage);
         }

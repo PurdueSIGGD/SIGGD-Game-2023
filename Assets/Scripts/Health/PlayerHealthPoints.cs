@@ -10,6 +10,7 @@ public class PlayerHealthPoints : HealthPoints
     [SerializeField] private Light playerLight;
     [SerializeField] private Light blackoutLight;
     [SerializeField] private LightResource lightResource;
+    [SerializeField] private AudioClip damagePlayerFX;
     public bool blackout;
     private bool flickerActive;
     private bool dying;
@@ -60,7 +61,12 @@ public class PlayerHealthPoints : HealthPoints
         float damageDealt = base.damageEntity(damage);
         setInvulnerable(iFrameDuration);
         Debug.Log("INVULNERABLE CALLED - DAMAGE - " + iFrameDuration);
+        //return damageDealt;
+        // Plays player damage FX
+        PlayerFXManager.instance.PlayFXClip(damagePlayerFX, transform, 1f, 0.3f);
+
         return damageDealt;
+        //return base.damageEntity(damage);
     }
 
     /// <summary>

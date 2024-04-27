@@ -20,6 +20,9 @@ public class playerAttackHandler : MonoBehaviour
     [SerializeField] int meleeLightCost = 0;
     [SerializeField] bool meleeFullAuto = false;
 
+    [SerializeField] private AudioClip playerFireFX;
+    [SerializeField] private AudioClip playerMeleeFX;
+
     private bool rangedAvailable;
     private bool meleeAvailable;
 
@@ -39,6 +42,9 @@ public class playerAttackHandler : MonoBehaviour
             {
                 return;
             }
+            // Plays fire FX
+            PlayerFXManager.instance.PlayFXClip(playerFireFX, transform, 0.3f, 0f);
+
             GameObject projectile = Instantiate(rangedProjectile,
                                                 (gameObject.transform.position + new Vector3(0, 1, 0)),
                                                 gameObject.transform.rotation);
@@ -55,6 +61,9 @@ public class playerAttackHandler : MonoBehaviour
             {
                 return;
             }
+            // Plays fire FX
+            PlayerFXManager.instance.PlayFXClip(playerMeleeFX, transform, 0.8f, 0f);
+
             GameObject hurtBox = Instantiate(meleeHurtbox,
                                              (gameObject.transform.position + new Vector3(0, 1, 0)),
                                              gameObject.transform.rotation,

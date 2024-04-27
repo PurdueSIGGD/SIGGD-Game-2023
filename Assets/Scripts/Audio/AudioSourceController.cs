@@ -22,10 +22,4 @@ public class AudioSourceController : MonoBehaviour
         // Add this reference to the SoundSystem
         soundSystem.AddSource(this);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

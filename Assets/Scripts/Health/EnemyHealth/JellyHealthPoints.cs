@@ -52,7 +52,7 @@ public class JellyHealthPoints : HealthPoints
             Quaternion randQuat = Quaternion.Euler(0, (randDir + (angleDiff * i)), 0);
             children[i] = Instantiate(jellyChild, this.gameObject.transform.position, randQuat);
             children[i].GetComponent<MobNav>().enabled = false;
-            Debug.Log("set invul");
+            //Debug.Log("set invul");
             StartCoroutine(moveToTarget(children[i], Time.time));
         }
 

@@ -14,6 +14,8 @@ public class WhaleAttack : MonoBehaviour
     [SerializeField] private float attackCooldown;
     [SerializeField] private float pulseDamage;
     [SerializeField] private AudioSource pulseSound;
+    [SerializeField] private MeshRenderer sphere;
+
     private float currentCooldown;
 
     void Start()
@@ -24,6 +26,11 @@ public class WhaleAttack : MonoBehaviour
         targetMask = turretMask | LayerMask.NameToLayer("Player");
 
         currentCooldown = 0.0f;
+        if (sphere != null )
+        {
+
+        sphere.enabled = false;
+        }
     }
 
     void PulseUpdate()
@@ -46,8 +53,7 @@ public class WhaleAttack : MonoBehaviour
 
     void Attack()
     {
-
-        pulseSound.Play();
+        StartCoroutine(ColliderRoutine());
         Collider[] hitTargets = Physics.OverlapSphere(thisEnemy.position, pulseRadius, ~targetMask);
         foreach (Collider c in hitTargets)
         {
@@ -65,6 +71,28 @@ public class WhaleAttack : MonoBehaviour
 
             health.damageEntity(pulseDamage);
         }
+        
+    }
+
+    IEnumerator ColliderRoutine()
+    {
+        if (sphere != null)
+        {
+
+        sphere.enabled = true;
+        }
+        pulseSound.Play();
+
+        yield return new WaitForSeconds(0.2f);
+
+        if (sphere != null)
+        {
+
+        sphere.enabled = false;
+        }
+        
+        
+        yield break;
     }
 
     void FixedUpdate()
