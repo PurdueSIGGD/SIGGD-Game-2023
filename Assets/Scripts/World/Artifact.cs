@@ -14,6 +14,7 @@ public class Artifact : Interactable
             // Mark objective as done
             GivePlayerArtifact();
             SaveArtifact();
+            isUsed = true;
         }
         
         base.interact();
@@ -24,7 +25,7 @@ public class Artifact : Interactable
     {
         GameObject unitUI =  GameObject.FindGameObjectWithTag("UIUnit");
         unitUI.GetComponent<UnitHotbarUI>().InsertUnitIntoHotbar(unitNumber);
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
     }
     
     public void MarkArtifactDone()

@@ -146,7 +146,10 @@ public class Torpedoer : Unit
                 }
             }
 
-            hits[minIdx] = null;
+            if (minIdx >= 0)
+            {
+                hits[minIdx] = null;
+            }
             targets[i] = closest;
         }
 

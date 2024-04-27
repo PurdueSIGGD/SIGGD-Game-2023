@@ -151,13 +151,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fca5c20cb03e73498b2da2c3de63567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 30
+  manaCost: 100
   sellCost: 0
   type: 3
   level: 0
   triggerRadius: 5
-  blastRadius: 20
-  blastDmg: 1000
+  blastRadius: 10
+  blastDmg: 150
   knockbackForce: 1000
   triggerDelay: 1
   blastMask:

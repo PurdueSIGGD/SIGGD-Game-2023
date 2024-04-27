@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ed21e89c4a87748a8649cec45ebc99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumHealth: 1000
+  maximumHealth: 150
   currentHealth: 0
   invulnerable: 0
   healDEV: 0
@@ -151,11 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba53a3fcc661f54980c88e9fdd13e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 50
+  manaCost: 120
   sellCost: 0
   type: 0
   level: 0
-  fireCooldown: 3
+  fireCooldown: 4
   range: 10
   clusterCount: 3
   gunObj: {fileID: 231151934610537643}
@@ -165,13 +165,13 @@ MonoBehaviour:
     m_Bits: 8388608
   projPrefab: {fileID: 354620882897817373, guid: 48da7eaf123b5ab4daff052db4a04456, type: 3}
   projDuration: 20
-  projDamage: 10
-  projSpeed: 10
+  projDamage: 90
+  projSpeed: 700
   projDmgRadius: 5
   projKnockback: 4000
   clusterPrefab: {fileID: 354620882897817373, guid: a1a44f64e7245894b8dbfb3086240460, type: 3}
   clusterDuration: 1.3
-  clusterDamage: 20
+  clusterDamage: 30
   clusterHeight: 2.25
   clusterDmgRadius: 5
   clusterKnockback: 2000

@@ -9,10 +9,16 @@ EditorBuildSettings:
     path: Assets/Scenes/WhiteboxIsometricCamera1.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Scenes/Nathan's Shit (DONT TOUCH)/Title Scene.unity
+    guid: f772fbc87a6840a4e9645289c4b148f7
+  - enabled: 1
     path: Assets/Scenes/Main Level.unity
     guid: 76c3d5699eb317f4d8d858ecc1a56aa5
   - enabled: 1
     path: Assets/Scenes/DeathScene.unity
     guid: 46b79647db12f6a4a8bab09a453cd33c
+  - enabled: 1
+    path: Assets/Scenes/Nathan's Shit (DONT TOUCH)/World Systems.unity
+    guid: 993e7afcd2d8621449ecd48c8ce46357
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: e56a6f84b5eddbd49880e2e877b05afb, type: 2}
