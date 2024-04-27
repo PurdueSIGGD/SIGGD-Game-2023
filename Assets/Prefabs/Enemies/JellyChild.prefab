@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 5329541378575075558}
   this_enemy: {fileID: 3089880170982414511}
-  speed: 2
+  speed: 1.2
   turnSpeed: 6
   rayDist: 5
   flankDist: 2
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f244c5e02f97d2419214737cfcc9b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToMature: 4
+  timeToMature: 8
   randomBuffer: 4
   matureJelly: {fileID: 8079511848009728111, guid: 67656c0e8e887e3418dd3f59b01e8625, type: 3}
   growUpSound: {fileID: 3118815827701437957}
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54af3afc6fb62d4da8381345ea22ac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumHealth: 50
+  maximumHealth: 10
   currentHealth: 0
   invulnerable: 0
   healDEV: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-[CustomEditor(typeof(RockReplacer)), CanEditMultipleObjects]
+/*[CustomEditor(typeof(RockReplacer)), CanEditMultipleObjects]
 internal class RockReplacerEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -20,7 +20,7 @@ internal class RockReplacerEditor : Editor
         }
 
     }
-}
+}*/
 
 public class RockReplacer : MonoBehaviour
 {

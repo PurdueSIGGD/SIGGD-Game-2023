@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-[CustomEditor(typeof(BoxPrefabFill)), CanEditMultipleObjects]
+/*[CustomEditor(typeof(BoxPrefabFill)), CanEditMultipleObjects]
 internal class BoxPrefabFillEditor : Editor {
     public override void OnInspectorGUI()
     {
@@ -29,7 +29,7 @@ internal class BoxPrefabFillEditor : Editor {
         }
         
     }
-}
+} */
 
 // The goal of this script is to fill a box with prefabs to make designing levels easier
 public class BoxPrefabFill : MonoBehaviour

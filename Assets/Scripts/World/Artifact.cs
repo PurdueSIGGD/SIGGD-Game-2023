@@ -12,9 +12,10 @@ public class Artifact : Interactable
         if (!isUsed)
         {
             // Mark objective as done
+            isUsed = true;
             GivePlayerArtifact();
             SaveArtifact();
-            isUsed = true;
+            //isUsed = true;
         }
         
         base.interact();

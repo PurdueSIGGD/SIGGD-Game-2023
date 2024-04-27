@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(ChildClearer))]
+/*[CustomEditor(typeof(ChildClearer))]
 internal class ChildClearerEditor : Editor {
     public override void OnInspectorGUI()
     {
@@ -14,7 +14,7 @@ internal class ChildClearerEditor : Editor {
             childClearer.ClearChildren();
         }
     }
-}
+}*/
 
 public class ChildClearer : MonoBehaviour
 {

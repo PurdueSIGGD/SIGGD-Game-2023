@@ -20,7 +20,7 @@ public class SceneTransitionButtons : MonoBehaviour
         SaveManager.ClearSave();
         StartFade(Color.black, 1);
         yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("Main Level");
+        SceneManager.LoadScene("World Systems");
     }
     
     public void ContinueGame()

@@ -319,7 +319,7 @@ public class TutorialDirector : MonoBehaviour
 
     public sequenceState artifactScanState = sequenceState.WAITING;
 
-    [SerializeField] public Interactable artifact;
+    [SerializeField] public Artifact artifact;
 
     private string artifactScanObjective = "Scan the Automaton";
 
