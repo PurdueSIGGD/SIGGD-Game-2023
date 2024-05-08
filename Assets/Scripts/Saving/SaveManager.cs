@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-//[CustomEditor(typeof(SaveManager))]
-/*internal class SaveManagerEditor : Editor {
+[CustomEditor(typeof(SaveManager))]
+internal class SaveManagerEditor : Editor {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
@@ -37,7 +37,7 @@ using UnityEngine;
             SaveManager.ClearSave();
         }
     }
-} */
+}
 
 public class SaveManager : MonoBehaviour
 {
