@@ -48,6 +48,15 @@ public class SandboxDirector : MonoBehaviour
 
 
 
+    //DEV ENEMY SPAWNER SEQUENCE -----------------------------------------------------------------
+
+    public sequenceState DEVEnemySpawnerState = sequenceState.READY;
+
+    [SerializeField] public ControlledEnemySpawner DEVEnemySpawner;
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +67,7 @@ public class SandboxDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Pylon 1 Trigger
+        //Pylon Trigger
         if (pylonState == sequenceState.READY)
         {
             if (pylon.isUsed)
@@ -66,6 +75,12 @@ public class SandboxDirector : MonoBehaviour
                 pylonState = sequenceState.RUNNING;
                 StartCoroutine(pylonSequence());
             }
+        }
+
+        //DEV Enemy Spawner Trigger
+        if (Input.GetKeyDown(KeyCode.K) && pylonState == sequenceState.READY)
+        {
+            StartCoroutine(DEVEnemySpawnerSequence());
         }
     }
 
@@ -125,6 +140,18 @@ public class SandboxDirector : MonoBehaviour
         enemySpawner.waveSpawnInterval = waveSpawnInterval;
         pylonState = sequenceState.COMPLETE;
         //room2AttackState = sequenceState.READY;
+    }
+
+
+
+
+    //DEV ENEMY SPAWNER SEQUENCE -----------------------------------------------------------------------
+    public IEnumerator DEVEnemySpawnerSequence()
+    {
+        DEVEnemySpawnerState = sequenceState.RUNNING;
+        DEVEnemySpawner.spawnWaveDEV = true;
+        yield return new WaitForSeconds(0.5f);
+        DEVEnemySpawnerState = sequenceState.READY;
     }
 
 }
