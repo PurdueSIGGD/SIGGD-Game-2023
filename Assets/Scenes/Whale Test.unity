@@ -8510,17 +8510,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61338ba0317948b4397fe979243c2a38, type: 3}
---- !u!114 &1388263961 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4710849856147274493, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
-  m_PrefabInstance: {fileID: 1408461886}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fa8586b1bdf31742b1197c18330ff10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1408461886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8572,42 +8561,6 @@ PrefabInstance:
     - target: {fileID: 2860092190202976410, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
       propertyPath: m_Name
       value: Whale
-      objectReference: {fileID: 0}
-    - target: {fileID: 5904794361106447035, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
-      propertyPath: passDuration
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5904794361106447035, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
-      propertyPath: spriteHolder
-      value: 
-      objectReference: {fileID: 1388263961}
-    - target: {fileID: 5904794361106447035, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
-      propertyPath: targetPlayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5904794361106447035, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
-      propertyPath: passMoveSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5904794361106447035, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
-      propertyPath: passTurnSpeed
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5904794361106447035, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
-      propertyPath: angleThreshold
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5904794361106447035, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
-      propertyPath: maxPassDistance
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5904794361106447035, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
-      propertyPath: searchMoveSpeed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5904794361106447035, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
-      propertyPath: searchTurnSpeed
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

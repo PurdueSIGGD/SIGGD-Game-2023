@@ -14,7 +14,9 @@ public class WhaleAttack : MonoBehaviour
     [SerializeField] private float attackCooldown;
     [SerializeField] private float pulseDamage;
     [SerializeField] private AudioSource pulseSound;
-    [SerializeField] private MeshRenderer sphere;
+    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private Animator pulseAnimator;
+    [SerializeField] private DirectionalSprite spriteHolder;
 
     private float currentCooldown;
 
@@ -26,11 +28,7 @@ public class WhaleAttack : MonoBehaviour
         targetMask = turretMask | LayerMask.NameToLayer("Player");
 
         currentCooldown = 0.0f;
-        if (sphere != null )
-        {
-
-        sphere.enabled = false;
-        }
+        sprite.enabled = false;
     }
 
     void PulseUpdate()
@@ -76,22 +74,16 @@ public class WhaleAttack : MonoBehaviour
 
     IEnumerator ColliderRoutine()
     {
-        if (sphere != null)
-        {
-
-        sphere.enabled = true;
-        }
         pulseSound.Play();
+        sprite.enabled = true;
+        pulseAnimator.Play("Attack", -1, 0);
 
-        yield return new WaitForSeconds(0.2f);
+        float length = pulseAnimator.GetCurrentAnimatorStateInfo(0).length;
 
-        if (sphere != null)
-        {
+        yield return new WaitForSeconds(length);
 
-        sphere.enabled = false;
-        }
-        
-        
+        sprite.enabled = false;
+
         yield break;
     }
 
