@@ -3657,7 +3657,7 @@ MonoBehaviour:
   lightSlider: {fileID: 974394049423333976}
   lightText: {fileID: 7232824232066025550}
   levelFrame: {fileID: 1630373235107846423}
-  levelText: {fileID: 3436413031408194779}
+  levelText: {fileID: 995402231401685476}
   unitLightSlider: {fileID: 2916728174956918533}
   psudoUnitLightSlider: {fileID: 6189047592972429974}
   blackoutColor: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
