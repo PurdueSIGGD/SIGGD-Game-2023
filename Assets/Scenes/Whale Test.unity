@@ -8558,9 +8558,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2487092926356389521, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487092926356389521, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487092926356389521, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 2860092190202976410, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
       propertyPath: m_Name
       value: Whale
+      objectReference: {fileID: 0}
+    - target: {fileID: 4674428648581283733, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
+      propertyPath: pulseRadius
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
