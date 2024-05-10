@@ -56,6 +56,23 @@ public class UnitController : MonoBehaviour
         playerPosition = gameObject.transform.position;
     }
 
+    public void OnDestroyUnits()
+    {
+        if (isTest)
+        {
+            DestroyUnits();
+        }
+    } 
+
+    private void DestroyUnits()
+    {
+        GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
+        foreach (GameObject unit in units)
+        {
+            Destroy(unit);
+        }
+    }
+
     public void OnPlacementMode()
     {
         //Debug.Log("PLacement Mode Triggered!");
