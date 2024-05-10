@@ -313,6 +313,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base
       objectReference: {fileID: 0}
+    - target: {fileID: 3586513406763301605, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0d27a4af81a266342a8657dfb9dad00d, type: 2}
     - target: {fileID: 5534250454328293290, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_Controller
       value: 
