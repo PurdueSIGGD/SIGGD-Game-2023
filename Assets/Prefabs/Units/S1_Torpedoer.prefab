@@ -155,20 +155,21 @@ MonoBehaviour:
   sellCost: 0
   type: 0
   level: 0
-  fireCooldown: 4
-  range: 10
-  clusterCount: 3
+  fireCooldown: 5
+  range: 20
+  clusterCount: 0
   gunObj: {fileID: 231151934610537643}
   bulletPoint: {fileID: 7364929669028330281}
   projMask:
     serializedVersion: 2
     m_Bits: 8388608
+  rocketAnimator: {fileID: 7560681165108621748}
   projPrefab: {fileID: 354620882897817373, guid: 48da7eaf123b5ab4daff052db4a04456, type: 3}
   projDuration: 20
   projDamage: 90
-  projSpeed: 700
+  projSpeed: 40
   projDmgRadius: 5
-  projKnockback: 4000
+  projKnockback: 0
   clusterPrefab: {fileID: 354620882897817373, guid: a1a44f64e7245894b8dbfb3086240460, type: 3}
   clusterDuration: 1.3
   clusterDamage: 30
@@ -230,10 +231,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun
       objectReference: {fileID: 0}
+    - target: {fileID: 3586513406763301605, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5534250454328293290, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 6ae1759ff5a41fe44bb9d87d04f03132, type: 2}
+      objectReference: {fileID: 9100000, guid: abc786db252fedb4c92d6c52942b5046, type: 2}
     - target: {fileID: 8391964224929998665, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -297,6 +302,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8391964224929998665, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
   m_PrefabInstance: {fileID: 2603489608549336606}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &7560681165108621748 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5534250454328293290, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
+  m_PrefabInstance: {fileID: 2603489608549336606}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8406671332231023685
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -316,7 +326,7 @@ PrefabInstance:
     - target: {fileID: 3586513406763301605, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 0d27a4af81a266342a8657dfb9dad00d, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5534250454328293290, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_Controller
       value: 

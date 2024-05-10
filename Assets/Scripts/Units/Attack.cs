@@ -6,7 +6,7 @@ public abstract class Attack : Unit
 {
     [SerializeField]
     protected GameObject projectilePrefab;
-    //public abstract GameObject FindTarget();
+    //public abstract GameObject FindTargets();
 
     //public abstract void Aim();
 

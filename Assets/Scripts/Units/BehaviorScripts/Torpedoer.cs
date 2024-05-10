@@ -29,6 +29,9 @@ public class Torpedoer : Unit
     [SerializeField]
     LayerMask projMask;
 
+    [SerializeField]
+    Animator rocketAnimator;
+
     [Header("Projectile Fields")]
 
     [SerializeField]
@@ -71,7 +74,7 @@ public class Torpedoer : Unit
 
 
     // -- Private Fields --
-    GameObject target;
+    GameObject primaryTarget;
     GameObject[] targets;
     bool canFire;
 
@@ -81,13 +84,16 @@ public class Torpedoer : Unit
     {
         base.Start();
         canFire = true;
-        targets = new GameObject[clusterCount];
+        targets = new GameObject[clusterCount + 1];
     }
 
     void Update()
     {
+        // aim at primary target
         Aim();
-        if (target != null && canFire)
+
+        // fire at all targets if can fire
+        if (primaryTarget != null && canFire)
         {
             Fire();
         }
@@ -95,86 +101,64 @@ public class Torpedoer : Unit
 
     void Aim()
     {
-        // Look at target
-        FindTarget();
-        if (this.target != null)
+        // look at target
+        FindTargets();
+        if (this.primaryTarget != null)
         {
-            //this.transform.LookAt(target.transform.position);
-            var dir = target.transform.position - transform.position;
+            var dir = primaryTarget.transform.position - transform.position;
             gunObj.GetComponent<DirectionalSprite>().lookDirectionOverride = dir;
         }
     }
 
-    void FindTarget()
+    void FindTargets()
     {
-        // Get objects in range
+        // get objects in range
         List<Collider> hits = Physics.OverlapSphere(this.transform.position, range, projMask).ToList();
 
-        // If no hits, return
+        // if no hits, return
         if (hits == null || hits.Count <= 0) return;
 
-        // Set targets array
-        int targetCount = (hits.Count > clusterCount) ? clusterCount : hits.Count;
-        targets = new GameObject[targetCount];
-
-        // Find closest targets
-
-        /*float minDist = float.PositiveInfinity;
-        GameObject target = null;
-
-        foreach (Collider hit in hits)
+        // set all targets
+        for (int i = 0; i < targets.Length; i++)
         {
-            float dist = Mathf.Abs((hit.gameObject.transform.position - this.transform.position).magnitude);
-            if (dist < minDist)
-            {
-                minDist = dist;
-                target = hit.gameObject;
-            }
-        }*/
+            GameObject closestTarget = null;
+            float closestDist = float.PositiveInfinity;
+            int closestIdx = -1;
 
-        // Loop through hits until either no targets or cluster count exceeded
-        while ((targetCount - 1) >= 0) {
-            // Minimum distance of potential targets
-            float minDist = float.PositiveInfinity;
-            // The closest object
-            GameObject closest = null;
-            // Index in hits (-1 means unassigned)
-            int minIdx = -1;
-
-            // Loop through hits
+            // find closest collider
             for (int c = 0; c < hits.Count; c++)
             {
-                // Get the collider
                 Collider hit = hits[c];
+                if (hit == null) continue;
 
-                // Get the distance
-                float dist = Mathf.Abs((hit.gameObject.transform.position - this.transform.position).magnitude);
-                // Replace closest object
-                if (dist < minDist)
+                float dist = Vector3.Distance(hit.gameObject.transform.position, this.transform.position);
+                if (dist < closestDist)
                 {
-                    minDist = dist;
-                    closest = hit.gameObject;
-                    minIdx = c;
+                    closestDist = dist;
+                    closestTarget = hit.gameObject;
+                    closestIdx = c;
                 }
             }
 
-            // Remove found value, set the target to current
-            hits.RemoveAt(minIdx);
-            targets[targetCount - 1] = closest;
-            // Decrement target count
-            targetCount--;
+            // set current target to closest and remove target from hits
+            targets[i] = closestTarget;
+            if (closestIdx >= 0) hits.RemoveAt(closestIdx);
         }
 
-        // Set target to the first of targets array
-        this.target = targets[0];
+        // set primary target
+        primaryTarget = targets[0];
     }
 
     void Fire()
     {
-        if (target != null)
+        // fire at primary target if not null
+        if (primaryTarget != null)
         {
+            // play animation
+            rocketAnimator.SetTrigger("Fire");
+
             var bullet = Instantiate(projPrefab, bulletPoint.transform.position, Quaternion.identity).GetComponent<Torpedo>();
-            bullet.target = target;
+            bullet.target = primaryTarget;
             bullet.duration = projDuration;
             bullet.damage = projDamage;
             bullet.speed = projSpeed;
@@ -185,6 +169,7 @@ public class Torpedoer : Unit
             StartCoroutine(Cooldown());
         }
 
+        // fire at cluster targets if not null
         for (int i = 1; i < targets.Length; i++)
         {
             GameObject clusterTarget = targets[i];
