@@ -318,14 +318,16 @@ public class AreaOneDirector : MonoBehaviour
 
         foreach (GameObject enemy in pylon1Enemies)
         {
-            if (enemy != null)
+            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
             {
                 enemy.GetComponent<HealthPoints>().damageEntity(1000f);
             }
         }
         //enemySpawner.enabled = true;
-        enemySpawner.constantSpawnInterval = 99999f;
-        enemySpawner.waveSpawnInterval = 99999f;
+        enemySpawner.constantSpawnTimer = 0f;
+        enemySpawner.waveSpawnTimer = 0f;
+        enemySpawner.constantSpawnInterval = constantSpawnInterval;
+        enemySpawner.waveSpawnInterval = waveSpawnInterval;
         pylon1State = sequenceState.COMPLETE;
         //room2AttackState = sequenceState.READY;
     }
@@ -372,14 +374,16 @@ public class AreaOneDirector : MonoBehaviour
 
         foreach (GameObject enemy in pylon2Enemies)
         {
-            if (enemy != null)
+            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
             {
                 enemy.GetComponent<HealthPoints>().damageEntity(1000f);
             }
         }
         //enemySpawner.enabled = true;
-        enemySpawner.constantSpawnInterval = 99999f;
-        enemySpawner.waveSpawnInterval = 99999f;
+        enemySpawner.constantSpawnTimer = 0f;
+        enemySpawner.waveSpawnTimer = 0f;
+        enemySpawner.constantSpawnInterval = constantSpawnInterval;
+        enemySpawner.waveSpawnInterval = waveSpawnInterval;
         pylon2State = sequenceState.COMPLETE;
         //room2AttackState = sequenceState.READY;
     }
@@ -426,14 +430,16 @@ public class AreaOneDirector : MonoBehaviour
 
         foreach (GameObject enemy in pylon3Enemies)
         {
-            if (enemy != null)
+            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
             {
                 enemy.GetComponent<HealthPoints>().damageEntity(1000f);
             }
         }
         //enemySpawner.enabled = true;
-        enemySpawner.constantSpawnInterval = 99999f;
-        enemySpawner.waveSpawnInterval = 99999f;
+        enemySpawner.constantSpawnTimer = 0f;
+        enemySpawner.waveSpawnTimer = 0f;
+        enemySpawner.constantSpawnInterval = constantSpawnInterval;
+        enemySpawner.waveSpawnInterval = waveSpawnInterval;
         pylon3State = sequenceState.COMPLETE;
         //room2AttackState = sequenceState.READY;
     }
@@ -441,7 +447,7 @@ public class AreaOneDirector : MonoBehaviour
 
 
 
-    //PYLON 3 SEQUENCE --------------------------------------------------------------------
+    //PYLON 4 SEQUENCE --------------------------------------------------------------------
     public IEnumerator pylon4Sequence()
     {
         pylon4State = sequenceState.RUNNING;
@@ -481,21 +487,23 @@ public class AreaOneDirector : MonoBehaviour
 
         foreach (GameObject enemy in pylon4Enemies)
         {
-            if (enemy != null)
+            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
             {
                 enemy.GetComponent<HealthPoints>().damageEntity(1000f);
             }
         }
         //enemySpawner.enabled = true;
-        enemySpawner.constantSpawnInterval = 99999f;
-        enemySpawner.waveSpawnInterval = 99999f;
+        enemySpawner.constantSpawnTimer = 0f;
+        enemySpawner.waveSpawnTimer = 0f;
+        enemySpawner.constantSpawnInterval = constantSpawnInterval;
+        enemySpawner.waveSpawnInterval = waveSpawnInterval;
         pylon4State = sequenceState.COMPLETE;
         //room2AttackState = sequenceState.READY;
     }
 
 
 
-    //PYLON 3 SEQUENCE --------------------------------------------------------------------
+    //PYLON 5 SEQUENCE --------------------------------------------------------------------
     public IEnumerator pylon5Sequence()
     {
         pylon5State = sequenceState.RUNNING;
@@ -535,21 +543,23 @@ public class AreaOneDirector : MonoBehaviour
 
         foreach (GameObject enemy in pylon5Enemies)
         {
-            if (enemy != null)
+            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
             {
                 enemy.GetComponent<HealthPoints>().damageEntity(1000f);
             }
         }
         //enemySpawner.enabled = true;
-        enemySpawner.constantSpawnInterval = 99999f;
-        enemySpawner.waveSpawnInterval = 99999f;
+        enemySpawner.constantSpawnTimer = 0f;
+        enemySpawner.waveSpawnTimer = 0f;
+        enemySpawner.constantSpawnInterval = constantSpawnInterval;
+        enemySpawner.waveSpawnInterval = waveSpawnInterval;
         pylon5State = sequenceState.COMPLETE;
         //room2AttackState = sequenceState.READY;
     }
 
 
 
-    //PYLON 3 SEQUENCE --------------------------------------------------------------------
+    //PYLON 6 SEQUENCE --------------------------------------------------------------------
     public IEnumerator pylon6Sequence()
     {
         pylon6State = sequenceState.RUNNING;
@@ -589,14 +599,16 @@ public class AreaOneDirector : MonoBehaviour
 
         foreach (GameObject enemy in pylon6Enemies)
         {
-            if (enemy != null)
+            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
             {
                 enemy.GetComponent<HealthPoints>().damageEntity(1000f);
             }
         }
         //enemySpawner.enabled = true;
-        enemySpawner.constantSpawnInterval = 99999f;
-        enemySpawner.waveSpawnInterval = 99999f;
+        enemySpawner.constantSpawnTimer = 0f;
+        enemySpawner.waveSpawnTimer = 0f;
+        enemySpawner.constantSpawnInterval = constantSpawnInterval;
+        enemySpawner.waveSpawnInterval = waveSpawnInterval;
         pylon6State = sequenceState.COMPLETE;
         //room2AttackState = sequenceState.READY;
     }

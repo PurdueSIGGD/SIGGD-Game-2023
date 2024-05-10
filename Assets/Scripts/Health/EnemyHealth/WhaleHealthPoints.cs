@@ -18,7 +18,7 @@ public class WhaleHealthPoints : HealthPoints
 		deathSound.playDeathSound();
 		this.gameObject.GetComponent<WhaleNav>().enabled = false;
 		this.gameObject.GetComponent<WhaleAttack>().enabled = false;
-        this.gameObject.GetComponent<BoxCollider>().enabled = false;
+        this.gameObject.GetComponent<Collider>().enabled = false;
 //		attackBox.SetActive(false);
 		StartCoroutine(fadeSprite());
 	}

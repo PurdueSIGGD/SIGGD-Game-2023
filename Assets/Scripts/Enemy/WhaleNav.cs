@@ -9,6 +9,7 @@ public class WhaleNav : MonoBehaviour
     private Transform target;
 
     [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private DirectionalSprite spriteHolder;
 
     [SerializeField] private float passDuration;
     [SerializeField] private float maxPassDistance;
@@ -22,6 +23,7 @@ public class WhaleNav : MonoBehaviour
     [SerializeField] private float searchMoveSpeed;
     [SerializeField] private float angleThreshold;
     [SerializeField] private float passMoveSpeed;
+    [SerializeField] private float passTurnSpeed;
     [SerializeField] private bool targetPlayer;
 
     private enum NavMode
@@ -107,7 +109,6 @@ public class WhaleNav : MonoBehaviour
 
     void SearchNavUpdate()
     {
-        Debug.Log("Search");
         NavMesh.CalculatePath(thisEnemy.position, target.position, NavMesh.AllAreas, path);
         for (int i = 1; i < path.corners.Length; i++) { Debug.DrawLine(path.corners[i - 1], path.corners[i], Color.green); }
         if (path.corners.Length <= 1) return;
@@ -124,6 +125,15 @@ public class WhaleNav : MonoBehaviour
 
     void PassNavUpdate()
     {
+        NavMesh.CalculatePath(thisEnemy.position, target.position, NavMesh.AllAreas, path);
+        for (int i = 1; i < path.corners.Length; i++) { Debug.DrawLine(path.corners[i - 1], path.corners[i], Color.green); }
+        if (path.corners.Length <= 1) return;
+
+        // Update Orientation
+        Vector3 targetDir = target.position - thisEnemy.position;
+        Vector3 newDir = Vector3.RotateTowards(thisEnemy.forward, targetDir, passTurnSpeed * Time.fixedDeltaTime, 0.0f);
+        thisEnemy.rotation = Quaternion.LookRotation(newDir);
+
         // Update Movement
         Vector3 moveOffset = thisEnemy.forward;
         agent.Move(moveOffset * passMoveSpeed * Time.fixedDeltaTime);
@@ -131,6 +141,8 @@ public class WhaleNav : MonoBehaviour
 
     void FixedUpdate()
     {
+        Vector3 moveOffset = thisEnemy.forward;
+        spriteHolder.lookDirectionOverride = moveOffset;
         NavModeUpdate();
         switch(navMode)
         {

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 //using UnityEditor.ShaderGraph;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -27,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnWave());
+        //StartCoroutine(SpawnWave());
     }
 
     // Update is called once per frame
@@ -83,6 +85,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     IEnumerator SpawnWave() {
+        Debug.Log("SPAWN WAVE COROUTINE");
         // Randomize spread and direction for wave
         int degrees = Random.Range(0, 360);
         // Deviation from degrees in one direction (2 * spread is the whole arc)

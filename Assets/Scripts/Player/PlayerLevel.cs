@@ -21,6 +21,7 @@ public class PlayerLevel : MonoBehaviour
     private float previousTickTime;
 
     [SerializeField] private bool setLevelDEV = false;
+    [SerializeField] private bool levelUpHotkeyDEV = false;
 
 
 
@@ -70,6 +71,11 @@ public class PlayerLevel : MonoBehaviour
         {
             levelUp();
             setLevelDEV = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.L) && levelUpHotkeyDEV)
+        {
+            levelUp();
         }
     }
 }

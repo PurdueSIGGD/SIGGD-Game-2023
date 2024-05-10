@@ -6505,6 +6505,12 @@ MonoBehaviour:
   player: {fileID: 1056946787}
   minDistance: 20
   maxDistance: 50
+  constantSpawnTimer: 0
+  constantSpawnInterval: 7
+  waveSpawnTimer: 0
+  waveSpawnInterval: 60
+  waveVolume: 5
+  waveSpeed: 3
   mask:
     serializedVersion: 2
     m_Bits: 32768
@@ -6533,6 +6539,7 @@ MonoBehaviour:
   physicalMask:
     serializedVersion: 2
     m_Bits: 8
+  isTest: 0
 --- !u!114 &1056946790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6742,7 +6749,9 @@ MonoBehaviour:
   playerLight: {fileID: 1217360471}
   blackoutLight: {fileID: 1472319304}
   lightResource: {fileID: 1056946797}
+  damagePlayerFX: {fileID: 0}
   blackout: 0
+  iFrameDuration: 0
 --- !u!114 &1056946800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6766,6 +6775,8 @@ MonoBehaviour:
   meleeRecoveryTime: 0.5
   meleeLightCost: 0
   meleeFullAuto: 0
+  playerFireFX: {fileID: 0}
+  playerMeleeFX: {fileID: 0}
 --- !u!1001 &1058428882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8547,12 +8558,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2487092926356389521, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487092926356389521, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2487092926356389521, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 2860092190202976410, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
       propertyPath: m_Name
       value: Whale
       objectReference: {fileID: 0}
+    - target: {fileID: 4674428648581283733, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
+      propertyPath: pulseRadius
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4408392696369444507, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}

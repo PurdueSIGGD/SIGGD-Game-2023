@@ -26,7 +26,7 @@ public class UnitHotbarUI : MonoBehaviour
     {
         // Find hotbarUI
         GameObject playerUIBars = FindObjectOfType<uiBarManager>().gameObject;
-        hotbarUI = playerUIBars.transform.GetChild(0).GetChild(5).gameObject;
+        hotbarUI = playerUIBars.transform.GetChild(0).GetChild(4).gameObject;
         //StartCoroutine(UITest());
         if (isTest) InsertUnits();
     }
