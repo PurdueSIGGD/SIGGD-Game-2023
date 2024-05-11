@@ -170,7 +170,7 @@ MonoBehaviour:
   rocketAnimator: {fileID: 7560681165108621748}
   projPrefab: {fileID: 354620882897817373, guid: e0b6a01154a00e241a3a3568938fdffb, type: 3}
   projDuration: 20
-  projDamage: 90
+  projDamage: 10
   projSpeed: 40
   projDmgRadius: 5
   projKnockback: 0

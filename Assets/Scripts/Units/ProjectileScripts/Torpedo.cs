@@ -40,14 +40,17 @@ public class Torpedo : MonoBehaviour
     {
         // Initialize fields
         direction = (target.transform.position - this.transform.position).normalized;
-
-        // look at target direction
-        var dir = target.transform.position - transform.position;
-        this.GetComponentInChildren<DirectionalSprite>().lookDirectionOverride = dir;
     }
 
     void Update()
     {
+        // look at target direction
+        if (target != null)
+        {
+            var dir = target.transform.position - transform.position;
+            this.GetComponentInChildren<DirectionalSprite>().lookDirectionOverride = dir;
+        }
+
         time += Time.deltaTime;
 
         // destroy gameobject after DURATION time has passed
@@ -70,73 +73,16 @@ public class Torpedo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        Collider[] colliders = Physics.OverlapSphere(this.transform.position, dmgRadius, enemyMask);
+        foreach (Collider enemy in colliders)
         {
             Vector3 explosionPoint = this.transform.position - Vector3.up;
             explosionPoint.y = 0;
-            other.gameObject.GetComponent<HealthPoints>().damageEntity(damage);
-            if (other.GetComponent<KinematicReset>() != null)
-            {
-                other.GetComponent<KinematicReset>().Knockback();
-            } else
-            {
-                Debug.LogWarning("'Other' has no KinematicReset component!");
-            }
-            other.GetComponent<Rigidbody>().AddExplosionForce(knockback, explosionPoint, dmgRadius, knockback / 3);
-            other.GetComponent<HealthPoints>().damageEntity(damage);
+            enemy.GetComponent<KinematicReset>().Knockback();
+            enemy.GetComponent<Rigidbody>().AddExplosionForce(knockback, explosionPoint, dmgRadius, knockback / 3);
+            enemy.GetComponent<HealthPoints>().damageEntity(damage);
         }
         Destroy(this.gameObject);
     }
 
-    /*
-    void Update()
-    {
-        time += Time.deltaTime;
-        float t = Mathf.Pow(time / duration, 2);
-
-        if (target != null)
-        {
-            endPos = target.transform.position;
-        }
-        Vector3 pos = Vector3.Lerp(startPos, endPos, t);
-        pos.y = Func(t, height) + startPos.y;
-
-        this.transform.rotation = Quaternion.LookRotation(pos - this.transform.position);
-
-        this.transform.position = pos;
-
-        // Set Boom On
-        if (t > 0.5f)
-        {
-            canBoom = true;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (canBoom)
-        {
-            Collider[] colliders = Physics.OverlapSphere(this.transform.position, dmgRadius, enemyMask);
-            Debug.Log(colliders.Length);
-            foreach (Collider enemy in colliders)
-            {
-                GameObject player = GameObject.FindGameObjectWithTag("Player");
-                Vector3 explosionPoint = this.transform.position - Vector3.up;
-                explosionPoint.y = 0;
-                enemy.GetComponent<KinematicReset>().Knockback();
-                enemy.GetComponent<Rigidbody>().AddExplosionForce(knockback, explosionPoint, dmgRadius, knockback / 3);
-                enemy.GetComponent<HealthPoints>().damageEntity(damage);
-            }
-            Destroy(this.gameObject);
-        }
-    }
-
-    // -- Functions --
-
-    float Func(float time, float scale)
-    {
-        float y = -4 * Mathf.Pow((time - 0.5f), 2) + 1;
-        return scale * y;
-    }  
-    */
 }

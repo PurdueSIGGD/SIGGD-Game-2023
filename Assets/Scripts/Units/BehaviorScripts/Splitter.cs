@@ -19,15 +19,6 @@ public class Splitter : Unit
     float angleBetweenSplits;
 
     // -- Behavior --
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 
     void OnTriggerEnter(Collider other)
     {

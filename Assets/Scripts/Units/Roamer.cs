@@ -96,13 +96,13 @@ public class Roamer : UnitMovement
     void EnterIdle()
     {
         roamerAnimator.SetBool("IsIdle", true);
-        Debug.Log("Idling!!!!");
+        //Debug.Log("Idling!!!!");
     }
 
     void EnterMoving()
     {
         roamerAnimator.SetBool("IsIdle", false);
-        Debug.Log("Moving!!!!");
+        //Debug.Log("Moving!!!!");
     }
 
     private GameObject FindTarget()

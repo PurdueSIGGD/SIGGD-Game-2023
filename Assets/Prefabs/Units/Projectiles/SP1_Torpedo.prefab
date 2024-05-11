@@ -105,7 +105,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 825501965918705192, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: rotationOffset
-      value: -90
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2556013608154476887, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_Sprite
@@ -115,6 +115,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UnitSpriteHolder
       objectReference: {fileID: 0}
+    - target: {fileID: 5534250454328293290, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 8a9df1f7a6ec48c4a8f54aa828115c1e, type: 2}
     - target: {fileID: 8391964224929998665, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
