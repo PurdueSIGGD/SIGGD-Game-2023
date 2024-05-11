@@ -168,7 +168,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8388608
   rocketAnimator: {fileID: 7560681165108621748}
-  projPrefab: {fileID: 354620882897817373, guid: 48da7eaf123b5ab4daff052db4a04456, type: 3}
+  projPrefab: {fileID: 354620882897817373, guid: e0b6a01154a00e241a3a3568938fdffb, type: 3}
   projDuration: 20
   projDamage: 90
   projSpeed: 40

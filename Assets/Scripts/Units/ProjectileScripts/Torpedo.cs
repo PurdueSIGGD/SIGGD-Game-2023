@@ -40,6 +40,10 @@ public class Torpedo : MonoBehaviour
     {
         // Initialize fields
         direction = (target.transform.position - this.transform.position).normalized;
+
+        // look at target direction
+        var dir = target.transform.position - transform.position;
+        this.GetComponentInChildren<DirectionalSprite>().lookDirectionOverride = dir;
     }
 
     void Update()
