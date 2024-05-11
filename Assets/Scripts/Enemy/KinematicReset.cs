@@ -10,17 +10,20 @@ public class KinematicReset : MonoBehaviour
     // -- Private Fields --
     private Rigidbody rb;
     private NavMeshAgent agent;
+    private bool check;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
+        check = true;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
+        Debug.Log("YOOOO");
+        if (check && collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
             rb.isKinematic = true;
             agent.enabled = true;
@@ -31,6 +34,13 @@ public class KinematicReset : MonoBehaviour
     {
         rb.isKinematic = false;
         agent.enabled = false;
+        check = false;
+    }
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(2);
+        check = true;
     }
 
     public void Stun(float duration)
