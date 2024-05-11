@@ -139,6 +139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e2d68519710f042a9e4342a5a476c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackRange: 5
+  detectRange: 10
+  moveSpeedModifier: 10
+  roamerAnimator: {fileID: 4064468419236281327}
 --- !u!114 &84732583087605943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,7 +334,7 @@ PrefabInstance:
     - target: {fileID: 5534250454328293290, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 9465ff460032ad34098fce1dbc378d85, type: 2}
+      objectReference: {fileID: 9100000, guid: b89b023e89645764d97ee4af283c8a15, type: 2}
     - target: {fileID: 8391964224929998665, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -379,5 +383,10 @@ PrefabInstance:
 --- !u!4 &61994903477562124 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8391964224929998665, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
+  m_PrefabInstance: {fileID: 8406671332231023685}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4064468419236281327 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5534250454328293290, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
   m_PrefabInstance: {fileID: 8406671332231023685}
   m_PrefabAsset: {fileID: 0}

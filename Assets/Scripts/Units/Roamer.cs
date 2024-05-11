@@ -9,27 +9,42 @@ public class Roamer : UnitMovement
 {
     // -- Serialize Fields --
 
+    [SerializeField]
+    float attackRange;
+
+    [SerializeField]
+    float detectRange;
+
+    [SerializeField]
+    float moveSpeedModifier;
+
+    [SerializeField]
+    Animator roamerAnimator;
+
+    // -- Private Fields --
     private NavMeshAgent NavMesh;
-
     private bool attacking = true;
-
     GameObject Target = null;
+    GameObject player;
+
+    Vector3 prevPos;
+    bool moving;
 
     // -- Behavior --
     private void Start()
     {
-        // Define attack, detect, mandatory return ranges
-        assignRanges(5, 10);
-        // Move speed modifier
-        moveSpeedModifier = 10;
-
         NavMesh = gameObject.GetComponent<NavMeshAgent>();
         NavMesh.speed = moveSpeedModifier;
+        player = GameObject.FindGameObjectWithTag("Player");
+        prevPos = player.transform.position;
+        moving = true;
     }
 
     private void CheckDist()
     {
-        if (playerDist() > detectRange)
+        float playerDist = Vector3.Distance(player.transform.position, this.transform.position);
+
+        if (playerDist > detectRange)
         {
             if (attacking && Target == null)
             {
@@ -37,7 +52,7 @@ public class Roamer : UnitMovement
                 //Debug.Log("Halting attack");
             }
         }
-        else if (!attacking && playerDist() <= attackRange)
+        else if (!attacking && playerDist <= attackRange)
         {
             attacking = true;
             //Debug.Log("Resuming attack");
@@ -57,21 +72,37 @@ public class Roamer : UnitMovement
                     NavMesh.destination = Target.transform.position;
                 }
             }
-            else
-            {
-                /*NavMesh.destination = Target.transform.position;
-
-                if (NavMesh.remainingDistance < attackRange)
-                {
-                    Destroy(Target);
-                }*/
-            }
         }
         else
         {
             // Go to 2 units away frem the player in the proper direction
-            NavMesh.SetDestination(Player.transform.position);
+            NavMesh.SetDestination(player.transform.position);
         }
+
+        // check if still moving
+        bool before = moving;
+        moving = !(Vector3.Distance(this.transform.position, prevPos) <= 0);
+        prevPos = this.transform.position;
+
+        if (before && !moving)
+        {
+            EnterIdle();
+        } else if (!before && moving)
+        {
+            EnterMoving();
+        }
+    }
+
+    void EnterIdle()
+    {
+        roamerAnimator.SetBool("IsIdle", true);
+        Debug.Log("Idling!!!!");
+    }
+
+    void EnterMoving()
+    {
+        roamerAnimator.SetBool("IsIdle", false);
+        Debug.Log("Moving!!!!");
     }
 
     private GameObject FindTarget()

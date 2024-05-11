@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Orbital : UnitMovement
 {
-
-    // Move speed modifier
-
     // -- Serialize Fields --
 
     // Distance fron player
