@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class UnitHotbarUI : MonoBehaviour
 {
+    // HEALTH SLIDER GOES FROM 0 TO 0.4
+
+
     public int selectedUnit = 0;
     public UnitType selectedType;
     public float selectedCost = 100;
