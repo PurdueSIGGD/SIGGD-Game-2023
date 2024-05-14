@@ -13,11 +13,11 @@ public class ChargePylon : Interactable
 
     public float currentCharge;
 
-    private float tickRate;
-    private float previousTickTime;
+    public float tickRate;
+    public float previousTickTime;
 
-    private bool isCharging;
-    private bool chargeDone;
+    public bool isCharging;
+    public bool chargeDone;
 
     // Start is called before the first frame update
     public override void Start()
