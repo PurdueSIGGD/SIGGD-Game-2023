@@ -3650,6 +3650,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: AttackPylon
       objectReference: {fileID: 0}
+    - target: {fileID: 2300844452470168619, guid: 87aa4645890bc5c47abb9820a61160d3, type: 3}
+      propertyPath: playerLevel
+      value: 
+      objectReference: {fileID: 5131175784765361853}
+    - target: {fileID: 2300844452470168619, guid: 87aa4645890bc5c47abb9820a61160d3, type: 3}
+      propertyPath: enemySpawner
+      value: 
+      objectReference: {fileID: 7045220870365457175}
+    - target: {fileID: 2300844452470168619, guid: 87aa4645890bc5c47abb9820a61160d3, type: 3}
+      propertyPath: interactPrompt
+      value: 
+      objectReference: {fileID: 4483882145949002665}
+    - target: {fileID: 2300844452470168619, guid: 87aa4645890bc5c47abb9820a61160d3, type: 3}
+      propertyPath: objectivePrompt
+      value: 
+      objectReference: {fileID: 3196588912484370843}
     - target: {fileID: 4305677018847479247, guid: 87aa4645890bc5c47abb9820a61160d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 38.1
@@ -3690,6 +3706,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4503907988740739563, guid: 87aa4645890bc5c47abb9820a61160d3, type: 3}
+      propertyPath: deserterTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4503907988740739563, guid: 87aa4645890bc5c47abb9820a61160d3, type: 3}
+      propertyPath: enemySpawner
+      value: 
+      objectReference: {fileID: 7045220870365457175}
     - target: {fileID: 6413645373784906733, guid: 87aa4645890bc5c47abb9820a61160d3, type: 3}
       propertyPath: playerLevel
       value: 

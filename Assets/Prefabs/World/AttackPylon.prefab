@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 2946895376214033398}
   - component: {fileID: 302965034856250796}
   - component: {fileID: 1356698985323799062}
-  - component: {fileID: 7391031931897068446}
+  - component: {fileID: 2300844452470168619}
   m_Layer: 0
   m_Name: AttackPylon
   m_TagString: Untagged
@@ -255,7 +255,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 8
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7391031931897068446
+--- !u!114 &2300844452470168619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1604119502067822880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de4174e15d7aec842a2cc2c3776fdde0, type: 3}
+  m_Script: {fileID: 11500000, guid: 93b01d8cb5b83ed4992233f712faa926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   promptMessage: E | Activate Pylon
@@ -281,14 +281,6 @@ MonoBehaviour:
   previousTickTime: 0
   isCharging: 0
   chargeDone: 0
-  enemySpawner: {fileID: 0}
-  pylonState: 1
-  pylonEnemySpawner: {fileID: 7747375238556337318}
-  pylonEnemyList1: 000000000000000000000000
-  pylonEnemyList2: 00000000000000000000000000000000
-  pylonEnemyList3: 0100000001000000
-  pylonEnemyList4: 0100000001000000000000000000000000000000
-  pylonEnemyList5: 01000000010000000100000000000000000000000000000000000000
 --- !u!1 &1776731742863146492
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2130970987200526015}
   - component: {fileID: 4935674132350849332}
+  - component: {fileID: 4503907988740739563}
   m_Layer: 0
   m_Name: ChargeRange
   m_TagString: Untagged
@@ -446,6 +439,32 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 40
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4503907988740739563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2406647724119210040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cdd2aca4c0046047b8c846f6e996269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deserterTime: 10
+  pylon: {fileID: 2300844452470168619}
+  isDeserting: 0
+  enemySpawner: {fileID: 0}
+  constantSpawnInterval: 0
+  waveSpawnInterval: 0
+  pylonState: 1
+  pylonEnemySpawner: {fileID: 7747375238556337318}
+  pylonEnemyList1: 0000000000000000
+  pylonEnemyList2: 00000000000000000000000000000000
+  pylonEnemyList3: 0100000001000000
+  pylonEnemyList4: 0100000001000000000000000000000000000000
+  pylonEnemyList5: 01000000010000000100000000000000000000000000000000000000
+  pylonEnemies: []
 --- !u!1 &3065476618791984279
 GameObject:
   m_ObjectHideFlags: 0
