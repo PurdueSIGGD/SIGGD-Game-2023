@@ -152,14 +152,14 @@ MonoBehaviour:
   agent: {fileID: 8130563863247800727}
   this_enemy: {fileID: 2001994221166009705}
   speed: 10
-  turnSpeed: 2
+  turnSpeed: 2.5
   rayDist: 4
   flankDist: 2
   flanksEnemies: 1
   flanksPlayer: 1
   fleeing: 0
-  attacksTurrets: 0
-  turretDetectionRad: 0
+  attacksTurrets: 1
+  turretDetectionRad: 7
 --- !u!114 &1584416394962942311
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -79,14 +79,16 @@ public class playerAttackHandler : MonoBehaviour
     {
         rangedAvailable = false;
         yield return new WaitForSeconds(rangedRecoveryTime);
-        rangedAvailable = true;
+        rangedAvailable = meleeAvailable;
     }
 
     public IEnumerator meleeRecoveryTimer()
     {
         meleeAvailable = false;
+        rangedAvailable = false;
         yield return new WaitForSeconds(meleeRecoveryTime);
         meleeAvailable = true;
+        rangedAvailable = true;
     }
 
     

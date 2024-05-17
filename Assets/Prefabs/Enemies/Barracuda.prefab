@@ -77,12 +77,12 @@ MonoBehaviour:
   turnSpeed: 10
   flankSpeed: 2
   retreatSpeed: 6
-  minRangeDist: 9
-  rangeVariability: 4
+  minRangeDist: 8
+  rangeVariability: 3
   pounceSpeed: 7
   pounceDecay: 3.8
-  maxPounceTime: 12
-  minPounceTime: 6
+  maxPounceTime: 5
+  minPounceTime: 3
   pounceNoise: {fileID: 5751186689358883486}
   minChange: 5
   maxChange: 10
@@ -770,7 +770,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.8
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 1}
 --- !u!114 &6817642734563020392
 MonoBehaviour:
@@ -784,7 +784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c384f41714b134ea5205bb93807879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 1
+  cooldownTime: 1.5
   DAMAGE: 30
 --- !u!1001 &4584405176982258643
 PrefabInstance:
