@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 97b2d8625093e0c459ae4934f2b1f517
+guid: 592fea0fe774e6f4f8b95491d6131ced
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -58,7 +58,7 @@ TextureImporter:
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
-  flipbookColumns: 0
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rocket_Lv2_Idle_Sprite_0
+      name: Roamer_Base_Walk_Sprite_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 200
-        height: 70
+        height: 125
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e06a64077a48624a91b77708db0c101
-      internalID: 1306560342
+      spriteID: 081570adef22815459693bbf2a45fe80
+      internalID: -1091005835
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rocket_Lv2_Idle_Sprite_1
+      name: Roamer_Base_Walk_Sprite_1
       rect:
         serializedVersion: 2
         x: 200
         y: 0
         width: 200
-        height: 70
+        height: 125
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,29 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af931d1e2806a964781b912a8a9b6fbd
-      internalID: -1336139869
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Rocket_Lv2_Idle_Sprite_2
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 0
-        width: 200
-        height: 70
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fc5ff293bc3e5794ca6e078654231a33
-      internalID: -836349967
+      spriteID: aca4bc3de2432b949b71b870e282ab88
+      internalID: -748526929
       vertices: []
       indices: 
       edges: []
@@ -175,7 +154,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: da5fb35cb14f55941add47b26a359577
+    spriteID: 3c30c399bc630194c9185934d7e08e89
     internalID: 0
     vertices: []
     indices: 
@@ -183,9 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Rocket_Lv2_Idle_Sprite_0: 1306560342
-      Rocket_Lv2_Idle_Sprite_1: -1336139869
-      Rocket_Lv2_Idle_Sprite_2: -836349967
+      Roamer_Base_Walk_Sprite_0: -1091005835
+      Roamer_Base_Walk_Sprite_1: -748526929
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
