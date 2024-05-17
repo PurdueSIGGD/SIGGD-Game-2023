@@ -11,7 +11,8 @@ public class ChargePylon : Interactable
     [SerializeField] public ObjectivePrompt objectivePrompt;
     [SerializeField] public Light activatedLight;
     [SerializeField] public Light orbLight;
-    //[SerializeField] public PylonDeserter pylonDeserter;
+    [SerializeField] public PylonDeserter pylonDeserter;
+    [SerializeField] public SpriteRenderer rangeRing;
 
     public float currentCharge;
 
@@ -23,14 +24,12 @@ public class ChargePylon : Interactable
 
 
     //PYLON CHARGE SEQUENCE --------------------------------------------------------------------
-    /*[SerializeField] public EnemySpawner enemySpawner;
+    [SerializeField] public EnemySpawner enemySpawner;
     public float constantSpawnInterval;
     public float waveSpawnInterval;
 
     public IEnumerator pylonCoroutine;
     public sequenceState pylonState = sequenceState.READY;
-
-    //[SerializeField] public ChargePylon pylon;
 
     [SerializeField] public ControlledEnemySpawner pylonEnemySpawner;
 
@@ -40,7 +39,7 @@ public class ChargePylon : Interactable
     [SerializeField] public List<enemyType> pylonEnemyList4;
     [SerializeField] public List<enemyType> pylonEnemyList5;
 
-    public List<GameObject> pylonEnemies = new List<GameObject>();*/
+    public List<List<GameObject>> pylonEnemies = new List<List<GameObject>>();
     //------------------------------------------------------------------------------------------
 
 
@@ -50,8 +49,10 @@ public class ChargePylon : Interactable
     {
         currentCharge = 0f;
         tickRate = 0.05f;
-        //previousTickTime = Time.time;
         isCharging = false;
+        Color ringColor = rangeRing.color;
+        ringColor.a = 0f;
+        rangeRing.color = ringColor;
         base.Start();
     }
 
@@ -60,18 +61,16 @@ public class ChargePylon : Interactable
     {
 
         //Pylon Enemy Sequence
-        /*if (pylonState == sequenceState.READY)
+        if (pylonState == sequenceState.READY)
         {
             if (isUsed)
             {
                 pylonState = sequenceState.RUNNING;
-                //pylonDeserter.pylonEnemyCoroutine = pylonSequence();
                 pylonCoroutine = pylonSequence();
                 StartCoroutine(pylonCoroutine);
-                //StartCoroutine(pylonDeserter.pylonEnemyCoroutine);
-                //StartCoroutine(pylonSequence());
+                StartCoroutine(rangeRingFade(true));
             }
-        }*/
+        }
 
         //Pylon Charging
         if (isUsed && isCharging && (Time.time - previousTickTime >= tickRate))
@@ -93,11 +92,12 @@ public class ChargePylon : Interactable
         //Pylon Completed
         if (currentCharge >= 100f && isCharging)
         {
+            pylonDeserter.killDeserterCountdownSequence();
             StartCoroutine(activationFlare());
+            StartCoroutine(rangeRingFade(false));
 
             markPylonDone();
             
-            // Mark the objective as completed and save the game once automatically
             SavePylon();
         }
 
@@ -169,74 +169,87 @@ public class ChargePylon : Interactable
     }
 
 
+
+    public IEnumerator rangeRingFade(bool fadeIn)
+    {
+        Color ringColor = rangeRing.color;
+        ringColor.a = (fadeIn) ? 0f : 0.2f;
+        rangeRing.color = ringColor;
+        for (int i = 0; i < 100; i++)
+        {
+            ringColor.a += (fadeIn) ? 0.002f : -0.002f;
+            rangeRing.color = ringColor;
+            yield return new WaitForSeconds(0.01f);
+        }
+        ringColor.a = (fadeIn) ? 0.2f : 0f;
+        rangeRing.color = ringColor;
+    }
+
+
     
     //PYLON CHARGE SEQUENCE --------------------------------------------------------------------
-    /*public IEnumerator pylonSequence()
+    public IEnumerator pylonSequence()
     {
-        Debug.Log("INSIDE THIS COROUTINE 1: " + pylonCoroutine.ToString());
+        List<GameObject> emptyList = new List<GameObject>();
 
         pylonState = sequenceState.RUNNING;
-        //enemySpawner.enabled = false;
         constantSpawnInterval = enemySpawner.constantSpawnInterval;
         waveSpawnInterval = enemySpawner.waveSpawnInterval;
         enemySpawner.constantSpawnInterval = 99999f;
         enemySpawner.waveSpawnInterval = 99999f;
-        //baracudaFirstEncounterTrigger.sequenceState = sequenceState.RUNNING;
-        //pylon1State = sequenceState.RUNNING;
-        pylonEnemies = pylonEnemySpawner.spawnEnemyWave(pylonEnemyList1);
-        yield return new WaitForSeconds(8f);
-        pylonEnemies.AddRange(pylonEnemySpawner.spawnEnemyWave(pylonEnemyList1));
-        yield return new WaitForSeconds(8f);
-        pylonEnemySpawner.passiveSpawnActive = true;
-        pylonEnemySpawner.passiveWaveSpawnActive = true;
-        pylonEnemies.AddRange(pylonEnemySpawner.spawnEnemyWave(pylonEnemyList3));
-        yield return new WaitForSeconds(14f);
 
-        Debug.Log("INSIDE THIS COROUTINE 2: " + pylonCoroutine.ToString());
+        pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList1));
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 8f);
+        pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList1));
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 8f);
+        pylonEnemySpawner.passiveSpawnActive = (pylonCoroutine == null) ? false : true;
+        pylonEnemySpawner.passiveWaveSpawnActive = (pylonCoroutine == null) ? false : true;
+        pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList3));
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 14f);
         
-        pylonEnemies.AddRange(pylonEnemySpawner.spawnEnemyWave(pylonEnemyList2));
-        yield return new WaitForSeconds(8f);
-        pylonEnemies.AddRange(pylonEnemySpawner.spawnEnemyWave(pylonEnemyList3));
-        yield return new WaitForSeconds(8f);
-        pylonEnemies.AddRange(pylonEnemySpawner.spawnEnemyWave(pylonEnemyList4));
-        yield return new WaitForSeconds(14f);
+        pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList2));
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 8f);
+        pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList3));
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 8f);
+        pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList4));
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 14f);
 
-        Debug.Log("INSIDE THIS COROUTINE 3: " + pylonCoroutine.ToString());
-
-        //pylon1EnemySpawner.passiveSpawnActive = false;
-        //pylon1EnemySpawner.passiveWaveSpawnActive = false;
-        pylonEnemies.AddRange(pylonEnemySpawner.spawnEnemyWave(pylonEnemyList4));
-        yield return new WaitForSeconds(10f);
-        pylonEnemies.AddRange(pylonEnemySpawner.spawnEnemyWave(pylonEnemyList2));
-        yield return new WaitForSeconds(10f);
+        pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList4));
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 10f);
+        pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList2));
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 10f);
         pylonEnemySpawner.passiveSpawnActive = false;
         pylonEnemySpawner.passiveWaveSpawnActive = false;
-        pylonEnemies.AddRange(pylonEnemySpawner.spawnEnemyWave(pylonEnemyList5));
-        yield return new WaitForSeconds(10f);
+        pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList5));
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 10f);
 
-        Debug.Log("INSIDE THIS COROUTINE 4: " + pylonCoroutine.ToString());
-
-        string enemiesList = "ENEMIES: ";
-        foreach (GameObject enemy in pylonEnemies)
+        if (pylonCoroutine != null)
         {
-            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
+            pylonEnemies = null;
+            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
-                enemy.GetComponent<HealthPoints>().damageEntity(1000f);
-                enemiesList += enemy.name + " | ";
+                if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
+                {
+                    enemy.GetComponent<HealthPoints>().damageEntity(1000f);
+                }
+            }
+
+            enemySpawner.constantSpawnTimer = 0f;
+            enemySpawner.waveSpawnTimer = 0f;
+            enemySpawner.constantSpawnInterval = constantSpawnInterval;
+            enemySpawner.waveSpawnInterval = waveSpawnInterval;
+            pylonState = sequenceState.COMPLETE;
+
+            yield return new WaitForSeconds(1f);
+            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
+                {
+                    enemy.GetComponent<HealthPoints>().damageEntity(1000f);
+                }
             }
         }
-        Debug.Log(enemiesList);
-
-        //enemySpawner.enabled = true;
-        enemySpawner.constantSpawnTimer = 0f;
-        enemySpawner.waveSpawnTimer = 0f;
-        enemySpawner.constantSpawnInterval = constantSpawnInterval;
-        enemySpawner.waveSpawnInterval = waveSpawnInterval;
-        pylonState = sequenceState.COMPLETE;
-        //room2AttackState = sequenceState.READY;
-
-        Debug.Log("INSIDE THIS COROUTINE 5: " + pylonCoroutine.ToString());
-    }*/
+    }
 
 
 }

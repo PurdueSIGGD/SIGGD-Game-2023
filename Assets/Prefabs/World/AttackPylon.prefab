@@ -276,11 +276,24 @@ MonoBehaviour:
   objectivePrompt: {fileID: 0}
   activatedLight: {fileID: 7939008435614627757}
   orbLight: {fileID: 0}
+  pylonDeserter: {fileID: 4503907988740739563}
+  rangeRing: {fileID: 3692974723220029999}
   currentCharge: 0
   tickRate: 0
   previousTickTime: 0
   isCharging: 0
   chargeDone: 0
+  enemySpawner: {fileID: 0}
+  constantSpawnInterval: 0
+  waveSpawnInterval: 0
+  pylonState: 1
+  pylonEnemySpawner: {fileID: 7747375238556337318}
+  pylonEnemyList1: 000000000000000000000000
+  pylonEnemyList2: 00000000000000000000000000000000
+  pylonEnemyList3: 0100000001000000
+  pylonEnemyList4: 0100000001000000000000000000000000000000
+  pylonEnemyList5: 01000000010000000100000000000000000000000000000000000000
+  pylonEnemies: []
 --- !u!1 &1776731742863146492
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,17 +467,6 @@ MonoBehaviour:
   deserterTime: 10
   pylon: {fileID: 2300844452470168619}
   isDeserting: 0
-  enemySpawner: {fileID: 0}
-  constantSpawnInterval: 0
-  waveSpawnInterval: 0
-  pylonState: 1
-  pylonEnemySpawner: {fileID: 7747375238556337318}
-  pylonEnemyList1: 0000000000000000
-  pylonEnemyList2: 00000000000000000000000000000000
-  pylonEnemyList3: 0100000001000000
-  pylonEnemyList4: 0100000001000000000000000000000000000000
-  pylonEnemyList5: 01000000010000000100000000000000000000000000000000000000
-  pylonEnemies: []
 --- !u!1 &3065476618791984279
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,7 +864,7 @@ GameObject:
   - component: {fileID: 2666499222233772720}
   - component: {fileID: 3692974723220029999}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: RangeRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -925,7 +927,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: bbafabaaa0e49cb46a2969f4758274ad, type: 3}
-  m_Color: {r: 0, g: 0.9799824, b: 1, a: 0.19607843}
+  m_Color: {r: 0, g: 0.9799824, b: 1, a: 0.2}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
