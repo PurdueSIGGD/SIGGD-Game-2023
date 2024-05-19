@@ -106,6 +106,16 @@ public class ControlledEnemySpawner : MonoBehaviour
         //{
             //enemyList.Add(spawnEnemyRandom(enemyType));
         StartCoroutine(spawnEnemyWaveCo(enemyTypeList, enemyList));
+
+        //TODO: DELETE THIS---------------------------------
+        /*string testEnemies = "ENEMIES IN WAVE: ";
+        foreach (GameObject enemy in enemyList)
+        {
+            testEnemies += enemy.name + "   |   ";
+        }
+        Debug.Log(testEnemies);*/
+        //--------------------------------------------------
+
         //}
         return enemyList;
     }

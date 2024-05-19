@@ -31,7 +31,7 @@ public class SandboxDirector : MonoBehaviour
 
     //PYLON SEQUENCE ---------------------------------------------------------------------------
 
-    public sequenceState pylonState = sequenceState.READY;
+    /*public sequenceState pylonState = sequenceState.READY;
 
     [SerializeField] public ChargePylon pylon;
 
@@ -43,7 +43,7 @@ public class SandboxDirector : MonoBehaviour
     [SerializeField] public List<enemyType> pylonEnemyList4;
     [SerializeField] public List<enemyType> pylonEnemyList5;
 
-    private List<GameObject> pylonEnemies;
+    private List<GameObject> pylonEnemies;*/
 
 
 
@@ -68,17 +68,17 @@ public class SandboxDirector : MonoBehaviour
     void Update()
     {
         //Pylon Trigger
-        if (pylonState == sequenceState.READY)
+        /*if (pylonState == sequenceState.READY)
         {
             if (pylon.isUsed)
             {
                 pylonState = sequenceState.RUNNING;
                 StartCoroutine(pylonSequence());
             }
-        }
+        }*/
 
         //DEV Enemy Spawner Trigger
-        if (Input.GetKeyDown(KeyCode.K) && pylonState == sequenceState.READY)
+        if (Input.GetKeyDown(KeyCode.K))
         {
             StartCoroutine(DEVEnemySpawnerSequence());
         }
@@ -89,7 +89,7 @@ public class SandboxDirector : MonoBehaviour
 
 
     //PYLON SEQUENCE --------------------------------------------------------------------
-    public IEnumerator pylonSequence()
+    /*public IEnumerator pylonSequence()
     {
         pylonState = sequenceState.RUNNING;
         //enemySpawner.enabled = false;
@@ -140,7 +140,7 @@ public class SandboxDirector : MonoBehaviour
         enemySpawner.waveSpawnInterval = waveSpawnInterval;
         pylonState = sequenceState.COMPLETE;
         //room2AttackState = sequenceState.READY;
-    }
+    }*/
 
 
 
