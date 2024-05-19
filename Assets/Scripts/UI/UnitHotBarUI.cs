@@ -16,7 +16,7 @@ public class UnitHotbarUI : MonoBehaviour
 
     private bool blackout;
     private int currentUnits = 0;
-    private const int maxUnits = 10;
+    private const int maxUnits = 9;
     private List<UnitType> hotbar = new List<UnitType>(maxUnits);
     private GameObject hotbarUI;
 
@@ -29,9 +29,8 @@ public class UnitHotbarUI : MonoBehaviour
     {
         // Find hotbarUI
         GameObject playerUIBars = FindObjectOfType<uiBarManager>().gameObject;
-        hotbarUI = playerUIBars.transform.GetChild(0).GetChild(4).gameObject;
-        //StartCoroutine(UITest());
-        if (isTest) InsertUnits();
+        hotbarUI = playerUIBars.transform.GetChild(0).GetChild(2).gameObject;
+        if (isTest) StartCoroutine(UITest());
     }
 
     // Update is called once per frame
@@ -91,13 +90,10 @@ public class UnitHotbarUI : MonoBehaviour
         if (currentUnits == 0)
             return;
 
-        float mouseDelta = Input.mouseScrollDelta.y;
+        float mouseDelta = Input.mouseScrollDelta.y * -1;
         int newSelectedUnit = ((((int)mouseDelta + selectedUnit) % currentUnits) + currentUnits) % currentUnits;
 
         GameObject currentUnitOverlay = hotbarUI.transform.GetChild(newSelectedUnit).GetChild(0).gameObject;
-        //byte rOverlayColor = (byte)(FindObjectOfType<uiBarManager>().unitLightColor.r * 255);
-        //byte gOverlayColor = (byte)(FindObjectOfType<uiBarManager>().unitLightColor.g * 255);
-        //byte bOverlayColor = (byte)(FindObjectOfType<uiBarManager>().unitLightColor.b * 255);
         currentUnitOverlay.GetComponent<Image>().color = FindObjectOfType<uiBarManager>().unitLightColor;
 
         if (selectedUnit == newSelectedUnit)
@@ -115,31 +111,17 @@ public class UnitHotbarUI : MonoBehaviour
         currentUnitOverlay.SetActive(true);
 
         selectedUnit = newSelectedUnit;
-        Debug.Log(hotbar);
     }
 
     // For testing purposes
     IEnumerator UITest()
     {
-        yield return new WaitForSeconds(3);
-
-        InsertUnitIntoHotbar(UnitType.HEALER);
-
-        yield return new WaitForSeconds(3);
-
-        InsertUnitIntoHotbar(UnitType.HEALER);
-
-        yield return new WaitForSeconds(3);
-
-        InsertUnitIntoHotbar(UnitType.HEALER);
-    }
-
-    void InsertUnits()
-    {
         UnitFamily[] units = unitLevelManager.unitFamilies;
         foreach (UnitFamily fam in units)
         {
             InsertUnitIntoHotbar(fam.family);
+            yield return new WaitForSeconds(3);
+
         }
     }
 }
