@@ -10,9 +10,9 @@ public class UnitHotbarUI : MonoBehaviour
     // HEALTH SLIDER GOES FROM 0 TO 0.4
 
 
-    public int selectedUnit = 0;
-    public UnitType selectedType;
-    public float selectedCost = 100;
+    [HideInInspector] public int selectedUnit = 0;
+    [HideInInspector] public UnitType selectedType;
+    [HideInInspector] public float selectedCost = 100;
 
     private bool blackout;
     private int currentUnits = 0;

@@ -7,8 +7,8 @@ using Unity.VisualScripting;
 
 public class uiBarManager : MonoBehaviour
 {
-    public bool blackout;
-    public Color unitLightColor;
+    [HideInInspector] public bool blackout;
+    [HideInInspector] public Color unitLightColor;
 
     [SerializeField] public PlayerHealthPoints playerHealth;
     [SerializeField] public LightResource playerLight;
@@ -22,12 +22,11 @@ public class uiBarManager : MonoBehaviour
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private Slider lightSlider;
     [SerializeField] private TMP_Text lightText;
-    [SerializeField] private Image levelFrame;
+    //[SerializeField] private Image levelFrame;
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private Slider unitLightSlider;
-    [SerializeField] private Slider psudoUnitLightSlider;
-    [SerializeField] private Color blackoutColor;
-    //[SerializeField] private Image blackoutMask;
+    //[SerializeField] private Slider psudoUnitLightSlider;
+    //[SerializeField] private Color blackoutColor;
     
     void UpdateHealth() {
         healthSlider.value = playerHealth.currentHealth / (float) playerHealth.maximumHealth;
@@ -49,19 +48,19 @@ public class uiBarManager : MonoBehaviour
         // Update unit lights to be where it should be
         float selectedCost = GetComponent<UnitHotbarUI>().selectedCost;
         GameObject unitLight = unitLightSlider.transform.GetChild(0).gameObject;
-        GameObject psudoUnitLight = psudoUnitLightSlider.transform.GetChild(0).gameObject;
+        //GameObject psudoUnitLight = psudoUnitLightSlider.transform.GetChild(0).gameObject;
 
         // If blackout happens, deactivate light bars
         if (blackout)
         {
             unitLight.SetActive(false);
-            psudoUnitLight.SetActive(false);
+            //psudoUnitLight.SetActive(false);
             return;
         }
         else
         {
             unitLight.SetActive(true);
-            psudoUnitLight.SetActive(true);
+            //psudoUnitLight.SetActive(true);
         }
 
         // If the cost is more than the maximum obtainable light
@@ -70,8 +69,8 @@ public class uiBarManager : MonoBehaviour
             unitLightSlider.value = 1;
             unitLight.GetComponent<RawImage>().color = unobtainableUnitLight;
 
-            psudoUnitLightSlider.value = 1;
-            psudoUnitLight.GetComponent<RawImage>().color = unobtainableUnitLight;
+            //psudoUnitLightSlider.value = 1;
+            //psudoUnitLight.GetComponent<RawImage>().color = unobtainableUnitLight;
 
             unitLightColor = unobtainableUnitLight;
 
@@ -79,13 +78,13 @@ public class uiBarManager : MonoBehaviour
         } else
         {
             unitLightSlider.value = selectedCost / (float) playerLight.maximumLight;
-            psudoUnitLightSlider.value = selectedCost / (float) playerLight.maximumLight;
+            //psudoUnitLightSlider.value = selectedCost / (float) playerLight.maximumLight;
 
             // If cost is not acquirable via current light
             if (playerLight.currentLight < selectedCost)
             {
                 unitLight.GetComponent<RawImage>().color = nonacquirableUnitLight;
-                psudoUnitLight.GetComponent<RawImage>().color = nonacquirableUnitLight;
+                //psudoUnitLight.GetComponent<RawImage>().color = nonacquirableUnitLight;
 
                 unitLightColor = nonacquirableUnitLight;
 
@@ -104,9 +103,8 @@ public class uiBarManager : MonoBehaviour
         if (playerHealth.blackout && !blackout)
         {
             blackout = true;
-            //blackoutMask.enabled = true;
             //levelFrame.color = new Color(70f, 70f, 70f, 255f);
-            levelFrame.color = blackoutColor;
+            //levelFrame.color = blackoutColor;
             healthText.enabled = false;
             lightText.enabled = false;
             levelText.enabled = false;
@@ -114,12 +112,10 @@ public class uiBarManager : MonoBehaviour
     }
 
 
-
     // Start is called before the first frame update
     void Start()
     {
         blackout = false;
-        //blackoutMask.enabled = false;
     }
 
     // Update is called once per frame
