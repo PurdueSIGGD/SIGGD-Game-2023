@@ -6,13 +6,19 @@ using UnityEngine;
 public class ChargePylon : Interactable
 {
 
-    [SerializeField] private float chargeTime = 90f;
+    [SerializeField] private float chargeTime = 105f;
     [SerializeField] public PlayerLevel playerLevel;
     [SerializeField] public ObjectivePrompt objectivePrompt;
     [SerializeField] public Light activatedLight;
     [SerializeField] public Light orbLight;
     [SerializeField] public PylonDeserter pylonDeserter;
     [SerializeField] public SpriteRenderer rangeRing;
+
+    [SerializeField] public AudioSource pylonStartSFX;
+    [SerializeField] public AudioSource pylonHumSFX;
+    [SerializeField] public AudioSource pylonEndSFX;
+    [SerializeField] public AudioSource pylonMusic;
+    [SerializeField] public AudioSourceController pylonMusicController;
 
     public float currentCharge;
 
@@ -77,6 +83,8 @@ public class ChargePylon : Interactable
         {
             currentCharge += ((Time.time - previousTickTime) /*tickRate*/ / chargeTime) * 100f;
             objectivePrompt.showPrompt("Pylon Charging...   " + Mathf.FloorToInt(currentCharge) + "%");
+
+            //Activated Light Fader
             if (activatedLight != null)
             {
                 activatedLight.intensity = currentCharge * 2f;
@@ -85,6 +93,14 @@ public class ChargePylon : Interactable
             {
                 orbLight.intensity = currentCharge * 0.1f;
             }
+
+            //Hum Pitch/Volume Fader
+            if (currentCharge >= 70f)
+            {
+                pylonHumSFX.pitch = ((currentCharge - 70f) / 30f) + 1f;
+                //pylonHumSFX.volume = (((currentCharge - 70f) / 30f) * 0.6f) + 0.4f;
+            }
+
             previousTickTime = Time.time;
         }
 
@@ -186,6 +202,8 @@ public class ChargePylon : Interactable
     }
 
 
+
+
     
     //PYLON CHARGE SEQUENCE --------------------------------------------------------------------
     public IEnumerator pylonSequence()
@@ -197,6 +215,14 @@ public class ChargePylon : Interactable
         waveSpawnInterval = enemySpawner.waveSpawnInterval;
         enemySpawner.constantSpawnInterval = 99999f;
         enemySpawner.waveSpawnInterval = 99999f;
+
+        pylonMusic.Stop();
+        pylonMusicController.audioState = true;
+        pylonMusic.Play();
+        pylonStartSFX.Play();
+        pylonHumSFX.PlayDelayed(6f);
+        pylonHumSFX.pitch = 1f;
+        //pylonHumSFX.volume = 0.4f;
 
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList1));
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 8f);
@@ -218,13 +244,23 @@ public class ChargePylon : Interactable
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 10f);
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList2));
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 10f);
+        pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList4));
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 10f);
+        pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList2));
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 5f);
         pylonEnemySpawner.passiveSpawnActive = false;
         pylonEnemySpawner.passiveWaveSpawnActive = false;
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList5));
-        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 10f);
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 7f);
 
         if (pylonCoroutine != null)
         {
+            pylonEndSFX.Play();
+            yield return new WaitForSeconds(3.5f);
+            pylonHumSFX.Stop();
+            pylonMusicController.audioState = false;
+            pylonMusic.Stop();
+
             pylonEnemies = null;
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
@@ -249,6 +285,8 @@ public class ChargePylon : Interactable
                 }
             }
         }
+
+        Debug.Log("IT IS DONE");
     }
 
 
