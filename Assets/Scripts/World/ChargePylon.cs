@@ -7,6 +7,11 @@ public class ChargePylon : Interactable
 {
 
     [SerializeField] private float chargeTime = 105f;
+    [SerializeField] private float wave1PassiveEnemySpawnCooldown = 5f;
+    [SerializeField] private float wave2PassiveEnemySpawnCooldown = 5f;
+    [SerializeField] private float wave3PassiveEnemySpawnCooldown = 5f;
+
+
     [SerializeField] public PlayerLevel playerLevel;
     [SerializeField] public ObjectivePrompt objectivePrompt;
     [SerializeField] public Light activatedLight;
@@ -224,6 +229,8 @@ public class ChargePylon : Interactable
         pylonHumSFX.pitch = 1f;
         //pylonHumSFX.volume = 0.4f;
 
+        //Wave 1
+        pylonEnemySpawner.passiveSpawnCooldown = wave1PassiveEnemySpawnCooldown;
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList1));
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 8f);
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList1));
@@ -232,7 +239,9 @@ public class ChargePylon : Interactable
         pylonEnemySpawner.passiveWaveSpawnActive = (pylonCoroutine == null) ? false : true;
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList3));
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 14f);
-        
+
+        //Wave 2
+        pylonEnemySpawner.passiveSpawnCooldown = wave2PassiveEnemySpawnCooldown;
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList2));
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 8f);
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList3));
@@ -240,6 +249,8 @@ public class ChargePylon : Interactable
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList4));
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 14f);
 
+        //Wave 3
+        pylonEnemySpawner.passiveSpawnCooldown = wave3PassiveEnemySpawnCooldown;
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList4));
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 10f);
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList2));
@@ -248,10 +259,10 @@ public class ChargePylon : Interactable
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 10f);
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList2));
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 5f);
-        pylonEnemySpawner.passiveSpawnActive = false;
-        pylonEnemySpawner.passiveWaveSpawnActive = false;
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList5));
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 7f);
+        pylonEnemySpawner.passiveSpawnActive = false;
+        pylonEnemySpawner.passiveWaveSpawnActive = false;
 
         if (pylonCoroutine != null)
         {
