@@ -18,6 +18,7 @@ public class UnitHotbarUI : MonoBehaviour
     private int currentUnits = 0;
     private const int maxUnits = 5;
     private List<UnitType> hotbar = new List<UnitType>(maxUnits);
+    private Image unitImage;
     private GameObject hotbarUI;
 
     [SerializeField] private UnitLevelManager unitLevelManager;
@@ -30,6 +31,9 @@ public class UnitHotbarUI : MonoBehaviour
         // Find hotbarUI
         GameObject playerUIBars = FindObjectOfType<uiBarManager>().gameObject;
         hotbarUI = playerUIBars.transform.GetChild(0).GetChild(1).GetChild(2).gameObject;
+
+        // Set unitImage as the GameObject image showing which unit is chosen
+        unitImage = playerUIBars.transform.GetChild(0).GetChild(1).GetChild(3).gameObject.GetComponent<Image>();
         if (isTest) StartCoroutine(UITest());
     }
 
@@ -65,6 +69,10 @@ public class UnitHotbarUI : MonoBehaviour
         } else {
             GameObject unit = unitLevelManager.unitFamilies[(int)unitNumber].members[0];
             selectedCost = unit.GetComponent<Unit>().manaCost;
+
+            // Activate and set unitImage as the first unit
+            unitImage.gameObject.SetActive(true);
+            unitImage.sprite = unitSprite;
         }
 
         // If blackout happens, deactivate its overlay
@@ -109,6 +117,10 @@ public class UnitHotbarUI : MonoBehaviour
 
         currentUnitOverlay.SetActive(true);
 
+        // Activate and set unitImage as the selected unit
+        var childCount = unit.transform.childCount;
+        unitImage.sprite = unit.transform.GetChild(childCount - 1).GetChild(0).GetComponent<SpriteRenderer>().sprite;
+
         selectedUnit = newSelectedUnit;
     }
 
@@ -120,7 +132,6 @@ public class UnitHotbarUI : MonoBehaviour
         {
             InsertUnitIntoHotbar(fam.family);
             yield return new WaitForSeconds(3);
-
         }
     }
 }
