@@ -25,15 +25,15 @@ public class uiBarManager : MonoBehaviour
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private Slider unitLightSlider;
 
-    // CIRCULAR SLIDERS GO FROM 0.0 TO 0.4
+    // CIRCULAR SLIDERS GO FROM 0.0 TO 0.25
 
     void UpdateHealth() {
-        healthSlider.value = 0.4f * playerHealth.currentHealth / (float) playerHealth.maximumHealth;
+        healthSlider.value = 0.25f * playerHealth.currentHealth / (float) playerHealth.maximumHealth;
         healthText.SetText("" + Mathf.CeilToInt(playerHealth.currentHealth));
     }
 
     void UpdateLight() {
-        lightSlider.value = 0.4f * playerLight.currentLight / (float) playerLight.maximumLight;
+        lightSlider.value = 0.25f * playerLight.currentLight / (float) playerLight.maximumLight;
         lightText.SetText("" + Mathf.FloorToInt(playerLight.currentLight));
     }
 
@@ -62,14 +62,14 @@ public class uiBarManager : MonoBehaviour
         // If the cost is more than the maximum obtainable light
         if (selectedCost / (float) playerLight.maximumLight > 1)
         {
-            unitLightSlider.value = 0.4f;
+            unitLightSlider.value = 0.25f;
             unitLight.GetComponent<Image>().color = unobtainableUnitLight;
             unitLightColor = unobtainableUnitLight;
 
         // If the cost is within the maximum obtainable light
         } else
         {
-            unitLightSlider.value = 0.4f * selectedCost / (float) playerLight.maximumLight;
+            unitLightSlider.value = 0.25f * selectedCost / (float) playerLight.maximumLight;
 
             // If cost is not acquirable via current light
             if (playerLight.currentLight < selectedCost)

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UnitHotbarUI : MonoBehaviour
 {
-    // HEALTH SLIDER GOES FROM 0 TO 0.4
+    // HEALTH SLIDER GOES FROM 0 TO 0.25
 
 
     [HideInInspector] public int selectedUnit = 0;
@@ -16,7 +16,7 @@ public class UnitHotbarUI : MonoBehaviour
 
     private bool blackout;
     private int currentUnits = 0;
-    private const int maxUnits = 9;
+    private const int maxUnits = 5;
     private List<UnitType> hotbar = new List<UnitType>(maxUnits);
     private GameObject hotbarUI;
 
@@ -29,7 +29,7 @@ public class UnitHotbarUI : MonoBehaviour
     {
         // Find hotbarUI
         GameObject playerUIBars = FindObjectOfType<uiBarManager>().gameObject;
-        hotbarUI = playerUIBars.transform.GetChild(0).GetChild(2).gameObject;
+        hotbarUI = playerUIBars.transform.GetChild(0).GetChild(1).GetChild(2).gameObject;
         if (isTest) StartCoroutine(UITest());
     }
 
@@ -62,8 +62,7 @@ public class UnitHotbarUI : MonoBehaviour
         if (currentUnits != 0)
         {
             currentUnitOverlay.SetActive(false);
-        } else
-        {
+        } else {
             GameObject unit = unitLevelManager.unitFamilies[(int)unitNumber].members[0];
             selectedCost = unit.GetComponent<Unit>().manaCost;
         }
