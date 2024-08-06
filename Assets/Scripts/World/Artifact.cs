@@ -38,7 +38,7 @@ public class Artifact : Interactable
     private void SaveArtifact()
     {
         var saveManager = FindObjectOfType<SaveManager>();
-        saveManager.SetSpawnPoint(transform.position + Vector3.right * 10f);
+        saveManager.SetSpawnPoint(transform.position + Vector3.right * 5f);
         saveManager.MarkObjective(gameObject, SaveManager.ObjectiveType.Artifact);
     }
 }

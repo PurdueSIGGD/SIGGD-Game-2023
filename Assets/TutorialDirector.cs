@@ -1,6 +1,8 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.MemoryProfiler;
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
 using UnityEngine.UI;
@@ -10,12 +12,24 @@ public class TutorialDirector : MonoBehaviour
 {
 
     [SerializeField] public bool fastSequencesDEV;
+    public int tutorialProgress = 0;
+    private bool isLoading = true;
 
     [SerializeField] public Movement playerMovement;
     [SerializeField] public LightResource playerLightResource;
     [SerializeField] public HealthPoints playerHealthPoints;
     [SerializeField] public playerAttackHandler playerAttackHandler;
     [SerializeField] public EnemySpawner enemySpawner;
+
+
+
+    [SerializeField] public MusicConductor musicConductor;
+    [SerializeField] public AudioSource hummingSound;
+    [SerializeField] public AudioSource damageSound;
+    [SerializeField] public AudioSource whaleSound;
+    [SerializeField] public AudioSource whaleAttackSound;
+    [SerializeField] public AudioSource completionSound;
+
 
 
     [SerializeField] public InteractPrompt interactPrompt;
@@ -40,11 +54,13 @@ public class TutorialDirector : MonoBehaviour
     //START UP SEQUENCE --------------------------------------------------------------------
     public sequenceState startUpState = sequenceState.WAITING;
 
+    //[SerializeField] public AudioSource tutorialMusic;
+
     private string startUpSender = "ASP-7";
 
     private string startUpMessage1 = "- ASP-Assisted Exo-Suit startup initiated";
 
-    private string startUpMessage2 = "- Exo-Suit boot protocols in progress... \n" +
+    private string startUpMessage2 = "- Exo-Suit E-54 boot protocols in progress \n" +
                                      "- - - - - \n" +
                                      "- Electrostatic seals locked \n" +
                                      "- - - - - \n" +
@@ -56,7 +72,7 @@ public class TutorialDirector : MonoBehaviour
                                      "- - - - - \n\n\n" +
                                      "- Boot complete \n" +
                                      "- - - - - \n" +
-                                     "- Establishing connection to SS Lawson... \n" +
+                                     "- Establishing connection to SSM Lawson... \n" +
                                      "- - - - - \n";
 
     //private string startUpMessage3 = "- Boot complete \n" +
@@ -227,6 +243,8 @@ public class TutorialDirector : MonoBehaviour
 
     [SerializeField] public SequenceTrigger firstEncounterTrigger;
 
+    [SerializeField] public GameObject firstEncounterPlayerSpawnPoint;
+
     [SerializeField] public ControlledEnemySpawner firstEncounterEnemySpawner;
 
     private string firstEncounterObjective = "Search for Light";
@@ -303,6 +321,8 @@ public class TutorialDirector : MonoBehaviour
 
     public sequenceState artifactRoomAttackEndState = sequenceState.WAITING;
 
+    //[SerializeField] public AudioSource lvl1Music;
+
     private string artifactRoomAttackEndMessage1 = "You're doin' great. The Automaton is just up ahead.";
 
 
@@ -334,6 +354,8 @@ public class TutorialDirector : MonoBehaviour
     //ECHO TUTORIAL SEQUENCE ---------------------------------------------------------------------------
 
     public sequenceState echoTutorialState = sequenceState.WAITING;
+
+    [SerializeField] public GameObject echoTutorialPlayerSpawnPoint;
 
     private string echoTutorialPrompt = "LEFT SHIFT | Deploy Echo";
 
@@ -373,7 +395,7 @@ public class TutorialDirector : MonoBehaviour
 
     [SerializeField] public ControlledEnemySpawner hallwayEnemySpawner;
 
-    private string backtrackHallwayMessage1 = "Almost there, kid. Just at bit further and we'll teleport you outta there.";
+    private string backtrackHallwayMessage1 = "Almost there, kid. Just a bit further and we'll teleport you outta there.";
 
     [SerializeField] public List<enemyType> backtrackHallwayEnemyList;
 
@@ -381,7 +403,11 @@ public class TutorialDirector : MonoBehaviour
 
     //BACKTRACK FINAL SEQUENCE --------------------------------------------------------------------
 
+    //[SerializeField] public AudioSource deepOceanBassMusic;
+
     [SerializeField] public SequenceTrigger backtrackFinalTrigger;
+
+    [SerializeField] public GameObject backtrackFinalPlayerSpawnPoint;
 
     [SerializeField] public ControlledEnemySpawner room1EnemySpawner;
 
@@ -391,7 +417,7 @@ public class TutorialDirector : MonoBehaviour
 
     [SerializeField] public List<enemyType> backtrackFinalEnemyList3;
 
-    private string backtrackFinalObjective = "Survive";
+    private string backtrackFinalObjective = "Defend your position";
 
     private string backtrackFinalMessage1 = "You're in range now. Fight off the last of these things so we can " +
                                        "teleport you and get the hell out of here!";
@@ -403,6 +429,14 @@ public class TutorialDirector : MonoBehaviour
     // TELEPORT SEQUENCE --------------------------------------------------------------------
 
     public sequenceState teleportState = sequenceState.WAITING;
+
+    [SerializeField] public GameObject teleportPlayerSpawnPoint;
+
+    //[SerializeField] public AudioSource deathMusic;
+    [SerializeField] public GameObject tutorialGate;
+    [SerializeField] public GameObject submarine;
+    [SerializeField] public GameObject brokenSubmarine;
+    [SerializeField] public GameObject submarineInteractables;
 
     private bool teleportFailed = false;
 
@@ -423,7 +457,8 @@ public class TutorialDirector : MonoBehaviour
                                       "- ASP-7 COPILOT DISCONNECTED \n" +
                                       "- - - ";
 
-    private string teleportMessage4 = "- DIRECTIVE: \n" +
+    private string teleportMessage4 = "- - - \n" +
+                                      "- DIRECTIVE: \n" +
                                       "- - - \n" +
                                       "- RETURN TO HOST SHIP IMMEDIATELY \n" +
                                       "- - - \n" +
@@ -431,6 +466,190 @@ public class TutorialDirector : MonoBehaviour
                                       "- - - ";
 
     private string teleportObjective2 = "Return to the Submarine";
+
+
+
+    // RETURN TRENCH SEQUENCE  --------------------------------------------------------------------
+
+    [SerializeField] public ControlledEnemySpawner trenchEnemySpawner;
+
+    [SerializeField] public List<enemyType> trenchEnemyList1;
+
+    [SerializeField] public List<enemyType> trenchEnemyList2;
+
+    //[SerializeField] public List<enemyType> trenchEnemyList3;
+
+    //private string backtrackFinalObjective = "Survive
+
+    //private string trenchMessage1 = "You're in range now. Fight off the last of these things so we can " +
+                                       //"teleport you and get the hell out of here!";
+
+    private List<GameObject> trenchLastEnemies;
+
+
+
+    // COLLECT CORE SEQUENCE ---------------------------------------------------------------------------
+
+    //public sequenceState collectCoreState = sequenceState.WAITING;
+
+    [SerializeField] public ControlledEnemySpawner submarineEnemySpawner;
+
+    [SerializeField] public List<enemyType> submarineEnemyList1;
+
+    [SerializeField] public SequenceTrigger collectCoreTrigger;
+
+    [SerializeField] public GameObject aspCore;
+
+    private string collectCoreMessage1 = "- - - \n" +
+                                         "- STATUS REPORT: \n" +
+                                         "- - - \n" +
+                                         "- HOST SHIP DESTROYED \n" +
+                                         "- - - \n" +
+                                         "- ASP-7 COPILOT CORE FOUND \n" +
+                                         "- - - \n";
+
+    private string collectCoreMessage2 = "- - - \n" +
+                                         "- DIRECTIVE: \n" +
+                                         "- - - \n" +
+                                         "- MANUALLY INSTALL ASP-7 CORE \n" +
+                                         "- - - ";
+
+    private string collectCoreObjective = "Install ASP-7 Core";
+
+
+
+    // ASP INSTALL SEQUENCE ---------------------------------------------------------------------------
+
+    public sequenceState aspInstallState = sequenceState.WAITING;
+
+    [SerializeField] public GameObject aspInstallPlayerSpawnPoint;
+
+    [SerializeField] public ControlledEnemySpawner aspInstallEnemySpawner;
+
+    [SerializeField] public List<enemyType> aspInstallEnemyList1;
+
+    [SerializeField] public List<enemyType> aspInstallEnemyList2;
+
+    [SerializeField] public List<enemyType> aspInstallEnemyList3;
+
+    private List<GameObject> aspInstallLastEnemies;
+
+    private string aspSender = "ASP-7";
+
+    private string aspInstallObjective = "Defend your position";
+
+    private string aspInstallMessage1 = "- ASP-7 installation initiated";
+
+    private string aspInstallMessage2 = "- Unknown host detected: Exo-suit E-54 \n" + 
+                                        "- - - - - - \n" + 
+                                        "Connecting... \n" + 
+                                        "- - - - - - - - - - - - - - \n" + 
+                                        "New host connection established \n" + 
+                                        "- - - - -";
+
+    private string aspInstallMessage3 = "- Autonomous Support Pilot online \n" + 
+                                        "- - - - - \n" + 
+                                        "Explorer, I am here to help.";
+
+    private string aspInstallMessage3p5 = "Remain near the SSM Lawson while my reboot completes. Its remaining Light " +
+                                        "power will hasten the process.";
+
+    private string aspInstallMessage4 = "During this time, it is logical to assume that multiple hostile entities " + 
+                                        "will be attracted to this position. Echo deployment is advised.";
+
+    private string aspInstallMessage5 = "- Reinitializing ASP-7 critical systems... \n" + 
+                                        "- - - - -";
+
+    private string aspInstallMessageLoading = " - - - - - - - - - - - -";
+
+    private string aspInstallMessage6 = "- Exo-suit guidance system online \n" +
+                                        "- - - - -";
+
+    private string aspInstallMessage7 = "- Area mapping system online \n" +
+                                        "- - - - -";
+
+    private string aspInstallMessage8 = "- Low power sonar engaged \n" +
+                                        "- - - - -";
+
+    private string aspInstallMessage9 = "- Optical input device connected \n" +
+                                        "- - - - -";
+
+    private string aspInstallMessage10 = "- Audio input device connected \n" +
+                                         "- - - - -";
+
+    private string aspInstallMessage11 = "- Remote signal transmitter offline \n" + 
+                                         "- ERR: device could not be connected \n" +
+                                         "- - - - -";
+
+    private string aspInstallMessage12 = "- Remote signal receiver connected \n" +
+                                         "- - - - -";
+
+    private string aspInstallMessage13 = "- Auxiliary power connected \n" +
+                                         "- - - - -";
+
+    private string aspInstallMessage14 = "- - - - - \n" + 
+                                         "- REBOOT COMPLETE \n" +
+                                         "- - - - -";
+
+    private string aspInstallMessage15 = "Explorer, I detect one more wave of hostile entities approaching. " +
+                                         "Neutralize them, and then I will determine our next objective.";
+
+    /*private string aspInstallMessage5 = "- WARNING: MULTIPLE ENTITIES APPROACHING \n" + 
+                                        "- - - - - \n" + 
+                                        "- Explorer, you must defend this position. Echo deployment is advised.";*/
+
+
+
+    //SCAN TUTORIAL SEQUENCE
+
+    public sequenceState scanTutorialState = sequenceState.WAITING;
+    
+    private string scanTutorialPrompt = "SPACE | Use Sonar Pulse";
+
+    private string scanTutorialMessage1 = "Hostile entities neutralized. Good work.";
+
+    private string scanTutorialMessage2 = "The SSM Lawson has been rendered inoperable, and my radio transmitter " + 
+                                          "is offline. We are stranded.";
+
+    private string scanTutorialMessage3 = "Additionally, Your suit's life support systems are not designed for long-term use.";
+    
+    private string scanTutorialMessage4 = "We must act quickly in order to survive.";
+
+    private string scanTutorialMessage5 = "The Exo-suit is equipped with a high-power sonar device. I will use " + 
+                                          "this to map the surrounding area and identify points of interest.";
+
+    private string scanTutorialMessage6 = "Release a sonar pulse now.";
+
+
+
+    //THE PLAN SEQUENCE
+
+    public sequenceState thePlanState = sequenceState.WAITING;
+
+    private string thePlanMessage1 = "Analyzing... \n" + 
+                                     "- - - - - - - - - - - -";
+
+    private string thePlanMessage2 = "- Multiple light reservoir pylons found \n" +
+                                     "- - - - - \n" +
+                                     "- Multiple defense-grade atomatons found \n" +
+                                     "- - - - - \n" +
+                                     "- Long-range homebound teleporter found \n" +
+                                     "- - - - -";
+
+    private string thePlanMessage3 = "Explorer, I have a plan.";
+
+    private string thePlanMessage4 = "There are structures rich in light-power scattered across the sea floor.";
+
+    private string thePlanMessage5 = "Many of these structures, or \"pylons\" as they are called, lie between " + 
+                                     "us and a sunken teleporter, which we can use to escape.";
+
+    private string thePlanMessage6 = "As we travel to the teleporter, you must activate each pylon. This will " + 
+                                     "inductively charge the teleporter with light.";
+
+    private string thePlanMessage7 = "Exit this trench through the newly bored tunnel to the left. The closest " + 
+                                     "pylon is near the opening.";
+
+    private string thePlanObjective = "Exit the trench";
 
 
 
@@ -449,12 +668,137 @@ public class TutorialDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(startUpSequence());
+        //StartCoroutine(startUpSequence());
+        /*SaveManager saveManager = FindObjectOfType<SaveManager>();
+        if (saveManager != null)
+        {
+            //
+        }
+        else
+        {
+            StartCoroutine(startUpSequence());
+        }*/
+        isLoading = true;
+        StartCoroutine(LateStart());
+    }
+
+    public IEnumerator LateStart()
+    {
+        yield return new WaitForSeconds(0.05f);
+
+        //Set Sequence States
+        if (tutorialProgress >= 1) //Before First Encounter
+        {
+            startUpState = sequenceState.COMPLETE;
+            movementTutorialState = sequenceState.COMPLETE;
+            lightSearchTrigger.sequenceState = sequenceState.COMPLETE;
+            lightSearchTrigger.triggered = true;
+            lightPickupState = sequenceState.COMPLETE;
+            lightHuntState = sequenceState.COMPLETE;
+            meleeTutorialState = sequenceState.COMPLETE;
+            blasterTutorialState = sequenceState.COMPLETE;
+            firstEncounterTrigger.sequenceState = sequenceState.READY;
+        }
+        if (tutorialProgress >= 2) //Before Echo Deployment
+        {
+            firstEncounterTrigger.sequenceState = sequenceState.COMPLETE;
+            firstEncounterTrigger.triggered = true;
+            room2AttackState = sequenceState.COMPLETE;
+            room2AttackEndState = sequenceState.COMPLETE;
+            artifactRoomAttackTrigger.sequenceState = sequenceState.COMPLETE;
+            artifactRoomAttackTrigger.triggered = true;
+            artifactRoomAttackEndState = sequenceState.COMPLETE;
+            artifactFoundTrigger.sequenceState = sequenceState.COMPLETE;
+            artifactFoundTrigger.triggered = true;
+            artifactScanState = sequenceState.COMPLETE;
+            echoTutorialState = sequenceState.READY;
+        }
+        if (tutorialProgress >= 3) //Before Backtrack Final
+        {
+            echoTutorialState = sequenceState.COMPLETE;
+            artifactRoomAttackTrigger.sequenceState = sequenceState.COMPLETE;
+            artifactRoomAttackTrigger.triggered = true;
+            firstEncounterTrigger.sequenceState = sequenceState.COMPLETE;
+            firstEncounterTrigger.triggered = true;
+            backtrackHallwayState = sequenceState.COMPLETE;
+            backtrackFinalTrigger.sequenceState = sequenceState.READY;
+        }
+        if (tutorialProgress >= 4) //After Teleporter Destruction
+        {
+            backtrackFinalTrigger.sequenceState = sequenceState.COMPLETE;
+            backtrackFinalTrigger.triggered = true;
+            teleportState = sequenceState.COMPLETE;
+            lightSearchTrigger.sequenceState = sequenceState.READY;
+            lightSearchTrigger.triggered = false;
+            //New Submarine Room Geometry
+            Destroy(tutorialGate);
+            brokenSubmarine.transform.position = new Vector3(-289.74f, 6.15f, 782.82f);
+            submarineInteractables.transform.position = brokenSubmarine.transform.position;
+            Destroy(submarine);
+            aspCore.GetComponent<Collider>().enabled = false;
+        }
+        if (tutorialProgress >= 5) //Before ASP-7 Core Install
+        {
+            lightSearchTrigger.sequenceState = sequenceState.COMPLETE;
+            lightSearchTrigger.triggered = true;
+            collectCoreTrigger.sequenceState = sequenceState.COMPLETE;
+            collectCoreTrigger.triggered = true;
+            aspInstallState = sequenceState.READY;
+            aspCore.GetComponent<Collider>().enabled = true;
+        }
+        if (tutorialProgress >= 6) //Exiting Opening
+        {
+            aspInstallState = sequenceState.COMPLETE;
+            scanTutorialState = sequenceState.COMPLETE;
+            thePlanState = sequenceState.COMPLETE;
+            //TODO: MORE NEW STATES HERE
+        }
+        
+        //Set other unaccounted for settings
+        switch (tutorialProgress)
+        {
+            case 0:
+                StartCoroutine(startUpSequence());
+                //musicConductor.crossfade(0f, musicConductor.tutorialTrack, 3f, 0f, 22.3f);
+                break;
+            case 1:
+                objectivePrompt.showPrompt(lightHuntObjective);
+                musicConductor.crossfade(0f, musicConductor.tutorialTrack, 3f, 0f, 22.3f);
+                break;
+            case 2:
+                interactPrompt.showPrompt(echoTutorialPrompt);
+                musicConductor.crossfade(0f, musicConductor.lvl1Track, 3f, 0f, 25f);
+                break;
+            case 3:
+                objectivePrompt.showPrompt(backtrackArtifactRoomObjective);
+                musicConductor.crossfade(0f, musicConductor.lvl1Track, 0.5f, 0f, 78f);
+                break;
+            case 4:
+                objectivePrompt.showPrompt(teleportObjective2);
+                musicConductor.crossfade(0f, musicConductor.hummingTrack, 2f, 0f, 0f);
+                break;
+            case 5:
+                objectivePrompt.showPrompt(collectCoreObjective);
+                musicConductor.crossfade(0f, musicConductor.hummingTrack, 2f, 0f, 0f);
+                break;
+            case 6:
+                objectivePrompt.showPrompt("TODO: INSERT PROPER OBJECTIVE PROMPT");
+                musicConductor.crossfade(0f, musicConductor.deathTrack, 3f, 0f, 0f);
+                break;
+            default:
+                StartCoroutine(startUpSequence());
+                break;
+        }
+        isLoading = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isLoading)
+        {
+            return;
+        }
 
         //Movement Tutorial Trigger
         if (movementTutorialState == sequenceState.READY)
@@ -467,7 +811,8 @@ public class TutorialDirector : MonoBehaviour
         }
 
         //Light Search Trigger
-        if (lightSearchTrigger.sequenceState == sequenceState.READY)
+        if (lightSearchTrigger.sequenceState == sequenceState.READY &&
+            echoTutorialState == sequenceState.WAITING)
         {
             if (lightSearchTrigger.triggered)
             {
@@ -633,6 +978,54 @@ public class TutorialDirector : MonoBehaviour
             }
         }
 
+        //Return Trench Trigger
+        if (lightSearchTrigger.sequenceState == sequenceState.READY &&
+            echoTutorialState == sequenceState.COMPLETE)
+        {
+            if (lightSearchTrigger.triggered)
+            {
+                lightSearchTrigger.sequenceState = sequenceState.RUNNING;
+                StartCoroutine(returnTrenchSequence());
+            }
+        }
+
+        //Collect Core Trigger
+        if (collectCoreTrigger.sequenceState == sequenceState.READY)
+        {
+            if (collectCoreTrigger.triggered)
+            {
+                collectCoreTrigger.sequenceState = sequenceState.RUNNING;
+                StartCoroutine(collectCoreSequence());
+            }
+        }
+
+        //Asp Install Trigger
+        if (aspInstallState == sequenceState.READY)
+        {
+            if (aspCore.GetComponent<Interactable>().isUsed)
+            {
+                StartCoroutine(aspInstallSequence());
+            }
+        }
+
+        //Scan Tutorial Trigger
+        if (scanTutorialState == sequenceState.READY)
+        {
+            if (ControlledEnemySpawner.isWaveDead(aspInstallLastEnemies))
+            {
+                StartCoroutine(scanTutorialSequence());
+            }
+        }
+
+        //The Plan Trigger
+        if (thePlanState == sequenceState.READY)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                StartCoroutine(thePlanSequence());
+            }
+        }
+
     }
 
 
@@ -660,6 +1053,7 @@ public class TutorialDirector : MonoBehaviour
         fadeScreenImage.enabled = true;
         if (!fastSequencesDEV)
         {
+            StartCoroutine(playRampingHummingSound(25f, 0.5f, 0.75f));
             yield return new WaitForSeconds(1f);
             yield return messanger.showMessage("", startUpSender, false);
             yield return new WaitForSeconds(0.75f);
@@ -676,7 +1070,16 @@ public class TutorialDirector : MonoBehaviour
             messanger.hideMessage();
         }
 
+        /*
+        tutorialMusic.Play();
+        tutorialMusic.time = 25f;
+        lvl1Music.Stop();
+        deepOceanBassMusic.Stop();
+        deathMusic.Stop();
+        */
+
         //Fade into scene
+        musicConductor.crossfade(0f, musicConductor.tutorialTrack, 4f, 0f, 0f);
         yield return new WaitForSeconds(0.5f);
         Color fadeScreenColor = fadeScreenImage.color;
         for (int i = 0; i < 100; i++)
@@ -686,6 +1089,7 @@ public class TutorialDirector : MonoBehaviour
             yield return new WaitForSeconds(0.03f);
         }
         fadeScreenImage.enabled = false;
+        hummingSound.Stop();
 
         //Robinson tutorial intro
         if (!fastSequencesDEV)
@@ -896,6 +1300,11 @@ public class TutorialDirector : MonoBehaviour
         blasterTutorialState = sequenceState.COMPLETE;
         //firstEncounterState = sequenceState.READY;
         firstEncounterTrigger.sequenceState = sequenceState.READY;
+        //Save Game
+        tutorialProgress = 1;
+        SaveManager saveManager = FindObjectOfType<SaveManager>();
+        saveManager.SetSpawnPoint(firstEncounterPlayerSpawnPoint.transform.position);
+        saveManager.SaveGame();
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
     }
@@ -906,10 +1315,18 @@ public class TutorialDirector : MonoBehaviour
     public IEnumerator firstEncounterSequence()
     {
         firstEncounterTrigger.sequenceState = sequenceState.RUNNING;
+        //musicConductor.hummingTrack.track1.pitch = 2f;
+        //musicConductor.hummingTrack.track2.pitch = 2f;
+        //musicConductor.crossfade(2f, musicConductor.hummingTrack, 2f, 0f, 0f);
+        musicConductor.crossfade(3f, musicConductor.titleTrack, 3f, 0f, 1f);
+        //StartCoroutine(playRampingHummingSound(5f, 0.5f, 3f));
         firstEncounterEnemies = firstEncounterEnemySpawner.spawnEnemyWave(firstEncounterEnemyList);
         yield return new WaitForSeconds(0.75f);
         firstEncounterTrigger.sequenceState = sequenceState.COMPLETE;
         room2AttackState = sequenceState.READY;
+        //yield return new WaitForSeconds(0.5f);
+        //musicConductor.hummingTrack.track1.pitch = 2.5f;
+        //musicConductor.hummingTrack.track2.pitch = 2.5f;
     }
 
 
@@ -919,7 +1336,12 @@ public class TutorialDirector : MonoBehaviour
     {
         room2AttackState = sequenceState.RUNNING;
 
+        //hummingSound.Stop();
+        //musicConductor.hummingTrack.track1.pitch = 0.5f;
+        //musicConductor.hummingTrack.track2.pitch = 0.5f;
         yield return new WaitForSeconds(1f);
+        //musicConductor.crossfade(15f, musicConductor.tutorialTrack, 10f, 0f, 55f);
+        musicConductor.crossfade(10f, musicConductor.tutorialTrack, 8f, 2f, 55f);
         objectivePrompt.hidePrompt();
         if (!fastSequencesDEV)
         {
@@ -937,14 +1359,14 @@ public class TutorialDirector : MonoBehaviour
         messanger.hideMessage();
 
         room2AttackEnemySpawner.spawnEnemyWave(room2AttackEnemyList1);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
+        room2AttackEnemySpawner.spawnEnemyWave(room2AttackEnemyList1);
+        yield return new WaitForSeconds(2.5f);
         room2AttackEnemySpawner.spawnEnemyWave(room2AttackEnemyList2);
-        yield return new WaitForSeconds(5f);
-        room2AttackEnemySpawner.spawnEnemyWave(room2AttackEnemyList2);
-        yield return new WaitForSeconds(5f);
-        room2AttackEnemySpawner.spawnEnemyWave(room2AttackEnemyList3);
-        yield return new WaitForSeconds(8f);
-        room2AttackLastEnemies = room2AttackEnemySpawner.spawnEnemyWave(room2AttackEnemyList4);
+        yield return new WaitForSeconds(4f);
+        room2AttackLastEnemies = room2AttackEnemySpawner.spawnEnemyWave(room2AttackEnemyList2);
+        //yield return new WaitForSeconds(8f);
+        //room2AttackLastEnemies = room2AttackEnemySpawner.spawnEnemyWave(room2AttackEnemyList4);
         yield return new WaitForSeconds(0.75f);
         room2AttackState = sequenceState.COMPLETE;
         room2AttackEndState = sequenceState.READY;
@@ -986,7 +1408,7 @@ public class TutorialDirector : MonoBehaviour
     {
         artifactRoomAttackTrigger.sequenceState = sequenceState.RUNNING;
         artifactRoomEnemySpawner.spawnEnemyWave(artifactRoomAttackEnemyList1);
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(2f);
         artifactRoomAttackLastEnemies = artifactRoomEnemySpawner.spawnEnemyWave(artifactRoomAttackEnemyList2);
         yield return new WaitForSeconds(0.75f);
         artifactRoomAttackTrigger.sequenceState = sequenceState.COMPLETE;
@@ -1000,7 +1422,15 @@ public class TutorialDirector : MonoBehaviour
     {
         artifactRoomAttackEndState = sequenceState.RUNNING;
 
+        /*
+        tutorialMusic.Stop();
+        lvl1Music.Play();
+        deepOceanBassMusic.Stop();
+        deathMusic.Stop();
+        */
+
         yield return new WaitForSeconds(0.75f);
+        musicConductor.crossfade(5f, musicConductor.lvl1Track, 0f, 4.5f, 0f);
         if (!fastSequencesDEV)
         {
             yield return messanger.showMessage("", tutorialSender, false);
@@ -1057,6 +1487,11 @@ public class TutorialDirector : MonoBehaviour
         interactPrompt.showPrompt(echoTutorialPrompt);
         artifactScanState = sequenceState.COMPLETE;
         echoTutorialState = sequenceState.READY;
+        //Save Game
+        tutorialProgress = 2;
+        SaveManager saveManager = FindObjectOfType<SaveManager>();
+        saveManager.SetSpawnPoint(echoTutorialPlayerSpawnPoint.transform.position);
+        saveManager.SaveGame();
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
     }
@@ -1169,6 +1604,11 @@ public class TutorialDirector : MonoBehaviour
         backtrackFinalTrigger.sequenceState = sequenceState.READY;
         yield return new WaitForSeconds(10f);
         hallwayEnemySpawner.passiveSpawnActive = false;
+        //Save Game
+        tutorialProgress = 3;
+        SaveManager saveManager = FindObjectOfType<SaveManager>();
+        saveManager.SetSpawnPoint(backtrackFinalPlayerSpawnPoint.transform.position);
+        saveManager.SaveGame();
     }
 
 
@@ -1176,7 +1616,6 @@ public class TutorialDirector : MonoBehaviour
     //BACKTRACK FINAL SEQUENCE --------------------------------------------------------------------
     public IEnumerator backtrackFinalSequence()
     {
-        //backtrackHallwayState = sequenceState.RUNNING;
         backtrackFinalTrigger.sequenceState = sequenceState.RUNNING;
 
         hallwayEnemySpawner.passiveSpawnActive = false;
@@ -1188,29 +1627,39 @@ public class TutorialDirector : MonoBehaviour
             yield return messanger.showMessage(backtrackFinalMessage1, tutorialSender, false);
             yield return new WaitForSeconds(0.75f);
         }
+        
+        /*
+        tutorialMusic.Stop();
+        lvl1Music.Stop();
+        deepOceanBassMusic.Play();
+        deathMusic.Stop();
+        */
+
         objectivePrompt.showPrompt(backtrackFinalObjective);
         room1EnemySpawner.spawnEnemyWave(backtrackFinalEnemyList1);
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
-        yield return new WaitForSeconds(2.25f);
-        room1EnemySpawner.spawnEnemyWave(backtrackFinalEnemyList1);
-        yield return new WaitForSeconds(3f);
+        //yield return new WaitForSeconds(1.25f);
+        //room1EnemySpawner.spawnEnemyWave(backtrackFinalEnemyList1);
+        yield return new WaitForSeconds(0.75f);
         room1EnemySpawner.spawnEnemyWave(backtrackFinalEnemyList2);
+        yield return new WaitForSeconds(3f);
         room1EnemySpawner.passiveSpawnActive = true;
 
-        yield return new WaitForSeconds(12f);
+        yield return new WaitForSeconds(3f);
         room1EnemySpawner.spawnEnemyWave(backtrackFinalEnemyList2);
         yield return new WaitForSeconds(4f);
         room1EnemySpawner.spawnEnemyWave(backtrackFinalEnemyList2);
-        yield return new WaitForSeconds(4f);
-        room1EnemySpawner.spawnEnemyWave(backtrackFinalEnemyList3);
+        //yield return new WaitForSeconds(4f);
+        //room1EnemySpawner.spawnEnemyWave(backtrackFinalEnemyList3);
+        //room1EnemySpawner.passiveSpawnActive = false;
 
+        yield return new WaitForSeconds(9f);
         room1EnemySpawner.passiveSpawnActive = false;
-        yield return new WaitForSeconds(12f);
         room1EnemySpawner.spawnEnemyWave(backtrackFinalEnemyList2);
         yield return new WaitForSeconds(2.5f);
         room1EnemySpawner.spawnEnemyWave(backtrackFinalEnemyList2);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         backtrackFinalLastEnemies = room1EnemySpawner.spawnEnemyWave(backtrackFinalEnemyList3);
 
         backtrackFinalTrigger.sequenceState = sequenceState.COMPLETE;
@@ -1225,12 +1674,22 @@ public class TutorialDirector : MonoBehaviour
         teleportState = sequenceState.RUNNING;
 
         objectivePrompt.hidePrompt();
+        musicConductor.crossfade(5f, musicConductor.nullTrack, 0f, 0f, 0f);
+
+        //New Submarine Room Geometry
+        Destroy(tutorialGate);
+        brokenSubmarine.transform.position = new Vector3(-289.74f, 6.15f, 782.82f);
+        submarineInteractables.transform.position = brokenSubmarine.transform.position;
+        Destroy(submarine);
+        aspCore.GetComponent<Collider>().enabled = false;
+
         if (!fastSequencesDEV)
         {
             yield return messanger.showMessage("", tutorialSender, false);
             yield return new WaitForSeconds(0.5f);
             yield return messanger.showMessage(teleportMessage1, tutorialSender, false);
             yield return new WaitForSeconds(0.75f);
+            StartCoroutine(playRampingHummingSound(15f, 1f, 2.5f));
             StartCoroutine(teleportActivatingSequence());
             yield return new WaitForSeconds(0.5f);
             messanger.hideMessage();
@@ -1238,27 +1697,56 @@ public class TutorialDirector : MonoBehaviour
             yield return messanger.showMessage(teleportMessage2, tutorialSender, false);
             //StopCoroutine(teleportActivatingSequence());
             teleportFailed = true;
+           // StartCoroutine(playRampingHummingSound(10f, 0.5f, 0.5f));
+            hummingSound.Stop();
+            //hummingSound.pitch = 0.5f;
+            //hummingSound.Play();
+            musicConductor.crossfade(0f, musicConductor.hummingTrack, 2f, 0f, 0f);
             objectivePrompt.showPrompt(teleportObjective1 + "[ERR]");
+            whaleAttackSound.Play();
+            damageSound.Play();
             yield return new WaitForSeconds(1.5f);
             messanger.hideMessage();
+            yield return new WaitForSeconds(2.25f);
+            whaleSound.Play();
             yield return new WaitForSeconds(1.25f);
-            
+            objectivePrompt.hidePrompt();
+            yield return new WaitForSeconds(0.5f);
+
             yield return messanger.showMessage(teleportMessage3, backupSender, false);
             yield return new WaitForSeconds(1.25f);
             yield return messanger.showMessage(teleportMessage4, backupSender, false);
             yield return new WaitForSeconds(1.25f);
         }
         objectivePrompt.showPrompt(teleportObjective2);
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(1.5f);
         messanger.hideMessage();
+        //musicConductor.crossfade(3f, musicConductor.deathTrack, 3f, 0f, 0f);
 
         teleportState = sequenceState.COMPLETE;
-        //NEXTState = sequenceState.READY;
+        lightSearchTrigger.triggered = false;
+        lightSearchTrigger.sequenceState = sequenceState.READY;
+        //Save Game
+        tutorialProgress = 4;
+        SaveManager saveManager = FindObjectOfType<SaveManager>();
+        saveManager.SetSpawnPoint(teleportPlayerSpawnPoint.transform.position);
+        saveManager.SaveGame();
+
+        //yield return new WaitForSeconds(3f);
+        //hummingSound.Stop();
+
+        /*
+        tutorialMusic.Stop();
+        lvl1Music.Stop();
+        deepOceanBassMusic.Stop();
+        deathMusic.Play();
+        deathMusic.Stop();
+        */
     }
 
 
 
-    //TELEPORT ACTIVATING SEQUENCE --------------------------------------------------------------------
+    //TELEPORT ACTIVATING SUBSEQUENCE --------------------------------------------------------------------
     public IEnumerator teleportActivatingSequence()
     {
         //int teleportCountdown = 10;
@@ -1270,6 +1758,300 @@ public class TutorialDirector : MonoBehaviour
             }
             yield return new WaitForSeconds(1f);
         }
+    }
+
+
+
+    //RETURN TRENCH SEQUENCE --------------------------------------------------------------------
+    public IEnumerator returnTrenchSequence()
+    {
+        lightSearchTrigger.sequenceState = sequenceState.RUNNING;
+
+        trenchEnemySpawner.spawnEnemyWave(trenchEnemyList1);
+        yield return new WaitForSeconds(12f);
+        trenchLastEnemies = trenchEnemySpawner.spawnEnemyWave(trenchEnemyList2);
+
+        lightSearchTrigger.sequenceState = sequenceState.COMPLETE;
+        collectCoreTrigger.sequenceState = sequenceState.READY;
+    }
+
+
+
+    //COLLECT CORE SEQUENCE --------------------------------------------------------------------
+    public IEnumerator collectCoreSequence()
+    {
+        collectCoreTrigger.sequenceState = sequenceState.RUNNING;
+
+        submarineEnemySpawner.spawnEnemyWave(submarineEnemyList1);
+        objectivePrompt.hidePrompt();
+        yield return new WaitForSeconds(7f);
+        yield return messanger.showMessage("", backupSender, false);
+        yield return new WaitForSeconds(0.5f);
+        //musicConductor.crossfade(3f, musicConductor.deathTrack, 3f, 0f, 0f);
+        whaleSound.volume = 0.04f;
+        whaleSound.Play();
+        yield return messanger.showMessage(collectCoreMessage1, backupSender, false);
+        yield return new WaitForSeconds(1.25f);
+        yield return messanger.showMessage(collectCoreMessage2, backupSender, false);
+        yield return new WaitForSeconds(1.25f);
+        objectivePrompt.showPrompt(collectCoreObjective);
+        aspCore.GetComponent<Collider>().enabled = true;
+        yield return new WaitForSeconds(1.5f);
+        messanger.hideMessage();
+
+        collectCoreTrigger.sequenceState = sequenceState.COMPLETE;
+        aspInstallState = sequenceState.READY;
+        //Save Game
+        tutorialProgress = 5;
+        SaveManager saveManager = FindObjectOfType<SaveManager>();
+        saveManager.SetSpawnPoint(aspInstallPlayerSpawnPoint.transform.position);
+        saveManager.SaveGame();
+        //NEXTState = sequenceState.READY;
+    }
+
+
+
+    //ASP INSTALL SEQUENCE --------------------------------------------------------------------
+    public IEnumerator aspInstallSequence()
+    {
+        aspInstallState = sequenceState.RUNNING;
+
+        Destroy(aspCore);
+        objectivePrompt.hidePrompt();
+        if (!fastSequencesDEV)
+        {
+            yield return new WaitForSeconds(1f);
+            yield return messanger.showMessage("", aspSender, false);
+            yield return new WaitForSeconds(0.75f);
+            yield return messanger.showMessage(aspInstallMessage1, aspSender, false);
+            yield return new WaitForSeconds(2f);
+            yield return messanger.showMessage(aspInstallMessage2, aspSender, false);
+            yield return new WaitForSeconds(0.25f);
+            yield return messanger.showMessage(aspInstallMessage3, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(aspInstallMessage3p5, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(aspInstallMessage4, aspSender, false);
+            yield return new WaitForSeconds(0.75f);
+        }
+        int installProgress = 0;
+        int installMaxProgress = 8;
+        objectivePrompt.showPrompt(aspInstallObjective);
+        yield return new WaitForSeconds(1.75f);
+        messanger.hideMessage();
+        yield return new WaitForSeconds(1.25f);
+        aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList1);
+        yield return messanger.showMessage(aspInstallMessage5, aspSender, false);
+        yield return new WaitForSeconds(1.25f);
+        aspInstallEnemySpawner.passiveSpawnActive = true;
+        StartCoroutine(playRampingHummingSound(120f, 0.5f, 2f));
+        aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList1);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        completionSound.pitch = 1f + (((float) installProgress / (float) installMaxProgress) * 1f);
+        completionSound.Play();
+        installProgress++;
+        yield return messanger.showMessage(aspInstallMessage6, aspSender, false);
+
+        yield return new WaitForSeconds(0.25f);
+        aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList1);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        completionSound.pitch = 1f + (((float) installProgress / (float) installMaxProgress) * 1f);
+        completionSound.Play();
+        installProgress++;
+        yield return messanger.showMessage(aspInstallMessage7, aspSender, false);
+
+        yield return new WaitForSeconds(0.25f);
+        aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList2);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        completionSound.pitch = 1f + (((float) installProgress / (float) installMaxProgress) * 1f);
+        completionSound.Play();
+        installProgress++;
+        yield return messanger.showMessage(aspInstallMessage8, aspSender, false);
+
+        yield return new WaitForSeconds(0.25f);
+        aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList1);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        completionSound.pitch = 1f + (((float) installProgress / (float) installMaxProgress) * 1f);
+        completionSound.Play();
+        installProgress++;
+        yield return messanger.showMessage(aspInstallMessage9, aspSender, false);
+
+        yield return new WaitForSeconds(0.25f);
+        aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList2);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        completionSound.pitch = 1f + (((float) installProgress / (float) installMaxProgress) * 1f);
+        completionSound.Play();
+        installProgress++;
+        yield return messanger.showMessage(aspInstallMessage10, aspSender, false);
+
+        yield return new WaitForSeconds(0.25f);
+        //StartCoroutine(playRampingHummingSound(50f, 1f, 3f));
+        aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList3);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        completionSound.pitch = 0.8f;
+        completionSound.Play();
+        installProgress++;
+        yield return messanger.showMessage(aspInstallMessage11, aspSender, false);
+
+        yield return new WaitForSeconds(0.25f);
+        aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList1);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        completionSound.pitch = 1f + (((float) installProgress / (float) installMaxProgress) * 1f);
+        completionSound.Play();
+        installProgress++;
+        yield return messanger.showMessage(aspInstallMessage12, aspSender, false);
+
+        yield return new WaitForSeconds(0.25f);
+        aspInstallEnemySpawner.passiveSpawnActive = false;
+        aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList3);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
+        completionSound.volume = 0.5f;
+        completionSound.pitch = 0.25f;
+        completionSound.Play();
+        installProgress++;
+        yield return messanger.showMessage(aspInstallMessage13, aspSender, false);
+        //hummingSound.Stop();
+
+        yield return new WaitForSeconds(0.25f);
+        hummingSound.Stop();
+        yield return messanger.showMessage(aspInstallMessage14, aspSender, false);
+        yield return new WaitForSeconds(1.5f);
+        yield return messanger.showMessage(aspInstallMessage15, aspSender, false);
+        yield return new WaitForSeconds(2f);
+        messanger.hideMessage();
+        aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList3);
+        yield return new WaitForSeconds(5f);
+        aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList3);
+        yield return new WaitForSeconds(5f);
+        aspInstallLastEnemies = aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList3);
+
+        aspInstallState = sequenceState.COMPLETE;
+        scanTutorialState = sequenceState.READY;
+    }
+
+
+
+    //SCAN TUTORIAL SEQUENCE --------------------------------------------------------------------
+
+    public IEnumerator scanTutorialSequence()
+    {
+        scanTutorialState = sequenceState.RUNNING;
+
+        //Destroy(submarineInteractables);
+        hummingSound.Stop();
+        objectivePrompt.hidePrompt();
+        musicConductor.crossfade(10f, musicConductor.deathTrack, 3f, 3f, 0f);
+        if (!fastSequencesDEV)
+        {
+            yield return new WaitForSeconds(1f);
+            yield return messanger.showMessage("", aspSender, false);
+            yield return new WaitForSeconds(0.5f);
+            yield return messanger.showMessage(scanTutorialMessage1, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(scanTutorialMessage2, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(scanTutorialMessage3, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(scanTutorialMessage4, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(scanTutorialMessage5, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(scanTutorialMessage6, aspSender, false);
+            yield return new WaitForSeconds(0.75f);
+        }
+        interactPrompt.showPrompt(scanTutorialPrompt);
+        yield return new WaitForSeconds(0.75f);
+        messanger.hideMessage();
+
+        scanTutorialState = sequenceState.COMPLETE;
+        thePlanState = sequenceState.READY;
+    }
+
+
+
+    //THE PLAN SEQUENCE --------------------------------------------------------------------
+
+    public IEnumerator thePlanSequence()
+    {
+        thePlanState = sequenceState.RUNNING;
+
+        interactPrompt.hidePrompt();
+        if (!fastSequencesDEV)
+        {
+            yield return new WaitForSeconds(1f);
+            yield return messanger.showMessage("", aspSender, false);
+            yield return new WaitForSeconds(0.5f);
+            yield return messanger.showMessage(thePlanMessage1, aspSender, false);
+            yield return new WaitForSeconds(0.25f);
+            yield return messanger.showMessage(thePlanMessage2, aspSender, false);
+            yield return new WaitForSeconds(0.25f);
+            yield return messanger.showMessage(thePlanMessage3, aspSender, false);
+            yield return new WaitForSeconds(2f);
+            yield return messanger.showMessage(thePlanMessage4, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(thePlanMessage5, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(thePlanMessage6, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(thePlanMessage7, aspSender, false);
+            yield return new WaitForSeconds(0.75f);
+        }
+        objectivePrompt.showPrompt(thePlanObjective);
+        yield return new WaitForSeconds(0.75f);
+        messanger.hideMessage();
+
+        thePlanState = sequenceState.COMPLETE;
+        //NEXTState = sequenceState.READY;
+
+        yield return null;
+    }
+
+
+
+
+
+    //----------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------- UTILITIES ------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------------------------
+
+    //Hum pitcher
+    public IEnumerator playRampingHummingSound(float duration, float initialPitch, float finalPitch)
+    {
+        hummingSound.Stop();
+        hummingSound.pitch = initialPitch;
+        hummingSound.Play();
+        for (int i = 0; i < 50; i++)
+        {
+            //if (!teleportFailed)
+            //{
+            hummingSound.pitch += (finalPitch - initialPitch) / 50;
+            //}
+            yield return new WaitForSeconds(duration / 50);
+        }
+        //if (!teleportFailed)
+        //{
+        hummingSound.Stop();
+        //}
     }
 
 
