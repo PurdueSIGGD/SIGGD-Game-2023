@@ -88,7 +88,7 @@ public class SaveManager : MonoBehaviour
                 return;
             }
         }
-        
+       
         var tempList = new List<ObjectiveData>(saveData.objectives);
         tempList.Add(new ObjectiveData(gameObjectKey, objectiveType));
         saveData.objectives = tempList.ToArray();
@@ -122,6 +122,9 @@ public class SaveManager : MonoBehaviour
     {
         // Get the player's level
         saveData.playerLevel = FindObjectOfType<PlayerLevel>().currentLevel;
+
+        // Get tutorial progress
+        saveData.tutorialProgress = FindObjectOfType<TutorialDirector>().tutorialProgress;
         
         var saveDataString = JsonUtility.ToJson(saveData);
         Debug.Log($"Save string: {saveDataString}");
@@ -157,8 +160,13 @@ public class SaveManager : MonoBehaviour
         //saveData.tutorialProgress;
 
         //FindObjectOfType<TutorialDirector>().
+        TutorialDirector tutorialDirector = FindObjectOfType<TutorialDirector>();
+        tutorialDirector.tutorialProgress = saveData.tutorialProgress;
 
-        for (var i = 0; i < saveData.playerLevel; i++) {
+
+        //Restore the player's level
+        FindObjectOfType<LightResource>().addLight(100f);
+        for (var i = 1; i < saveData.playerLevel; i++) {
             FindObjectOfType<PlayerLevel>().levelUp();
         }
 

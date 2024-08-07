@@ -38,6 +38,7 @@ public class HealthPoints : MonoBehaviour
     {
         if (invulnerable == false) {
             if (hitSound != null) {
+                hitSound.pitch = 1.25f - (currentHealth * 0.25f / maximumHealth);
                 hitSound.Play();
             }
             float damageDealt = (currentHealth - damage <= 0f) ? currentHealth : damage;

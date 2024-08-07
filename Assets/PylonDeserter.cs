@@ -83,6 +83,8 @@ public class PylonDeserter : MonoBehaviour
         }
 
         //Deserted Pylon
+        pylon.pylonHumSFX.Stop();
+        pylon.pylonMusicController.audioState = false;
         pylon.interactPrompt.hidePrompt();
         isDeserting = false;
         pylon.pylonCoroutine = null;
@@ -109,6 +111,8 @@ public class PylonDeserter : MonoBehaviour
         pylon.interactPrompt.showPrompt("Pylon Activation Failed");
         yield return new WaitForSeconds(2.5f);
         pylon.interactPrompt.hidePrompt();
+        //yield return new WaitForSeconds(1.5f);
+        //pylon.pylonMusic.Stop();
     }
 
 

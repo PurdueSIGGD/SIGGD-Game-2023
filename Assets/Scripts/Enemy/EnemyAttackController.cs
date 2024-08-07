@@ -11,6 +11,7 @@ public class EnemyAttackController : MonoBehaviour
 	[SerializeField] private float cooldownTime;
 	private float currentCooldownStart;
 	[SerializeField] private float DAMAGE;
+	[SerializeField] private AudioSource attackSound;
 
 	private bool onCooldown;
 
@@ -38,6 +39,10 @@ public class EnemyAttackController : MonoBehaviour
 	}
 
 	public virtual void Damg(float dmgs) {
+		if (attackSound != null)
+		{
+			attackSound.Play();
+		}
 		List<GameObject> toRemove = new List<GameObject>();
 		foreach (GameObject obj in overlapping) {
 			if (obj == null) {
