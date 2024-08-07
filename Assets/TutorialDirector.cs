@@ -653,6 +653,19 @@ public class TutorialDirector : MonoBehaviour
 
 
 
+    //TUNNEL SEQUENCE
+
+    [SerializeField] public SequenceTrigger tunnelTrigger;
+
+    private string tunnelMessage1 = "I am unaware of any creature capable of tunneling this far through solid rock.";
+
+    private string tunnelMessage2 = "Whatever it is, it is large, highly destructive, and nearly undetectable.";
+
+    private string tunnelMessage3 = "Extreme caution advised. Many dangerous unknown entities are likely " +
+                                    "to be roaming the open waters.";
+
+
+
 
 
     //----------------------------------------------------------------------------------------------------------------------------------------
@@ -759,7 +772,6 @@ public class TutorialDirector : MonoBehaviour
         {
             case 0:
                 StartCoroutine(startUpSequence());
-                //musicConductor.crossfade(0f, musicConductor.tutorialTrack, 3f, 0f, 22.3f);
                 break;
             case 1:
                 objectivePrompt.showPrompt(lightHuntObjective);
@@ -1023,6 +1035,16 @@ public class TutorialDirector : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 StartCoroutine(thePlanSequence());
+            }
+        }
+
+        //Tunnel Trigger
+        if (tunnelTrigger.sequenceState == sequenceState.READY)
+        {
+            if (tunnelTrigger.triggered)
+            {
+                tunnelTrigger.sequenceState = sequenceState.RUNNING;
+                StartCoroutine(tunnelSequence());
             }
         }
 
@@ -1315,16 +1337,18 @@ public class TutorialDirector : MonoBehaviour
     public IEnumerator firstEncounterSequence()
     {
         firstEncounterTrigger.sequenceState = sequenceState.RUNNING;
-        //musicConductor.hummingTrack.track1.pitch = 2f;
-        //musicConductor.hummingTrack.track2.pitch = 2f;
-        //musicConductor.crossfade(2f, musicConductor.hummingTrack, 2f, 0f, 0f);
-        musicConductor.crossfade(3f, musicConductor.titleTrack, 3f, 0f, 1f);
+        musicConductor.hummingTrack.track1.pitch = 3f;
+        musicConductor.hummingTrack.track2.pitch = 3f;
+        musicConductor.crossfade(2f, musicConductor.hummingTrack, 1f, 0f, 0f);
+        //musicConductor.crossfade(3f, musicConductor.titleTrack, 1f, 0f, 1f);
+        //musicConductor.tutorialTrack.loops = false;
+        //musicConductor.crossfade(3f, musicConductor.tutorialTrack, 1.5f, 0f, 124f);
         //StartCoroutine(playRampingHummingSound(5f, 0.5f, 3f));
         firstEncounterEnemies = firstEncounterEnemySpawner.spawnEnemyWave(firstEncounterEnemyList);
         yield return new WaitForSeconds(0.75f);
         firstEncounterTrigger.sequenceState = sequenceState.COMPLETE;
         room2AttackState = sequenceState.READY;
-        //yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f);
         //musicConductor.hummingTrack.track1.pitch = 2.5f;
         //musicConductor.hummingTrack.track2.pitch = 2.5f;
     }
@@ -1337,11 +1361,12 @@ public class TutorialDirector : MonoBehaviour
         room2AttackState = sequenceState.RUNNING;
 
         //hummingSound.Stop();
-        //musicConductor.hummingTrack.track1.pitch = 0.5f;
-        //musicConductor.hummingTrack.track2.pitch = 0.5f;
+        //musicConductor.hummingTrack.track1.pitch = 1f;
+        //musicConductor.hummingTrack.track2.pitch = 1f;
+        musicConductor.crossfade(3f, musicConductor.tutorialTrack, 8f, 0f, 55f);
         yield return new WaitForSeconds(1f);
         //musicConductor.crossfade(15f, musicConductor.tutorialTrack, 10f, 0f, 55f);
-        musicConductor.crossfade(10f, musicConductor.tutorialTrack, 8f, 2f, 55f);
+        //musicConductor.crossfade(10f, musicConductor.tutorialTrack, 8f, 0f, 55f);
         objectivePrompt.hidePrompt();
         if (!fastSequencesDEV)
         {
@@ -1368,8 +1393,11 @@ public class TutorialDirector : MonoBehaviour
         //yield return new WaitForSeconds(8f);
         //room2AttackLastEnemies = room2AttackEnemySpawner.spawnEnemyWave(room2AttackEnemyList4);
         yield return new WaitForSeconds(0.75f);
+        //musicConductor.tutorialTrack.loops = true;
         room2AttackState = sequenceState.COMPLETE;
         room2AttackEndState = sequenceState.READY;
+        musicConductor.hummingTrack.track1.pitch = 0.5f;
+        musicConductor.hummingTrack.track2.pitch = 0.5f;
     }
 
 
@@ -1673,6 +1701,9 @@ public class TutorialDirector : MonoBehaviour
     {
         teleportState = sequenceState.RUNNING;
 
+        playerMovement.enabled = false;
+        playerAttackHandler.enabled = false;
+
         objectivePrompt.hidePrompt();
         musicConductor.crossfade(5f, musicConductor.nullTrack, 0f, 0f, 0f);
 
@@ -1719,6 +1750,8 @@ public class TutorialDirector : MonoBehaviour
             yield return new WaitForSeconds(1.25f);
         }
         objectivePrompt.showPrompt(teleportObjective2);
+        playerMovement.enabled = true;
+        playerAttackHandler.enabled = true;
         yield return new WaitForSeconds(1.5f);
         messanger.hideMessage();
         //musicConductor.crossfade(3f, musicConductor.deathTrack, 3f, 0f, 0f);
@@ -1816,6 +1849,9 @@ public class TutorialDirector : MonoBehaviour
     {
         aspInstallState = sequenceState.RUNNING;
 
+        playerMovement.enabled = false;
+        playerAttackHandler.enabled = false;
+
         Destroy(aspCore);
         objectivePrompt.hidePrompt();
         if (!fastSequencesDEV)
@@ -1834,17 +1870,21 @@ public class TutorialDirector : MonoBehaviour
             yield return messanger.showMessage(aspInstallMessage4, aspSender, false);
             yield return new WaitForSeconds(0.75f);
         }
+        playerMovement.enabled = true;
+        playerAttackHandler.enabled = true;
         int installProgress = 0;
         int installMaxProgress = 8;
         objectivePrompt.showPrompt(aspInstallObjective);
         yield return new WaitForSeconds(1.75f);
         messanger.hideMessage();
         yield return new WaitForSeconds(1.25f);
-        aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList1);
+        //aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList1);
         yield return messanger.showMessage(aspInstallMessage5, aspSender, false);
         yield return new WaitForSeconds(1.25f);
+        aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList1);
         aspInstallEnemySpawner.passiveSpawnActive = true;
         StartCoroutine(playRampingHummingSound(120f, 0.5f, 2f));
+
         aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList1);
         yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
         yield return messanger.showMessage("- " + installProgress + " of " + installMaxProgress + aspInstallMessageLoading, aspSender, false);
@@ -1936,9 +1976,9 @@ public class TutorialDirector : MonoBehaviour
         yield return new WaitForSeconds(2f);
         messanger.hideMessage();
         aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList3);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
         aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList3);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
         aspInstallLastEnemies = aspInstallEnemySpawner.spawnEnemyWave(aspInstallEnemyList3);
 
         aspInstallState = sequenceState.COMPLETE;
@@ -1952,6 +1992,9 @@ public class TutorialDirector : MonoBehaviour
     public IEnumerator scanTutorialSequence()
     {
         scanTutorialState = sequenceState.RUNNING;
+
+        playerMovement.enabled = false;
+        playerAttackHandler.enabled = false;
 
         //Destroy(submarineInteractables);
         hummingSound.Stop();
@@ -2012,14 +2055,45 @@ public class TutorialDirector : MonoBehaviour
             yield return messanger.showMessage(thePlanMessage7, aspSender, false);
             yield return new WaitForSeconds(0.75f);
         }
+        playerMovement.enabled = true;
+        playerAttackHandler.enabled = true;
+
+        foreach (LightOrb lightOrb in submarineInteractables.GetComponentsInChildren<LightOrb>())
+        {
+            lightOrb.regenerationCooldown = 4000;
+        }
+
         objectivePrompt.showPrompt(thePlanObjective);
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
 
         thePlanState = sequenceState.COMPLETE;
-        //NEXTState = sequenceState.READY;
+        tunnelTrigger.sequenceState = sequenceState.READY;
+    }
 
-        yield return null;
+
+
+    //TUNNEL SEQUENCE --------------------------------------------------------------------
+
+    public IEnumerator tunnelSequence()
+    {
+        tunnelTrigger.sequenceState = sequenceState.RUNNING;
+
+        if (!fastSequencesDEV)
+        {
+            yield return messanger.showMessage("", aspSender, false);
+            yield return new WaitForSeconds(0.5f);
+            yield return messanger.showMessage(tunnelMessage1, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(tunnelMessage2, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(tunnelMessage3, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+        }
+        messanger.hideMessage();
+
+        tunnelTrigger.sequenceState = sequenceState.COMPLETE;
+        //NEXTState = sequenceState.READY;
     }
 
 
