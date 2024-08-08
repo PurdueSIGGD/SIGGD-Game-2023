@@ -32,6 +32,4 @@ public abstract class UnitMovement : MonoBehaviour
     {
         return Vector3.Distance(Player.transform.position, transform.position);
     }
-
-
 }
