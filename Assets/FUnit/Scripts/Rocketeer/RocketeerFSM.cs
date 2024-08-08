@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,10 +30,13 @@ public class RocketeerFSM : Unit
     [SerializeField]
     public GameObject projPrefab;
 
+    [SerializeField]
+    public Animator animator;
+
 
     // Context Variables
-    public GameObject target;
-    public float cooldown;
+    [NonSerialized] public GameObject target;
+    [NonSerialized] public float fireTime;
 
     void Start()
     {
@@ -42,8 +46,8 @@ public class RocketeerFSM : Unit
 
     void Update()
     {
-        cooldown -= Time.deltaTime;
-        if (cooldown < 0) cooldown = 0;
+        fireTime -= Time.deltaTime;
+        if (fireTime < 0) fireTime = 0;
 
         currentState.UpdateState(this);
     }

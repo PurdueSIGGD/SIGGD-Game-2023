@@ -9,7 +9,7 @@ public class RocketeerIdle : UnitState
     public override void EnterState(Unit context)
     {
         RocketeerFSM rocketeerContext = (RocketeerFSM)context;
-        rocketeerContext.cooldown = rocketeerContext.fireCooldown;
+        rocketeerContext.fireTime = rocketeerContext.fireCooldown;
     }
 
     public override void UpdateState(Unit context)
@@ -17,7 +17,7 @@ public class RocketeerIdle : UnitState
         RocketeerFSM rocketeerContext = (RocketeerFSM)context;
         GameObject unit = context.gameObject;
 
-        if (FindTargets(context) && rocketeerContext.cooldown == 0)
+        if (FindTargets(context) && rocketeerContext.fireTime == 0)
         {
             // look at target
             var dir = rocketeerContext.target.transform.position - unit.transform.position;

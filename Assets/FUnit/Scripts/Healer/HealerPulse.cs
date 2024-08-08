@@ -11,7 +11,7 @@ public class HealerPulse : UnitState
         healerContext.player.GetComponent<HealthPoints>().healEntity(healerContext.healAmount);
         healerContext.player.GetComponent<LightResource>().addLight(healerContext.lightAmount);
 
-        healerContext.pulseTime = 1;
+        healerContext.pulseTime = healerContext.animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
     }
 
     public override void UpdateState(Unit context)

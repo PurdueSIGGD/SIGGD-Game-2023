@@ -8,15 +8,18 @@ public class RocketeerFire : UnitState
     public override void EnterState(Unit context)
     {
         RocketeerFSM rocketeerContext = (RocketeerFSM)context;
-
         var bullet = Object.Instantiate(rocketeerContext.projPrefab, rocketeerContext.bulletPoint.transform.position, Quaternion.identity).GetComponent<Torpedo>();
         bullet.target = rocketeerContext.target;
 
-        rocketeerContext.cooldown = rocketeerContext.fireCooldown;
+        rocketeerContext.fireTime = rocketeerContext.animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
     }
 
     public override void UpdateState(Unit context)
     {
-        return;
+        RocketeerFSM rocketeerContext = (RocketeerFSM)context;
+        if (rocketeerContext.fireTime == 0)
+        {
+            rocketeerContext.SwitchState(rocketeerContext.idleState);
+        }
     }
 }
