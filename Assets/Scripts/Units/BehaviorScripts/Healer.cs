@@ -23,10 +23,8 @@ public class Healer : Unit
     private GameObject player;
 
     // -- Behavior --
-    protected override void Start()
+    void Start()
     {
-        base.Start();
-
         // Initialize fields
         player = GameObject.FindGameObjectWithTag("Player");
 
