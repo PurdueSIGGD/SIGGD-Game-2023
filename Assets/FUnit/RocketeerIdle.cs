@@ -8,12 +8,13 @@ public class RocketeerIdle : UnitState
 {
     public override void EnterState(Unit context)
     {
-        throw new System.NotImplementedException();
+        RocketeerFSM rocketeerContext = (RocketeerFSM)context;
+        rocketeerContext.cooldown = rocketeerContext.fireCooldown;
     }
 
     public override void UpdateState(Unit context)
     {
-        Rocketeer rocketeerContext = (Rocketeer)context;
+        RocketeerFSM rocketeerContext = (RocketeerFSM)context;
         GameObject unit = context.gameObject;
 
         if (FindTargets(context) && rocketeerContext.cooldown == 0)
@@ -23,7 +24,6 @@ public class RocketeerIdle : UnitState
             rocketeerContext.gunObj.GetComponent<DirectionalSprite>().lookDirectionOverride = dir;
 
             // switch to fire state
-            rocketeerContext.cooldown = rocketeerContext.fireCooldown;
             rocketeerContext.SwitchState(rocketeerContext.fireState);
         }
     }
@@ -31,7 +31,7 @@ public class RocketeerIdle : UnitState
     // Private Methods
     private bool FindTargets(Unit context)
     {
-        Rocketeer rocketeerContext = (Rocketeer)context;
+        RocketeerFSM rocketeerContext = (RocketeerFSM)context;
         GameObject unit = context.gameObject;
         float range = rocketeerContext.range;
         LayerMask projMask = rocketeerContext.projMask;

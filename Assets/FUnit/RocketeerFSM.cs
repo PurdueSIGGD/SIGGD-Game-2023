@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rocketeer : Unit
+public class RocketeerFSM : Unit
 {
     public UnitState currentState;
     public RocketeerIdle idleState = new RocketeerIdle();

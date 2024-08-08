@@ -7,10 +7,12 @@ public class RocketeerFire : UnitState
 {
     public override void EnterState(Unit context)
     {
-        Rocketeer rocketeerContext = (Rocketeer)context;
+        RocketeerFSM rocketeerContext = (RocketeerFSM)context;
 
         var bullet = Object.Instantiate(rocketeerContext.projPrefab, rocketeerContext.bulletPoint.transform.position, Quaternion.identity).GetComponent<Torpedo>();
         bullet.target = rocketeerContext.target;
+
+        rocketeerContext.cooldown = rocketeerContext.fireCooldown;
     }
 
     public override void UpdateState(Unit context)
