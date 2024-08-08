@@ -10,5 +10,4 @@ public abstract class Unit : MonoBehaviour
     [Header("Unit - Base")]
     public float manaCost;
     public UnitType type;
-    public int level;
 }

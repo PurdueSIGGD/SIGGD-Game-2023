@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -22,9 +23,12 @@ public class HealerFSM : Unit
     [SerializeField]
     public float cooldown;
 
+    [SerializeField]
+    public Animator animator;
+
     // Private Fields
-    public float pulseTime;
-    public GameObject player;
+    [NonSerialized] public float pulseTime;
+    [NonSerialized] public GameObject player;
 
 
     void Start()
@@ -35,12 +39,15 @@ public class HealerFSM : Unit
 
     void Update()
     {
+        pulseTime -= Time.deltaTime;
+        if (pulseTime < 0) pulseTime = 0;
+
         currentState.UpdateState(this);
     }
 
     public void SwitchState(UnitState state)
     {
-        currentState = state;
+        currentState = state; 
         currentState.EnterState(this);
     }
 }

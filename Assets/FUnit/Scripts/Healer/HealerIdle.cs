@@ -7,6 +7,7 @@ public class HealerIdle : UnitState
     public override void EnterState(Unit context)
     {
         HealerFSM healerContext = (HealerFSM)context;
+        healerContext.animator.ResetTrigger("Pulse");
         healerContext.pulseTime = healerContext.cooldown;
         healerContext.player = GameObject.FindGameObjectWithTag("Player");
     }
