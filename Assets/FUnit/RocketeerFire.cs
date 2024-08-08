@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class RocketeerFire : UnifState
+public class RocketeerFire : UnitState
 {
-    public override void EnterState(Unif context)
+    public override void EnterState(Unit context)
     {
         Rocketeer rocketeerContext = (Rocketeer)context;
 
@@ -13,7 +13,7 @@ public class RocketeerFire : UnifState
         bullet.target = rocketeerContext.target;
     }
 
-    public override void UpdateState(Unif context)
+    public override void UpdateState(Unit context)
     {
         return;
     }

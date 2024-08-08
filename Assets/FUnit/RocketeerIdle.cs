@@ -4,14 +4,14 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class RocketeerIdle : UnifState
+public class RocketeerIdle : UnitState
 {
-    public override void EnterState(Unif context)
+    public override void EnterState(Unit context)
     {
         throw new System.NotImplementedException();
     }
 
-    public override void UpdateState(Unif context)
+    public override void UpdateState(Unit context)
     {
         Rocketeer rocketeerContext = (Rocketeer)context;
         GameObject unit = context.gameObject;
@@ -29,7 +29,7 @@ public class RocketeerIdle : UnifState
     }
     
     // Private Methods
-    private bool FindTargets(Unif context)
+    private bool FindTargets(Unit context)
     {
         Rocketeer rocketeerContext = (Rocketeer)context;
         GameObject unit = context.gameObject;

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rocketeer : Unif
+public class Rocketeer : Unit
 {
-    public UnifState currentState;
+    public UnitState currentState;
     public RocketeerIdle idleState = new RocketeerIdle();
     public RocketeerFire fireState = new RocketeerFire();
 
@@ -48,7 +48,7 @@ public class Rocketeer : Unif
         currentState.UpdateState(this);
     }
 
-    public void SwitchState(UnifState state)
+    public void SwitchState(UnitState state)
     {
         currentState = state;
         currentState.EnterState(this);
