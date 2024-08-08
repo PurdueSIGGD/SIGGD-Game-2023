@@ -646,7 +646,7 @@ public class TutorialDirector : MonoBehaviour
     private string thePlanMessage6 = "As we travel to the teleporter, you must activate each pylon. This will " + 
                                      "inductively charge the teleporter with light.";
 
-    private string thePlanMessage7 = "Exit this trench through the newly bored tunnel to the left. The closest " + 
+    private string thePlanMessage7 = "Exit this trench through the newly bored tunnel to the right. The closest " + 
                                      "pylon is near the opening.";
 
     private string thePlanObjective = "Exit the trench";
@@ -659,10 +659,12 @@ public class TutorialDirector : MonoBehaviour
 
     private string tunnelMessage1 = "I am unaware of any creature capable of tunneling this far through solid rock.";
 
-    private string tunnelMessage2 = "Whatever it is, it is large, highly destructive, and nearly undetectable.";
+    private string tunnelMessage2 = "Whatever it is, it is large and highly destructive.";
 
-    private string tunnelMessage3 = "Extreme caution advised. Many dangerous unknown entities are likely " +
+    private string tunnelMessage3 = "Extreme caution advised. Many other dangerous entities are likely " +
                                     "to be roaming the open waters.";
+
+    [SerializeField] public GameObject tunnelPlayerSpawnPoint;
 
 
 
@@ -714,6 +716,7 @@ public class TutorialDirector : MonoBehaviour
         }
         if (tutorialProgress >= 2) //Before Echo Deployment
         {
+            playerLightResource.addLight(100f);
             firstEncounterTrigger.sequenceState = sequenceState.COMPLETE;
             firstEncounterTrigger.triggered = true;
             room2AttackState = sequenceState.COMPLETE;
@@ -758,13 +761,15 @@ public class TutorialDirector : MonoBehaviour
             collectCoreTrigger.triggered = true;
             aspInstallState = sequenceState.READY;
             aspCore.GetComponent<Collider>().enabled = true;
+            fastSequencesDEV = true;
         }
         if (tutorialProgress >= 6) //Exiting Opening
         {
             aspInstallState = sequenceState.COMPLETE;
             scanTutorialState = sequenceState.COMPLETE;
             thePlanState = sequenceState.COMPLETE;
-            //TODO: MORE NEW STATES HERE
+            tunnelTrigger.sequenceState = sequenceState.COMPLETE;
+            tunnelTrigger.triggered = true;
         }
         
         //Set other unaccounted for settings
@@ -794,7 +799,7 @@ public class TutorialDirector : MonoBehaviour
                 musicConductor.crossfade(0f, musicConductor.hummingTrack, 2f, 0f, 0f);
                 break;
             case 6:
-                objectivePrompt.showPrompt("TODO: INSERT PROPER OBJECTIVE PROMPT");
+                objectivePrompt.showPrompt(thePlanObjective);
                 musicConductor.crossfade(0f, musicConductor.deathTrack, 3f, 0f, 0f);
                 break;
             default:
@@ -1701,7 +1706,8 @@ public class TutorialDirector : MonoBehaviour
     {
         teleportState = sequenceState.RUNNING;
 
-        playerMovement.enabled = false;
+        //playerMovement.enabled = false;
+        playerMovement.rooted = true;
         playerAttackHandler.enabled = false;
 
         objectivePrompt.hidePrompt();
@@ -1750,7 +1756,8 @@ public class TutorialDirector : MonoBehaviour
             yield return new WaitForSeconds(1.25f);
         }
         objectivePrompt.showPrompt(teleportObjective2);
-        playerMovement.enabled = true;
+        //playerMovement.enabled = true;
+        playerMovement.rooted = false;
         playerAttackHandler.enabled = true;
         yield return new WaitForSeconds(1.5f);
         messanger.hideMessage();
@@ -1849,7 +1856,8 @@ public class TutorialDirector : MonoBehaviour
     {
         aspInstallState = sequenceState.RUNNING;
 
-        playerMovement.enabled = false;
+        //playerMovement.enabled = false;
+        playerMovement.rooted = true;
         playerAttackHandler.enabled = false;
 
         Destroy(aspCore);
@@ -1870,7 +1878,9 @@ public class TutorialDirector : MonoBehaviour
             yield return messanger.showMessage(aspInstallMessage4, aspSender, false);
             yield return new WaitForSeconds(0.75f);
         }
-        playerMovement.enabled = true;
+        fastSequencesDEV = false;
+        //playerMovement.enabled = true;
+        playerMovement.rooted = false;
         playerAttackHandler.enabled = true;
         int installProgress = 0;
         int installMaxProgress = 8;
@@ -1993,7 +2003,8 @@ public class TutorialDirector : MonoBehaviour
     {
         scanTutorialState = sequenceState.RUNNING;
 
-        playerMovement.enabled = false;
+        //playerMovement.enabled = false;
+        playerMovement.rooted = true;
         playerAttackHandler.enabled = false;
 
         //Destroy(submarineInteractables);
@@ -2043,9 +2054,9 @@ public class TutorialDirector : MonoBehaviour
             yield return messanger.showMessage(thePlanMessage1, aspSender, false);
             yield return new WaitForSeconds(0.25f);
             yield return messanger.showMessage(thePlanMessage2, aspSender, false);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.75f);
             yield return messanger.showMessage(thePlanMessage3, aspSender, false);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1.5f);
             yield return messanger.showMessage(thePlanMessage4, aspSender, false);
             yield return new WaitForSeconds(1.25f);
             yield return messanger.showMessage(thePlanMessage5, aspSender, false);
@@ -2055,7 +2066,8 @@ public class TutorialDirector : MonoBehaviour
             yield return messanger.showMessage(thePlanMessage7, aspSender, false);
             yield return new WaitForSeconds(0.75f);
         }
-        playerMovement.enabled = true;
+        //playerMovement.enabled = true;
+        playerMovement.rooted = false;
         playerAttackHandler.enabled = true;
 
         foreach (LightOrb lightOrb in submarineInteractables.GetComponentsInChildren<LightOrb>())
@@ -2091,6 +2103,11 @@ public class TutorialDirector : MonoBehaviour
             yield return new WaitForSeconds(1.25f);
         }
         messanger.hideMessage();
+
+        tutorialProgress = 6;
+        SaveManager saveManager = FindObjectOfType<SaveManager>();
+        saveManager.SetSpawnPoint(tunnelPlayerSpawnPoint.transform.position);
+        saveManager.SaveGame();
 
         tunnelTrigger.sequenceState = sequenceState.COMPLETE;
         //NEXTState = sequenceState.READY;
