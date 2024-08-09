@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 840081028}
-  m_IndirectSpecularColor: {r: 0, g: 0.0851428, b: 0.16914535, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.08524736, b: 0.16908893, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1617,7 +1617,7 @@ MonoBehaviour:
   canPassiveSpawn: 0
   canPassiveWaveSpawn: 0
   spawnWaveDEV: 0
-  waveEnemyTypesDEV: 04000000
+  waveEnemyTypesDEV: 000000000100000001000000
 --- !u!4 &786241880
 Transform:
   m_ObjectHideFlags: 0
@@ -2068,6 +2068,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3229638248409219777, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4248995239153424747, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2082,7 +2086,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4680332637631544285, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4741829072561009761, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: m_IsActive

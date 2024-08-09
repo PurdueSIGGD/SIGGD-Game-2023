@@ -42,7 +42,7 @@ public class DirectionalSprite : MonoBehaviour
             }
             else
             {
-                cameraTransform = FindObjectOfType<Camera>().transform;
+                cameraTransform = FindObjectOfType<CameraFollow>().transform.GetChild(0);
             }
         }
 
