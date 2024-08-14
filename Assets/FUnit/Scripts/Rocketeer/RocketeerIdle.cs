@@ -10,6 +10,7 @@ public class RocketeerIdle : UnitState
     {
         RocketeerFSM rocketeerContext = (RocketeerFSM)context;
         rocketeerContext.fireTime = rocketeerContext.fireCooldown;
+        rocketeerContext.animator.ResetTrigger("Fire");
     }
 
     public override void UpdateState(Unit context)
@@ -17,12 +18,15 @@ public class RocketeerIdle : UnitState
         RocketeerFSM rocketeerContext = (RocketeerFSM)context;
         GameObject unit = context.gameObject;
 
-        if (FindTargets(context) && rocketeerContext.fireTime == 0)
+        // look at target
+        if (rocketeerContext.target != null)
         {
-            // look at target
             var dir = rocketeerContext.target.transform.position - unit.transform.position;
             rocketeerContext.gunObj.GetComponent<DirectionalSprite>().lookDirectionOverride = dir;
+        }
 
+        if (FindTargets(context) && rocketeerContext.fireTime == 0)
+        {
             // switch to fire state
             rocketeerContext.SwitchState(rocketeerContext.fireState);
         }
@@ -40,7 +44,11 @@ public class RocketeerIdle : UnitState
         Collider[] hits = Physics.OverlapSphere(unit.transform.position, range, projMask);
 
         // if no hits, return
-        if (hits.Length == 0) return false;
+        if (hits.Length == 0)
+        {
+            rocketeerContext.target = null;
+            return false;
+        }
 
         // order targets by distance
         GameObject[] ordered = new GameObject[hits.Length];

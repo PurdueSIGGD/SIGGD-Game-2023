@@ -15,7 +15,7 @@ MonoBehaviour:
   unitFamilies:
   - family: 0
     members:
-    - {fileID: 2364344640900868031, guid: 17425a3554aafd64d98ce6b8d9ba2715, type: 3}
+    - {fileID: 2364344640900868031, guid: 07e31cb0572f3ad408798008ec8e5f72, type: 3}
   - family: 1
     members:
     - {fileID: 5571080710664901485, guid: 44d3d8aae0444754cbbb827c76485301, type: 3}
