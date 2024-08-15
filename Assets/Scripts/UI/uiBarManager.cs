@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 
 public class uiBarManager : MonoBehaviour
 {
-    [HideInInspector] public bool blackout;
+    [HideInInspector]public bool blackout;
     [HideInInspector] public Color unitLightColor;
 
     [SerializeField] public PlayerHealthPoints playerHealth;
@@ -94,6 +94,12 @@ public class uiBarManager : MonoBehaviour
             healthText.enabled = false;
             lightText.enabled = false;
             levelText.enabled = false;
+        } else if (!playerHealth.blackout && blackout)
+        {
+            blackout = false;
+            healthText.enabled = true;
+            lightText.enabled = true;
+            levelText.enabled = true;
         }
     }
 

@@ -1883,7 +1883,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5751974483949666471}
-  - component: {fileID: 4506793551699584726}
   m_Layer: 0
   m_Name: radar
   m_TagString: Untagged
@@ -1912,18 +1911,6 @@ RectTransform:
   m_AnchoredPosition: {x: -8.11, y: 17.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4506793551699584726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4360589866542976976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec2a8fbc0dbd8374ba0f1d90fed6423e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4680332637631544285
 GameObject:
   m_ObjectHideFlags: 0
