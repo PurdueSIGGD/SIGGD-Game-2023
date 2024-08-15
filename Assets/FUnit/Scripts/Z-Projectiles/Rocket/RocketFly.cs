@@ -12,6 +12,7 @@ public class RocketFly : ProjState
 
         rocket.personal.time = 0;
         rocket.personal.direction = (target.transform.position - obj.transform.position).normalized;
+        rocket.config.animator.ResetTrigger("Boom");
     }
 
     public override void UpdateState(MonoBehaviour context)
