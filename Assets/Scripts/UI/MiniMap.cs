@@ -29,7 +29,7 @@ public class MiniMap : MonoBehaviour
         ChargePylon[] chargePylons = FindObjectsOfType<ChargePylon>();
         foreach (ChargePylon chargePylon in chargePylons)
         {
-            GameObject minimapIcon = chargePylon.transform.Find("miniMapIcon").gameObject;
+            GameObject minimapIcon = chargePylon.transform.Find("minimapIcon").gameObject;
             minimapIcons.Add(minimapIcon);
         }
     }
@@ -55,8 +55,9 @@ public class MiniMap : MonoBehaviour
             StartCoroutine(SonarRecovery());
             foreach (GameObject minimapIcon in minimapIcons)
             {
-                byte alpha = (byte)( minimapIcon.GetComponent<SpriteRenderer>().color.a);
-                StartCoroutine(IconFading(alpha));
+                Debug.Log(minimapIcon);
+                IconFading(minimapIcon);
+                Debug.Log(2);
             }
         }
     }
@@ -95,20 +96,30 @@ public class MiniMap : MonoBehaviour
     }
 
     // Minimap icons fading in and out after the sonar ping
-    public IEnumerator IconFading(byte alpha)
+    void IconFading(GameObject minimapIcon)
     {
-        // Let the icon turn on
-        while (alpha < 1)
-        {
+        //Debug.Log(minimapIcon.GetComponent<SpriteRenderer>());
+        Color minimapIconColor = minimapIcon.GetComponent<SpriteRenderer>().color;
+        float alpha = minimapIconColor.a;
 
+        // Let the icon turn on
+        while (alpha < 1 )
+        {
+            alpha += (1 / iconTurnOnTime) * Time.deltaTime;
+            minimapIconColor = new Color(minimapIconColor.r, minimapIconColor.g, minimapIconColor.b, alpha);
+            Debug.Log(minimapIconColor.a);
         }
+
+        Debug.Log(minimapIconColor.a);
 
         // Let the icon turn off
         while (alpha > 0)
         {
-
+            alpha -= (1 / iconTurnOffTime) * Time.deltaTime;
+            minimapIconColor = new Color(minimapIconColor.r, minimapIconColor.g, minimapIconColor.b, alpha);
+            Debug.Log(minimapIconColor.a);
         }
 
-        return null;
+        Debug.Log(minimapIconColor.a);
     }
 }

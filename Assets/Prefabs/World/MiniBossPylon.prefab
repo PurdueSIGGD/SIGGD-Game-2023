@@ -115,6 +115,7 @@ Transform:
   - {fileID: 6380814290794699333}
   - {fileID: 34241846139351734}
   - {fileID: 610610143866211767}
+  - {fileID: 3688973546115092090}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2946895376214033398
@@ -1231,7 +1232,7 @@ GameObject:
   - component: {fileID: 610610143866211767}
   - component: {fileID: 4227823621844346100}
   m_Layer: 30
-  m_Name: miniMapIcon
+  m_Name: minimapIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1294,7 +1295,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2abc60e5c8c36ec48813b9ae32594a50, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
