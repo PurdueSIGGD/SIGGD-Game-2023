@@ -54,6 +54,10 @@ public class ChargePylon : Interactable
     //------------------------------------------------------------------------------------------
 
 
+    [SerializeField] public MusicConductor musicConductor;
+    [SerializeField] public MusicTrack currentAmbientTrack;
+
+
 
     // Start is called before the first frame update
     public override void Start()
@@ -72,7 +76,7 @@ public class ChargePylon : Interactable
     {
 
         //Pylon Enemy Sequence
-        if (pylonState == sequenceState.READY)
+        if (pylonState == sequenceState.READY && !chargeDone)
         {
             if (isUsed)
             {
@@ -132,6 +136,13 @@ public class ChargePylon : Interactable
         saveManager.MarkObjective(gameObject, SaveManager.ObjectiveType.Pylon);
     }
 
+    public void SavePylonCheckpoint()
+    {
+        var saveManager = FindObjectOfType<SaveManager>();
+        saveManager.SetSpawnPoint(transform.position + Vector3.right * 10f);
+        saveManager.SaveGame();
+    }
+
     public void markPylonDone()
     {
         isCharging = false;
@@ -149,6 +160,7 @@ public class ChargePylon : Interactable
         {
             isCharging = true;
             previousTickTime = Time.time;
+            SavePylonCheckpoint();
         }
         else
         {
@@ -221,9 +233,10 @@ public class ChargePylon : Interactable
         enemySpawner.constantSpawnInterval = 99999f;
         enemySpawner.waveSpawnInterval = 99999f;
 
-        pylonMusic.Stop();
-        pylonMusicController.audioState = true;
-        pylonMusic.Play();
+        //pylonMusic.Stop();
+        //pylonMusicController.audioState = true;
+        //pylonMusic.Play();
+        musicConductor.crossfade(1f, musicConductor.deapOceanBassTrack, 0f, 0f, 0f);////////////////////////////////////////////////////////////////////////////////////////////
         pylonStartSFX.Play();
         pylonHumSFX.PlayDelayed(6f);
         pylonHumSFX.pitch = 1f;
@@ -269,8 +282,9 @@ public class ChargePylon : Interactable
             pylonEndSFX.Play();
             yield return new WaitForSeconds(3.5f);
             pylonHumSFX.Stop();
-            pylonMusicController.audioState = false;
-            pylonMusic.Stop();
+            //pylonMusicController.audioState = false;
+            //pylonMusic.Stop();
+            musicConductor.crossfade(0f, currentAmbientTrack, 10f, 0f, currentAmbientTrack.loopStartTime);/////////////////////////////////////////////////////////////////////////
 
             pylonEnemies = null;
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))

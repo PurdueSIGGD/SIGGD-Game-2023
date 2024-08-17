@@ -157,9 +157,7 @@ public class SaveManager : MonoBehaviour
             FindObjectOfType<Movement>().gameObject.transform.position = spawnPoint;
         }
 
-        //saveData.tutorialProgress;
-
-        //FindObjectOfType<TutorialDirector>().
+        //Update the tutorial's progress status
         TutorialDirector tutorialDirector = FindObjectOfType<TutorialDirector>();
         tutorialDirector.tutorialProgress = saveData.tutorialProgress;
 

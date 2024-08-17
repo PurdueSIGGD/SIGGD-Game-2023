@@ -668,6 +668,46 @@ public class TutorialDirector : MonoBehaviour
 
 
 
+    //NEW SCAN SEQUENCE
+
+    [SerializeField] public SequenceTrigger newScanTrigger;
+
+    private string newScanPrompt = "SPACE | Use Sonar Pulse";
+
+    private string newScanMessage1 = "Explorer, release another sonar pulse. I will mark the nearest pylon.";
+
+
+
+    //PYLON DIRECTION SEQUENCE
+
+    [SerializeField] public sequenceState pylonDirectionState = sequenceState.WAITING;
+
+    [SerializeField] public ControlledEnemySpawner pylonDirectionEnemySpawner;
+
+    [SerializeField] public List<enemyType> pylonDirectionEnemyList1;
+
+    private List<GameObject> pylonDirectionLastEnemies;
+
+    private string pylonDirectionMessage1 = "I have marked the pylon's position on your sonar map. Look to the top-left of your HUD.";
+
+    private string pylonDirectionMessage2 = "You may release a sonar pulse at any time to get your bearings, but the sound is likely to attract entities.";
+
+    private string pylonDirectionMessage3 = "Which, by the way, there are hostile entities approaching now.";
+
+
+
+    //FIND PYLON SEQUENCE
+
+    [SerializeField] public sequenceState findPylonState = sequenceState.WAITING;
+
+    private string findPylonObjective = "Travel to the Pylon";
+
+    private string findPylonMessage1 = "Remember, explorer: Use sonar pulses to find your way. Deploy echos to defend yourself.";
+
+    private string findPylonMessage2 = "The risk is high but you are capable. Now, get to the pylon.";
+
+
+
 
 
     //----------------------------------------------------------------------------------------------------------------------------------------
@@ -683,16 +723,6 @@ public class TutorialDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //StartCoroutine(startUpSequence());
-        /*SaveManager saveManager = FindObjectOfType<SaveManager>();
-        if (saveManager != null)
-        {
-            //
-        }
-        else
-        {
-            StartCoroutine(startUpSequence());
-        }*/
         isLoading = true;
         StartCoroutine(LateStart());
     }
@@ -755,21 +785,30 @@ public class TutorialDirector : MonoBehaviour
         }
         if (tutorialProgress >= 5) //Before ASP-7 Core Install
         {
+            fastSequencesDEV = true;
             lightSearchTrigger.sequenceState = sequenceState.COMPLETE;
             lightSearchTrigger.triggered = true;
             collectCoreTrigger.sequenceState = sequenceState.COMPLETE;
             collectCoreTrigger.triggered = true;
             aspInstallState = sequenceState.READY;
             aspCore.GetComponent<Collider>().enabled = true;
-            fastSequencesDEV = true;
         }
         if (tutorialProgress >= 6) //Exiting Opening
         {
+            fastSequencesDEV = false;
             aspInstallState = sequenceState.COMPLETE;
             scanTutorialState = sequenceState.COMPLETE;
             thePlanState = sequenceState.COMPLETE;
             tunnelTrigger.sequenceState = sequenceState.COMPLETE;
             tunnelTrigger.triggered = true;
+            newScanTrigger.sequenceState = sequenceState.COMPLETE;
+            newScanTrigger.triggered = true;
+            pylonDirectionState = sequenceState.READY;
+        }
+        if (tutorialProgress >= 7) //Begin Area 1
+        {
+            pylonDirectionState = sequenceState.COMPLETE;
+            findPylonState = sequenceState.COMPLETE;
         }
         
         //Set other unaccounted for settings
@@ -799,8 +838,16 @@ public class TutorialDirector : MonoBehaviour
                 musicConductor.crossfade(0f, musicConductor.hummingTrack, 2f, 0f, 0f);
                 break;
             case 6:
-                objectivePrompt.showPrompt(thePlanObjective);
+                playerMovement.rooted = true;
+                playerAttackHandler.enabled = false;
+                interactPrompt.showPrompt(newScanPrompt);
                 musicConductor.crossfade(0f, musicConductor.deathTrack, 3f, 0f, 0f);
+                break;
+            case 7:
+                //objectivePrompt.showPrompt(findPylonObjective);
+                //musicConductor.crossfade(0f, musicConductor.deathTrack, 3f, 0f, 0f);
+                //yield return new WaitForSeconds(5);
+                //objectivePrompt.hidePrompt();
                 break;
             default:
                 StartCoroutine(startUpSequence());
@@ -808,6 +855,10 @@ public class TutorialDirector : MonoBehaviour
         }
         isLoading = false;
     }
+
+
+
+
 
     // Update is called once per frame
     void Update()
@@ -991,7 +1042,9 @@ public class TutorialDirector : MonoBehaviour
         {
             if (ControlledEnemySpawner.isWaveDead(backtrackFinalLastEnemies))
             {
+                Debug.Log("Starting Teleport Sequence");
                 StartCoroutine(teleportSequence());
+                Debug.Log("Teleport Sequence Started");
             }
         }
 
@@ -1050,6 +1103,34 @@ public class TutorialDirector : MonoBehaviour
             {
                 tunnelTrigger.sequenceState = sequenceState.RUNNING;
                 StartCoroutine(tunnelSequence());
+            }
+        }
+
+        //New Scan Trigger
+        if (newScanTrigger.sequenceState == sequenceState.READY)
+        {
+            if (newScanTrigger.triggered)
+            {
+                newScanTrigger.sequenceState = sequenceState.RUNNING;
+                StartCoroutine(newScanSequence());
+            }
+        }
+
+        //Pylon Direction Trigger
+        if (pylonDirectionState == sequenceState.READY)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                StartCoroutine(pylonDirectionSequence());
+            }
+        }
+
+        //Find Pylon Trigger
+        if (findPylonState == sequenceState.READY)
+        {
+            if (ControlledEnemySpawner.isWaveDead(pylonDirectionLastEnemies))
+            {
+                StartCoroutine(findPylonSequence());
             }
         }
 
@@ -1697,6 +1778,7 @@ public class TutorialDirector : MonoBehaviour
 
         backtrackFinalTrigger.sequenceState = sequenceState.COMPLETE;
         teleportState = sequenceState.READY;
+        Debug.Log("BacktrackFinal COMPLETE");
     }
 
 
@@ -2110,7 +2192,108 @@ public class TutorialDirector : MonoBehaviour
         saveManager.SaveGame();
 
         tunnelTrigger.sequenceState = sequenceState.COMPLETE;
+        newScanTrigger.sequenceState = sequenceState.READY;
         //NEXTState = sequenceState.READY;
+    }
+
+
+
+    //NEW SCAN SEQUENCE --------------------------------------------------------------------
+
+    public IEnumerator newScanSequence()
+    {
+        newScanTrigger.sequenceState = sequenceState.RUNNING;
+
+        playerMovement.rooted = true;
+        playerAttackHandler.enabled = false;
+
+        objectivePrompt.hidePrompt();
+        yield return new WaitForSeconds(0.5f);
+        if (!fastSequencesDEV)
+        {
+            yield return messanger.showMessage("", aspSender, false);
+            yield return new WaitForSeconds(0.5f);
+            yield return messanger.showMessage(newScanMessage1, aspSender, false);
+            yield return new WaitForSeconds(0.75f);
+        }
+
+        newScanTrigger.sequenceState = sequenceState.COMPLETE;
+        pylonDirectionState = sequenceState.READY;
+
+        yield return new WaitForSeconds(0.75f);
+        interactPrompt.showPrompt(newScanPrompt);
+        yield return new WaitForSeconds(0.75f);
+        messanger.hideMessage();
+
+        //newScanTrigger.sequenceState = sequenceState.COMPLETE;
+        //pylonDirectionState = sequenceState.READY;
+    }
+
+
+
+    //PYLON DIRECTION SEQUENCE --------------------------------------------------------------------
+    public IEnumerator pylonDirectionSequence()
+    {
+        pylonDirectionState = sequenceState.RUNNING;
+
+        interactPrompt.hidePrompt();
+        yield return new WaitForSeconds(0.5f);
+        if (!fastSequencesDEV)
+        {
+            yield return messanger.showMessage("", aspSender, false);
+            yield return new WaitForSeconds(0.5f);
+            yield return messanger.showMessage(pylonDirectionMessage1, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(pylonDirectionMessage2, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(pylonDirectionMessage3, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+        }
+        messanger.hideMessage();
+
+        playerMovement.rooted = false;
+        playerAttackHandler.enabled = true;
+
+        pylonDirectionEnemySpawner.spawnEnemyWave(pylonDirectionEnemyList1);
+        yield return new WaitForSeconds(2.5f);
+        pylonDirectionLastEnemies = pylonDirectionEnemySpawner.spawnEnemyWave(pylonDirectionEnemyList1);
+
+        pylonDirectionState = sequenceState.COMPLETE;
+        findPylonState = sequenceState.READY;
+    }
+
+
+
+    //FIND PYLON SEQUENCE --------------------------------------------------------------------
+
+    public IEnumerator findPylonSequence()
+    {
+        findPylonState = sequenceState.RUNNING;
+
+        objectivePrompt.hidePrompt();
+        yield return new WaitForSeconds(0.5f);
+        if (!fastSequencesDEV)
+        {
+            yield return messanger.showMessage("", aspSender, false);
+            yield return new WaitForSeconds(0.5f);
+            yield return messanger.showMessage(findPylonMessage1, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(findPylonMessage2, aspSender, false);
+            yield return new WaitForSeconds(0.75f);
+        }
+        objectivePrompt.showPrompt(findPylonObjective);
+        yield return new WaitForSeconds(1.25f);
+        messanger.hideMessage();
+
+        tutorialProgress = 7;
+        SaveManager saveManager = FindObjectOfType<SaveManager>();
+        saveManager.SetSpawnPoint(tunnelPlayerSpawnPoint.transform.position);
+        saveManager.SaveGame();
+
+        yield return new WaitForSeconds(5f);
+        objectivePrompt.hidePrompt();
+
+        findPylonState = sequenceState.COMPLETE;
     }
 
 
