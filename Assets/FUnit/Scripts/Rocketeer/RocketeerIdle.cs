@@ -78,4 +78,9 @@ public class RocketeerIdle : UnitState
         rocketeerContext.target = ordered[0];
         return true;
     }
+
+    public override void OnTriggerEnter(Unit context, Collider other)
+    {
+        return;
+    }
 }

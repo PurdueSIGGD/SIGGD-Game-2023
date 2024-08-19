@@ -22,4 +22,9 @@ public class HealerPulse : UnitState
             healerContext.SwitchState(healerContext.idleState);
         }
     }
+
+    public override void OnTriggerEnter(Unit context, Collider other)
+    {
+        return;
+    }
 }

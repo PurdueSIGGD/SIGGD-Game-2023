@@ -21,7 +21,7 @@ public class RocketBoom : ProjState
             hit.gameObject.GetComponent<HealthPoints>().damageEntity(rocket.config.damage);
         }
 
-        rocket.StartCoroutine(Delete(wait, context));
+        rocket.StartCoroutine(Delete(context, wait));
         animator.SetTrigger("Boom");
     }
 
@@ -37,7 +37,7 @@ public class RocketBoom : ProjState
 
     // Private
 
-    IEnumerator Delete(float wait, MonoBehaviour context)
+    IEnumerator Delete(MonoBehaviour context, float wait)
     {
         yield return new WaitForSeconds(wait);
         Object.Destroy(context.gameObject);

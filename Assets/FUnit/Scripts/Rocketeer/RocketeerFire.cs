@@ -34,4 +34,9 @@ public class RocketeerFire : UnitState
             rocketeerContext.SwitchState(rocketeerContext.idleState);
         }
     }
+
+    public override void OnTriggerEnter(Unit context, Collider other)
+    {
+        return;
+    }
 }
