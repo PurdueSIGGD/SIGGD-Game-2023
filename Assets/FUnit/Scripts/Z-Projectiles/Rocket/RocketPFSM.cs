@@ -15,13 +15,13 @@ public class RocketPFSM : MonoBehaviour
     [Serializable]
     public struct RocketConfig
     {
-        public GameObject target;
         public float duration;
         public float damage;
         public float speed;
         public float dmgRadius;
         public LayerMask layerMask;
         public Animator animator;
+        public GameObject dirSprite;
     }
 
     [SerializeField]
@@ -29,6 +29,7 @@ public class RocketPFSM : MonoBehaviour
 
     public struct RocketPersonal
     {
+        public GameObject target;
         public Vector3 direction;
         public float time;
     }

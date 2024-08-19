@@ -160,7 +160,7 @@ MonoBehaviour:
   projMask:
     serializedVersion: 2
     m_Bits: 8388608
-  projPrefab: {fileID: 0}
+  projPrefab: {fileID: 354620882897817373, guid: e23b7bc63c950a14cadc12e27ec29dae, type: 3}
   animator: {fileID: 7560681165108621748}
 --- !u!1 &7364929669028330281
 GameObject:

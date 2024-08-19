@@ -7,7 +7,7 @@ public class RocketFly : ProjState
     public override void EnterState(MonoBehaviour context)
     {
         RocketPFSM rocket = (RocketPFSM)context;
-        GameObject target = rocket.config.target;
+        GameObject target = rocket.personal.target;
         GameObject obj = rocket.gameObject;
 
         rocket.personal.time = 0;
@@ -18,13 +18,15 @@ public class RocketFly : ProjState
     public override void UpdateState(MonoBehaviour context)
     {
         RocketPFSM rocket = (RocketPFSM)context;
-        GameObject target = rocket.config.target;
+        GameObject target = rocket.personal.target;
         GameObject obj = rocket.gameObject;
 
         rocket.personal.time += Time.deltaTime;
 
 
         // update position
+        rocket.config.dirSprite.GetComponent<DirectionalSprite>().lookDirectionOverride = rocket.personal.direction;
+
         Vector3 currPosition = obj.transform.position;
         currPosition += rocket.personal.direction * rocket.config.speed * Time.deltaTime;
         obj.transform.position = currPosition;
@@ -37,7 +39,7 @@ public class RocketFly : ProjState
         }
 
         // update direction if target still exists
-        if (rocket.config.target != null)
+        if (rocket.personal.target != null)
         {
             rocket.personal.direction = (target.transform.position - obj.transform.position).normalized;
         }
@@ -45,7 +47,10 @@ public class RocketFly : ProjState
 
     public override void OnTriggerEnter(MonoBehaviour context, Collider collider)
     {
-        RocketPFSM rocket = (RocketPFSM)context;
-        rocket.SwitchState(RocketPFSM.boomState);
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            RocketPFSM rocket = (RocketPFSM)context;
+            rocket.SwitchState(RocketPFSM.boomState);
+        }
     }
 }
