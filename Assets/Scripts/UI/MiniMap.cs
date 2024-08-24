@@ -8,10 +8,12 @@ using UnityEngine.UIElements;
 
 public class MiniMap : MonoBehaviour
 {
-    [SerializeField] float sonarCoolDownTime = 3f;
-    [SerializeField] float iconTurnOnTime = 0.15f;
-    [SerializeField] float iconFadeBufferTime = 2f;
-    [SerializeField] float iconTurnOffTime = 4f;
+    [SerializeField] float sonarCoolDownTime;
+    [SerializeField] float iconTurnOnTime;
+    [SerializeField] float iconFadeBufferTime;
+    [SerializeField] float iconTurnOffTime;
+    [SerializeField] Sprite emptyPylonIcon;
+    [SerializeField] Sprite emptyArtifactIcon;
 
     private bool blackout;
     private bool blackoutOnce;
@@ -69,6 +71,8 @@ public class MiniMap : MonoBehaviour
             {
                 StartCoroutine(IconFading(minimapIcon));
             }
+
+            // Let enemy spawner know to spawn more monsters
         }
     }
 
@@ -120,6 +124,9 @@ public class MiniMap : MonoBehaviour
             yield return null;
         }
 
+        // Let the icon stay bright for some time
+        yield return new WaitForSeconds(iconFadeBufferTime);
+
         // Let the icon turn off
         while (alpha > 0)
         {
@@ -130,44 +137,23 @@ public class MiniMap : MonoBehaviour
         }
     }
 
-    /*
-    public IEnumerator FadeIcons()
+    /**
+     * Change the minimap icon of pylons to the empty icon
+     * when they have been activated or consumed
+     */
+    public void changePylonIcon(GameObject pylon)
     {
-        //Make each icon visible
-        for (int i = 0; i < 10; i++)
-        {
-            foreach (GameObject icon in minimapIcons)
-            {
-                Color iconColor = icon.GetComponent<SpriteRenderer>().color;
-                Debug.Log("Before: " + iconColor.a);
-                iconColor.a += 0.1f;
-                Debug.Log("After: " + iconColor.a);
-                icon.GetComponent<SpriteRenderer>().color = iconColor;
-            }
-            yield return new WaitForSeconds(iconTurnOnTime * 0.1f);
-        }
+        GameObject icon = pylon.transform.Find("minimapIcon").gameObject;
+        icon.GetComponent<SpriteRenderer>().sprite = emptyPylonIcon;
+    }
 
-        //Fully visible for this long
-        yield return new WaitForSeconds(iconFadeBufferTime);
-
-        for (int i = 0; i < 25; i++)
-        {
-            foreach (GameObject icon in minimapIcons)
-            {
-                Color iconColor = icon.GetComponent<SpriteRenderer>().color;
-                iconColor.a -= 0.04f;
-                icon.GetComponent<SpriteRenderer>().color = iconColor;
-            }
-            yield return new WaitForSeconds(iconTurnOffTime * 0.04f);
-        }
-
-        /*
-        //Make each icon invisible
-        foreach (GameObject icon in minimapIcons)
-        {
-            Color iconColor = icon.GetComponent<SpriteRenderer>().color;
-            iconColor.a = 0;
-            icon.GetComponent<SpriteRenderer>().color = iconColor;
-        }
-    }*/
+    /**
+     * Change the minimap icon of artifacts to the empty icon
+     * when they have been activated or consumed
+     */
+    public void changeArtifactIcon(GameObject artifact)
+    {
+        GameObject icon = artifact.transform.Find("miniMapIcon").gameObject;
+        icon.GetComponent<SpriteRenderer>().sprite = emptyArtifactIcon;
+    }
 }
