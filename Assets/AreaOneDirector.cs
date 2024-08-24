@@ -35,6 +35,11 @@ public class AreaOneDirector : MonoBehaviour
     public float waveSpawnInterval;
 
 
+    [SerializeField] public ChargePylon pylon1;
+    [SerializeField] public ChargePylon pylon2;
+    [SerializeField] public ChargePylon pylon3;
+
+
 
 
 
@@ -65,7 +70,7 @@ public class AreaOneDirector : MonoBehaviour
 
     private List<GameObject> baracudaFirstEncounterEnemies;
 
-    private string baracudaFirstEncounterMessage1 = "WARNING: A group of unknown entities are rapidly approaching";
+    private string baracudaFirstEncounterMessage1 = "WARNING: A group of unknown entities is rapidly approaching";
 
 
 
@@ -73,7 +78,7 @@ public class AreaOneDirector : MonoBehaviour
 
     [SerializeField] public SequenceTrigger pylon1ArrivalTrigger;
 
-    [SerializeField] public ChargePylon pylon1;
+    //[SerializeField] public ChargePylon pylon1;
 
     private string aspSender = "ASP-7";
 
@@ -148,113 +153,33 @@ public class AreaOneDirector : MonoBehaviour
 
 
 
-    /*
-    //PYLON 1 SEQUENCE ---------------------------------------------------------------------------
+    //PYLON 3 COMPLETE SEQUENCE --------------------------------------------------------------------------
 
-    public sequenceState pylon1State = sequenceState.READY;
+    public sequenceState pylon3CompleteState = sequenceState.WAITING;
 
-    [SerializeField] public ChargePylon pylon1;
+    //[SerializeField] public ChargePylon pylon3;
 
-    [SerializeField] public ControlledEnemySpawner pylon1EnemySpawner;
+    private string pylon3CompleteMessage1 = "Well done. That was the final pylon in this area.";
 
-    [SerializeField] public List<enemyType> pylon1EnemyList1;
-    [SerializeField] public List<enemyType> pylon1EnemyList2;
-    [SerializeField] public List<enemyType> pylon1EnemyList3;
-    [SerializeField] public List<enemyType> pylon1EnemyList4;
-    [SerializeField] public List<enemyType> pylon1EnemyList5;
+    private string pylon3CompleteMessage2 = "Now we must pass through the trench ahead to progress.";
 
-    private List<GameObject> pylon1Enemies;
+    private string pylon3CompleteMessage3 = "More pylons and atomatons are located on the other side.";
+
+    private string pylon3CompleteObjective = "Go through the trench";
 
 
 
-    //PYLON 2 SEQUENCE ---------------------------------------------------------------------------
+    //AWAKENING SEQUENCE --------------------------------------------------------------------------
 
-    public sequenceState pylon2State = sequenceState.READY;
+    [SerializeField] public SequenceTrigger awakeningTrigger;
 
-    [SerializeField] public ChargePylon pylon2;
+    [SerializeField] public GameObject awakeningPlayerSpawnPoint;
 
-    [SerializeField] public ControlledEnemySpawner pylon2EnemySpawner;
+    private string awakeningMessage1 = "I can... feel you...";
 
-    [SerializeField] public List<enemyType> pylon2EnemyList1;
-    [SerializeField] public List<enemyType> pylon2EnemyList2;
-    [SerializeField] public List<enemyType> pylon2EnemyList3;
-    [SerializeField] public List<enemyType> pylon2EnemyList4;
-    [SerializeField] public List<enemyType> pylon2EnemyList5;
+    private string awakeningMessage2 = "I'm detecting an atomaton at the end of the trench, explorer.";
 
-    private List<GameObject> pylon2Enemies;
-
-
-
-    //PYLON 3 SEQUENCE ---------------------------------------------------------------------------
-
-    public sequenceState pylon3State = sequenceState.READY;
-
-    [SerializeField] public ChargePylon pylon3;
-
-    [SerializeField] public ControlledEnemySpawner pylon3EnemySpawner;
-
-    [SerializeField] public List<enemyType> pylon3EnemyList1;
-    [SerializeField] public List<enemyType> pylon3EnemyList2;
-    [SerializeField] public List<enemyType> pylon3EnemyList3;
-    [SerializeField] public List<enemyType> pylon3EnemyList4;
-    [SerializeField] public List<enemyType> pylon3EnemyList5;
-
-    private List<GameObject> pylon3Enemies;
-
-
-
-    //PYLON 3 SEQUENCE ---------------------------------------------------------------------------
-
-    public sequenceState pylon4State = sequenceState.READY;
-
-    [SerializeField] public ChargePylon pylon4;
-
-    [SerializeField] public ControlledEnemySpawner pylon4EnemySpawner;
-
-    [SerializeField] public List<enemyType> pylon4EnemyList1;
-    [SerializeField] public List<enemyType> pylon4EnemyList2;
-    [SerializeField] public List<enemyType> pylon4EnemyList3;
-    [SerializeField] public List<enemyType> pylon4EnemyList4;
-    [SerializeField] public List<enemyType> pylon4EnemyList5;
-
-    private List<GameObject> pylon4Enemies;
-
-
-
-    //PYLON 3 SEQUENCE ---------------------------------------------------------------------------
-
-    public sequenceState pylon5State = sequenceState.READY;
-
-    [SerializeField] public ChargePylon pylon5;
-
-    [SerializeField] public ControlledEnemySpawner pylon5EnemySpawner;
-
-    [SerializeField] public List<enemyType> pylon5EnemyList1;
-    [SerializeField] public List<enemyType> pylon5EnemyList2;
-    [SerializeField] public List<enemyType> pylon5EnemyList3;
-    [SerializeField] public List<enemyType> pylon5EnemyList4;
-    [SerializeField] public List<enemyType> pylon5EnemyList5;
-
-    private List<GameObject> pylon5Enemies;
-
-
-
-    //PYLON 3 SEQUENCE ---------------------------------------------------------------------------
-
-    public sequenceState pylon6State = sequenceState.READY;
-
-    [SerializeField] public ChargePylon pylon6;
-
-    [SerializeField] public ControlledEnemySpawner pylon6EnemySpawner;
-
-    [SerializeField] public List<enemyType> pylon6EnemyList1;
-    [SerializeField] public List<enemyType> pylon6EnemyList2;
-    [SerializeField] public List<enemyType> pylon6EnemyList3;
-    [SerializeField] public List<enemyType> pylon6EnemyList4;
-    [SerializeField] public List<enemyType> pylon6EnemyList5;
-
-    private List<GameObject> pylon6Enemies;
-    */
+    private string awakeningMessage3 = "I'm also detecting a new entity. Proceed with caution.";
 
 
 
@@ -283,13 +208,21 @@ public class AreaOneDirector : MonoBehaviour
         baracudaFirstEncounterTrigger.sequenceState = sequenceState.READY;
         pylon1ArrivalTrigger.sequenceState = sequenceState.READY;
         splitterNearTrigger.sequenceState = sequenceState.READY;
+        awakeningTrigger.sequenceState = sequenceState.READY;
 
         if (tutorialDirector.tutorialProgress == 7) //Area 1 Active
         {
             fastSequencesDEV = true;
             objectivePrompt.showPrompt(findPylonObjective);
+            pylon1.GetComponent<Collider>().enabled = false;
+            pylon2.GetComponent<Collider>().enabled = false;
+            pylon3.GetComponent<Collider>().enabled = false;
             musicConductor.crossfade(0f, musicConductor.deathTrack, 3f, 0f, 0f);
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3f);
+            pylon1.GetComponent<Collider>().enabled = true;
+            pylon2.GetComponent<Collider>().enabled = true;
+            pylon3.GetComponent<Collider>().enabled = true;
+            yield return new WaitForSeconds(2f);
             objectivePrompt.hidePrompt();
             yield return new WaitForSeconds(10f);
             fastSequencesDEV = false;
@@ -313,7 +246,7 @@ public class AreaOneDirector : MonoBehaviour
 
 
 
-        //First Encounter Trigger
+        //Barracuda First Encounter Trigger
         if (baracudaFirstEncounterTrigger.sequenceState == sequenceState.READY)
         {
             if (baracudaFirstEncounterTrigger.triggered)
@@ -328,7 +261,7 @@ public class AreaOneDirector : MonoBehaviour
         //Pylon 1 Arrival Trigger
         if (pylon1ArrivalTrigger.sequenceState == sequenceState.READY)
         {
-            if (pylon1ArrivalTrigger.triggered && !pylon1.chargeDone)
+            if (pylon1ArrivalTrigger.triggered && !pylon1.chargeDone && !pylon1.isCharging)
             {
                 pylon1ArrivalTrigger.sequenceState = sequenceState.RUNNING;
                 StartCoroutine(pylon1ArrivalSequence());
@@ -393,77 +326,30 @@ public class AreaOneDirector : MonoBehaviour
 
 
 
-        /*
-        //Pylon 1 Trigger
-        if (pylon1State == sequenceState.READY)
+        //Pylon 3 Complete Trigger
+        if (pylon3.isCharging)
         {
-            if (pylon1.isUsed)
+            pylon3CompleteState = sequenceState.READY;
+        }
+
+        if (pylon3CompleteState == sequenceState.READY)
+        {
+            if (pylon3.chargeDone)
             {
-                pylon1State = sequenceState.RUNNING;
-                StartCoroutine(pylon1Sequence());
+                StartCoroutine(pylon3CompleteSequence());
             }
         }
 
 
-
-        //Pylon 2 Trigger
-        if (pylon2State == sequenceState.READY)
+        //Awakening Trigger
+        if (awakeningTrigger.sequenceState == sequenceState.READY)
         {
-            if (pylon2.isUsed)
+            if (awakeningTrigger.triggered)
             {
-                pylon2State = sequenceState.RUNNING;
-                StartCoroutine(pylon2Sequence());
+                awakeningTrigger.sequenceState = sequenceState.RUNNING;
+                StartCoroutine(awakeningSequence());
             }
         }
-
-
-
-        //Pylon 3 Trigger
-        if (pylon3State == sequenceState.READY)
-        {
-            if (pylon3.isUsed)
-            {
-                pylon3State = sequenceState.RUNNING;
-                StartCoroutine(pylon3Sequence());
-            }
-        }
-
-
-
-        //Pylon 3 Trigger
-        if (pylon4State == sequenceState.READY)
-        {
-            if (pylon4.isUsed)
-            {
-                pylon4State = sequenceState.RUNNING;
-                StartCoroutine(pylon4Sequence());
-            }
-        }
-
-
-
-        //Pylon 3 Trigger
-        if (pylon5State == sequenceState.READY)
-        {
-            if (pylon5.isUsed)
-            {
-                pylon5State = sequenceState.RUNNING;
-                StartCoroutine(pylon5Sequence());
-            }
-        }
-
-
-
-        //Pylon 3 Trigger
-        if (pylon6State == sequenceState.READY)
-        {
-            if (pylon6.isUsed)
-            {
-                pylon6State = sequenceState.RUNNING;
-                StartCoroutine(pylon6Sequence());
-            }
-        }
-        */
 
 
     }
@@ -654,344 +540,79 @@ public class AreaOneDirector : MonoBehaviour
 
 
 
-    /*
-    //PYLON 1 SEQUENCE --------------------------------------------------------------------
-    public IEnumerator pylon1Sequence()
+    //PYLON 3 COMPLETE SEQUENCE --------------------------------------------------------------------
+    public IEnumerator pylon3CompleteSequence()
     {
-        pylon1State = sequenceState.RUNNING;
-        //enemySpawner.enabled = false;
-        float constantSpawnInterval = enemySpawner.constantSpawnInterval;
-        float waveSpawnInterval = enemySpawner.waveSpawnInterval;
-        enemySpawner.constantSpawnInterval = 99999f;
-        enemySpawner.waveSpawnInterval = 99999f;
-        //baracudaFirstEncounterTrigger.sequenceState = sequenceState.RUNNING;
-        //pylon1State = sequenceState.RUNNING;
-        pylon1Enemies = pylon1EnemySpawner.spawnEnemyWave(pylon1EnemyList1);
-        yield return new WaitForSeconds(8f);
-        pylon1Enemies = pylon1EnemySpawner.spawnEnemyWave(pylon1EnemyList1);
-        yield return new WaitForSeconds(8f);
-        pylon1EnemySpawner.passiveSpawnActive = true;
-        pylon1EnemySpawner.passiveWaveSpawnActive = true;
-        pylon1Enemies = pylon1EnemySpawner.spawnEnemyWave(pylon1EnemyList3);
-        yield return new WaitForSeconds(14f);
-
-        pylon1Enemies = pylon1EnemySpawner.spawnEnemyWave(pylon1EnemyList2);
-        yield return new WaitForSeconds(8f);
-        pylon1Enemies = pylon1EnemySpawner.spawnEnemyWave(pylon1EnemyList3);
-        yield return new WaitForSeconds(8f);
-        pylon1Enemies = pylon1EnemySpawner.spawnEnemyWave(pylon1EnemyList4);
-        yield return new WaitForSeconds(14f);
-
-        //pylon1EnemySpawner.passiveSpawnActive = false;
-        //pylon1EnemySpawner.passiveWaveSpawnActive = false;
-        pylon1Enemies = pylon1EnemySpawner.spawnEnemyWave(pylon1EnemyList4);
-        yield return new WaitForSeconds(10f);
-        pylon1Enemies = pylon1EnemySpawner.spawnEnemyWave(pylon1EnemyList2);
-        yield return new WaitForSeconds(10f);
-        pylon1EnemySpawner.passiveSpawnActive = false;
-        pylon1EnemySpawner.passiveWaveSpawnActive = false;
-        pylon1Enemies = pylon1EnemySpawner.spawnEnemyWave(pylon1EnemyList5);
-        yield return new WaitForSeconds(10f);
-
-        foreach (GameObject enemy in pylon1Enemies)
+        pylon3CompleteState = sequenceState.RUNNING;
+        yield return new WaitForSeconds(2.5f);
+        playerMovement.rooted = true;
+        playerAttackHandler.enabled = false;
+        pauseEnemySpawning();
+        if (!fastSequencesDEV)
         {
-            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
-            {
-                enemy.GetComponent<HealthPoints>().damageEntity(1000f);
-            }
+            yield return messanger.showMessage("", aspSender, false);
+            yield return new WaitForSeconds(0.5f);
+            yield return messanger.showMessage(pylon3CompleteMessage1, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(pylon3CompleteMessage2, aspSender, false);
+            yield return new WaitForSeconds(1.25f);
+            yield return messanger.showMessage(pylon3CompleteMessage3, aspSender, false);
+            yield return new WaitForSeconds(0.75f);
         }
-        //enemySpawner.enabled = true;
-        enemySpawner.constantSpawnTimer = 0f;
-        enemySpawner.waveSpawnTimer = 0f;
-        enemySpawner.constantSpawnInterval = constantSpawnInterval;
-        enemySpawner.waveSpawnInterval = waveSpawnInterval;
-        pylon1State = sequenceState.COMPLETE;
-        //room2AttackState = sequenceState.READY;
+        objectivePrompt.showPrompt(pylon3CompleteObjective);
+        playerMovement.rooted = false;
+        playerAttackHandler.enabled = true;
+        pylon3CompleteState = sequenceState.COMPLETE;
+        yield return new WaitForSeconds(0.75f);
+        messanger.hideMessage();
+        //resumeEnemySpawning();
+        yield return new WaitForSeconds(4.25f);
+        objectivePrompt.hidePrompt();
+        yield return new WaitForSeconds(1f);
+        musicConductor.crossfade(5f, musicConductor.hummingTrack, 3f, 0f, 0f);
     }
 
 
 
-    //PYLON 2 SEQUENCE --------------------------------------------------------------------
-    public IEnumerator pylon2Sequence()
+    //AWAKENING SEQUENCE --------------------------------------------------------------------
+    public IEnumerator awakeningSequence()
     {
-        pylon2State = sequenceState.RUNNING;
-        //enemySpawner.enabled = false;
-        float constantSpawnInterval = enemySpawner.constantSpawnInterval;
-        float waveSpawnInterval = enemySpawner.waveSpawnInterval;
-        enemySpawner.constantSpawnInterval = 99999f;
-        enemySpawner.waveSpawnInterval = 99999f;
-        //baracudaFirstEncounterTrigger.sequenceState = sequenceState.RUNNING;
-        //pylon1State = sequenceState.RUNNING;
-        pylon2Enemies = pylon2EnemySpawner.spawnEnemyWave(pylon2EnemyList1);
-        yield return new WaitForSeconds(8f);
-        pylon2Enemies = pylon2EnemySpawner.spawnEnemyWave(pylon2EnemyList1);
-        yield return new WaitForSeconds(8f);
-        pylon2EnemySpawner.passiveSpawnActive = true;
-        pylon2EnemySpawner.passiveWaveSpawnActive = true;
-        pylon2Enemies = pylon2EnemySpawner.spawnEnemyWave(pylon2EnemyList3);
-        yield return new WaitForSeconds(14f);
-
-        pylon2Enemies = pylon2EnemySpawner.spawnEnemyWave(pylon2EnemyList2);
-        yield return new WaitForSeconds(8f);
-        pylon2Enemies = pylon2EnemySpawner.spawnEnemyWave(pylon2EnemyList3);
-        yield return new WaitForSeconds(8f);
-        pylon2Enemies = pylon2EnemySpawner.spawnEnemyWave(pylon2EnemyList4);
-        yield return new WaitForSeconds(14f);
-
-        //pylon1EnemySpawner.passiveSpawnActive = false;
-        //pylon1EnemySpawner.passiveWaveSpawnActive = false;
-        pylon2Enemies = pylon2EnemySpawner.spawnEnemyWave(pylon2EnemyList4);
-        yield return new WaitForSeconds(10f);
-        pylon2Enemies = pylon2EnemySpawner.spawnEnemyWave(pylon2EnemyList2);
-        yield return new WaitForSeconds(10f);
-        pylon2EnemySpawner.passiveSpawnActive = false;
-        pylon2EnemySpawner.passiveWaveSpawnActive = false;
-        pylon2Enemies = pylon2EnemySpawner.spawnEnemyWave(pylon2EnemyList5);
-        yield return new WaitForSeconds(10f);
-
-        foreach (GameObject enemy in pylon2Enemies)
+        awakeningTrigger.sequenceState = sequenceState.RUNNING;
+        if (!fastSequencesDEV)
         {
-            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
-            {
-                enemy.GetComponent<HealthPoints>().damageEntity(1000f);
-            }
+            yield return messanger.showMessage("", aspSender, false);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(awakeningMessage1, aspSender, true);
+            yield return new WaitForSeconds(2.5f);
+            messanger.hideMessage();
+            yield return new WaitForSeconds(6.5f);
+            yield return messanger.showMessage(awakeningMessage2, aspSender, false);
+            yield return new WaitForSeconds(1.75f);
+            yield return messanger.showMessage(awakeningMessage3, aspSender, false);
+            yield return new WaitForSeconds(1.5f);
         }
-        //enemySpawner.enabled = true;
-        enemySpawner.constantSpawnTimer = 0f;
-        enemySpawner.waveSpawnTimer = 0f;
-        enemySpawner.constantSpawnInterval = constantSpawnInterval;
-        enemySpawner.waveSpawnInterval = waveSpawnInterval;
-        pylon2State = sequenceState.COMPLETE;
-        //room2AttackState = sequenceState.READY;
-    }
+        messanger.hideMessage();
+        awakeningTrigger.sequenceState = sequenceState.COMPLETE;
 
-
-
-    //PYLON 3 SEQUENCE --------------------------------------------------------------------
-    public IEnumerator pylon3Sequence()
-    {
-        pylon3State = sequenceState.RUNNING;
-        //enemySpawner.enabled = false;
-        float constantSpawnInterval = enemySpawner.constantSpawnInterval;
-        float waveSpawnInterval = enemySpawner.waveSpawnInterval;
-        enemySpawner.constantSpawnInterval = 99999f;
-        enemySpawner.waveSpawnInterval = 99999f;
-        //baracudaFirstEncounterTrigger.sequenceState = sequenceState.RUNNING;
-        //pylon1State = sequenceState.RUNNING;
-        pylon3Enemies = pylon3EnemySpawner.spawnEnemyWave(pylon3EnemyList1);
-        yield return new WaitForSeconds(8f);
-        pylon3Enemies = pylon3EnemySpawner.spawnEnemyWave(pylon3EnemyList1);
-        yield return new WaitForSeconds(8f);
-        pylon3EnemySpawner.passiveSpawnActive = true;
-        pylon3EnemySpawner.passiveWaveSpawnActive = true;
-        pylon3Enemies = pylon3EnemySpawner.spawnEnemyWave(pylon3EnemyList3);
-        yield return new WaitForSeconds(14f);
-
-        pylon3Enemies = pylon3EnemySpawner.spawnEnemyWave(pylon3EnemyList2);
-        yield return new WaitForSeconds(8f);
-        pylon3Enemies = pylon3EnemySpawner.spawnEnemyWave(pylon3EnemyList3);
-        yield return new WaitForSeconds(8f);
-        pylon3Enemies = pylon3EnemySpawner.spawnEnemyWave(pylon3EnemyList4);
-        yield return new WaitForSeconds(14f);
-
-        //pylon1EnemySpawner.passiveSpawnActive = false;
-        //pylon1EnemySpawner.passiveWaveSpawnActive = false;
-        pylon3Enemies = pylon3EnemySpawner.spawnEnemyWave(pylon3EnemyList4);
-        yield return new WaitForSeconds(10f);
-        pylon3Enemies = pylon3EnemySpawner.spawnEnemyWave(pylon3EnemyList2);
-        yield return new WaitForSeconds(10f);
-        pylon3EnemySpawner.passiveSpawnActive = false;
-        pylon3EnemySpawner.passiveWaveSpawnActive = false;
-        pylon3Enemies = pylon3EnemySpawner.spawnEnemyWave(pylon3EnemyList5);
-        yield return new WaitForSeconds(10f);
-
-        foreach (GameObject enemy in pylon3Enemies)
-        {
-            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
-            {
-                enemy.GetComponent<HealthPoints>().damageEntity(1000f);
-            }
-        }
-        //enemySpawner.enabled = true;
-        enemySpawner.constantSpawnTimer = 0f;
-        enemySpawner.waveSpawnTimer = 0f;
-        enemySpawner.constantSpawnInterval = constantSpawnInterval;
-        enemySpawner.waveSpawnInterval = waveSpawnInterval;
-        pylon3State = sequenceState.COMPLETE;
-        //room2AttackState = sequenceState.READY;
+        tutorialDirector.tutorialProgress = 8;
+        SaveManager saveManager = FindObjectOfType<SaveManager>();
+        saveManager.SetSpawnPoint(awakeningPlayerSpawnPoint.transform.position);
+        saveManager.SaveGame();
+        yield return new WaitForSeconds(5f);
+        musicConductor.crossfade(15f, musicConductor.titleTrack, 10f, 0f, musicConductor.titleTrack.loopStartTime);
     }
 
 
 
 
-    //PYLON 4 SEQUENCE --------------------------------------------------------------------
-    public IEnumerator pylon4Sequence()
-    {
-        pylon4State = sequenceState.RUNNING;
-        //enemySpawner.enabled = false;
-        float constantSpawnInterval = enemySpawner.constantSpawnInterval;
-        float waveSpawnInterval = enemySpawner.waveSpawnInterval;
-        enemySpawner.constantSpawnInterval = 99999f;
-        enemySpawner.waveSpawnInterval = 99999f;
-        //baracudaFirstEncounterTrigger.sequenceState = sequenceState.RUNNING;
-        //pylon1State = sequenceState.RUNNING;
-        pylon4Enemies = pylon4EnemySpawner.spawnEnemyWave(pylon4EnemyList1);
-        yield return new WaitForSeconds(8f);
-        pylon4Enemies = pylon4EnemySpawner.spawnEnemyWave(pylon4EnemyList1);
-        yield return new WaitForSeconds(8f);
-        pylon4EnemySpawner.passiveSpawnActive = true;
-        pylon4EnemySpawner.passiveWaveSpawnActive = true;
-        pylon4Enemies = pylon4EnemySpawner.spawnEnemyWave(pylon4EnemyList3);
-        yield return new WaitForSeconds(14f);
 
-        pylon4Enemies = pylon4EnemySpawner.spawnEnemyWave(pylon4EnemyList2);
-        yield return new WaitForSeconds(8f);
-        pylon4Enemies = pylon4EnemySpawner.spawnEnemyWave(pylon4EnemyList3);
-        yield return new WaitForSeconds(8f);
-        pylon4Enemies = pylon4EnemySpawner.spawnEnemyWave(pylon4EnemyList4);
-        yield return new WaitForSeconds(14f);
-
-        //pylon1EnemySpawner.passiveSpawnActive = false;
-        //pylon1EnemySpawner.passiveWaveSpawnActive = false;
-        pylon4Enemies = pylon4EnemySpawner.spawnEnemyWave(pylon4EnemyList4);
-        yield return new WaitForSeconds(10f);
-        pylon4Enemies = pylon4EnemySpawner.spawnEnemyWave(pylon4EnemyList2);
-        yield return new WaitForSeconds(10f);
-        pylon4EnemySpawner.passiveSpawnActive = false;
-        pylon4EnemySpawner.passiveWaveSpawnActive = false;
-        pylon4Enemies = pylon4EnemySpawner.spawnEnemyWave(pylon4EnemyList5);
-        yield return new WaitForSeconds(10f);
-
-        foreach (GameObject enemy in pylon4Enemies)
-        {
-            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
-            {
-                enemy.GetComponent<HealthPoints>().damageEntity(1000f);
-            }
-        }
-        //enemySpawner.enabled = true;
-        enemySpawner.constantSpawnTimer = 0f;
-        enemySpawner.waveSpawnTimer = 0f;
-        enemySpawner.constantSpawnInterval = constantSpawnInterval;
-        enemySpawner.waveSpawnInterval = waveSpawnInterval;
-        pylon4State = sequenceState.COMPLETE;
-        //room2AttackState = sequenceState.READY;
-    }
-
-
-
-    //PYLON 5 SEQUENCE --------------------------------------------------------------------
-    public IEnumerator pylon5Sequence()
-    {
-        pylon5State = sequenceState.RUNNING;
-        //enemySpawner.enabled = false;
-        float constantSpawnInterval = enemySpawner.constantSpawnInterval;
-        float waveSpawnInterval = enemySpawner.waveSpawnInterval;
-        enemySpawner.constantSpawnInterval = 99999f;
-        enemySpawner.waveSpawnInterval = 99999f;
-        //baracudaFirstEncounterTrigger.sequenceState = sequenceState.RUNNING;
-        //pylon1State = sequenceState.RUNNING;
-        pylon5Enemies = pylon5EnemySpawner.spawnEnemyWave(pylon5EnemyList1);
-        yield return new WaitForSeconds(8f);
-        pylon5Enemies = pylon5EnemySpawner.spawnEnemyWave(pylon5EnemyList1);
-        yield return new WaitForSeconds(8f);
-        pylon5EnemySpawner.passiveSpawnActive = true;
-        pylon5EnemySpawner.passiveWaveSpawnActive = true;
-        pylon5Enemies = pylon5EnemySpawner.spawnEnemyWave(pylon5EnemyList3);
-        yield return new WaitForSeconds(14f);
-
-        pylon5Enemies = pylon5EnemySpawner.spawnEnemyWave(pylon5EnemyList2);
-        yield return new WaitForSeconds(8f);
-        pylon5Enemies = pylon5EnemySpawner.spawnEnemyWave(pylon5EnemyList3);
-        yield return new WaitForSeconds(8f);
-        pylon5Enemies = pylon5EnemySpawner.spawnEnemyWave(pylon5EnemyList4);
-        yield return new WaitForSeconds(14f);
-
-        //pylon1EnemySpawner.passiveSpawnActive = false;
-        //pylon1EnemySpawner.passiveWaveSpawnActive = false;
-        pylon5Enemies = pylon5EnemySpawner.spawnEnemyWave(pylon5EnemyList4);
-        yield return new WaitForSeconds(10f);
-        pylon5Enemies = pylon5EnemySpawner.spawnEnemyWave(pylon5EnemyList2);
-        yield return new WaitForSeconds(10f);
-        pylon5EnemySpawner.passiveSpawnActive = false;
-        pylon5EnemySpawner.passiveWaveSpawnActive = false;
-        pylon5Enemies = pylon5EnemySpawner.spawnEnemyWave(pylon5EnemyList5);
-        yield return new WaitForSeconds(10f);
-
-        foreach (GameObject enemy in pylon5Enemies)
-        {
-            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
-            {
-                enemy.GetComponent<HealthPoints>().damageEntity(1000f);
-            }
-        }
-        //enemySpawner.enabled = true;
-        enemySpawner.constantSpawnTimer = 0f;
-        enemySpawner.waveSpawnTimer = 0f;
-        enemySpawner.constantSpawnInterval = constantSpawnInterval;
-        enemySpawner.waveSpawnInterval = waveSpawnInterval;
-        pylon5State = sequenceState.COMPLETE;
-        //room2AttackState = sequenceState.READY;
-    }
-
-
-
-    //PYLON 6 SEQUENCE --------------------------------------------------------------------
-    public IEnumerator pylon6Sequence()
-    {
-        pylon6State = sequenceState.RUNNING;
-        //enemySpawner.enabled = false;
-        float constantSpawnInterval = enemySpawner.constantSpawnInterval;
-        float waveSpawnInterval = enemySpawner.waveSpawnInterval;
-        enemySpawner.constantSpawnInterval = 99999f;
-        enemySpawner.waveSpawnInterval = 99999f;
-        //baracudaFirstEncounterTrigger.sequenceState = sequenceState.RUNNING;
-        //pylon1State = sequenceState.RUNNING;
-        pylon6Enemies = pylon6EnemySpawner.spawnEnemyWave(pylon6EnemyList1);
-        yield return new WaitForSeconds(8f);
-        pylon6Enemies = pylon6EnemySpawner.spawnEnemyWave(pylon6EnemyList1);
-        yield return new WaitForSeconds(8f);
-        pylon6EnemySpawner.passiveSpawnActive = true;
-        pylon6EnemySpawner.passiveWaveSpawnActive = true;
-        pylon6Enemies = pylon6EnemySpawner.spawnEnemyWave(pylon6EnemyList3);
-        yield return new WaitForSeconds(14f);
-
-        pylon6Enemies = pylon6EnemySpawner.spawnEnemyWave(pylon6EnemyList2);
-        yield return new WaitForSeconds(8f);
-        pylon6Enemies = pylon6EnemySpawner.spawnEnemyWave(pylon6EnemyList3);
-        yield return new WaitForSeconds(8f);
-        pylon6Enemies = pylon6EnemySpawner.spawnEnemyWave(pylon6EnemyList4);
-        yield return new WaitForSeconds(14f);
-
-        //pylon1EnemySpawner.passiveSpawnActive = false;
-        //pylon1EnemySpawner.passiveWaveSpawnActive = false;
-        pylon6Enemies = pylon6EnemySpawner.spawnEnemyWave(pylon6EnemyList4);
-        yield return new WaitForSeconds(10f);
-        pylon6Enemies = pylon6EnemySpawner.spawnEnemyWave(pylon6EnemyList2);
-        yield return new WaitForSeconds(10f);
-        pylon6EnemySpawner.passiveSpawnActive = false;
-        pylon6EnemySpawner.passiveWaveSpawnActive = false;
-        pylon6Enemies = pylon6EnemySpawner.spawnEnemyWave(pylon6EnemyList5);
-        yield return new WaitForSeconds(10f);
-
-        foreach (GameObject enemy in pylon6Enemies)
-        {
-            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
-            {
-                enemy.GetComponent<HealthPoints>().damageEntity(1000f);
-            }
-        }
-        //enemySpawner.enabled = true;
-        enemySpawner.constantSpawnTimer = 0f;
-        enemySpawner.waveSpawnTimer = 0f;
-        enemySpawner.constantSpawnInterval = constantSpawnInterval;
-        enemySpawner.waveSpawnInterval = waveSpawnInterval;
-        pylon6State = sequenceState.COMPLETE;
-        //room2AttackState = sequenceState.READY;
-    }
-    */
-
-
+    //----------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------- UTILITIES ------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------------------------------------
 
     public void pauseEnemySpawning()
     {

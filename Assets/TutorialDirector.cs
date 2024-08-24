@@ -849,6 +849,12 @@ public class TutorialDirector : MonoBehaviour
                 //yield return new WaitForSeconds(5);
                 //objectivePrompt.hidePrompt();
                 break;
+            case 8:
+                break;
+            case 9:
+                break;
+            case 10:
+                break;
             default:
                 StartCoroutine(startUpSequence());
                 break;
@@ -1159,6 +1165,7 @@ public class TutorialDirector : MonoBehaviour
         playerMovement.enabled = false;
         playerAttackHandler.enabled = false;
         fadeScreenImage.enabled = true;
+        //tutorialGate.transform.position = Vector3.zero;
         if (!fastSequencesDEV)
         {
             StartCoroutine(playRampingHummingSound(25f, 0.5f, 0.75f));
