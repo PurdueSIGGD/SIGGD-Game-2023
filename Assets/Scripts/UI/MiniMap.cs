@@ -1,15 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class MiniMap : MonoBehaviour
 {
-    const float sonarCoolDownTime = 3f;
-    const float iconTurnOnTime = 0.7f;
-    const float iconTurnOffTime = 2f;
+    [SerializeField] float sonarCoolDownTime = 3f;
+    [SerializeField] float iconTurnOnTime = 0.15f;
+    [SerializeField] float iconFadeBufferTime = 2f;
+    [SerializeField] float iconTurnOffTime = 4f;
 
     private bool blackout;
     private bool blackoutOnce;
@@ -26,10 +28,20 @@ public class MiniMap : MonoBehaviour
         minimapCamera = gameObject.GetComponent<Camera>();
         cameraAlpha = Convert.ToByte(minimapCamera.backgroundColor.a * 255);
         maskingLayer = LayerMask.NameToLayer("Minimap");
+
+        // Add pylons to the minimap icon array
         ChargePylon[] chargePylons = FindObjectsOfType<ChargePylon>();
         foreach (ChargePylon chargePylon in chargePylons)
         {
             GameObject minimapIcon = chargePylon.transform.Find("minimapIcon").gameObject;
+            minimapIcons.Add(minimapIcon);
+        }
+
+        // Add artifacts to the minimap icon array
+        Artifact[] artifacts = FindObjectsOfType<Artifact>();
+        foreach (Artifact artifact in artifacts)
+        {
+            GameObject minimapIcon = artifact.transform.Find("miniMapIcon").gameObject;
             minimapIcons.Add(minimapIcon);
         }
     }
@@ -55,9 +67,7 @@ public class MiniMap : MonoBehaviour
             StartCoroutine(SonarRecovery());
             foreach (GameObject minimapIcon in minimapIcons)
             {
-                Debug.Log(minimapIcon);
-                IconFading(minimapIcon);
-                Debug.Log(2);
+                StartCoroutine(IconFading(minimapIcon));
             }
         }
     }
@@ -96,30 +106,68 @@ public class MiniMap : MonoBehaviour
     }
 
     // Minimap icons fading in and out after the sonar ping
-    void IconFading(GameObject minimapIcon)
+    IEnumerator IconFading(GameObject minimapIcon)
     {
-        //Debug.Log(minimapIcon.GetComponent<SpriteRenderer>());
         Color minimapIconColor = minimapIcon.GetComponent<SpriteRenderer>().color;
         float alpha = minimapIconColor.a;
 
         // Let the icon turn on
-        while (alpha < 1 )
+        while (alpha < 1)
         {
             alpha += (1 / iconTurnOnTime) * Time.deltaTime;
-            minimapIconColor = new Color(minimapIconColor.r, minimapIconColor.g, minimapIconColor.b, alpha);
-            Debug.Log(minimapIconColor.a);
+            minimapIconColor.a = alpha;
+            minimapIcon.GetComponent<SpriteRenderer>().color = minimapIconColor;
+            yield return null;
         }
-
-        Debug.Log(minimapIconColor.a);
 
         // Let the icon turn off
         while (alpha > 0)
         {
             alpha -= (1 / iconTurnOffTime) * Time.deltaTime;
-            minimapIconColor = new Color(minimapIconColor.r, minimapIconColor.g, minimapIconColor.b, alpha);
-            Debug.Log(minimapIconColor.a);
+            minimapIconColor.a = alpha;
+            minimapIcon.GetComponent<SpriteRenderer>().color = minimapIconColor;
+            yield return null;
+        }
+    }
+
+    /*
+    public IEnumerator FadeIcons()
+    {
+        //Make each icon visible
+        for (int i = 0; i < 10; i++)
+        {
+            foreach (GameObject icon in minimapIcons)
+            {
+                Color iconColor = icon.GetComponent<SpriteRenderer>().color;
+                Debug.Log("Before: " + iconColor.a);
+                iconColor.a += 0.1f;
+                Debug.Log("After: " + iconColor.a);
+                icon.GetComponent<SpriteRenderer>().color = iconColor;
+            }
+            yield return new WaitForSeconds(iconTurnOnTime * 0.1f);
         }
 
-        Debug.Log(minimapIconColor.a);
-    }
+        //Fully visible for this long
+        yield return new WaitForSeconds(iconFadeBufferTime);
+
+        for (int i = 0; i < 25; i++)
+        {
+            foreach (GameObject icon in minimapIcons)
+            {
+                Color iconColor = icon.GetComponent<SpriteRenderer>().color;
+                iconColor.a -= 0.04f;
+                icon.GetComponent<SpriteRenderer>().color = iconColor;
+            }
+            yield return new WaitForSeconds(iconTurnOffTime * 0.04f);
+        }
+
+        /*
+        //Make each icon invisible
+        foreach (GameObject icon in minimapIcons)
+        {
+            Color iconColor = icon.GetComponent<SpriteRenderer>().color;
+            iconColor.a = 0;
+            icon.GetComponent<SpriteRenderer>().color = iconColor;
+        }
+    }*/
 }
