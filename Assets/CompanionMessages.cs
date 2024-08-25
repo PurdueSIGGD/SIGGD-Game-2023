@@ -7,6 +7,7 @@ using UnityEngine;
 public class CompanionMessages : MonoBehaviour
 {
 
+    [SerializeField] private GameObject messageBackground;
     [SerializeField] private TMP_Text messageTextBox;
     [SerializeField] private bool DEVTOOLsendMessage; //DEV TOOL
     [SerializeField] private bool DEVTOOLkillMessage; //DEV TOOL
@@ -16,6 +17,7 @@ public class CompanionMessages : MonoBehaviour
     {
         DEVTOOLsendMessage = false; //DEV TOOL
         DEVTOOLkillMessage = false; //DEV TOOL
+        messageBackground.SetActive(false);
         messageTextBox.enabled = false;
     }
 
@@ -24,7 +26,7 @@ public class CompanionMessages : MonoBehaviour
     {
         if (DEVTOOLsendMessage)
         {
-            showMessage("Hehe I am messaging u. Better not get scared. Gooo gooo ga ga.", "GIBBAH", false);
+            StartCoroutine(showMessage("Hehe I am messaging u. Better not get scared. Gooo gooo ga ga.", "GIBBAH", false));
             DEVTOOLsendMessage = false;
         }
 
@@ -38,6 +40,7 @@ public class CompanionMessages : MonoBehaviour
     public IEnumerator showMessage(string message, string sender, bool slow)
     {
         messageTextBox.text = "< " + sender.ToUpper() + " >\n";
+        messageBackground.SetActive(true);
         messageTextBox.enabled = true;
         //StartCoroutine(typeMessage(message, slow));
         string[] messageWords = message.Split(" ");
@@ -65,6 +68,7 @@ public class CompanionMessages : MonoBehaviour
 
     public void hideMessage()
     {
+        messageBackground.SetActive(false);
         messageTextBox.enabled = false;
     }
 

@@ -1032,6 +1032,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2a8fbc0dbd8374ba0f1d90fed6423e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sonarCoolDownTime: 5
+  iconTurnOnTime: 0.15
+  iconFadeBufferTime: 1.5
+  iconTurnOffTime: 2
+  emptyPylonIcon: {fileID: 21300000, guid: c6c63b7ec26a7ac4aa8c8631ab157d0d, type: 3}
+  emptyArtifactIcon: {fileID: 21300000, guid: 23472b6a92e37c14d9b9ed800e4c56d7, type: 3}
 --- !u!1001 &512466680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2062,7 +2068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1041970500033569527, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3020135204575595800, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2075,6 +2081,14 @@ PrefabInstance:
     - target: {fileID: 3229638248409219777, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3777183938569679629, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292406924
+      objectReference: {fileID: 0}
+    - target: {fileID: 4243968325750909337, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4248995239153424747, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2116,6 +2130,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: newPlayerUI
       objectReference: {fileID: 0}
+    - target: {fileID: 7316772759881423793, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7371627379920107104, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: playerLevel
       value: 
@@ -2128,6 +2146,10 @@ PrefabInstance:
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 4012959194933402981}
+    - target: {fileID: 7725838832523812535, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7991752385059609961, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2151,6 +2173,14 @@ PrefabInstance:
     - target: {fileID: 8240659389794513989, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581584882360282657, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8581584882360282657, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 9090778445759771356, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: m_IsActive
@@ -2162,7 +2192,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1417800274698182064, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2131295014474615097, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
