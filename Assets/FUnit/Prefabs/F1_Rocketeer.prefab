@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8757531461867564329}
   - component: {fileID: 3113528874258097661}
   m_Layer: 24
-  m_Name: F1_Torpedoer
+  m_Name: F1_Rocketeer
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
