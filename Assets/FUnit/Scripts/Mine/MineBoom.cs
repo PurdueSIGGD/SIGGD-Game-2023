@@ -8,9 +8,7 @@ public class MineBoom : UnitState
     {
         MineFSM mine = (MineFSM)context;
         mine.config.animator.SetTrigger("Boom");
-        float time = mine.config.animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-        context.StartCoroutine(Boom(context, time));
-        Debug.Log("LANDMINE!!");
+        context.StartCoroutine(Boom(context, 0.475f));
     }
 
     public override void OnTriggerEnter(Unit context, Collider other)
@@ -34,6 +32,7 @@ public class MineBoom : UnitState
         {
             enemy.GetComponent<HealthPoints>().damageEntity(mine.config.blastDmg);
         }
+        Debug.Log("Time to destroy");
         Object.Destroy(mine.gameObject);
     }
 }

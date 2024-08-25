@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2030057096266679849}
   - component: {fileID: 8489195423720543074}
   - component: {fileID: 7169976407542728968}
-  - component: {fileID: -2859459311688634453}
+  - component: {fileID: 8862851857376492475}
   - component: {fileID: 4078888189432426655}
   - component: {fileID: 4085541607572662572}
   m_Layer: 24
@@ -85,7 +85,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-2859459311688634453
+--- !u!114 &8862851857376492475
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,12 +94,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5571080710664901485}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31ed21e89c4a87748a8649cec45ebc99, type: 3}
+  m_Script: {fileID: 11500000, guid: e950f86c85aaa224a864ff10ab487518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maximumHealth: 75
   currentHealth: 0
-  invulnerable: 1
+  invulnerable: 0
   healDEV: 0
   damageDEV: 0
   hitSound: {fileID: 0}
