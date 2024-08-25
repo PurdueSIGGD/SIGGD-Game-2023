@@ -15,7 +15,7 @@ public class DirectionalSprite : MonoBehaviour
     [Header("Set this to manually override the direction, set to Vector3.zero to stop overriding")]
     public Vector3 lookDirectionOverride = Vector3.zero;
     [Header("How many degrees off from \"up\" the image is (likely 90 or -90)")]
-    [SerializeField] private float rotationOffset;
+    public float rotationOffset;
     private bool breakIt;
     [SerializeField] public bool calculateOnce;
     // Saved values for later

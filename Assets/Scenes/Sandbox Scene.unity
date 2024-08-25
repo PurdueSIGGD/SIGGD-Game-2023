@@ -1157,7 +1157,7 @@ MonoBehaviour:
   canPassiveSpawn: 0
   canPassiveWaveSpawn: 0
   spawnWaveDEV: 0
-  waveEnemyTypesDEV: 02000000
+  waveEnemyTypesDEV: 00000000
 --- !u!4 &786241880
 Transform:
   m_ObjectHideFlags: 0

@@ -11,8 +11,10 @@ public class RocketBoom : ProjState
         Animator animator = rocket.config.animator;
         float wait = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
 
-        //var dirComp = rocket.config.dirSprite.GetComponent<DirectionalSprite>();
-        //dirComp.lookDirectionOverride = Vector3.down;
+        var dirComp = rocket.config.dirSprite.GetComponent<DirectionalSprite>();
+        dirComp.lookDirectionOverride = Vector3.up;
+        dirComp.rotationOffset = 0;
+        rocket.transform.localScale = new Vector3(4, 4, 4);
 
         // Boom
         Collider[] hits = Physics.OverlapSphere(obj.transform.position, rocket.config.dmgRadius, rocket.config.layerMask);
