@@ -6,7 +6,7 @@ public class MineHealthPoints : HealthPoints
 {
     public override float damageEntity(float damage)
     {
-        return base.damageEntity(damage);
+        return 0f;
     }
 
 }
