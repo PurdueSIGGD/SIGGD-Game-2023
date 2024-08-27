@@ -39,7 +39,7 @@ public class HandMechanics : MonoBehaviour
     void FixedUpdate()
     {
         if (attached == false && birthTime + lifeTime < Time.time) {
-            Destroy(this.gameObject);
+            this.ShutItDown();
         }
     }
 
@@ -51,7 +51,7 @@ public class HandMechanics : MonoBehaviour
             StartCoroutine(waitAndDie());
         }
         else {
-            Destroy(this.gameObject);
+            this.ShutItDown();
         }
     }
 
@@ -79,12 +79,12 @@ public class HandMechanics : MonoBehaviour
             yield return new WaitForSeconds(reelTime);
             StopCoroutine(pull);            
             if (curPlayer == null) {  //in case the player dies before the hand un-sticks
-                Destroy(this.gameObject);
+                this.ShutItDown();
                 yield return null;
             }
             playerMove.sirend = false;
         }
-        Destroy(this.gameObject);
+        this.ShutItDown();
         yield return null;
     }
 
