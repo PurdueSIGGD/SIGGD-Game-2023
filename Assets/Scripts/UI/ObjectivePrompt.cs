@@ -53,6 +53,8 @@ public class ObjectivePrompt : MonoBehaviour
         progressBar.value = progress;
     }
 
+    //TESTING
+    /*
     [ContextMenu("Do the thing")]
     public void testing1()
     {
@@ -61,20 +63,25 @@ public class ObjectivePrompt : MonoBehaviour
 
     public IEnumerator testing()
     {
-        Debug.Log("doin the thang");
         showPrompt("ello matey");
         showProgressBar();
+
+        yield return new WaitForSeconds(1);
 
         float i = 0;
         while (i < 1)
         {
-            i += (float) (0.1 * Time.deltaTime);
+            i += 1f * Time.deltaTime;
             setProgressBar(i);
+            yield return new WaitForSeconds(0.1f);
+            Debug.Log(i);
         }
+
+        //yield return new WaitForSeconds(3f);
 
         hidePrompt();
         hideProgressBar();
 
         yield return null;
-    }
+    }*/
 }
