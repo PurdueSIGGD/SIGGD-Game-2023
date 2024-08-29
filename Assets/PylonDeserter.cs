@@ -84,7 +84,8 @@ public class PylonDeserter : MonoBehaviour
 
         //Deserted Pylon
         pylon.pylonHumSFX.Stop();
-        pylon.pylonMusicController.audioState = false;
+        //pylon.pylonMusicController.audioState = false;
+        pylon.musicConductor.crossfade(1f, pylon.currentAmbientTrack, 10f, 0f, pylon.currentAmbientTrack.loopStartTime);///////////////////////////////////////////////////////
         pylon.interactPrompt.hidePrompt();
         isDeserting = false;
         pylon.pylonCoroutine = null;
