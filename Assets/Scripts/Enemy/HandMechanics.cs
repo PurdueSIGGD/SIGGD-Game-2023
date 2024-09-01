@@ -50,7 +50,7 @@ public class HandMechanics : MonoBehaviour
             curPlayer = col.gameObject;
             StartCoroutine(waitAndDie());
         }
-        else {
+        else if (col.gameObject.tag == "Wall") {
             Destroy(this.gameObject);
         }
     }
@@ -84,6 +84,8 @@ public class HandMechanics : MonoBehaviour
             }
             playerMove.sirend = false;
         }
+        //this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        //spriteRenderer.SetActive(false);
         Destroy(this.gameObject);
         yield return null;
     }

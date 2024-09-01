@@ -26,6 +26,8 @@ public class WhaleNav : MonoBehaviour
     [SerializeField] private float passTurnSpeed;
     [SerializeField] private bool targetPlayer;
 
+    [SerializeField] private AudioSource passSound;
+
     private enum NavMode
     {
         SEARCHING,
@@ -75,12 +77,15 @@ public class WhaleNav : MonoBehaviour
             float angleToTarget = Vector3.Angle(targetDir, thisEnemy.forward);
             if (angleToTarget > angleThreshold) return;
 
+            passSound.Play();
             navMode = NavMode.PASSING;
         }
 
         // Do a pass until duration runs out
         if (navMode == NavMode.PASSING)
         {
+            if (target == null) UpdateTarget();
+
             currentDuration += Time.fixedDeltaTime;
 
             /*
@@ -103,6 +108,7 @@ public class WhaleNav : MonoBehaviour
             if (currentDuration < passDuration) return;
             currentDuration -= passDuration;
 
+            UpdateTarget();
             navMode = NavMode.SEARCHING;
         }
     }

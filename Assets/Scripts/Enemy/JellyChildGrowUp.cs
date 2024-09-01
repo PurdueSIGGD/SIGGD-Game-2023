@@ -11,7 +11,8 @@ public class JellyChildGrowUp : MonoBehaviour
     [SerializeField] private GameObject matureJelly;
     [SerializeField] private AudioSource growUpSound;
     private float birthTime;
-    private float matureTime;
+    public float matureTime;
+    [SerializeField] private GameObject spriteRenderer;
 
     void Start()
     {
@@ -23,9 +24,22 @@ public class JellyChildGrowUp : MonoBehaviour
     void Update()
     {
         if (Time.time >= matureTime) {
-            SpawnAdult();
-            Destroy(this.gameObject);
+            matureTime += 100f;
+            StartCoroutine(growUp());
+            //SpawnAdult();
+            //Destroy(this.gameObject);
         }
+    }
+
+    private IEnumerator growUp()
+    {
+        SpawnAdult();
+        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        spriteRenderer.SetActive(false);
+        this.gameObject.GetComponent<BoxCollider>().enabled = false;
+        this.gameObject.GetComponent<MobNav>().enabled = false;
+        yield return new WaitForSeconds(1f);
+        Destroy(this.gameObject);
     }
 
     private void SpawnAdult() {

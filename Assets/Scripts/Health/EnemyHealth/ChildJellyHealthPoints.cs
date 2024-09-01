@@ -22,6 +22,7 @@ public class ChildJellyHealthPoints : HealthPoints
         deathSound.playDeathSound();
         this.gameObject.GetComponent<MobNav>().enabled = false;
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
+        this.gameObject.GetComponent<JellyChildGrowUp>().matureTime += 100f;
         StartCoroutine(fadeSprite());
     }
 
