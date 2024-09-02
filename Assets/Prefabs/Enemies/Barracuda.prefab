@@ -302,7 +302,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4808138464243670542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcf027f8368bbd34f8294b7e0370f805, type: 3}
+  m_Script: {fileID: 11500000, guid: d74459695afb3db4babc445f7ff8c30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maximumHealth: 100
@@ -786,6 +786,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownTime: 1.5
   DAMAGE: 30
+  attackSound: {fileID: 0}
 --- !u!1001 &4584405176982258643
 PrefabInstance:
   m_ObjectHideFlags: 0
