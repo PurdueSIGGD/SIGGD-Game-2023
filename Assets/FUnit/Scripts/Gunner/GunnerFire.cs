@@ -38,6 +38,6 @@ public class GunnerFire : UnitState
 
             yield return new WaitForSeconds(gunner.config.burstDuration / burstCount);
         }
-        gunner.SwitchState(gunner.idleState);
+        gunner.SwitchState(GunnerFSM.idleState);
     }
 }

@@ -6,8 +6,8 @@ using UnityEngine;
 public class GunnerFSM : Unit
 {
     public UnitState currentState;
-    public GunnerIdle idleState = new GunnerIdle();
-    public GunnerFire fireState = new GunnerFire();
+    public static GunnerIdle idleState = new GunnerIdle();
+    public static GunnerFire fireState = new GunnerFire();
 
     // Serialize Fields
     [Serializable]

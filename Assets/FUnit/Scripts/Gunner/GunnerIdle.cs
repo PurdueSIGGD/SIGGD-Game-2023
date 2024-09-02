@@ -33,7 +33,7 @@ public class GunnerIdle : UnitState
         if (FindTargets(context) && gunner.personal.reloaded)
         {
             // switch to fire state
-            gunner.SwitchState(gunner.fireState);
+            gunner.SwitchState(GunnerFSM.fireState);
         }
 
     }
