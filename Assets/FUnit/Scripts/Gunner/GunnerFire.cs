@@ -30,23 +30,14 @@ public class GunnerFire : UnitState
 
         for (int i = 1; i <= burstCount; i++)
         {
-            Debug.Log("GUN: Burst " + i);
-
             if (prefab != null)
             {
                 var bullet = Object.Instantiate(prefab, bulletPoint.transform.position, Quaternion.identity).GetComponent<BulletPFSM>();
                 bullet.personal.target = gunner.personal.target;
             }
 
-            if (i == burstCount)
-            {
-                //gunner.config.animator.SetBool("Fire", false);
-                gunner.SwitchState(gunner.idleState);
-            }
-            else
-            {
-                yield return new WaitForSeconds(gunner.config.burstDuration / burstCount - 1);
-            }
+            yield return new WaitForSeconds(gunner.config.burstDuration / burstCount);
         }
+        gunner.SwitchState(gunner.idleState);
     }
 }
