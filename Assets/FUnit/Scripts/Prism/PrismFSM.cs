@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PrismFSM : Unit
 {
-    public static UnitState currentState;
+    public UnitState currentState;
     public static PrismIdle idleState = new PrismIdle();
 
     // Serialize Fields

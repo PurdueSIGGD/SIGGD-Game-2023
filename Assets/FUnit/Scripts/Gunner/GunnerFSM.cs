@@ -1,38 +1,40 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
-public class MineFSM : Unit
+public class GunnerFSM : Unit
 {
     public UnitState currentState;
-    public static MineIdle idleState = new MineIdle();
-    public static MineTrigger triggerState = new MineTrigger();
-    public static MineBoom boomState = new MineBoom();
+    public GunnerIdle idleState = new GunnerIdle();
+    public GunnerFire fireState = new GunnerFire();
 
     // Serialize Fields
-
     [Serializable]
-    public struct MineConfig
+    public struct GunnerConfig
     {
-        public float triggerRadius;
-        public float blastRadius;
-        public float blastDmg;
-        public LayerMask blastMask;
+        public float fireCooldown;
+        public float range;
+        public int burstCount;
+        public float burstDuration;
+        public GameObject gunObj;
+        public GameObject bulletPoint;
+        public LayerMask projMask;
+        public GameObject projPrefab;
         public Animator animator;
     }
 
     [SerializeField]
-    public MineConfig config;
+    public GunnerConfig config;
 
-    public struct MinePersonal
+    public struct GunnerPersonal
     {
-        public float time;
+        public GameObject target;
+        public bool reloaded;
     }
 
     [NonSerialized]
-    public MinePersonal personal = new MinePersonal();
+    public GunnerPersonal personal;
 
     private void Start()
     {

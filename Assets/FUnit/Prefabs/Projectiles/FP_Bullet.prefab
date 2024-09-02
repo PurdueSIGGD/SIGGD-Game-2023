@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5111393686256605368}
-  - component: {fileID: 4836552865794666474}
+  - component: {fileID: 8356489623527845792}
   - component: {fileID: 4467843913044680855}
-  - component: {fileID: -3396092038406133987}
+  - component: {fileID: 5937920848997345961}
   m_Layer: 26
-  m_Name: FP_Rocket
+  m_Name: FP_Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   - {fileID: 1608291493342443547}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &4836552865794666474
+--- !u!135 &8356489623527845792
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,7 +54,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4467843913044680855
 Rigidbody:
@@ -83,7 +83,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-3396092038406133987
+--- !u!114 &5937920848997345961
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,18 +92,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 354620882897817373}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20c6cd87df2ae4541b82364b845e0801, type: 3}
+  m_Script: {fileID: 11500000, guid: a155990064509be4caff1a8837ed04d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   config:
-    duration: 3
-    damage: 10
-    speed: 30
-    dmgRadius: 5
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 8388608
-    animator: {fileID: 3380629785821604088}
+    duration: 5
+    damage: 5
+    speed: 20
     dirSprite: {fileID: 4986523703192036839}
 --- !u!1001 &7072889572111703890
 PrefabInstance:
@@ -128,7 +123,7 @@ PrefabInstance:
     - target: {fileID: 2556013608154476887, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 129754990, guid: 34d86f4e6aeb76f4aa64da0e23500eb2, type: 3}
+      objectReference: {fileID: -1595968353, guid: 64a9b93a4127b9f4fa57dac3ab1d8610, type: 3}
     - target: {fileID: 2815949836696418997, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_Name
       value: UnitSpriteHolder
@@ -136,7 +131,7 @@ PrefabInstance:
     - target: {fileID: 5534250454328293290, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 626607e4fd117e541b89a9362f76bcb6, type: 2}
+      objectReference: {fileID: 9100000, guid: 71f706ee32a3da04ab59e691fa373d80, type: 2}
     - target: {fileID: 8391964224929998665, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -185,11 +180,6 @@ PrefabInstance:
 --- !u!4 &1608291493342443547 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8391964224929998665, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
-  m_PrefabInstance: {fileID: 7072889572111703890}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &3380629785821604088 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5534250454328293290, guid: c3c74ee033f416747a7c57623ffd7449, type: 3}
   m_PrefabInstance: {fileID: 7072889572111703890}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &4986523703192036839 stripped
