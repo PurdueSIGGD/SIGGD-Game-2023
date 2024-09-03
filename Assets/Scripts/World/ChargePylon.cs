@@ -57,6 +57,8 @@ public class ChargePylon : Interactable
     [SerializeField] public MusicConductor musicConductor;
     [SerializeField] public MusicTrack currentAmbientTrack;
 
+    [SerializeField] public MiniMap miniMap;
+
 
 
     // Start is called before the first frame update
@@ -120,6 +122,7 @@ public class ChargePylon : Interactable
             pylonDeserter.killDeserterCountdownSequence();
             StartCoroutine(activationFlare());
             StartCoroutine(rangeRingFade(false));
+            objectivePrompt.hidePrompt();
 
             markPylonDone();
             
@@ -147,7 +150,8 @@ public class ChargePylon : Interactable
     {
         isCharging = false;
         playerLevel.levelUp();
-        objectivePrompt.hidePrompt();
+        //objectivePrompt.hidePrompt();
+        miniMap.changePylonIcon(gameObject);
         chargeDone = true;
         isUsed = false;
         promptMessage = "E | Save Game";

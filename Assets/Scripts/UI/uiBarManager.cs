@@ -16,7 +16,8 @@ public class uiBarManager : MonoBehaviour
 
     private Color unobtainableUnitLight = new Color32(217, 128, 125, 255);
     private Color nonacquirableUnitLight = new Color32(16, 91, 163, 255);
-    private Color acquirableUnitLight = new Color32(255, 232, 90, 255);
+    //private Color acquirableUnitLight = new Color32(255, 232, 90, 255);
+    private Color acquirableUnitLight = new Color32(20, 160, 150, 255);
 
     [SerializeField] private Slider healthSlider;
     [SerializeField] private TMP_Text healthText;
@@ -44,7 +45,7 @@ public class uiBarManager : MonoBehaviour
 
     void UpdateUnitLight()
     {
-        /*
+        
         // Update unit lights to be where it should be
         float selectedCost = GetComponent<UnitHotbarUI>().selectedCost;
         GameObject unitLight = unitLightSlider.transform.GetChild(0).gameObject;
@@ -85,7 +86,7 @@ public class uiBarManager : MonoBehaviour
                 unitLightColor = acquirableUnitLight;
             }
         }
-        */
+        
     }
 
     void UpdateBlackout()

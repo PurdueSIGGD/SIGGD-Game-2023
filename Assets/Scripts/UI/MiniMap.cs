@@ -14,7 +14,13 @@ public class MiniMap : MonoBehaviour
     [SerializeField] float iconTurnOffTime;
     [SerializeField] Sprite emptyPylonIcon;
     [SerializeField] Sprite emptyArtifactIcon;
+    [SerializeField] AudioSource pingSound;
+    [SerializeField] GameObject pingWave;
+    [SerializeField] ControlledEnemySpawner sonarEnemySpawner;
+    [SerializeField] List<enemyType> sonarEnemyList;
 
+    public bool sonarEnabled;
+    public bool enemiesEnabled;
     private bool blackout;
     private bool blackoutOnce;
     private bool sonarCoolDown;
@@ -39,6 +45,14 @@ public class MiniMap : MonoBehaviour
             minimapIcons.Add(minimapIcon);
         }
 
+        // Add the final pylon to the minimap icon array
+        FinalPylon[] finalPylons = FindObjectsOfType<FinalPylon>();
+        foreach(FinalPylon finalPylon in finalPylons)
+        {
+            GameObject minimapIcon = finalPylon.transform.Find("minimapIcon").gameObject;
+            minimapIcons.Add(minimapIcon);
+        }
+
         // Add artifacts to the minimap icon array
         Artifact[] artifacts = FindObjectsOfType<Artifact>();
         foreach (Artifact artifact in artifacts)
@@ -46,6 +60,8 @@ public class MiniMap : MonoBehaviour
             GameObject minimapIcon = artifact.transform.Find("miniMapIcon").gameObject;
             minimapIcons.Add(minimapIcon);
         }
+
+        pingWave.SetActive(false);
     }
 
     // Update is called once per frame
@@ -64,15 +80,16 @@ public class MiniMap : MonoBehaviour
         }
 
         // Pressing space for radar
-        if (Input.GetKeyDown(KeyCode.Space) && !sonarCoolDown)
+        if (Input.GetKeyDown(KeyCode.Space) && !sonarCoolDown && sonarEnabled)
         {
+            StartCoroutine(sonarEnemyWave());
             StartCoroutine(SonarRecovery());
+            StartCoroutine(releaseSonarPing());
+            /*pingSound.Play();
             foreach (GameObject minimapIcon in minimapIcons)
             {
                 StartCoroutine(IconFading(minimapIcon));
-            }
-
-            // Let enemy spawner know to spawn more monsters
+            }*/
         }
     }
 
@@ -155,5 +172,46 @@ public class MiniMap : MonoBehaviour
     {
         GameObject icon = artifact.transform.Find("miniMapIcon").gameObject;
         icon.GetComponent<SpriteRenderer>().sprite = emptyArtifactIcon;
+    }
+
+
+
+    public IEnumerator sonarEnemyWave()
+    {
+        if (enemiesEnabled)
+        {
+            yield return new WaitForSeconds(4f);
+            sonarEnemySpawner.spawnEnemyWave(sonarEnemyList);
+            yield return new WaitForSeconds(4f);
+            sonarEnemySpawner.spawnEnemyWave(sonarEnemyList);
+        }
+        yield return null;
+    }
+
+
+
+    public IEnumerator releaseSonarPing()
+    {
+        pingSound.Play();
+        yield return new WaitForSeconds(1f);
+        foreach (GameObject minimapIcon in minimapIcons)
+        {
+            StartCoroutine(IconFading(minimapIcon));
+        }
+
+        pingWave.transform.localScale = Vector3.zero;
+        pingWave.SetActive(true);
+        float waveIncreaseTime = 1f;
+        float waveFinalSize = 1f;
+        float waveSize = 0f;
+        //Debug.Log("Pingwing1: " + pingWave.active);
+        while (waveSize < waveFinalSize)
+        {
+            waveSize += (waveFinalSize / waveIncreaseTime) * Time.deltaTime;
+            pingWave.transform.localScale += new Vector3(waveSize, waveSize, waveSize);
+            yield return null;
+        }
+        //Debug.Log("Pingwing2: " + pingWave.active);
+        pingWave.SetActive(false);
     }
 }

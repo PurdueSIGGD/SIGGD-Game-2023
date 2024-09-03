@@ -22,6 +22,7 @@ public class GunnerFSM : Unit
         public LayerMask projMask;
         public GameObject projPrefab;
         public Animator animator;
+        public AudioSource fireSound;
     }
 
     [SerializeField]

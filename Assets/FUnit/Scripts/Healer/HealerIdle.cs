@@ -8,7 +8,20 @@ public class HealerIdle : UnitState
     {
         HealerFSM healerContext = (HealerFSM)context;
         healerContext.animator.ResetTrigger("Pulse");
-        healerContext.pulseTime = healerContext.cooldown;
+        if (healerContext.pulsesCount == healerContext.totalPulses)
+        {
+            //healerContext.healthPoints.damageEntity(1000f);
+            healerContext.StartCoroutine(killHealer(healerContext, 0.5f));
+        }
+        healerContext.pulsesCount++;
+        if (healerContext.pulsesCount != 1 )
+        {
+            healerContext.pulseTime = healerContext.cooldown;
+        }
+        else
+        {
+            healerContext.pulseTime = 0f;
+        }
         healerContext.player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -24,5 +37,13 @@ public class HealerIdle : UnitState
     public override void OnTriggerEnter(Unit context, Collider other)
     {
         return;
+    }
+
+
+    IEnumerator killHealer(HealerFSM context, float wait)
+    {
+        HealerFSM healer = (HealerFSM)context;
+        yield return new WaitForSeconds(wait);
+        healer.healthPoints.damageEntity(1000f);
     }
 }

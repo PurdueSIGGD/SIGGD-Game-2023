@@ -5,6 +5,7 @@ using UnityEngine;
 public class Artifact : Interactable
 {
     [SerializeField] public UnitHotbarUI unitHotbarUI;
+    [SerializeField] public MiniMap miniMap;
 
     // TODO: Replace this with the enum for the turret family
     [SerializeField] private UnitType unitNumber;
@@ -15,6 +16,7 @@ public class Artifact : Interactable
         {
             // Mark objective as done
             isUsed = true;
+            miniMap.changeArtifactIcon(gameObject);
             GivePlayerArtifact();
             SaveArtifact();
             //isUsed = true;
@@ -35,6 +37,7 @@ public class Artifact : Interactable
     public void MarkArtifactDone()
     {
         isUsed = true;
+        miniMap.changeArtifactIcon(gameObject);
         GivePlayerArtifact();
     }
     

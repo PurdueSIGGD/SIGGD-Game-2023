@@ -23,10 +23,9 @@ public class MineBoom : UnitState
 
     IEnumerator Boom(Unit context, float wait)
     {
-        yield return new WaitForSeconds(wait * 0.3f);
-
         MineFSM mine = (MineFSM)context;
-
+        mine.config.blastSound.Play();
+        yield return new WaitForSeconds(wait * 0.3f);
         Collider[] colliders = Physics.OverlapSphere(mine.gameObject.transform.position, mine.config.blastRadius, mine.config.blastMask);
         foreach (Collider enemy in colliders)
         {

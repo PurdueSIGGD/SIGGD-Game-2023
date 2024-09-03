@@ -23,8 +23,9 @@ public class MineTrigger : UnitState
 
     IEnumerator Trigger(Unit context, float wait)
     {
-        yield return new WaitForSeconds(wait);
         MineFSM mine = (MineFSM)context;
+        mine.config.triggerSound.Play();
+        yield return new WaitForSeconds(wait);
         mine.SwitchState(MineFSM.boomState);
     }
 }

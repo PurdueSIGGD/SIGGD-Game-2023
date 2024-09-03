@@ -33,6 +33,9 @@ public class RocketeerFSM : Unit
     [SerializeField]
     public Animator animator;
 
+    [SerializeField]
+    public AudioSource fireSound;
+
 
     // Context Variables
     [NonSerialized] public GameObject target;

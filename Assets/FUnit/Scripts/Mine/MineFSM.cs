@@ -21,6 +21,8 @@ public class MineFSM : Unit
         public float blastDmg;
         public LayerMask blastMask;
         public Animator animator;
+        public AudioSource triggerSound;
+        public AudioSource blastSound;
     }
 
     [SerializeField]

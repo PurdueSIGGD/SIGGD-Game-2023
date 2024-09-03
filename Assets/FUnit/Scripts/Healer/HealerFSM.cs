@@ -26,9 +26,22 @@ public class HealerFSM : Unit
     [SerializeField]
     public Animator animator;
 
+    [SerializeField]
+    public float initialHealAmount;
+
+    [SerializeField]
+    public int totalPulses;
+
+    [SerializeField]
+    public AudioSource healSound;
+
+    [SerializeField]
+    public HealthPoints healthPoints;
+
     // Private Fields
     [NonSerialized] public float pulseTime;
     [NonSerialized] public GameObject player;
+    [NonSerialized] public int pulsesCount = 0;
 
 
     void Start()

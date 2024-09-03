@@ -35,6 +35,7 @@ public class PrismIdle : UnitState
             Vector3 masterVelocity = Quaternion.AngleAxis(-1 * wingAngle, Vector3.up) * velocity;
 
             // generate splits
+            prism.config.splitSound.Play();
             for (int i = 0; i < splitCount; i++)
             {
                 GameObject split = Object.Instantiate(prism.config.splitProjPrefab, prism.transform.position + (velocity.normalized * 2f), Quaternion.identity);

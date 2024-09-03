@@ -23,8 +23,10 @@ public class RocketBoom : ProjState
             hit.gameObject.GetComponent<HealthPoints>().damageEntity(rocket.config.damage);
         }
 
-        rocket.StartCoroutine(Delete(context, wait));
+        //rocket.StartCoroutine(Delete(context, wait));
+        rocket.StartCoroutine(Delete(context, 0.75f));
         animator.SetTrigger("Boom");
+        rocket.config.blastSound.Play();
     }
 
     public override void UpdateState(MonoBehaviour context)

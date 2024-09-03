@@ -52,6 +52,7 @@ MonoBehaviour:
   isUsed: 0
   playerInRange: 0
   unitHotbarUI: {fileID: 0}
+  miniMap: {fileID: 0}
   unitNumber: 3
 --- !u!135 &4866536168831668004
 SphereCollider:
@@ -99,10 +100,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8516814872253007618}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.6532815, y: 0.27059805, z: -0.27059805, w: 0.6532815}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 250, y: 250, z: 250}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 560, y: 560, z: 560}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3258812583959100136}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -147,7 +148,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 58761cd2bc046db429a18e9f4c52a587, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2abc60e5c8c36ec48813b9ae32594a50, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0

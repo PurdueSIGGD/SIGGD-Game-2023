@@ -9,8 +9,6 @@ public class HealerPulse : UnitState
         HealerFSM healerContext = (HealerFSM)context;
         healerContext.animator.SetTrigger("Pulse");
         healerContext.StartCoroutine(heal(healerContext, 0.3f));
-        //healerContext.player.GetComponent<HealthPoints>().healEntity(healerContext.healAmount);
-        //healerContext.player.GetComponent<LightResource>().addLight(healerContext.lightAmount);
 
         healerContext.pulseTime = healerContext.animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
     }
@@ -31,9 +29,15 @@ public class HealerPulse : UnitState
 
     IEnumerator heal(Unit context, float wait)
     {
-        yield return new WaitForSeconds(wait);
         HealerFSM healer = (HealerFSM)context;
-        healer.player.GetComponent<HealthPoints>().healEntity(healer.healAmount);
+        float healing = (healer.pulsesCount == 1) ? healer.initialHealAmount : healer.healAmount;
+        healer.healSound.pitch += 0.3f;
+        healer.healSound.volume = (healer.pulsesCount == 1) ? 0.4f : 0.1f;
+        healer.healSound.Play();
+        yield return new WaitForSeconds(wait);
+        //float healing = (healer.pulsesCount == 2) ? healer.initialHealAmount : healer.healAmount;
+        Debug.Log("initialHealAmount: " + healer.initialHealAmount + "  |  healing: " + healing + "  |  pulsedCount: " + healer.pulsesCount);
+        healer.player.GetComponent<HealthPoints>().healEntity(healing);
         healer.player.GetComponent<LightResource>().addLight(healer.lightAmount);
     }
 }

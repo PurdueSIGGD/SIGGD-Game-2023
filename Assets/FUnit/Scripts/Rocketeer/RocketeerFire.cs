@@ -10,6 +10,7 @@ public class RocketeerFire : UnitState
         RocketeerFSM rocketeerContext = (RocketeerFSM)context;
         
         rocketeerContext.animator.SetTrigger("Fire");
+        rocketeerContext.fireSound.Play();
         rocketeerContext.fireTime = rocketeerContext.animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
         Debug.Log("ROCKET FIRED!!!");
     }

@@ -22,6 +22,7 @@ public class RocketPFSM : MonoBehaviour
         public LayerMask layerMask;
         public Animator animator;
         public GameObject dirSprite;
+        public AudioSource blastSound;
     }
 
     [SerializeField]

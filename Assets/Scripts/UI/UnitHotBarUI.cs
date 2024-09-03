@@ -135,7 +135,7 @@ public class UnitHotbarUI : MonoBehaviour
         UnitFamily[] units = unitLevelManager.unitFamilies;
         foreach (UnitFamily fam in units)
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1f);
             InsertUnitIntoHotbar(fam.family);
             //yield return new WaitForSeconds(3);
         }

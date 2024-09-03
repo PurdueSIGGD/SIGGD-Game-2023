@@ -15,16 +15,20 @@ public class Roamer : UnitMovement
 
     GameObject Target = null;
 
+    private float playerDistanceModifier = 0f;
+
     // -- Behavior --
     private void Start()
     {
         // Define attack, detect, mandatory return ranges
-        assignRanges(5, 10);
+        assignRanges(15, 20);
         // Move speed modifier
         moveSpeedModifier = 10;
 
         NavMesh = gameObject.GetComponent<NavMeshAgent>();
         NavMesh.speed = moveSpeedModifier;
+
+        playerDistanceModifier = Random.Range(-1f, 3f);
     }
 
     private void CheckDist()
@@ -33,8 +37,12 @@ public class Roamer : UnitMovement
         {
             if (attacking && Target == null)
             {
-                attacking = !attacking;
+                attacking = false;
                 //Debug.Log("Halting attack");
+            }
+            else if (attacking && Target != null && playerDist() > detectRange * 1.5f)
+            {
+                attacking = false;
             }
         }
         else if (!attacking && playerDist() <= attackRange)
@@ -54,11 +62,17 @@ public class Roamer : UnitMovement
                 Target = FindTarget();
                 if (Target != null)
                 {
-                    NavMesh.destination = Target.transform.position;
+                    //NavMesh.destination = Target.transform.position;
+                    NavMesh.destination = calculateTargetDestination();
+                }
+                else
+                {
+                    NavMesh.SetDestination(calculatePlayerDestination());
                 }
             }
             else
             {
+                NavMesh.destination = calculateTargetDestination();
                 /*NavMesh.destination = Target.transform.position;
 
                 if (NavMesh.remainingDistance < attackRange)
@@ -70,7 +84,8 @@ public class Roamer : UnitMovement
         else
         {
             // Go to 2 units away frem the player in the proper direction
-            NavMesh.SetDestination(Player.transform.position);
+            //NavMesh.SetDestination(Player.transform.position);
+            NavMesh.SetDestination(calculatePlayerDestination());
         }
     }
 
@@ -103,6 +118,20 @@ public class Roamer : UnitMovement
         {
             return null;
         }
+    }
+
+
+
+    private Vector3 calculatePlayerDestination()
+    {
+        Vector3 difference = Vector3.Normalize(transform.position - Player.transform.position);
+        return Player.transform.position + (difference * (7f + playerDistanceModifier));
+    }
+
+    private Vector3 calculateTargetDestination()
+    {
+        Vector3 difference = Vector3.Normalize(transform.position - Target.transform.position);
+        return Target.transform.position + (difference * 11f);
     }
 
 }

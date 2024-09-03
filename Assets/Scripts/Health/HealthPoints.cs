@@ -13,6 +13,7 @@ public class HealthPoints : MonoBehaviour
     [SerializeField] public int healDEV;
     [SerializeField] public int damageDEV;
     [SerializeField] private AudioSource hitSound;
+    [SerializeField] private AudioSource dyingSound;
 
 
     // Start is called before the first frame update
@@ -60,6 +61,22 @@ public class HealthPoints : MonoBehaviour
     /// </summary>
     public virtual void kill()
     {
+        if (dyingSound != null)
+        {
+            StartCoroutine(killSequence());
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
+    private IEnumerator killSequence()
+    {
+        invulnerable = true;
+        dyingSound.Play();
+        yield return new WaitForSeconds(0.4f);
         Destroy(gameObject);
     }
 

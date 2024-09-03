@@ -34,6 +34,7 @@ public class GunnerFire : UnitState
             {
                 var bullet = Object.Instantiate(prefab, bulletPoint.transform.position, Quaternion.identity).GetComponent<BulletPFSM>();
                 bullet.personal.target = gunner.personal.target;
+                gunner.config.fireSound.Play();
             }
 
             yield return new WaitForSeconds(gunner.config.burstDuration / burstCount);
