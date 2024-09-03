@@ -2778,7 +2778,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0e30e02792afa41bedc1d36bba3c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectiveUI: {fileID: 4680332637631544285}
   progressBar: {fileID: 2418810517470519058}
   promptTextBox: {fileID: 9144612655391581349}
 --- !u!114 &6337267014536007470
@@ -2794,8 +2793,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedUnit: 0
-  selectedType: 0
-  selectedCost: 100
+  selectedType: 5
+  selectedCost: 0
   unitLevelManager: {fileID: 11400000, guid: 740fbb279bade484fb5d9ce901bd6c0d, type: 2}
   isTest: 0
 --- !u!114 &7742857548201618503

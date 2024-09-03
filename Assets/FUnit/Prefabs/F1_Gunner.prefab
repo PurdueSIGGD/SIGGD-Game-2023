@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e2df29bce24754dada64c46cfedb35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 0
+  manaCost: 60
   type: 2
   config:
     fireCooldown: 2

@@ -11,9 +11,13 @@ public class UnitHotbarUI : MonoBehaviour
     // HEALTH SLIDER GOES FROM 0 TO 0.25
 
 
-    [HideInInspector] public int selectedUnit = 0;
-    [HideInInspector] public UnitType selectedType;
-    [HideInInspector] public float selectedCost = 100;
+    //[HideInInspector] public int selectedUnit = 0;
+    //[HideInInspector] public UnitType selectedType;
+    //[HideInInspector] public float selectedCost = 100;
+
+    public int selectedUnit = 0;
+    public UnitType selectedType = UnitType.BUBBLE;
+    public float selectedCost = 0;
 
     private bool blackout;
     private int currentUnits = 0;
@@ -131,8 +135,9 @@ public class UnitHotbarUI : MonoBehaviour
         UnitFamily[] units = unitLevelManager.unitFamilies;
         foreach (UnitFamily fam in units)
         {
-            InsertUnitIntoHotbar(fam.family);
             yield return new WaitForSeconds(3);
+            InsertUnitIntoHotbar(fam.family);
+            //yield return new WaitForSeconds(3);
         }
     }
 }
