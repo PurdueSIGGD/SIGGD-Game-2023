@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa46a3ba6d9f39468022cff7cab4d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 0
+  manaCost: 75
   type: 0
   config:
     splitProjPrefab: {fileID: 4677275191526283186, guid: d8bac2f356d72b74ea4a9767d6c1c902, type: 3}
