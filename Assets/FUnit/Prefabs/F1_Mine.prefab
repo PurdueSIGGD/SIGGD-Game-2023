@@ -115,8 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b7fdd87e5ba314dad282f5f9a938ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: 10
-  selfDestruct: 20
+  warning: 40
+  selfDestruct: 50
 --- !u!114 &4085541607572662572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,8 +132,8 @@ MonoBehaviour:
   manaCost: 0
   type: 3
   config:
-    triggerRadius: 100
-    blastRadius: 30
+    triggerRadius: 4
+    blastRadius: 7
     blastDmg: 200
     blastMask:
       serializedVersion: 2

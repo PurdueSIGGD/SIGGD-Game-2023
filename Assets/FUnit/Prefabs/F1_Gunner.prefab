@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ed21e89c4a87748a8649cec45ebc99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumHealth: 150
+  maximumHealth: 100
   currentHealth: 0
   invulnerable: 0
   healDEV: 0
@@ -154,10 +154,10 @@ MonoBehaviour:
   manaCost: 0
   type: 2
   config:
-    fireCooldown: 3
-    range: 10
+    fireCooldown: 2
+    range: 30
     burstCount: 3
-    burstDuration: 0.5
+    burstDuration: 0.4
     gunObj: {fileID: 231151934610537643}
     bulletPoint: {fileID: 7364929669028330281}
     projMask:

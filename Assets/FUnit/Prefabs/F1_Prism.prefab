@@ -115,8 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b7fdd87e5ba314dad282f5f9a938ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: 10
-  selfDestruct: 20
+  warning: 40
+  selfDestruct: 50
 --- !u!114 &2117318158641398967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,8 +133,8 @@ MonoBehaviour:
   type: 0
   config:
     splitProjPrefab: {fileID: 4677275191526283186, guid: d8bac2f356d72b74ea4a9767d6c1c902, type: 3}
-    splitCount: 10
-    splitLife: 4
+    splitCount: 3
+    splitLife: 2
     angleBetweenSplits: 20
 --- !u!1001 &8653755976832626984
 PrefabInstance:

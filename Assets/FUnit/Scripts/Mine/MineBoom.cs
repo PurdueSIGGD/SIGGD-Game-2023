@@ -23,7 +23,7 @@ public class MineBoom : UnitState
 
     IEnumerator Boom(Unit context, float wait)
     {
-        yield return new WaitForSeconds(wait);
+        yield return new WaitForSeconds(wait * 0.3f);
 
         MineFSM mine = (MineFSM)context;
 
@@ -33,6 +33,7 @@ public class MineBoom : UnitState
             enemy.GetComponent<HealthPoints>().damageEntity(mine.config.blastDmg);
         }
         Debug.Log("Time to destroy");
+        yield return new WaitForSeconds(wait * 0.7f);
         Object.Destroy(mine.gameObject);
     }
 }

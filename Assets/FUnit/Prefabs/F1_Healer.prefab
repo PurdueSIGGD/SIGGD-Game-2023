@@ -133,9 +133,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaCost: 100
   type: 1
-  healAmount: 30
-  lightAmount: 30
-  cooldown: 1
+  healAmount: 5
+  lightAmount: 5
+  cooldown: 3
   animator: {fileID: 3807171442417436290}
 --- !u!1001 &8653755976832626984
 PrefabInstance:

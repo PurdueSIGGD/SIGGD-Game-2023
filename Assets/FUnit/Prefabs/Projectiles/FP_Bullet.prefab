@@ -96,9 +96,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config:
-    duration: 5
-    damage: 5
-    speed: 20
+    duration: 0.5
+    damage: 7.2
+    speed: 80
     dirSprite: {fileID: 4986523703192036839}
 --- !u!1001 &7072889572111703890
 PrefabInstance:

@@ -62,6 +62,7 @@ public class RocketeerIdle : UnitState
             for (int c = 0; c < hits.Length; c++)
             {
                 Collider hit = hits[c];
+                if (hit == null) continue;
                 float dist = Mathf.Abs((hit.gameObject.transform.position - unit.transform.position).magnitude);
                 if (dist < minDist)
                 {

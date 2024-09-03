@@ -154,7 +154,7 @@ MonoBehaviour:
   manaCost: 0
   type: 0
   fireCooldown: 4
-  range: 10
+  range: 30
   gunObj: {fileID: 231151934610537643}
   bulletPoint: {fileID: 7364929669028330281}
   projMask:

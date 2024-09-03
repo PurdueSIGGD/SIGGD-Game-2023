@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config:
     duration: 3
-    damage: 10
+    damage: 150
     speed: 30
     dmgRadius: 5
     layerMask:

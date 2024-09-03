@@ -37,7 +37,7 @@ public class PrismIdle : UnitState
             // generate splits
             for (int i = 0; i < splitCount; i++)
             {
-                GameObject split = Object.Instantiate(prism.config.splitProjPrefab, prism.transform.position + velocity.normalized, Quaternion.identity);
+                GameObject split = Object.Instantiate(prism.config.splitProjPrefab, prism.transform.position + (velocity.normalized * 2f), Quaternion.identity);
                 split.GetComponent<Rigidbody>().velocity = masterVelocity;
 
                 if (splitLife > 0)

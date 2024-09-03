@@ -8,8 +8,9 @@ public class HealerPulse : UnitState
     {
         HealerFSM healerContext = (HealerFSM)context;
         healerContext.animator.SetTrigger("Pulse");
-        healerContext.player.GetComponent<HealthPoints>().healEntity(healerContext.healAmount);
-        healerContext.player.GetComponent<LightResource>().addLight(healerContext.lightAmount);
+        healerContext.StartCoroutine(heal(healerContext, 0.3f));
+        //healerContext.player.GetComponent<HealthPoints>().healEntity(healerContext.healAmount);
+        //healerContext.player.GetComponent<LightResource>().addLight(healerContext.lightAmount);
 
         healerContext.pulseTime = healerContext.animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
     }
@@ -26,5 +27,13 @@ public class HealerPulse : UnitState
     public override void OnTriggerEnter(Unit context, Collider other)
     {
         return;
+    }
+
+    IEnumerator heal(Unit context, float wait)
+    {
+        yield return new WaitForSeconds(wait);
+        HealerFSM healer = (HealerFSM)context;
+        healer.player.GetComponent<HealthPoints>().healEntity(healer.healAmount);
+        healer.player.GetComponent<LightResource>().addLight(healer.lightAmount);
     }
 }
