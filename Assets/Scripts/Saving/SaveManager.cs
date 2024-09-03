@@ -178,7 +178,14 @@ public class SaveManager : MonoBehaviour
                     g.SetActive(false);
                     break;
                 case ObjectiveType.Pylon:
-                    g.GetComponent<ChargePylon>().markPylonDone();
+                    if (g.GetComponent<ChargePylon>() != null)
+                    {
+                        g.GetComponent<ChargePylon>().markPylonDone();
+                    }
+                    if (g.GetComponent<FinalPylon>() != null)
+                    {
+                        g.GetComponent<FinalPylon>().markPylonDone();
+                    }
                     break;
                 case ObjectiveType.Artifact:
                     g.GetComponent<Artifact>().MarkArtifactDone();

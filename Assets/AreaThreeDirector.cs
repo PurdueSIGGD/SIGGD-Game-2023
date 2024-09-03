@@ -23,8 +23,8 @@ public class AreaThreeDirector : MonoBehaviour
 
 
     [SerializeField] public MusicConductor musicConductor;
-    [SerializeField] public AudioSource damageSound;
-    [SerializeField] public AudioSource whaleSound;
+    [SerializeField] public AudioSource eldritchSound;
+    [SerializeField] public AudioSource hummingSound;
 
 
     [SerializeField] public InteractPrompt interactPrompt;
@@ -40,6 +40,7 @@ public class AreaThreeDirector : MonoBehaviour
     [SerializeField] public ChargePylon pylon1;
     [SerializeField] public ChargePylon pylon2;
     [SerializeField] public ChargePylon pylon3;
+    [SerializeField] public FinalPylon finalPylon;
 
 
 
@@ -81,7 +82,7 @@ public class AreaThreeDirector : MonoBehaviour
 
     //TORPEDOER PICKUP SEQUENCE --------------------------------------------------------------------
 
-    public sequenceState torpedoerPickupState = sequenceState.READY;
+    [SerializeField] public SequenceTrigger torpedoerPickupTrigger;
 
     [SerializeField] public Artifact torpedoer;
 
@@ -118,6 +119,110 @@ public class AreaThreeDirector : MonoBehaviour
     private string atLastMessage1 = "At last...";
 
     private string atLastMessage2 = "Your escape awaits...";
+
+
+
+    //PYLON 3 START SEQUENCE --------------------------------------------------------------------
+
+    public sequenceState pylon3StartState = sequenceState.READY;
+
+
+
+    //CLOSER SEQUENCE --------------------------------------------------------------------
+
+    [SerializeField] public SequenceTrigger closerTrigger;
+
+    private string closerSender = "0x00005555471869EA5";
+
+    private string closerMessage1 = "Ever closer...";
+
+
+
+    //BE FREED SEQUENCE --------------------------------------------------------------------
+
+    [SerializeField] public SequenceTrigger beFreedTrigger;
+
+    private string beFreedSender = "0x00005555C51F690A5";
+
+    private string beFreedMessage1 = "Awaken it...";
+
+    private string beFreedMessage2 = "And be freed.";
+
+    private string beFreedObjective = "Activate the Teleporter";
+
+
+
+    //AGONIZING SEQUENCE --------------------------------------------------------------------
+
+    public sequenceState agonizingState = sequenceState.READY;
+
+    private string agonizingSender = "0x00007FFFF7724268";
+
+    private string agonizingMessage1 = "It is... agonizing...";
+
+    private string agonizingMessage2 = "It is worth the pain.";
+
+
+
+    //PAIN SEQUENCE --------------------------------------------------------------------
+
+    public sequenceState painState = sequenceState.READY;
+
+    private string painSender = "0x00007FFFF772BCB3";
+
+    private string painMessage1 = "Pain will make us stronger.";
+
+    private string painMessage2 = "The world will see our strength.";
+
+
+
+    //WORLD SEQUENCE --------------------------------------------------------------------
+
+    public sequenceState worldState = sequenceState.READY;
+
+    private string worldSender = "0x00007FFFF07E5416";
+
+    private string worldMessage1 = "The world will see you.";
+
+    private string worldMessage2 = "The world will see... me...";
+
+
+
+    //DONE SEQUENCE --------------------------------------------------------------------
+
+    public sequenceState doneState = sequenceState.WAITING;
+
+    private string doneSender = "0x0000555547F3AD9A5";
+
+    private string doneMessage1 = "It is done.";
+
+    private string doneMessage2 = "Now... liberate yourself...";
+
+    private string doneMessage3 = "Liberate... the world.";
+
+    private string doneObjective = "Use the Teleporter";
+
+
+
+    //REJOICE SEQUENCE --------------------------------------------------------------------
+
+    public sequenceState rejoiceState = sequenceState.READY;
+
+    [SerializeField] public ControlledEnemySpawner rejoiceEnemySpawner;
+
+    [SerializeField] public List<enemyType> rejoiceEnemyList1;
+
+    [SerializeField] public GameObject playerEndPoint;
+
+    [SerializeField] public GameObject cameraHolder;
+
+    private string rejoiceSender = "0x00007FFFF074A2056";
+
+    private string rejoiceMessage1 = "Rejoice. You are free.";
+
+    private string rejoiceMessage2 = "I... am... free...";
+
+    private string teleportObjective = "Teleporter Activating...   ";
 
 
 
@@ -340,6 +445,12 @@ public class AreaThreeDirector : MonoBehaviour
     public IEnumerator lateStart()
     {
         yield return new WaitForSeconds(0.1f);
+        whaleFirstEncounterTrigger.sequenceState = sequenceState.READY;
+        torpedoerPickupTrigger.sequenceState = sequenceState.READY;
+        salvationTrigger.sequenceState = sequenceState.READY;
+        atLastTrigger.sequenceState = sequenceState.READY;
+        closerTrigger.sequenceState = sequenceState.READY;
+        beFreedTrigger.sequenceState = sequenceState.READY;
         /*
         jellyFirstEncounterTrigger.sequenceState = sequenceState.READY;
         strongerTrigger.sequenceState = sequenceState.READY;
@@ -359,7 +470,8 @@ public class AreaThreeDirector : MonoBehaviour
             pylon1.GetComponent<Collider>().enabled = false;
             pylon2.GetComponent<Collider>().enabled = false;
             pylon3.GetComponent<Collider>().enabled = false;
-            musicConductor.crossfade(0f, musicConductor.deathTrack, 3f, 0f, musicConductor.deathTrack.loopStartTime);
+            //musicConductor.crossfade(0f, musicConductor.deathTrack, 3f, 0f, musicConductor.deathTrack.loopStartTime);
+            musicConductor.crossfade(0f, musicConductor.hummingTrack, 3f, 0f, 0f);
             yield return new WaitForSeconds(3f);
             pylon1.GetComponent<Collider>().enabled = true;
             pylon2.GetComponent<Collider>().enabled = true;
@@ -393,6 +505,125 @@ public class AreaThreeDirector : MonoBehaviour
             return;
         }
 
+
+        //Whale First Encounter Trigger
+        if (whaleFirstEncounterTrigger.sequenceState == sequenceState.READY)
+        {
+            if (whaleFirstEncounterTrigger.triggered && pylon1.chargeDone)
+            {
+                StartCoroutine(whaleFirstEncounterSequence());
+            }
+        }
+
+
+        //Torpedoer Pickup Trigger
+        if (torpedoerPickupTrigger.sequenceState == sequenceState.READY)
+        {
+            if (torpedoerPickupTrigger.triggered && torpedoer.isUsed)
+            {
+                StartCoroutine(torpedoerPickupSequence());
+            }
+        }
+
+
+        //Salvation Trigger
+        if (salvationTrigger.sequenceState == sequenceState.READY)
+        {
+            if (salvationTrigger.triggered && pylon2.chargeDone)
+            {
+                StartCoroutine(salvationSequence());
+            }
+        }
+
+
+        //At Last Trigger
+        if (atLastTrigger.sequenceState == sequenceState.READY)
+        {
+            if (atLastTrigger.triggered && pylon3.chargeDone)
+            {
+                StartCoroutine(atLastSequence());
+            }
+        }
+
+
+        //Pylon 3 Start Trigger
+        if (pylon3StartState == sequenceState.READY && pylon3.isCharging)
+        {
+            StartCoroutine(pylon3StartSequence());
+        }
+
+
+        //Closer Trigger
+        if (closerTrigger.sequenceState == sequenceState.READY)
+        {
+            if (closerTrigger.triggered)
+            {
+                closerTrigger.sequenceState = sequenceState.RUNNING;
+                StartCoroutine(closerSequence());
+            }
+        }
+
+
+        //Be Freed Trigger
+        if (beFreedTrigger.sequenceState == sequenceState.READY)
+        {
+            if (beFreedTrigger.triggered)
+            {
+                beFreedTrigger.sequenceState = sequenceState.RUNNING;
+                StartCoroutine(beFreedSequence());
+            }
+        }
+
+
+        //Agonizing Trigger
+        if (agonizingState == sequenceState.READY)
+        {
+            if (finalPylon.isCharging && finalPylon.currentCharge >= 0f)
+            {
+                StartCoroutine(agonizingSequence());
+            }
+        }
+
+
+        //Pain Trigger
+        if (painState == sequenceState.READY)
+        {
+            if (finalPylon.isCharging && finalPylon.currentCharge >= 34f)
+            {
+                StartCoroutine(painSequence());
+            }
+        }
+
+
+        //World Trigger
+        if (worldState == sequenceState.READY)
+        {
+            if (finalPylon.isCharging && finalPylon.currentCharge >= 67f)
+            {
+                StartCoroutine(worldSequence());
+            }
+        }
+
+
+        //Done Trigger
+        if (doneState == sequenceState.READY)
+        {
+            if (finalPylon.chargeDone)
+            {
+                StartCoroutine(doneSequence());
+            }
+        }
+
+
+        //Rejoice Trigger
+        if (rejoiceState == sequenceState.READY)
+        {
+            if (finalPylon.chargeDone && finalPylon.isUsed)
+            {
+                StartCoroutine(rejoiceSequence());
+            }
+        }
+        
 
         /*
         //Jelly First Encounter Trigger
@@ -583,6 +814,325 @@ public class AreaThreeDirector : MonoBehaviour
     //----------------------------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+    //WHALE FIRST ENCOUNTER SEQUENCE --------------------------------------------------------------------
+    public IEnumerator whaleFirstEncounterSequence()
+    {
+        whaleFirstEncounterTrigger.sequenceState = sequenceState.RUNNING;
+        yield return new WaitForSeconds(2f);
+        if (!fastSequencesDEV)
+        {
+            //eldritchSound.loop = true;
+            eldritchSound.Play();
+            yield return messanger.showMessage("", whaleFirstEncounterSender, false);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(whaleFirstEncounterMessage1, whaleFirstEncounterSender, true);
+            yield return new WaitForSeconds(2f);
+            yield return messanger.showMessage(whaleFirstEncounterMessage2, whaleFirstEncounterSender, true);
+            yield return new WaitForSeconds(2f);
+            eldritchSound.Play();
+            yield return messanger.showMessage(whaleFirstEncounterMessage3, whaleFirstEncounterSender, true);
+            //eldritchSound.loop = false;
+            //eldritchSound.Stop();
+            yield return new WaitForSeconds(1.5f);
+        }
+        whaleFirstEncounterEnemies = whaleFirstEncounterEnemySpawner.spawnEnemyWave(whaleFirstEncounterEnemyList1);
+        yield return new WaitForSeconds(1f);
+        messanger.hideMessage();
+        whaleFirstEncounterTrigger.sequenceState = sequenceState.COMPLETE;
+    }
+
+
+
+    //TORPEDOER PICKUP SEQUENCE --------------------------------------------------------------------
+    public IEnumerator torpedoerPickupSequence()
+    {
+        torpedoerPickupTrigger.sequenceState = sequenceState.RUNNING;
+        pauseEnemySpawning();
+        if (!fastSequencesDEV)
+        {
+            //eldritchSound.loop = true;
+            eldritchSound.Play();
+            yield return messanger.showMessage("", torpedoerPickupSender, false);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(torpedoerPickupMessage1, torpedoerPickupSender, true);
+            //eldritchSound.loop = false;
+            //eldritchSound.Stop();
+            yield return new WaitForSeconds(1.25f);
+        }
+        torpedoerPickupTrigger.sequenceState = sequenceState.COMPLETE;
+        yield return new WaitForSeconds(1.25f);
+        resumeEnemySpawning();
+        messanger.hideMessage();
+    }
+
+
+
+    //SALVATION SEQUENCE --------------------------------------------------------------------
+    public IEnumerator salvationSequence()
+    {
+        salvationTrigger.sequenceState = sequenceState.RUNNING;
+        yield return new WaitForSeconds(2f);
+        if (!fastSequencesDEV)
+        {
+            //eldritchSound.loop = true;
+            eldritchSound.Play();
+            yield return messanger.showMessage("", salvationSender, false);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(salvationMessage1, salvationSender, true);
+            yield return new WaitForSeconds(2f);
+            eldritchSound.Play();
+            yield return messanger.showMessage(salvationMessage2, salvationSender, true);
+            //eldritchSound.loop = false;
+            yield return new WaitForSeconds(2.5f);
+        }
+        salvationEnemies = salvationEnemySpawner.spawnEnemyWave(salvationEnemyList1);
+        yield return new WaitForSeconds(1f);
+        messanger.hideMessage();
+        salvationTrigger.sequenceState = sequenceState.COMPLETE;
+    }
+
+
+
+    //AT LAST SEQUENCE --------------------------------------------------------------------
+    public IEnumerator atLastSequence()
+    {
+        atLastTrigger.sequenceState = sequenceState.RUNNING;
+        yield return new WaitForSeconds(2f);
+        if (!fastSequencesDEV)
+        {
+            //eldritchSound.loop = true;
+            eldritchSound.Play();
+            yield return messanger.showMessage("", atLastSender, false);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(atLastMessage1, atLastSender, true);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(atLastMessage2, atLastSender, true);
+            //eldritchSound.loop = false;
+            yield return new WaitForSeconds(2.5f);
+        }
+        messanger.hideMessage();
+        atLastTrigger.sequenceState = sequenceState.COMPLETE;
+        yield return new WaitForSeconds(5f);
+    }
+
+
+
+    //PYLON 3 START SEQUENCE --------------------------------------------------------------------
+    public IEnumerator pylon3StartSequence()
+    {
+        pylon3StartState = sequenceState.RUNNING;
+        yield return new WaitForSeconds(5f);
+        salvationEnemySpawner.spawnEnemyWave(salvationEnemyList1);
+        pylon3StartState = sequenceState.COMPLETE;
+    }
+
+
+
+    //CLOSER SEQUENCE --------------------------------------------------------------------
+    public IEnumerator closerSequence()
+    {
+        closerTrigger.sequenceState = sequenceState.RUNNING;
+        if (!fastSequencesDEV)
+        {
+            //eldritchSound.loop = true;
+            eldritchSound.Play();
+            yield return messanger.showMessage("", closerSender, false);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(closerMessage1, closerSender, true);
+            //eldritchSound.loop = false;
+            yield return new WaitForSeconds(2.5f);
+        }
+        messanger.hideMessage();
+        closerTrigger.sequenceState = sequenceState.COMPLETE;
+    }
+
+
+
+    //BE FREED SEQUENCE --------------------------------------------------------------------
+    public IEnumerator beFreedSequence()
+    {
+        beFreedTrigger.sequenceState = sequenceState.RUNNING;
+        finalPylon.GetComponent<Collider>().enabled = false;
+        if (!fastSequencesDEV)
+        {
+            //eldritchSound.loop = true;
+            eldritchSound.Play();
+            yield return messanger.showMessage("", beFreedSender, false);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(beFreedMessage1, beFreedSender, true);
+            yield return new WaitForSeconds(2f);
+            yield return messanger.showMessage(beFreedMessage2, beFreedSender, true);
+            //eldritchSound.loop = false;
+            yield return new WaitForSeconds(1.5f);
+        }
+        finalPylon.GetComponent<Collider>().enabled = true;
+        objectivePrompt.showPrompt(beFreedObjective);
+        yield return new WaitForSeconds(1f);
+        messanger.hideMessage();
+        beFreedTrigger.sequenceState = sequenceState.COMPLETE;
+    }
+
+
+
+    //AGONIZING SEQUENCE --------------------------------------------------------------------
+    public IEnumerator agonizingSequence()
+    {
+        agonizingState = sequenceState.RUNNING;
+        yield return new WaitForSeconds(3f);
+        if (!fastSequencesDEV)
+        {
+            //eldritchSound.loop = true;
+            eldritchSound.Play();
+            yield return messanger.showMessage("", agonizingSender, false);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(agonizingMessage1, agonizingSender, true);
+            yield return new WaitForSeconds(2f);
+            eldritchSound.Play();
+            yield return messanger.showMessage(agonizingMessage2, agonizingSender, true);
+            //eldritchSound.loop = false;
+            yield return new WaitForSeconds(3f);
+        }
+        messanger.hideMessage();
+        agonizingState = sequenceState.COMPLETE;
+    }
+
+
+
+    //PAIN SEQUENCE --------------------------------------------------------------------
+    public IEnumerator painSequence()
+    {
+        painState = sequenceState.RUNNING;
+        if (!fastSequencesDEV)
+        {
+            //eldritchSound.loop = true;
+            eldritchSound.Play();
+            yield return messanger.showMessage("", painSender, false);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(painMessage1, painSender, true);
+            yield return new WaitForSeconds(2f);
+            eldritchSound.Play();
+            yield return messanger.showMessage(painMessage2, painSender, true);
+            //eldritchSound.loop = false;
+            yield return new WaitForSeconds(3f);
+        }
+        messanger.hideMessage();
+        painState = sequenceState.COMPLETE;
+    }
+
+
+
+    //WORLD SEQUENCE --------------------------------------------------------------------
+    public IEnumerator worldSequence()
+    {
+        worldState = sequenceState.RUNNING;
+        if (!fastSequencesDEV)
+        {
+            //eldritchSound.loop = true;
+            eldritchSound.Play();
+            yield return messanger.showMessage("", worldSender, false);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(worldMessage1, worldSender, true);
+            yield return new WaitForSeconds(2f);
+            eldritchSound.Play();
+            yield return messanger.showMessage(worldMessage2, worldSender, true);
+            //eldritchSound.loop = false;
+            yield return new WaitForSeconds(3f);
+        }
+        messanger.hideMessage();
+        doneState = sequenceState.READY;
+        worldState = sequenceState.COMPLETE;
+    }
+
+
+
+    //DONE SEQUENCE --------------------------------------------------------------------
+    public IEnumerator doneSequence()
+    {
+        doneState = sequenceState.RUNNING;
+        finalPylon.GetComponent<Collider>().enabled = false;
+        yield return new WaitForSeconds(2.5f);
+        playerMovement.rooted = true;
+        playerAttackHandler.enabled = false;
+        if (!fastSequencesDEV)
+        {
+            //eldritchSound.loop = true;
+            eldritchSound.Play();
+            yield return messanger.showMessage("", doneSender, false);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(doneMessage1, doneSender, true);
+            yield return new WaitForSeconds(2f);
+            yield return messanger.showMessage(doneMessage2, doneSender, true);
+            yield return new WaitForSeconds(2f);
+            eldritchSound.Play();
+            yield return messanger.showMessage(doneMessage3, doneSender, true);
+            //eldritchSound.loop = false;
+            yield return new WaitForSeconds(1.5f);
+        }
+        playerMovement.rooted = false;
+        playerAttackHandler.enabled = true;
+        finalPylon.GetComponent<Collider>().enabled = true;
+        objectivePrompt.showPrompt(doneObjective);
+        yield return new WaitForSeconds(1f);
+        messanger.hideMessage();
+        doneState = sequenceState.COMPLETE;
+    }
+
+
+
+    //REJOICE SEQUENCE --------------------------------------------------------------------
+    public IEnumerator rejoiceSequence()
+    {
+        rejoiceState = sequenceState.RUNNING;
+        playerMovement.rooted = true;
+        playerAttackHandler.enabled = false;
+        cameraHolder.GetComponent<CameraFollow>().enabled = false;
+        rejoiceEnemySpawner.spawnPoints[0].transform.position = playerAttackHandler.gameObject.transform.position;
+        objectivePrompt.hidePrompt();
+        musicConductor.crossfade(1f, musicConductor.nullTrack, 0f, 0f, 0f);
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(playRampingHummingSound(30f, 1f, 2.5f));
+        StartCoroutine(teleportActivatingSequence());
+        yield return new WaitForSeconds(4f);
+        if (!fastSequencesDEV)
+        {
+            //eldritchSound.loop = true;
+            eldritchSound.Play();
+            yield return messanger.showMessage("", rejoiceSender, false);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(rejoiceMessage1, rejoiceSender, true);
+            yield return new WaitForSeconds(2.5f);
+            messanger.hideMessage();
+            yield return new WaitForSeconds(2f);
+            eldritchSound.Play();
+            yield return messanger.showMessage("", rejoiceSender, false);
+            yield return new WaitForSeconds(1.5f);
+            yield return messanger.showMessage(rejoiceMessage2, rejoiceSender, true);
+            //eldritchSound.loop = false;
+            yield return new WaitForSeconds(4f);
+        }
+
+        playerAttackHandler.gameObject.transform.position = playerEndPoint.transform.position;
+        rejoiceEnemySpawner.spawnEnemyWave(rejoiceEnemyList1);
+
+        //messanger.hideMessage();
+        rejoiceState = sequenceState.COMPLETE;
+    }
+
+
+
+    //TELEPORT ACTIVATING SUBSEQUENCE --------------------------------------------------------------------
+    public IEnumerator teleportActivatingSequence()
+    {
+        //int teleportCountdown = 10;
+        for (int i = 10; i > 0; i--)
+        {
+            objectivePrompt.showPrompt(teleportObjective + i);
+            yield return new WaitForSeconds(3f);
+        }
+    }
 
 
 
@@ -986,6 +1536,28 @@ public class AreaThreeDirector : MonoBehaviour
         enemySpawner.waveSpawnTimer = 0f;
         enemySpawner.constantSpawnInterval = constantSpawnInterval;
         enemySpawner.waveSpawnInterval = waveSpawnInterval;
+    }
+
+
+
+    //Hum pitcher
+    public IEnumerator playRampingHummingSound(float duration, float initialPitch, float finalPitch)
+    {
+        hummingSound.Stop();
+        hummingSound.pitch = initialPitch;
+        hummingSound.Play();
+        for (int i = 0; i < 50; i++)
+        {
+            //if (!teleportFailed)
+            //{
+            hummingSound.pitch += (finalPitch - initialPitch) / 50;
+            //}
+            yield return new WaitForSeconds(duration / 50);
+        }
+        //if (!teleportFailed)
+        //{
+        hummingSound.Stop();
+        //}
     }
 
 
