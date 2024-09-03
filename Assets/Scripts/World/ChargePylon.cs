@@ -93,7 +93,9 @@ public class ChargePylon : Interactable
         if (isUsed && isCharging && (Time.time - previousTickTime >= tickRate))
         {
             currentCharge += ((Time.time - previousTickTime) /*tickRate*/ / chargeTime) * 100f;
-            objectivePrompt.showPrompt("Pylon Charging...   " + Mathf.FloorToInt(currentCharge) + "%");
+            //objectivePrompt.showPrompt("Pylon Charging...   " + Mathf.FloorToInt(currentCharge) + "%");
+            objectivePrompt.showPrompt("Pylon Charging...");
+            objectivePrompt.showProgressBar(currentCharge / 100f);
 
             //Activated Light Fader
             if (activatedLight != null)
@@ -123,6 +125,7 @@ public class ChargePylon : Interactable
             StartCoroutine(activationFlare());
             StartCoroutine(rangeRingFade(false));
             objectivePrompt.hidePrompt();
+            objectivePrompt.hideProgressBar();
 
             markPylonDone();
             
@@ -135,7 +138,7 @@ public class ChargePylon : Interactable
     private void SavePylon()
     {
         var saveManager = FindObjectOfType<SaveManager>();
-        saveManager.SetSpawnPoint(transform.position + Vector3.right * 10f);
+        saveManager.SetSpawnPoint(transform.position + Vector3.back * 10f);
         saveManager.MarkObjective(gameObject, SaveManager.ObjectiveType.Pylon);
     }
 

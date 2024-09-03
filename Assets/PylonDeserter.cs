@@ -109,6 +109,7 @@ public class PylonDeserter : MonoBehaviour
         }
         StartCoroutine(pylon.rangeRingFade(false));
         pylon.objectivePrompt.hidePrompt();
+        pylon.objectivePrompt.hideProgressBar();
         pylon.interactPrompt.showPrompt("Pylon Activation Failed");
         yield return new WaitForSeconds(2.5f);
         pylon.interactPrompt.hidePrompt();

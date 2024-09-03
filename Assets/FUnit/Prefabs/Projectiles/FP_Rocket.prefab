@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config:
-    duration: 1
+    duration: 1.5
     damage: 150
     speed: 30
     dmgRadius: 5
@@ -169,7 +169,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.125
+      value: 0.16666667
       inSlope: 0
       outSlope: 0
       tangentMode: 0

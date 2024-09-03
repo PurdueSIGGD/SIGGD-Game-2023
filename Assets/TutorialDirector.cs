@@ -20,6 +20,7 @@ public class TutorialDirector : MonoBehaviour
     [SerializeField] public HealthPoints playerHealthPoints;
     [SerializeField] public playerAttackHandler playerAttackHandler;
     [SerializeField] public EnemySpawner enemySpawner;
+    [SerializeField] public MiniMap miniMap;
 
 
 
@@ -36,6 +37,8 @@ public class TutorialDirector : MonoBehaviour
     [SerializeField] public CompanionMessages messanger;
     [SerializeField] public ObjectivePrompt objectivePrompt;
     [SerializeField] public Image fadeScreenImage;
+
+    [SerializeField] public GameObject dummyObjective;
 
 
 
@@ -818,26 +821,36 @@ public class TutorialDirector : MonoBehaviour
                 StartCoroutine(startUpSequence());
                 break;
             case 1:
+                miniMap.sonarEnabled = false;
+                miniMap.enemiesEnabled = false;
                 objectivePrompt.showPrompt(lightHuntObjective);
                 musicConductor.crossfade(0f, musicConductor.tutorialTrack, 3f, 0f, 22.3f);
                 break;
             case 2:
+                miniMap.sonarEnabled = false;
+                miniMap.enemiesEnabled = false;
                 interactPrompt.showPrompt(echoTutorialPrompt);
                 musicConductor.crossfade(0f, musicConductor.lvl1Track, 3f, 0f, 25f);
                 break;
             case 3:
+                miniMap.sonarEnabled = false;
+                miniMap.enemiesEnabled = false;
                 objectivePrompt.showPrompt(backtrackArtifactRoomObjective);
                 musicConductor.crossfade(0f, musicConductor.lvl1Track, 0.5f, 0f, 78f);
                 break;
             case 4:
+                miniMap.sonarEnabled = false;
+                miniMap.enemiesEnabled = false;
                 objectivePrompt.showPrompt(teleportObjective2);
                 musicConductor.crossfade(0f, musicConductor.hummingTrack, 2f, 0f, 0f);
                 break;
             case 5:
+                miniMap.enemiesEnabled = false;
                 objectivePrompt.showPrompt(collectCoreObjective);
                 musicConductor.crossfade(0f, musicConductor.hummingTrack, 2f, 0f, 0f);
                 break;
             case 6:
+                miniMap.enemiesEnabled = false;
                 playerMovement.rooted = true;
                 playerAttackHandler.enabled = false;
                 interactPrompt.showPrompt(newScanPrompt);
@@ -1164,6 +1177,8 @@ public class TutorialDirector : MonoBehaviour
         //ASP exo-suit start up
         playerMovement.enabled = false;
         playerAttackHandler.enabled = false;
+        miniMap.sonarEnabled = false;
+        miniMap.enemiesEnabled = false;
         fadeScreenImage.enabled = true;
         //tutorialGate.transform.position = Vector3.zero;
         if (!fastSequencesDEV)
@@ -1229,6 +1244,10 @@ public class TutorialDirector : MonoBehaviour
         interactPrompt.showPrompt(movementTutorialPrompt);
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
+
+        var saveManager = FindObjectOfType<SaveManager>();
+        //saveManager.SetSpawnPoint(transform.position + Vector3.back * 10f);
+        saveManager.MarkObjective(dummyObjective, SaveManager.ObjectiveType.GameObjectDisabled);
 
         startUpState = sequenceState.COMPLETE;
         movementTutorialState = sequenceState.READY;
@@ -2095,6 +2114,8 @@ public class TutorialDirector : MonoBehaviour
         //playerMovement.enabled = false;
         playerMovement.rooted = true;
         playerAttackHandler.enabled = false;
+        miniMap.sonarEnabled = true;
+        miniMap.enemiesEnabled = false;
 
         //Destroy(submarineInteractables);
         hummingSound.Stop();
@@ -2277,6 +2298,8 @@ public class TutorialDirector : MonoBehaviour
     {
         findPylonState = sequenceState.RUNNING;
 
+        miniMap.sonarEnabled = true;
+        miniMap.enemiesEnabled = true;
         objectivePrompt.hidePrompt();
         yield return new WaitForSeconds(0.5f);
         if (!fastSequencesDEV)

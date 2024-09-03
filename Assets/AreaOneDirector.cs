@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Experimental;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
 using UnityEngine.UI;
@@ -20,6 +21,7 @@ public class AreaOneDirector : MonoBehaviour
     [SerializeField] public playerAttackHandler playerAttackHandler;
     [SerializeField] public EnemySpawner enemySpawner;
     [SerializeField] public TutorialDirector tutorialDirector;
+    [SerializeField] public MiniMap miniMap;
 
 
     [SerializeField] public MusicConductor musicConductor;
@@ -429,6 +431,8 @@ public class AreaOneDirector : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         playerMovement.rooted = true;
         playerAttackHandler.enabled = false;
+        miniMap.sonarEnabled = false;
+        miniMap.enemiesEnabled = false;
         pauseEnemySpawning();
         if (!fastSequencesDEV)
         {
@@ -446,6 +450,8 @@ public class AreaOneDirector : MonoBehaviour
         objectivePrompt.showPrompt(pylon1CompleteObjective);
         playerMovement.rooted = false;
         playerAttackHandler.enabled = true;
+        miniMap.sonarEnabled = true;
+        miniMap.enemiesEnabled = true;
         pylon1CompleteState = sequenceState.COMPLETE;
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
@@ -480,6 +486,8 @@ public class AreaOneDirector : MonoBehaviour
         splitterPickupState = sequenceState.RUNNING;
         playerMovement.rooted = true;
         playerAttackHandler.enabled = false;
+        miniMap.sonarEnabled = false;
+        miniMap.enemiesEnabled = false;
         pauseEnemySpawning();
         if (!fastSequencesDEV)
         {
@@ -528,6 +536,8 @@ public class AreaOneDirector : MonoBehaviour
         }
         playerMovement.rooted = false;
         playerAttackHandler.enabled = true;
+        miniMap.sonarEnabled = true;
+        miniMap.enemiesEnabled = true;
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
         splitterPlacedEnemySpawner.spawnEnemyWave(splitterPlacedEnemyList1);
@@ -547,6 +557,8 @@ public class AreaOneDirector : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         playerMovement.rooted = true;
         playerAttackHandler.enabled = false;
+        miniMap.sonarEnabled = false;
+        miniMap.enemiesEnabled = false;
         pauseEnemySpawning();
         if (!fastSequencesDEV)
         {
@@ -562,6 +574,8 @@ public class AreaOneDirector : MonoBehaviour
         objectivePrompt.showPrompt(pylon3CompleteObjective);
         playerMovement.rooted = false;
         playerAttackHandler.enabled = true;
+        miniMap.sonarEnabled = true;
+        miniMap.enemiesEnabled = false;
         pylon3CompleteState = sequenceState.COMPLETE;
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();

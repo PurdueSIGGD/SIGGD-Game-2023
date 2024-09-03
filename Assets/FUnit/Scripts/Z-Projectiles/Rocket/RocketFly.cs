@@ -43,6 +43,11 @@ public class RocketFly : ProjState
         {
             rocket.personal.direction = (target.transform.position - obj.transform.position).normalized;
         }
+
+        if (rocket.personal.target == null)
+        {
+            rocket.SwitchState(RocketPFSM.boomState);
+        }
     }
 
     public override void OnTriggerEnter(MonoBehaviour context, Collider collider)

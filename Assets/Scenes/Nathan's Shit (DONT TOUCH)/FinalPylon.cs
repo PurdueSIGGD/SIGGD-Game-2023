@@ -110,7 +110,9 @@ public class FinalPylon : Interactable
         if (isUsed && isCharging && (Time.time - previousTickTime >= tickRate))
         {
             currentCharge += ((Time.time - previousTickTime) /*tickRate*/ / chargeTime) * 100f;
-            objectivePrompt.showPrompt("Teleporter Charging...   " + Mathf.FloorToInt(currentCharge) + "%");
+            //objectivePrompt.showPrompt("Teleporter Charging...   " + Mathf.FloorToInt(currentCharge) + "%");
+            objectivePrompt.showPrompt("Teleporter Charging...");
+            objectivePrompt.showProgressBar(currentCharge / 100f);
 
             //Activated Light Fader
             if (activatedLight != null)
@@ -167,6 +169,7 @@ public class FinalPylon : Interactable
         isCharging = false;
         playerLevel.levelUp();
         objectivePrompt.hidePrompt();
+        objectivePrompt.hideProgressBar();
         chargeDone = true;
         isUsed = false;
         promptMessage = "E | Use Teleporter";

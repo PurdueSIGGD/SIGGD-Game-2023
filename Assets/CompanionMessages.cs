@@ -9,6 +9,8 @@ public class CompanionMessages : MonoBehaviour
 
     [SerializeField] private GameObject messageBackground;
     [SerializeField] private TMP_Text messageTextBox;
+    [SerializeField] private AudioSource messageSound;
+    [SerializeField] private AudioSource slowMessageSound;
     [SerializeField] private bool DEVTOOLsendMessage; //DEV TOOL
     [SerializeField] private bool DEVTOOLkillMessage; //DEV TOOL
 
@@ -63,6 +65,14 @@ public class CompanionMessages : MonoBehaviour
             }
             yield return new WaitForSeconds(Random.Range(0.125f, 0.25f));
             messageTextBox.text += word + " ";
+            if (slow)
+            {
+                slowMessageSound.Play();
+            }
+            else
+            {
+                messageSound.Play();
+            }
         }
     }
 

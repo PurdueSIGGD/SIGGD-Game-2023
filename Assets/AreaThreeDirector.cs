@@ -20,6 +20,7 @@ public class AreaThreeDirector : MonoBehaviour
     [SerializeField] public playerAttackHandler playerAttackHandler;
     [SerializeField] public EnemySpawner enemySpawner;
     [SerializeField] public TutorialDirector tutorialDirector;
+    [SerializeField] public MiniMap miniMap;
 
 
     [SerializeField] public MusicConductor musicConductor;
@@ -882,7 +883,7 @@ public class AreaThreeDirector : MonoBehaviour
             yield return messanger.showMessage("", salvationSender, false);
             yield return new WaitForSeconds(1.5f);
             yield return messanger.showMessage(salvationMessage1, salvationSender, true);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
             eldritchSound.Play();
             yield return messanger.showMessage(salvationMessage2, salvationSender, true);
             //eldritchSound.loop = false;
@@ -989,7 +990,7 @@ public class AreaThreeDirector : MonoBehaviour
             yield return messanger.showMessage("", agonizingSender, false);
             yield return new WaitForSeconds(1.5f);
             yield return messanger.showMessage(agonizingMessage1, agonizingSender, true);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
             eldritchSound.Play();
             yield return messanger.showMessage(agonizingMessage2, agonizingSender, true);
             //eldritchSound.loop = false;
@@ -1012,7 +1013,7 @@ public class AreaThreeDirector : MonoBehaviour
             yield return messanger.showMessage("", painSender, false);
             yield return new WaitForSeconds(1.5f);
             yield return messanger.showMessage(painMessage1, painSender, true);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
             eldritchSound.Play();
             yield return messanger.showMessage(painMessage2, painSender, true);
             //eldritchSound.loop = false;
@@ -1035,7 +1036,7 @@ public class AreaThreeDirector : MonoBehaviour
             yield return messanger.showMessage("", worldSender, false);
             yield return new WaitForSeconds(1.5f);
             yield return messanger.showMessage(worldMessage1, worldSender, true);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
             eldritchSound.Play();
             yield return messanger.showMessage(worldMessage2, worldSender, true);
             //eldritchSound.loop = false;
@@ -1056,6 +1057,8 @@ public class AreaThreeDirector : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         playerMovement.rooted = true;
         playerAttackHandler.enabled = false;
+        miniMap.sonarEnabled = false;
+        miniMap.enemiesEnabled = false;
         if (!fastSequencesDEV)
         {
             //eldritchSound.loop = true;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using System.Collections;
 
 [CustomEditor(typeof(SaveManager))]
 internal class SaveManagerEditor : Editor {
@@ -27,7 +28,7 @@ internal class SaveManagerEditor : Editor {
         var stringIn = GUILayout.TextArea("");
         if (GUILayout.Button("Load this Save String"))
         {
-            saveManager.LoadGameString(stringIn);
+            saveManager.StartCoroutine(saveManager.LoadGameString(stringIn));
         }
         
         GUILayout.Space(16);
@@ -80,6 +81,22 @@ public class SaveManager : MonoBehaviour
     
     public void MarkObjective(GameObject gameObjectKey, ObjectiveType objectiveType)
     {
+        Debug.Log("GameObjectKey: " + gameObjectKey.name + "  |  objectiveType: " + objectiveType);
+        if (saveData.objectives == null)
+        {
+            ObjectiveData firstObjective = new ObjectiveData(gameObjectKey, objectiveType);
+            var newList = new List<ObjectiveData>();
+            newList.Add(firstObjective);
+            saveData.objectives = newList.ToArray();
+            //ObjectiveData[] objectiveList = { firstObjective };
+            //saveData.objectives = objectiveList;
+            Debug.Log("Calling Save");
+            SaveGame();
+            return;
+        }
+
+        Debug.Log("Why are we here?");
+
         // Check to make sure there is no duplicates
         foreach (var objective in saveData.objectives)
         {
@@ -125,10 +142,12 @@ public class SaveManager : MonoBehaviour
 
         // Get tutorial progress
         saveData.tutorialProgress = FindObjectOfType<TutorialDirector>().tutorialProgress;
-        
+
+        Debug.Log("About to JSONify");
         var saveDataString = JsonUtility.ToJson(saveData);
         Debug.Log($"Save string: {saveDataString}");
         PlayerPrefs.SetString(SaveGameKey, saveDataString);
+        Debug.Log("Saved!");
     }
 
     public void LoadGame()
@@ -136,7 +155,7 @@ public class SaveManager : MonoBehaviour
         if (PlayerPrefs.HasKey(SaveGameKey))
         {
             var saveDataString = GetSaveString();
-            LoadGameString(saveDataString);
+            StartCoroutine(LoadGameString(saveDataString));
         }
         else
         {
@@ -145,7 +164,7 @@ public class SaveManager : MonoBehaviour
     }
 
     // Load everything as it was during the save
-    public void LoadGameString(string saveDataString)
+    public IEnumerator LoadGameString(string saveDataString)
     {
         saveData = JsonUtility.FromJson<SaveData>(saveDataString);
         
@@ -163,10 +182,11 @@ public class SaveManager : MonoBehaviour
 
 
         //Restore the player's level
-        FindObjectOfType<LightResource>().addLight(100f);
+        /*FindObjectOfType<LightResource>().addLight(100f);
         for (var i = 1; i < saveData.playerLevel; i++) {
             FindObjectOfType<PlayerLevel>().levelUp();
-        }
+        }*/
+        yield return new WaitForSeconds(0.05f);
 
         // Deal with all of the completed objectives
         foreach (var objective in saveData.objectives)

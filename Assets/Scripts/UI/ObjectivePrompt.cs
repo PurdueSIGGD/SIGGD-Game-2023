@@ -33,9 +33,9 @@ public class ObjectivePrompt : MonoBehaviour
         promptTextBox.enabled = false;
     }
 
-    public void showProgressBar()
+    public void showProgressBar(float progress)
     {
-        progressBar.value = 0;
+        progressBar.value = progress;
         progressBar.gameObject.SetActive(true);
     }
 

@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config:
     duration: 0.5
-    damage: 7.2
+    damage: 9
     speed: 80
     dirSprite: {fileID: 4986523703192036839}
 --- !u!1001 &7072889572111703890

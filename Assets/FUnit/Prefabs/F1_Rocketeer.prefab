@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff35ebed15152a6489ac33ccadbc2690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 150
+  manaCost: 200
   type: 0
   fireCooldown: 3.5
   range: 40

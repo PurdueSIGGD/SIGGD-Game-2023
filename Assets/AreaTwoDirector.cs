@@ -20,6 +20,7 @@ public class AreaTwoDirector : MonoBehaviour
     [SerializeField] public playerAttackHandler playerAttackHandler;
     [SerializeField] public EnemySpawner enemySpawner;
     [SerializeField] public TutorialDirector tutorialDirector;
+    [SerializeField] public MiniMap miniMap;
 
 
     [SerializeField] public MusicConductor musicConductor;
@@ -305,6 +306,8 @@ public class AreaTwoDirector : MonoBehaviour
         }
         if (tutorialDirector.tutorialProgress == 9) //Siren Caves Active
         {
+            miniMap.sonarEnabled = true;
+            miniMap.enemiesEnabled = false;
             musicConductor.crossfade(0f, musicConductor.sirenTrack, 3f, 0f, 0f);
             pauseEnemySpawning();
         }
@@ -519,6 +522,8 @@ public class AreaTwoDirector : MonoBehaviour
     //JELLY FIRST ENCOUNTER SEQUENCE --------------------------------------------------------------------
     public IEnumerator jellyFirstEncounterSequence()
     {
+        miniMap.sonarEnabled = true;
+        miniMap.enemiesEnabled = true;
         pauseEnemySpawning();
         jellyFirstEncounterTrigger.sequenceState = sequenceState.RUNNING;
         jellyFirstEncounterEnemySpawner.spawnEnemyWave(jellyFirstEncounterEnemyList1);
@@ -687,6 +692,8 @@ public class AreaTwoDirector : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         playerMovement.rooted = true;
         playerAttackHandler.enabled = false;
+        miniMap.sonarEnabled = false;
+        miniMap.enemiesEnabled = false;
         pauseEnemySpawning();
         if (!fastSequencesDEV)
         {
@@ -698,6 +705,8 @@ public class AreaTwoDirector : MonoBehaviour
         objectivePrompt.showPrompt(pylon3CompleteObjective);
         playerMovement.rooted = false;
         playerAttackHandler.enabled = true;
+        miniMap.sonarEnabled = true;
+        miniMap.enemiesEnabled = false;
         pylon3CompleteState = sequenceState.COMPLETE;
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
@@ -840,6 +849,8 @@ public class AreaTwoDirector : MonoBehaviour
         goodbyeTrigger.sequenceState = sequenceState.RUNNING;
         playerMovement.rooted = true;
         playerAttackHandler.enabled = false;
+        miniMap.sonarEnabled = false;
+        miniMap.enemiesEnabled = false;
         if (!fastSequencesDEV)
         {
             yield return messanger.showMessage("", aspSender, false);
@@ -867,9 +878,11 @@ public class AreaTwoDirector : MonoBehaviour
         messanger.hideMessage();
         playerMovement.rooted = false;
         playerAttackHandler.enabled = true;
+        miniMap.sonarEnabled = true;
+        miniMap.enemiesEnabled = true;
         yield return new WaitForSeconds(1.5f);
         objectivePrompt.showPrompt(goodbyeObjective);
-        musicConductor.crossfade(15f, musicConductor.deathTrack, 10f, 0f, 0f);
+        //musicConductor.crossfade(15f, musicConductor.deathTrack, 10f, 0f, 0f);
         yield return new WaitForSeconds(5f);
         objectivePrompt.hidePrompt();
         resumeEnemySpawning();
