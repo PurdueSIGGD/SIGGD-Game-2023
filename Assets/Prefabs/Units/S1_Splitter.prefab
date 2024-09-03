@@ -81,9 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manaCost: 50
-  sellCost: 0
   type: 4
-  level: 0
   splitProjPrefab: {fileID: 4677275191526283186, guid: e53557269d196d347b9c0bf41dedb0c8, type: 3}
   splitCount: 10
   splitLife: 4
