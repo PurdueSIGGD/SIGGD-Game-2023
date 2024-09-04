@@ -33,7 +33,7 @@ TagManager:
   - 
   - 
   - Skeleton
-  - 
+  - Crosshair
   - 
   - 
   - Player
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 2216410057
+    locked: 0
+  - name: Crosshair
+    uniqueID: 4254953389
     locked: 0

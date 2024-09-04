@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Tilemaps;
+//using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class RocketPFSM : MonoBehaviour
@@ -47,12 +47,19 @@ public class RocketPFSM : MonoBehaviour
 
     private void Update()
     {
-        currentState.UpdateState(this);
-
         if (personal.time > config.duration + 2f)
         {
             Destroy(gameObject);
         }
+
+        currentState.UpdateState(this);
+
+        /*
+        if (personal.time > config.duration + 2f)
+        {
+            Destroy(gameObject);
+        }
+        */
     }
 
     private void OnTriggerEnter(Collider other)

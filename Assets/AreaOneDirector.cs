@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Experimental;
-using UnityEditor.Experimental.GraphView;
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
 using UnityEngine.UI;
@@ -40,6 +40,8 @@ public class AreaOneDirector : MonoBehaviour
     [SerializeField] public ChargePylon pylon1;
     [SerializeField] public ChargePylon pylon2;
     [SerializeField] public ChargePylon pylon3;
+
+    [SerializeField] public Collider area1FinalWall;
 
 
 
@@ -656,6 +658,7 @@ public class AreaOneDirector : MonoBehaviour
             yield return new WaitForSeconds(0.75f);
         }
         objectivePrompt.showPrompt(pylon3CompleteObjective);
+        area1FinalWall.enabled = false;
         playerMovement.rooted = false;
         playerAttackHandler.enabled = true;
         miniMap.sonarEnabled = true;

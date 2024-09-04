@@ -23,6 +23,7 @@ public class MineFSM : Unit
         public Animator animator;
         public AudioSource triggerSound;
         public AudioSource blastSound;
+        public AudioSource placementSound;
     }
 
     [SerializeField]
@@ -31,6 +32,7 @@ public class MineFSM : Unit
     public struct MinePersonal
     {
         public float time;
+        public bool armed;
     }
 
     [NonSerialized]
@@ -38,6 +40,8 @@ public class MineFSM : Unit
 
     private void Start()
     {
+        config.placementSound.Play();
+        personal.armed = false;
         currentState = idleState;
         currentState.EnterState(this);
     }

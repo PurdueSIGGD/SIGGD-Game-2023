@@ -24,15 +24,22 @@ public class MineBoom : UnitState
     IEnumerator Boom(Unit context, float wait)
     {
         MineFSM mine = (MineFSM)context;
+        mine.gameObject.GetComponent<bombKillCheck>().killBomb(wait);
+        mine.gameObject.GetComponent<Collider>().enabled = false;
         mine.config.blastSound.Play();
         yield return new WaitForSeconds(wait * 0.3f);
         Collider[] colliders = Physics.OverlapSphere(mine.gameObject.transform.position, mine.config.blastRadius, mine.config.blastMask);
         foreach (Collider enemy in colliders)
         {
-            enemy.GetComponent<HealthPoints>().damageEntity(mine.config.blastDmg);
+            if (enemy.gameObject.GetComponent<HealthPoints>() != null)
+            {
+                enemy.gameObject.GetComponent<HealthPoints>().damageEntity(mine.config.blastDmg);
+            }
         }
         Debug.Log("Time to destroy");
         yield return new WaitForSeconds(wait * 0.7f);
+        //mine.config.animator.StopPlayback();
+        //mine.config.animator.enabled = false;
         Object.Destroy(mine.gameObject);
     }
 }

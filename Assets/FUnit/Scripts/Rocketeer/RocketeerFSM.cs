@@ -36,6 +36,9 @@ public class RocketeerFSM : Unit
     [SerializeField]
     public AudioSource fireSound;
 
+    [SerializeField]
+    public AudioSource placementSound;
+
 
     // Context Variables
     [NonSerialized] public GameObject target;
@@ -43,6 +46,7 @@ public class RocketeerFSM : Unit
 
     void Start()
     {
+        placementSound.Play();
         currentState = idleState;
         currentState.EnterState(this);
     }

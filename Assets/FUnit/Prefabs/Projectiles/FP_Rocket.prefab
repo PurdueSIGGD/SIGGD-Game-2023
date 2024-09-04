@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4467843913044680855}
   - component: {fileID: -3396092038406133987}
   - component: {fileID: 3287931749522906103}
+  - component: {fileID: 5024058744718635744}
   m_Layer: 26
   m_Name: FP_Rocket
   m_TagString: Untagged
@@ -97,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config:
-    duration: 1.5
+    duration: 3
     damage: 150
     speed: 30
     dmgRadius: 5
@@ -119,7 +120,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f24f77ffdd7c5224ca0905d2b3d591fb, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 2.5
   Loop: 0
   Mute: 0
@@ -194,6 +195,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5024058744718635744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354620882897817373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3072eed243395443be78b0bdd36ad2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileLifeTime: 3
 --- !u!1001 &7072889572111703890
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -21,6 +21,9 @@ public class Movement : MonoBehaviour
     public bool sirend;
     public bool rooted;
 
+    [SerializeField] SpriteRenderer crosshairSprite;
+    private Vector3 crosshairPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,11 +32,14 @@ public class Movement : MonoBehaviour
         rooted = false;
         RB = GetComponent<Rigidbody>();
         data = GetComponent<PlayerData>();
+        Cursor.visible = false;
     }
 
     // Regular Frame Update
     void Update()
     {
+        Cursor.visible = false;
+        /*
         // Poll - Update Player Direction Based on Mouse Position
         Ray camToWorld = mainCamera.ScreenPointToRay(UnityEngine.Input.mousePosition);
         Plane xz = new Plane(Vector3.up, Vector3.zero);
@@ -41,6 +47,14 @@ public class Movement : MonoBehaviour
         Vector3 hit = camToWorld.GetPoint(dist) + Vector3.up;
 
         this.transform.LookAt(hit);
+
+        crosshairPosition = hit + (Vector3.up * 0.9f);
+        crosshairSprite.gameObject.transform.position = crosshairPosition;
+        Vector3 direction = (gameObject.transform.position - mainCamera.gameObject.transform.position);
+        direction.Normalize();
+        crosshairSprite.gameObject.transform.LookAt(crosshairSprite.gameObject.transform.position + direction);
+        //crosshairSprite.material.renderQueue = 4000;
+        */
     }
 
 
@@ -82,5 +96,19 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         move();
+
+        // Poll - Update Player Direction Based on Mouse Position
+        Ray camToWorld = mainCamera.ScreenPointToRay(UnityEngine.Input.mousePosition);
+        Plane xz = new Plane(Vector3.up, Vector3.zero);
+        xz.Raycast(camToWorld, out float dist);
+        Vector3 hit = camToWorld.GetPoint(dist) + Vector3.up;
+
+        this.transform.LookAt(hit);
+
+        crosshairPosition = hit + (Vector3.up * 1f);
+        crosshairSprite.gameObject.transform.position = crosshairPosition;
+        Vector3 direction = (gameObject.transform.position - mainCamera.gameObject.transform.position);
+        direction.Normalize();
+        crosshairSprite.gameObject.transform.LookAt(crosshairSprite.gameObject.transform.position + direction);
     }
 }

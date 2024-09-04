@@ -73,6 +73,6 @@ public class SceneTransitionButtons : MonoBehaviour
         musicConductor.crossfade(1f, musicConductor.nullTrack, 0f, 0f, 0f);
         yield return new WaitForSeconds(1);
         //TODO: GO TO CREDITS
-        //SceneManager.LoadScene("Main Level");
+        SceneManager.LoadScene("CreditsScene");
     }
 }

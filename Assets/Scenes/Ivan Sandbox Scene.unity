@@ -4884,6 +4884,14 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1136153981}
+    - target: {fileID: 6086756430367120404, guid: d2e7e0a1ac686ba45aa8b826ad83df98, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6086756430367120404, guid: d2e7e0a1ac686ba45aa8b826ad83df98, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 8106039226415796694, guid: d2e7e0a1ac686ba45aa8b826ad83df98, type: 3}
       propertyPath: m_Enabled
       value: 0

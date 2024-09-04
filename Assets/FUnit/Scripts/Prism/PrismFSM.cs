@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build.Content;
+//using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class PrismFSM : Unit
@@ -19,6 +19,7 @@ public class PrismFSM : Unit
         public float splitLife;
         public float angleBetweenSplits;
         public AudioSource splitSound;
+        public AudioSource placementSound;
     }
 
     [SerializeField]
@@ -26,6 +27,7 @@ public class PrismFSM : Unit
 
     private void Start()
     {
+        config.placementSound.Play();
         currentState = idleState;
         currentState.EnterState(this);
     }

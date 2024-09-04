@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.MemoryProfiler;
+//using UnityEditor.MemoryProfiler;
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
 using UnityEngine.UI;
@@ -39,6 +39,10 @@ public class TutorialDirector : MonoBehaviour
     [SerializeField] public Image fadeScreenImage;
 
     [SerializeField] public GameObject dummyObjective;
+
+    [SerializeField] public Collider artifactWall;
+    [SerializeField] public Collider submarineWall;
+    [SerializeField] public Collider tunnelWall;
 
 
 
@@ -104,8 +108,8 @@ public class TutorialDirector : MonoBehaviour
 
     private string tutorialMessage2 = "Good.";
 
-    private string tutorialMessage3 = "This assignment's simple. Right now, all we're doin' is gettin' you aquainted with " +
-                                      "this Exo-suit. That way you can help recover the Automatons that sunk here with our cargo ship.";
+    private string tutorialMessage3 = "This assignment's simple. All we're doin' is gettin' you aquainted with " +
+                                      "this Exo-suit. That way you can recover some Automatons that sunk with our cargo ship.";
 
     //private string tutorialMessage4 = "Make sure to take good care of 'er. As much as she costs, you'd be working in " +
     //"indentured servitude for the rest of your natural life if you didn't bring 'er back " +
@@ -1286,6 +1290,8 @@ public class TutorialDirector : MonoBehaviour
     {
         //lightSearchState = sequenceState.RUNNING;
         lightSearchTrigger.sequenceState = sequenceState.RUNNING;
+        yield return new WaitForSeconds(0.7f);
+        playerMovement.rooted = true;
 
         objectivePrompt.hidePrompt();
         if (!fastSequencesDEV)
@@ -1295,6 +1301,7 @@ public class TutorialDirector : MonoBehaviour
             yield return messanger.showMessage(lightSearchMessage1, tutorialSender, false);
             yield return new WaitForSeconds(0.75f);
         }
+        playerMovement.rooted = false;
         objectivePrompt.showPrompt(lightPickupObjective);
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
@@ -1570,6 +1577,7 @@ public class TutorialDirector : MonoBehaviour
             yield return messanger.showMessage(artifactRoomAttackEndMessage1, tutorialSender, false);
             yield return new WaitForSeconds(0.75f);
         }
+        artifactWall.enabled = false;
         artifactRoomAttackEndState = sequenceState.COMPLETE;
         artifactFoundTrigger.sequenceState = sequenceState.READY;
         yield return new WaitForSeconds(0.75f);
@@ -1583,6 +1591,7 @@ public class TutorialDirector : MonoBehaviour
     {
         artifactFoundTrigger.sequenceState = sequenceState.RUNNING;
 
+        artifactWall.enabled = true;
         objectivePrompt.hidePrompt();
         if (!fastSequencesDEV)
         {
@@ -1648,6 +1657,7 @@ public class TutorialDirector : MonoBehaviour
         }
         objectivePrompt.showPrompt(backtrackArtifactRoomObjective);
         echoTutorialState = sequenceState.COMPLETE;
+        artifactWall.enabled = false;
         artifactRoomAttackTrigger.triggered = false;
         artifactRoomAttackTrigger.sequenceState = sequenceState.READY;
         yield return new WaitForSeconds(0.75f);
@@ -1736,11 +1746,13 @@ public class TutorialDirector : MonoBehaviour
         backtrackFinalTrigger.sequenceState = sequenceState.READY;
         yield return new WaitForSeconds(10f);
         hallwayEnemySpawner.passiveSpawnActive = false;
+        /*
         //Save Game
         tutorialProgress = 3;
         SaveManager saveManager = FindObjectOfType<SaveManager>();
         saveManager.SetSpawnPoint(backtrackFinalPlayerSpawnPoint.transform.position);
         saveManager.SaveGame();
+        */
     }
 
 
@@ -1749,6 +1761,12 @@ public class TutorialDirector : MonoBehaviour
     public IEnumerator backtrackFinalSequence()
     {
         backtrackFinalTrigger.sequenceState = sequenceState.RUNNING;
+
+        //Save Game
+        tutorialProgress = 3;
+        SaveManager saveManager = FindObjectOfType<SaveManager>();
+        saveManager.SetSpawnPoint(backtrackFinalPlayerSpawnPoint.transform.position);
+        saveManager.SaveGame();
 
         hallwayEnemySpawner.passiveSpawnActive = false;
         objectivePrompt.hidePrompt();
@@ -1921,6 +1939,8 @@ public class TutorialDirector : MonoBehaviour
     public IEnumerator collectCoreSequence()
     {
         collectCoreTrigger.sequenceState = sequenceState.RUNNING;
+        submarineWall.enabled = true;
+        tunnelWall.enabled = true;
 
         submarineEnemySpawner.spawnEnemyWave(submarineEnemyList1);
         objectivePrompt.hidePrompt();

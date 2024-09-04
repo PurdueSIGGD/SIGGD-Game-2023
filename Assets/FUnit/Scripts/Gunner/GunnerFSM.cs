@@ -23,6 +23,7 @@ public class GunnerFSM : Unit
         public GameObject projPrefab;
         public Animator animator;
         public AudioSource fireSound;
+        public AudioSource placementSound;
     }
 
     [SerializeField]
@@ -39,6 +40,7 @@ public class GunnerFSM : Unit
 
     private void Start()
     {
+        config.placementSound.Play();
         currentState = idleState;
         currentState.EnterState(this);
     }

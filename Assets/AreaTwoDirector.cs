@@ -43,6 +43,11 @@ public class AreaTwoDirector : MonoBehaviour
     [SerializeField] public ChargePylon pylon2;
     [SerializeField] public ChargePylon pylon3;
 
+    [SerializeField] public Collider area2FinalWall;
+    [SerializeField] public Collider siren1Wall;
+    [SerializeField] public Collider siren2Wall;
+    [SerializeField] public Collider siren3Wall;
+
 
 
 
@@ -835,6 +840,7 @@ public class AreaTwoDirector : MonoBehaviour
             yield return messanger.showMessage(pylon3CompleteMessage1, aspSender, false);
             yield return new WaitForSeconds(0.75f);
         }
+        area2FinalWall.enabled = false;
         objectivePrompt.showPrompt(pylon3CompleteObjective);
         playerMovement.rooted = false;
         playerAttackHandler.enabled = true;
@@ -879,6 +885,7 @@ public class AreaTwoDirector : MonoBehaviour
     public IEnumerator vassalSequence()
     {
         vassalState = sequenceState.RUNNING;
+        siren1Wall.enabled = false;
         sirenFirstEncounterEnemySpawner.passiveSpawnActive = false;
         sirenFirstEncounterEnemySpawner.passiveWaveSpawnActive = false;
         if (!fastSequencesDEV)
@@ -920,6 +927,7 @@ public class AreaTwoDirector : MonoBehaviour
     public IEnumerator explorerSequence()
     {
         explorerState = sequenceState.RUNNING;
+        siren2Wall.enabled = false;
         sirenFight2EnemySpawner.passiveSpawnActive = false;
         sirenFight2EnemySpawner.passiveWaveSpawnActive = false;
         if (!fastSequencesDEV)
@@ -959,6 +967,7 @@ public class AreaTwoDirector : MonoBehaviour
     public IEnumerator perfectSequence()
     {
         perfectState = sequenceState.RUNNING;
+        siren3Wall.enabled = false;
         sirenFight3EnemySpawner.passiveSpawnActive = false;
         sirenFight3EnemySpawner.passiveWaveSpawnActive = false;
         if (!fastSequencesDEV)

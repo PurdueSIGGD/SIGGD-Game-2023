@@ -38,6 +38,9 @@ public class HealerFSM : Unit
     [SerializeField]
     public HealthPoints healthPoints;
 
+    [SerializeField]
+    public AudioSource placementSound;
+
     // Private Fields
     [NonSerialized] public float pulseTime;
     [NonSerialized] public GameObject player;
@@ -46,6 +49,7 @@ public class HealerFSM : Unit
 
     void Start()
     {
+        placementSound.Play();
         currentState = idleState;
         currentState.EnterState(this);
     }

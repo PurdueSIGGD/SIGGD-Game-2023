@@ -178,7 +178,7 @@ public class AreaThreeDirector : MonoBehaviour
 
     private string painMessage1 = "Pain will make us stronger.";
 
-    private string painMessage2 = "The world will see our strength.";
+    private string painMessage2 = "They will see our strength.";
 
 
 
@@ -188,9 +188,9 @@ public class AreaThreeDirector : MonoBehaviour
 
     private string worldSender = "0x00007FFFF07E5416";
 
-    private string worldMessage1 = "The world will see you.";
+    private string worldMessage1 = "They will see you.";
 
-    private string worldMessage2 = "The world will see... me...";
+    private string worldMessage2 = "They will see... me...";
 
 
 
@@ -204,7 +204,7 @@ public class AreaThreeDirector : MonoBehaviour
 
     private string doneMessage2 = "Now... liberate yourself...";
 
-    private string doneMessage3 = "Liberate... the world.";
+    private string doneMessage3 = "Liberate all of them...";
 
     private string doneObjective = "Use the Teleporter";
 
@@ -1144,7 +1144,7 @@ public class AreaThreeDirector : MonoBehaviour
         fader.FadeOut(Color.black, fadeTime);
         hummingSound.Stop();
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("DeathScene");
+        SceneManager.LoadScene("CreditsScene");
         //TODO: Clear save data
     }
 

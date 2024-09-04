@@ -39,20 +39,27 @@ public class RocketFly : ProjState
         }
 
         // update direction if target still exists
-        if (rocket.personal.target != null)
+        if (rocket.personal.target != null && 
+            rocket.personal.target.GetComponent<HealthPoints>() != null &&
+            rocket.personal.target.GetComponent<HealthPoints>().currentHealth > 0f)
         {
             rocket.personal.direction = (target.transform.position - obj.transform.position).normalized;
+            //rocket.personal.direction = (obj.transform.position - target.transform.position).normalized;
         }
 
-        if (rocket.personal.target == null)
+        /*if (rocket.personal.target == null
+            || rocket.personal.target.GetComponent<HealthPoints>() == null
+            || rocket.personal.target.GetComponent<HealthPoints>().currentHealth <= 0f)
         {
             rocket.SwitchState(RocketPFSM.boomState);
-        }
+        }*/
     }
 
     public override void OnTriggerEnter(MonoBehaviour context, Collider collider)
     {
-        if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Enemy") &&
+            collider.GetComponent<HealthPoints>() != null &&
+            collider.GetComponent<HealthPoints>().currentHealth > 0f)
         {
             RocketPFSM rocket = (RocketPFSM)context;
             rocket.SwitchState(RocketPFSM.boomState);
