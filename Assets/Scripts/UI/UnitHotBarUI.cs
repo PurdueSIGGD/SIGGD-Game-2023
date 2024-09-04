@@ -30,11 +30,14 @@ public class UnitHotbarUI : MonoBehaviour
 
     [SerializeField] bool isTest;
 
+    private uiBarManager playerUIBars;
+
     // Start is called before the first frame update
     void Start()
     {
         // Find hotbarUI
-        GameObject playerUIBars = FindObjectOfType<uiBarManager>().gameObject;
+        //GameObject playerUIBars = FindObjectOfType<uiBarManager>().gameObject;
+        playerUIBars = FindObjectOfType<uiBarManager>();
         hotbarUI = playerUIBars.transform.GetChild(0).GetChild(1).GetChild(2).gameObject;
 
         // Set unitImage as the GameObject image showing which unit is chosen
@@ -45,7 +48,8 @@ public class UnitHotbarUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        blackout = FindObjectOfType<uiBarManager>().blackout;
+        //blackout = FindObjectOfType<uiBarManager>().blackout;
+        blackout = playerUIBars.blackout;
         SelectHotbarUnit();
     }
 
@@ -106,7 +110,8 @@ public class UnitHotbarUI : MonoBehaviour
         int newSelectedUnit = ((((int)mouseDelta + selectedUnit) % currentUnits) + currentUnits) % currentUnits;
 
         GameObject currentUnitOverlay = hotbarUI.transform.GetChild(newSelectedUnit).GetChild(0).gameObject;
-        currentUnitOverlay.GetComponent<Image>().color = FindObjectOfType<uiBarManager>().unitLightColor;
+        //currentUnitOverlay.GetComponent<Image>().color = FindObjectOfType<uiBarManager>().unitLightColor;
+        currentUnitOverlay.GetComponent<Image>().color = playerUIBars.unitLightColor;
 
         if (selectedUnit == newSelectedUnit)
             return;

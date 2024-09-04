@@ -157,8 +157,10 @@ public class AreaOneDirector : MonoBehaviour
 
     //PYLON 3 COMPLETE SEQUENCE --------------------------------------------------------------------------
 
-    public sequenceState pylon3CompleteState = sequenceState.WAITING;
+    //public sequenceState pylon3CompleteState = sequenceState.WAITING;
 
+    [SerializeField] public SequenceTrigger pylon3CompleteTrigger;
+    
     //[SerializeField] public ChargePylon pylon3;
 
     private string pylon3CompleteMessage1 = "Well done. That was the final pylon in this area.";
@@ -185,6 +187,27 @@ public class AreaOneDirector : MonoBehaviour
 
 
 
+    //PYLON 2 COMPLETE SEQUENCE --------------------------------------------------------------------------
+
+    //public sequenceState pylon2CompleteState = sequenceState.WAITING;
+
+    [SerializeField] public SequenceTrigger pylon2CompleteTrigger;
+
+    private string pylon2CompleteMessage1 = "There is one more pylon nearby, just ahead.";
+
+
+
+    //BARRY SEQUENCE --------------------------------------------------------------------
+
+    [SerializeField] public SequenceTrigger barryTrigger;
+
+    [SerializeField] public ControlledEnemySpawner barryEnemySpawner;
+
+    [SerializeField] public List<enemyType> barryEnemyList1;
+    [SerializeField] public List<enemyType> barryEnemyList2;
+
+
+
 
 
     //----------------------------------------------------------------------------------------------------------------------------------------
@@ -208,9 +231,12 @@ public class AreaOneDirector : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         baracudaFirstEncounterTrigger.sequenceState = sequenceState.READY;
-        pylon1ArrivalTrigger.sequenceState = sequenceState.READY;
-        splitterNearTrigger.sequenceState = sequenceState.READY;
+        pylon1ArrivalTrigger.sequenceState = (pylon1.chargeDone) ? sequenceState.COMPLETE : sequenceState.READY;
+        splitterNearTrigger.sequenceState = (splitter.isUsed) ? sequenceState.COMPLETE : sequenceState.READY;
+        pylon3CompleteTrigger.sequenceState = sequenceState.READY;
         awakeningTrigger.sequenceState = sequenceState.READY;
+        pylon2CompleteTrigger.sequenceState = sequenceState.READY;
+        barryTrigger.sequenceState = sequenceState.READY;
 
         if (tutorialDirector.tutorialProgress == 7) //Area 1 Active
         {
@@ -220,14 +246,17 @@ public class AreaOneDirector : MonoBehaviour
             pylon2.GetComponent<Collider>().enabled = false;
             pylon3.GetComponent<Collider>().enabled = false;
             musicConductor.crossfade(0f, musicConductor.deathTrack, 3f, 0f, 0f);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(2f);
+            isLoading = false;
+            yield return new WaitForSeconds(1f);
+            fastSequencesDEV = false;
             pylon1.GetComponent<Collider>().enabled = true;
             pylon2.GetComponent<Collider>().enabled = true;
             pylon3.GetComponent<Collider>().enabled = true;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(7f);
             objectivePrompt.hidePrompt();
-            yield return new WaitForSeconds(10f);
-            fastSequencesDEV = false;
+            //yield return new WaitForSeconds(10f);
+            //fastSequencesDEV = false;
         }
 
         isLoading = false;
@@ -328,6 +357,7 @@ public class AreaOneDirector : MonoBehaviour
 
 
 
+        /*
         //Pylon 3 Complete Trigger
         if (pylon3.isCharging)
         {
@@ -341,6 +371,19 @@ public class AreaOneDirector : MonoBehaviour
                 StartCoroutine(pylon3CompleteSequence());
             }
         }
+        */
+
+
+
+        //Pylon 3 Complete Trigger
+        if (pylon3CompleteTrigger.sequenceState == sequenceState.READY)
+        {
+            if (pylon3CompleteTrigger.triggered && pylon3.chargeDone)
+            {
+                StartCoroutine(pylon3CompleteSequence());
+            }
+        }
+
 
 
         //Awakening Trigger
@@ -350,6 +393,47 @@ public class AreaOneDirector : MonoBehaviour
             {
                 awakeningTrigger.sequenceState = sequenceState.RUNNING;
                 StartCoroutine(awakeningSequence());
+            }
+        }
+
+
+
+        /*
+        //Pylon 2 Complete Trigger
+        if (pylon2.isCharging)
+        {
+            pylon2CompleteState = sequenceState.READY;
+        }
+
+        if (pylon2CompleteState == sequenceState.READY)
+        {
+            if (pylon2.chargeDone)
+            {
+                StartCoroutine(pylon2CompleteSequence());
+            }
+        }
+        */
+
+
+
+        //Pylon 2 Complete Trigger
+        if (pylon2CompleteTrigger.sequenceState == sequenceState.READY)
+        {
+            if (pylon2CompleteTrigger.triggered && pylon2.chargeDone)
+            {
+                StartCoroutine(pylon2CompleteSequence());
+            }
+        }
+
+
+
+        //Barry Trigger
+        if (barryTrigger.sequenceState == sequenceState.READY)
+        {
+            if (barryTrigger.triggered)
+            {
+                barryTrigger.sequenceState = sequenceState.RUNNING;
+                StartCoroutine(barrySequence());
             }
         }
 
@@ -456,7 +540,7 @@ public class AreaOneDirector : MonoBehaviour
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
         resumeEnemySpawning();
-        yield return new WaitForSeconds(4.25f);
+        yield return new WaitForSeconds(9.25f);
         objectivePrompt.hidePrompt();
     }
 
@@ -553,7 +637,7 @@ public class AreaOneDirector : MonoBehaviour
     //PYLON 3 COMPLETE SEQUENCE --------------------------------------------------------------------
     public IEnumerator pylon3CompleteSequence()
     {
-        pylon3CompleteState = sequenceState.RUNNING;
+        pylon3CompleteTrigger.sequenceState = sequenceState.RUNNING;
         yield return new WaitForSeconds(2.5f);
         playerMovement.rooted = true;
         playerAttackHandler.enabled = false;
@@ -576,14 +660,14 @@ public class AreaOneDirector : MonoBehaviour
         playerAttackHandler.enabled = true;
         miniMap.sonarEnabled = true;
         miniMap.enemiesEnabled = false;
-        pylon3CompleteState = sequenceState.COMPLETE;
+        pylon3CompleteTrigger.sequenceState = sequenceState.COMPLETE;
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
         //resumeEnemySpawning();
-        yield return new WaitForSeconds(4.25f);
+        yield return new WaitForSeconds(5.25f);
+        musicConductor.crossfade(10f, musicConductor.hummingTrack, 5f, 0f, 0f);
+        yield return new WaitForSeconds(4f);
         objectivePrompt.hidePrompt();
-        yield return new WaitForSeconds(1f);
-        musicConductor.crossfade(5f, musicConductor.hummingTrack, 3f, 0f, 0f);
     }
 
 
@@ -599,7 +683,7 @@ public class AreaOneDirector : MonoBehaviour
             yield return messanger.showMessage(awakeningMessage1, aspSender, true);
             yield return new WaitForSeconds(2.5f);
             messanger.hideMessage();
-            yield return new WaitForSeconds(6.5f);
+            yield return new WaitForSeconds(7.5f);
             yield return messanger.showMessage(awakeningMessage2, aspSender, false);
             yield return new WaitForSeconds(1.75f);
             yield return messanger.showMessage(awakeningMessage3, aspSender, false);
@@ -614,6 +698,41 @@ public class AreaOneDirector : MonoBehaviour
         saveManager.SaveGame();
         yield return new WaitForSeconds(5f);
         musicConductor.crossfade(15f, musicConductor.titleTrack, 10f, 0f, musicConductor.titleTrack.loopStartTime);
+    }
+
+
+
+    //PYLON 2 COMPLETE SEQUENCE --------------------------------------------------------------------
+    public IEnumerator pylon2CompleteSequence()
+    {
+        pylon2CompleteTrigger.sequenceState = sequenceState.RUNNING;
+        yield return new WaitForSeconds(2.5f);
+        pauseEnemySpawning();
+        if (!fastSequencesDEV)
+        {
+            yield return messanger.showMessage("", aspSender, false);
+            yield return new WaitForSeconds(0.5f);
+            yield return messanger.showMessage(pylon2CompleteMessage1, aspSender, false);
+            yield return new WaitForSeconds(0.75f);
+        }
+        pylon2CompleteTrigger.sequenceState = sequenceState.COMPLETE;
+        yield return new WaitForSeconds(0.75f);
+        messanger.hideMessage();
+        resumeEnemySpawning();
+    }
+
+
+
+    //BARRY SEQUENCE --------------------------------------------------------------------
+    public IEnumerator barrySequence()
+    {
+        barryTrigger.sequenceState = sequenceState.RUNNING;
+        barryEnemySpawner.spawnEnemyWave(barryEnemyList1);
+        yield return new WaitForSeconds(20f);
+        barryEnemySpawner.spawnEnemyWave(barryEnemyList2);
+        yield return new WaitForSeconds(40f);
+        barryTrigger.triggered = false;
+        barryTrigger.sequenceState = sequenceState.READY;
     }
 
 

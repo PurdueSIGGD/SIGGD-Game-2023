@@ -22,6 +22,8 @@ public class DirectionalSprite : MonoBehaviour
     private float initialYScale;
     private MobNav mobNav;
     private Rigidbody rigid;
+
+    private Movement movement;
     
     // Start is called before the first frame update
     private void Start()
@@ -50,6 +52,8 @@ public class DirectionalSprite : MonoBehaviour
         var parent = transform.parent;
         mobNav = parent.GetComponent<MobNav>();
         rigid = parent.GetComponent<Rigidbody>();
+
+        movement = FindObjectOfType<Movement>();
     }
 
     // Update is called once per frame
@@ -116,10 +120,11 @@ public class DirectionalSprite : MonoBehaviour
             //Debug.Log("First");
             return lookDirectionOverride;
         }
-        
+
         // Temporary
-        return FindObjectOfType<Movement>().transform.position - transform.position;
-        
+        //return FindObjectOfType<Movement>().transform.position - transform.position;
+        return movement.transform.position - transform.position;
+
         if (mobNav != null)
         {
             Debug.Log("Mob Nav");

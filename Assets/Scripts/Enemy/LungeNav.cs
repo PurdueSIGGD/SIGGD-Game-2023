@@ -123,10 +123,10 @@ public class LungeNav : MonoBehaviour
             //bool playerHit = Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position) + 9, playerMask);
             bool playerHit = Physics.Raycast(this_enemy.position + new Vector3(0f, 1f, 0f), this_enemy.forward, out frontHit, 30f, playerMask);
             //Debug.DrawLine(this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f), frontHit.point, Color.magenta);
-            Debug.DrawRay(this_enemy.position + new Vector3(0f, 1f, 0f), this_enemy.forward * 30f, Color.magenta);
+            //Debug.DrawRay(this_enemy.position + new Vector3(0f, 1f, 0f), this_enemy.forward * 30f, Color.magenta);
             //Debug.Log("Barry Player Postion: " + player.position.x + ", " + player.position.y + ", " + player.position.z);
             if (playerHit) {
-                Debug.DrawRay(frontHit.point, Vector3.up * 20f, Color.magenta);
+                //Debug.DrawRay(frontHit.point, Vector3.up * 20f, Color.magenta);
                 if ((lastPounceTime + timeToNextPounce) < Time.time) {
                     Debug.Log("Barry Pounce");
                     pounceNoise.Play();

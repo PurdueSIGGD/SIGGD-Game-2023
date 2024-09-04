@@ -7,6 +7,15 @@ public class SceneTransitionButtons : MonoBehaviour
 {
     public void QuitGame()
     {
+        StartCoroutine(QuitGameCoroutine());
+    }
+
+    private IEnumerator QuitGameCoroutine()
+    {
+        StartFade(Color.black, 1);
+        MusicConductor musicConductor = FindObjectOfType<MusicConductor>();
+        musicConductor.crossfade(1f, musicConductor.nullTrack, 0f, 0f, 0f);
+        yield return new WaitForSeconds(1);
         Application.Quit();
     }
 
@@ -18,9 +27,12 @@ public class SceneTransitionButtons : MonoBehaviour
     private IEnumerator NewGameCoroutine()
     {
         SaveManager.ClearSave();
-        StartFade(Color.black, 1);
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("World Systems");
+        StartFade(Color.black, 3);
+        MusicConductor musicConductor = FindObjectOfType<MusicConductor>();
+        musicConductor.crossfade(3f, musicConductor.nullTrack, 0f, 0f, 0f);
+        yield return new WaitForSeconds(3);
+        //SceneManager.LoadScene("World Systems");
+        SceneManager.LoadScene("Music Rework Test");
     }
     
     public void ContinueGame()
@@ -30,9 +42,12 @@ public class SceneTransitionButtons : MonoBehaviour
 
     private IEnumerator ContinueCoroutine()
     {
-        StartFade(Color.black, 1);
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("World Systems");
+        StartFade(Color.black, 3);
+        MusicConductor musicConductor = FindObjectOfType<MusicConductor>();
+        musicConductor.crossfade(3f, musicConductor.nullTrack, 0f, 0f, 0f);
+        yield return new WaitForSeconds(3);
+        //SceneManager.LoadScene("World Systems");
+        SceneManager.LoadScene("Music Rework Test");
         Debug.Log("a");
     }
 
@@ -54,7 +69,10 @@ public class SceneTransitionButtons : MonoBehaviour
     private IEnumerator CreditsCoroutine()
     {
         StartFade(Color.black, 1);
+        MusicConductor musicConductor = FindObjectOfType<MusicConductor>();
+        musicConductor.crossfade(1f, musicConductor.nullTrack, 0f, 0f, 0f);
         yield return new WaitForSeconds(1);
+        //TODO: GO TO CREDITS
         //SceneManager.LoadScene("Main Level");
     }
 }

@@ -59,11 +59,14 @@ public class ChargePylon : Interactable
 
     [SerializeField] public MiniMap miniMap;
 
+    private SaveManager saveManager;
+
 
 
     // Start is called before the first frame update
     public override void Start()
     {
+        saveManager = FindObjectOfType<SaveManager>();
         currentCharge = 0f;
         tickRate = 0.05f;
         isCharging = false;
@@ -137,14 +140,14 @@ public class ChargePylon : Interactable
 
     private void SavePylon()
     {
-        var saveManager = FindObjectOfType<SaveManager>();
+        //var saveManager = FindObjectOfType<SaveManager>();
         saveManager.SetSpawnPoint(transform.position + Vector3.back * 10f);
         saveManager.MarkObjective(gameObject, SaveManager.ObjectiveType.Pylon);
     }
 
     public void SavePylonCheckpoint()
     {
-        var saveManager = FindObjectOfType<SaveManager>();
+        //var saveManager = FindObjectOfType<SaveManager>();
         saveManager.SetSpawnPoint(transform.position + Vector3.right * 10f);
         saveManager.SaveGame();
     }
@@ -298,7 +301,7 @@ public class ChargePylon : Interactable
             {
                 if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
                 {
-                    enemy.GetComponent<HealthPoints>().damageEntity(1000f);
+                    enemy.GetComponent<HealthPoints>().damageEntity(10000f);
                 }
             }
 
@@ -313,7 +316,7 @@ public class ChargePylon : Interactable
             {
                 if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
                 {
-                    enemy.GetComponent<HealthPoints>().damageEntity(1000f);
+                    enemy.GetComponent<HealthPoints>().damageEntity(10000f);
                 }
             }
         }

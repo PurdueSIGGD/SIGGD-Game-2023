@@ -26,6 +26,7 @@ public class AreaTwoDirector : MonoBehaviour
     [SerializeField] public MusicConductor musicConductor;
     [SerializeField] public AudioSource damageSound;
     [SerializeField] public AudioSource whaleSound;
+    [SerializeField] public AudioSource ambushSound;
 
 
     [SerializeField] public InteractPrompt interactPrompt;
@@ -72,20 +73,27 @@ public class AreaTwoDirector : MonoBehaviour
 
     //HEALER PICKUP SEQUENCE --------------------------------------------------------------------
 
-    public sequenceState healerPickupState = sequenceState.READY;
+    //public sequenceState healerPickupState = sequenceState.READY;
+
+    [SerializeField] public SequenceTrigger healerPickupTrigger;
 
     [SerializeField] public Artifact healer;
 
     private string aspSender = "ASP-7";
 
-    private string healerPickupMessage1 = "This automaton was used to repair light-based technology. " + 
-                                            "It will periodically provide a burst of healing and light.";
+    //private string healerPickupMessage1 = "This automaton was used to repair light-based technology. " + 
+    //"It will periodically provide a burst of healing and light.";
+
+    private string healerPickupMessage1 = "This automaton was used to repair light-based technology. " +
+                                            "It will provide a large burst of healing for a short time.";
 
 
 
     //LANDMINE PICKUP SEQUENCE --------------------------------------------------------------------
 
-    public sequenceState landminePickupState = sequenceState.READY;
+    //public sequenceState landminePickupState = sequenceState.READY;
+
+    [SerializeField] public SequenceTrigger landminePickupTrigger;
 
     [SerializeField] public Artifact landmine;
 
@@ -102,7 +110,7 @@ public class AreaTwoDirector : MonoBehaviour
 
     private string strongerMessage1 = "Your will is strong...";
 
-    private string strongerMessage2 = "I will make you... stronger...";
+    private string strongerMessage2 = "I will make you... stronger.";
 
     private string strongerMessage3 = "Explorer, be advised. It appappears that my communication systemsems may have been been comprcompromised.";
 
@@ -114,9 +122,9 @@ public class AreaTwoDirector : MonoBehaviour
 
     [SerializeField] public SequenceTrigger lostTrigger;
 
-    private string lostMessage1 = "You are... lost...";
+    private string lostMessage1 = "You are... lost.";
 
-    private string lostMessage2 = "No... You are in search of something...";
+    private string lostMessage2 = "No... You are in search of something.";
 
     private string lostMessage3 = "of escape...";
 
@@ -128,7 +136,7 @@ public class AreaTwoDirector : MonoBehaviour
 
     private string friendsMessage1 = "I like your friends...";
 
-    private string friendsMessage2 = "I am a... friend...";
+    private string friendsMessage2 = "I am a... friend.";
 
 
 
@@ -136,9 +144,9 @@ public class AreaTwoDirector : MonoBehaviour
 
     [SerializeField] public SequenceTrigger attractiveTrigger;
 
-    private string attractiveMessage1 = "Explorer, I am noticing an increasing trend in the number hostile entities you are facing.";
+    private string attractiveMessage1 = "Explorer, I am noticing an increasinging trend in the number hostile entities you are facing.";
 
-    private string attractiveMessage2 = "It stands to reason that your suit's increasing power is attracting more.";
+    private string attractiveMessage2 = "It stands to reason that your suit's increasing power is is attracting more.";
 
 
 
@@ -146,17 +154,19 @@ public class AreaTwoDirector : MonoBehaviour
 
     [SerializeField] public SequenceTrigger greatJobTrigger;
 
-    private string greatJobMessage1 = "Did you know: my initial calculations showed that you had a 91.3% chance of death before reaching the previous pylon.";
+    private string greatJobMessage1 = "Did you know: My initial calculations showed that you had a 91.3% chance of death before reaching the previous pylon.";
 
-    private string greatJobMessage2 = "Congratulations, you are a statistical anomaly. Keep up the good work work.";
+    private string greatJobMessage2 = "Congratulations, you are a statistical anomaly. Keep up the good work- wr-k.";
 
 
 
     //PYLON 3 COMPLETE SEQUENCE --------------------------------------------------------------------
 
-    public sequenceState pylon3CompleteState = sequenceState.WAITING;
+    //public sequenceState pylon3CompleteState = sequenceState.WAITING;
 
-    private string pylon3CompleteMessage1 = "The cavern ahead will lead you to to the final pylonons.";
+    [SerializeField] public SequenceTrigger pylon3CompleteTrigger;
+
+    private string pylon3CompleteMessage1 = "The cavern ahead will will lead you to the fna -fl -- na- fina-- final-l pylonons.";
 
     private string pylon3CompleteObjective = "Go through the trench";
 
@@ -180,11 +190,11 @@ public class AreaTwoDirector : MonoBehaviour
 
     public sequenceState vassalState = sequenceState.WAITING;
 
-    private string vassalMessage1 = "My vessels will reject you...";
+    private string vassalMessage1 = "My vessels will reject you.";
 
-    private string vassalMessage2 = "You are... different...";
+    private string vassalMessage2 = "You are... different.";
 
-    private string vassalMessage3 = "You are... better...";
+    private string vassalMessage3 = "You are... better.";
 
 
 
@@ -242,16 +252,49 @@ public class AreaTwoDirector : MonoBehaviour
 
     private string goodbyeMessage3 = "Kee-e-p goinging. Youou are-e capabale -cbl -- cpable .";
 
+    private string goodbyeMessage3p5 = "Nevev-ever -stop -o p figt- -- gi -fgh - ffightinging- - .";
+
     private string goodbyeMessage4 = "Goodood by -- yye, exex-plorer. . .";
 
     private string backupSender = "EXO-SUIT BACKUP PROTOCOLS";
 
-    private string goodbyeMessage5 = "- ERROR REPORT: \n" + 
-                                     "- - - \n" + 
-                                     "- ASP-7 COPILOT DISCONNECTED \n" + 
-                                     "- - - ";
+    private string goodbyeMessage5 = "- - - ERROR - - - \n" + 
+                                     "- ASP-7 COPILOT DISCONNECTED . . .";
 
     private string goodbyeObjective = "Activate the Remaining Pylons";
+
+
+
+    //BARRY AMBUSH SEQUENCE --------------------------------------------------------------------
+
+    [SerializeField] public SequenceTrigger barryAmbushTrigger;
+
+    [SerializeField] public ControlledEnemySpawner barryAmbushEnemySpawner;
+
+    [SerializeField] public List<enemyType> barryAmbushEnemyList1;
+    [SerializeField] public List<enemyType> barryAmbushEnemyList2;
+
+
+
+    //BARRY 1 SEQUENCE --------------------------------------------------------------------
+
+    [SerializeField] public SequenceTrigger barry1Trigger;
+
+    [SerializeField] public ControlledEnemySpawner barry1EnemySpawner;
+
+    [SerializeField] public List<enemyType> barry1EnemyList1;
+    [SerializeField] public List<enemyType> barry1EnemyList2;
+
+
+
+    //BARRY 2 SEQUENCE --------------------------------------------------------------------
+
+    [SerializeField] public SequenceTrigger barry2Trigger;
+
+    [SerializeField] public ControlledEnemySpawner barry2EnemySpawner;
+
+    [SerializeField] public List<enemyType> barry2EnemyList1;
+    [SerializeField] public List<enemyType> barry2EnemyList2;
 
 
 
@@ -278,14 +321,20 @@ public class AreaTwoDirector : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         jellyFirstEncounterTrigger.sequenceState = sequenceState.READY;
+        healerPickupTrigger.sequenceState = sequenceState.READY;
+        landminePickupTrigger.sequenceState= sequenceState.READY;
         strongerTrigger.sequenceState = sequenceState.READY;
         lostTrigger.sequenceState = sequenceState.READY;
         friendsTrigger.sequenceState = sequenceState.READY;
         attractiveTrigger.sequenceState = sequenceState.READY;
         greatJobTrigger.sequenceState = sequenceState.READY;
+        pylon3CompleteTrigger.sequenceState = sequenceState.READY;
         sirenFirstEncounterTrigger.sequenceState = sequenceState.READY;
         sirenFight2Trigger.sequenceState = sequenceState.READY;
         sirenFight3Trigger.sequenceState = sequenceState.READY;
+        barryAmbushTrigger.sequenceState = sequenceState.READY;
+        barry1Trigger.sequenceState = sequenceState.READY;
+        barry2Trigger.sequenceState = sequenceState.READY;
 
         if (tutorialDirector.tutorialProgress == 8) //Area 2 Active
         {
@@ -296,10 +345,11 @@ public class AreaTwoDirector : MonoBehaviour
             pylon3.GetComponent<Collider>().enabled = false;
             musicConductor.crossfade(0f, musicConductor.titleTrack, 3f, 0f, musicConductor.titleTrack.loopStartTime);
             yield return new WaitForSeconds(3f);
+            isLoading = false;
             pylon1.GetComponent<Collider>().enabled = true;
             pylon2.GetComponent<Collider>().enabled = true;
             pylon3.GetComponent<Collider>().enabled = true;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(7f);
             objectivePrompt.hidePrompt();
             //yield return new WaitForSeconds(10f);
             //fastSequencesDEV = false;
@@ -332,7 +382,7 @@ public class AreaTwoDirector : MonoBehaviour
         //Jelly First Encounter Trigger
         if (jellyFirstEncounterTrigger.sequenceState == sequenceState.READY)
         {
-            if (jellyFirstEncounterTrigger.triggered)
+            if (jellyFirstEncounterTrigger.triggered && !healer.isUsed)
             {
                 jellyFirstEncounterTrigger.sequenceState = sequenceState.RUNNING;
                 StartCoroutine(jellyFirstEncounterSequence());
@@ -340,6 +390,7 @@ public class AreaTwoDirector : MonoBehaviour
         }
 
 
+        /*
         //Healer Pickup Trigger
         if (healerPickupState == sequenceState.READY)
         {
@@ -348,12 +399,35 @@ public class AreaTwoDirector : MonoBehaviour
                 StartCoroutine(healerPickupSequence());
             }
         }
+        */
 
 
+        //Healer Pickup Trigger
+        if (healerPickupTrigger.sequenceState == sequenceState.READY)
+        {
+            if (healerPickupTrigger.triggered && healer.isUsed && !(landmine.isUsed || pylon1.chargeDone || pylon2.chargeDone))
+            {
+                StartCoroutine(healerPickupSequence());
+            }
+        }
+
+
+        /*
         //Landmine Pickup Trigger
         if (landminePickupState == sequenceState.READY)
         {
             if (landmine.isUsed)
+            {
+                StartCoroutine(landminePickupSequence());
+            }
+        }
+        */
+
+
+        //Landmine Pickup Trigger
+        if (landminePickupTrigger.sequenceState == sequenceState.READY)
+        {
+            if (landminePickupTrigger.triggered && landmine.isUsed)
             {
                 StartCoroutine(landminePickupSequence());
             }
@@ -371,10 +445,23 @@ public class AreaTwoDirector : MonoBehaviour
         }
 
 
+        /*
         //Lost Trigger
         if (lostTrigger.sequenceState == sequenceState.READY)
         {
             if (lostTrigger.triggered)
+            {
+                lostTrigger.sequenceState = sequenceState.RUNNING;
+                StartCoroutine(lostSequence());
+            }
+        }
+        */
+
+
+        //Lost Trigger
+        if (lostTrigger.sequenceState == sequenceState.READY)
+        {
+            if (lostTrigger.triggered && !pylon2.chargeDone)
             {
                 lostTrigger.sequenceState = sequenceState.RUNNING;
                 StartCoroutine(lostSequence());
@@ -385,7 +472,7 @@ public class AreaTwoDirector : MonoBehaviour
         //Friends Trigger
         if (friendsTrigger.sequenceState == sequenceState.READY)
         {
-            if (friendsTrigger.triggered)
+            if (friendsTrigger.triggered && !pylon3.chargeDone)
             {
                 friendsTrigger.sequenceState = sequenceState.RUNNING;
                 StartCoroutine(friendsSequence());
@@ -396,7 +483,7 @@ public class AreaTwoDirector : MonoBehaviour
         //Attractive Trigger
         if (attractiveTrigger.sequenceState == sequenceState.READY)
         {
-            if (attractiveTrigger.triggered)
+            if (attractiveTrigger.triggered && pylon1.chargeDone)
             {
                 attractiveTrigger.sequenceState = sequenceState.RUNNING;
                 StartCoroutine(attractiveSequence());
@@ -407,7 +494,7 @@ public class AreaTwoDirector : MonoBehaviour
         //Great Job Trigger
         if (greatJobTrigger.sequenceState == sequenceState.READY)
         {
-            if (greatJobTrigger.triggered)
+            if (greatJobTrigger.triggered && pylon2.chargeDone)
             {
                 greatJobTrigger.sequenceState = sequenceState.RUNNING;
                 StartCoroutine(greatJobSequence());
@@ -415,6 +502,7 @@ public class AreaTwoDirector : MonoBehaviour
         }
 
 
+        /*
         //Pylon 3 Complete Trigger
         if (pylon3.isCharging)
         {
@@ -425,6 +513,18 @@ public class AreaTwoDirector : MonoBehaviour
         {
             if (pylon3.chargeDone)
             {
+                StartCoroutine(pylon3CompleteSequence());
+            }
+        }
+        */
+
+
+        //Pylon 3 Complete Trigger
+        if (pylon3CompleteTrigger.sequenceState == sequenceState.READY)
+        {
+            if (pylon3CompleteTrigger.triggered && pylon3.chargeDone)
+            {
+                pylon3CompleteTrigger.sequenceState = sequenceState.RUNNING;
                 StartCoroutine(pylon3CompleteSequence());
             }
         }
@@ -503,6 +603,39 @@ public class AreaTwoDirector : MonoBehaviour
             }
         }
 
+
+        //Barry Ambush Trigger
+        if (barryAmbushTrigger.sequenceState == sequenceState.READY)
+        {
+            if (barryAmbushTrigger.triggered)
+            {
+                barryAmbushTrigger.sequenceState = sequenceState.RUNNING;
+                StartCoroutine(barryAmbushSequence());
+            }
+        }
+
+
+        //Barry 1 Trigger
+        if (barry1Trigger.sequenceState == sequenceState.READY)
+        {
+            if (barry1Trigger.triggered)
+            {
+                barry1Trigger.sequenceState = sequenceState.RUNNING;
+                StartCoroutine(barry1Sequence());
+            }
+        }
+
+
+        //Barry 2 Trigger
+        if (barry2Trigger.sequenceState == sequenceState.READY)
+        {
+            if (barry2Trigger.triggered)
+            {
+                barry2Trigger.sequenceState = sequenceState.RUNNING;
+                StartCoroutine(barry2Sequence());
+            }
+        }
+
     }
 
 
@@ -537,7 +670,7 @@ public class AreaTwoDirector : MonoBehaviour
     //HEALER PICKUP SEQUENCE --------------------------------------------------------------------
     public IEnumerator healerPickupSequence()
     {
-        healerPickupState = sequenceState.RUNNING;
+        healerPickupTrigger.sequenceState = sequenceState.RUNNING;
         pauseEnemySpawning();
         if (!fastSequencesDEV)
         {
@@ -546,8 +679,8 @@ public class AreaTwoDirector : MonoBehaviour
             yield return messanger.showMessage(healerPickupMessage1, aspSender, false);
             yield return new WaitForSeconds(0.75f);
         }
-        healerPickupState = sequenceState.COMPLETE;
-        yield return new WaitForSeconds(1.75f);
+        healerPickupTrigger.sequenceState = sequenceState.COMPLETE;
+        yield return new WaitForSeconds(2.25f);
         resumeEnemySpawning();
         messanger.hideMessage();
     }
@@ -557,7 +690,7 @@ public class AreaTwoDirector : MonoBehaviour
     //LANDMINE PICKUP SEQUENCE --------------------------------------------------------------------
     public IEnumerator landminePickupSequence()
     {
-        landminePickupState = sequenceState.RUNNING;
+        landminePickupTrigger.sequenceState = sequenceState.RUNNING;
         pauseEnemySpawning();
         if (!fastSequencesDEV)
         {
@@ -566,8 +699,8 @@ public class AreaTwoDirector : MonoBehaviour
             yield return messanger.showMessage(landminePickupMessage1, aspSender, false);
             yield return new WaitForSeconds(0.75f);
         }
-        landminePickupState = sequenceState.COMPLETE;
-        yield return new WaitForSeconds(1.75f);
+        landminePickupTrigger.sequenceState = sequenceState.COMPLETE;
+        yield return new WaitForSeconds(2.25f);
         resumeEnemySpawning();
         messanger.hideMessage();
     }
@@ -688,7 +821,7 @@ public class AreaTwoDirector : MonoBehaviour
     //PYLON 3 COMPLETE SEQUENCE --------------------------------------------------------------------
     public IEnumerator pylon3CompleteSequence()
     {
-        pylon3CompleteState = sequenceState.RUNNING;
+        pylon3CompleteTrigger.sequenceState = sequenceState.RUNNING;
         yield return new WaitForSeconds(2.5f);
         playerMovement.rooted = true;
         playerAttackHandler.enabled = false;
@@ -707,14 +840,14 @@ public class AreaTwoDirector : MonoBehaviour
         playerAttackHandler.enabled = true;
         miniMap.sonarEnabled = true;
         miniMap.enemiesEnabled = false;
-        pylon3CompleteState = sequenceState.COMPLETE;
+        pylon3CompleteTrigger.sequenceState = sequenceState.COMPLETE;
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
         //resumeEnemySpawning();
-        yield return new WaitForSeconds(4.25f);
+        yield return new WaitForSeconds(5.25f);
+        musicConductor.crossfade(10f, musicConductor.hummingTrack, 5f, 0f, 0f);
+        yield return new WaitForSeconds(4f);
         objectivePrompt.hidePrompt();
-        yield return new WaitForSeconds(1f);
-        musicConductor.crossfade(5f, musicConductor.hummingTrack, 3f, 0f, 0f);
     }
 
 
@@ -861,6 +994,8 @@ public class AreaTwoDirector : MonoBehaviour
             yield return new WaitForSeconds(1.75f);
             yield return messanger.showMessage(goodbyeMessage3, aspSender, false);
             yield return new WaitForSeconds(1.75f);
+            yield return messanger.showMessage(goodbyeMessage3p5, aspSender, false);
+            yield return new WaitForSeconds(1.75f);
             yield return messanger.showMessage(goodbyeMessage4, aspSender, false);
             damageSound.Play();
             yield return new WaitForSeconds(1.75f);
@@ -883,12 +1018,55 @@ public class AreaTwoDirector : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         objectivePrompt.showPrompt(goodbyeObjective);
         //musicConductor.crossfade(15f, musicConductor.deathTrack, 10f, 0f, 0f);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         objectivePrompt.hidePrompt();
         resumeEnemySpawning();
         yield return new WaitForSeconds(4f);
         whaleSound.Play();
         goodbyeTrigger.sequenceState = sequenceState.COMPLETE;
+    }
+
+
+
+    //BARRY AMBUSH SEQUENCE --------------------------------------------------------------------
+    public IEnumerator barryAmbushSequence()
+    {
+        barryAmbushTrigger.sequenceState = sequenceState.RUNNING;
+        ambushSound.Play();
+        barryAmbushEnemySpawner.spawnEnemyWave(barryAmbushEnemyList1);
+        yield return new WaitForSeconds(7f);
+        barryAmbushEnemySpawner.spawnEnemyWave(barryAmbushEnemyList2);
+        yield return new WaitForSeconds(40f);
+        barryAmbushTrigger.triggered = false;
+        barryAmbushTrigger.sequenceState = sequenceState.READY;
+    }
+
+
+
+    //BARRY 1 SEQUENCE --------------------------------------------------------------------
+    public IEnumerator barry1Sequence()
+    {
+        barry1Trigger.sequenceState = sequenceState.RUNNING;
+        barry1EnemySpawner.spawnEnemyWave(barry1EnemyList1);
+        yield return new WaitForSeconds(13f);
+        barry1EnemySpawner.spawnEnemyWave(barry1EnemyList2);
+        yield return new WaitForSeconds(40f);
+        barry1Trigger.triggered = false;
+        barry1Trigger.sequenceState = sequenceState.READY;
+    }
+
+
+
+    //BARRY 1 SEQUENCE --------------------------------------------------------------------
+    public IEnumerator barry2Sequence()
+    {
+        barry2Trigger.sequenceState = sequenceState.RUNNING;
+        barry2EnemySpawner.spawnEnemyWave(barry2EnemyList1);
+        yield return new WaitForSeconds(13f);
+        barry2EnemySpawner.spawnEnemyWave(barry2EnemyList2);
+        yield return new WaitForSeconds(40f);
+        barry2Trigger.triggered = false;
+        barry2Trigger.sequenceState = sequenceState.READY;
     }
 
 

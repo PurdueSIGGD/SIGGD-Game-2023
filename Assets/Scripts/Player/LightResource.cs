@@ -69,7 +69,7 @@ public class LightResource : MonoBehaviour
     /// </returns>
     public float addLight(float light)
     {
-        if (blackout)
+        if (blackout && light < 10f)
         {
             return 0f;
         }

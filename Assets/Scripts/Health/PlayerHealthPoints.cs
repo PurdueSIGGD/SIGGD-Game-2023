@@ -11,6 +11,7 @@ public class PlayerHealthPoints : HealthPoints
     [SerializeField] private Light blackoutLight;
     [SerializeField] private LightResource lightResource;
     [SerializeField] private AudioClip damagePlayerFX;
+    [SerializeField] private AudioSource donezoSound;
     public bool blackout;
     private bool flickerActive;
     private bool dying;
@@ -164,13 +165,16 @@ public class PlayerHealthPoints : HealthPoints
 
     private IEnumerator waitForDeath()
     {
-        var deathTime = 2f;
+        donezoSound.Play();
+        var deathTime = 1.25f;
         var fader = FindObjectOfType<Fader>();
         if (fader == null)
         {
             Debug.LogError("You need to drag the fader prefab into the scene");
         }
         fader.FadeOut(Color.black, deathTime);
+        MusicConductor musicConductor = FindObjectOfType<MusicConductor>();
+        musicConductor.crossfade(deathTime, musicConductor.nullTrack, 0f, 0f, 0f);
         yield return new WaitForSeconds(deathTime);
         SceneManager.LoadScene("DeathScene");
     }

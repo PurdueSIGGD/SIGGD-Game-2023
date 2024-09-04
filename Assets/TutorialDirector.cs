@@ -100,19 +100,19 @@ public class TutorialDirector : MonoBehaviour
 
     private string tutorialSender = "Commanding Officer Robinson";
 
-    private string tutorialMessage1 = "Kid, can you hear me alright?";
+    private string tutorialMessage1 = "Kid, can you hear me out there?";
 
     private string tutorialMessage2 = "Good.";
 
     private string tutorialMessage3 = "This assignment's simple. Right now, all we're doin' is gettin' you aquainted with " +
-                                      "this Exo-suit. That way later you can help recover the Automatons that sunk here with our cargo ship.";
+                                      "this Exo-suit. That way you can help recover the Automatons that sunk here with our cargo ship.";
 
     //private string tutorialMessage4 = "Make sure to take good care of 'er. As much as she costs, you'd be working in " +
     //"indentured servitude for the rest of your natural life if you didn't bring 'er back " +
     //"in one piece. Heh heh...";
 
-    private string tutorialMessage4 = "Each one's unique, so the boss wants us to find all the destroyed ones and scan their models. " +
-                                      "That way we can replicate them with our new Echo tech.";
+    private string tutorialMessage4 = "The boss wants us to find all the destroyed ones and scan their models. " +
+                                      "That way we can refabricate them with our new Echo tech.";
 
     private string tutorialMessage5 = "Anywho, we'll get into all that later. Enough chit chat. Let's get a move on.";
 
@@ -135,7 +135,7 @@ public class TutorialDirector : MonoBehaviour
     //private string movementTutorialMessage2 = "Remember, we're down here to collect two things: Light, and Artifacts. Let's " +
     //"start off lookin' for Light.";
 
-    private string movementTutorialMessage2 = "Our scans show that we're parked on top of a huge Light deposit, so get ready for " +
+    private string movementTutorialMessage2 = "Our scans show that we're parked on top of a huge light deposit, so get ready for " +
                                               "a little egg hunt.";
 
     private string movementTutorialMessage3 = "Head down this trench 'till you see a glowin' orb on the ground. " +
@@ -159,14 +159,14 @@ public class TutorialDirector : MonoBehaviour
 
     private string lightPickupObjective = "Collect the Light Orb";
 
-    private string lightPickupMessage1 = "Pretty neat huh? These Light Orbs bubble up to the ocean floor from " +
+    private string lightPickupMessage1 = "Pretty neat huh? These light orbs bubble up to the ocean floor from " +
                                          "deep underground.";
 
     private string lightPickupMessage2 = "They're the only energy source strong enough to power all our tech, but " +
                                          "they're rare as hell.";
 
     private string lightPickupMessage3 = "All things considered, I'd say it's pretty lucky that that cargo ship " +
-                                         "crashed where it did. This place is a gold mine.";
+                                         "crashed where it did. This place is a gold mine!";
 
     private string lightPickupMessage4 = "Keep lookin'. There's a lot more down that trench.";
 
@@ -187,7 +187,7 @@ public class TutorialDirector : MonoBehaviour
     private string lightHuntObjective = "Search for Light";
 
     private string lightHuntMessage1 = "Oh, and I forgot to mention, there's usually some agressive wildlife that's " +
-                                       "attracted to all the Light you're collecting.";
+                                       "attracted to all the light you're collecting.";
 
     //private string lightHuntMessage2 = "You'll probably only find small things in this trench, so don't worry too much.";
 
@@ -196,9 +196,9 @@ public class TutorialDirector : MonoBehaviour
     //private string lightHuntMessage4 = "They can all get pretty agressive, so the R&D boys cooked up some " +
     //"weapons to defend yourself with.";
 
-    private string lightHuntMessage4 = "That's why the R&D boys cooked up some weapons to defend yourself with.";
+    private string lightHuntMessage4 = "That's why you've got some weapons to defend yourself with.";
 
-    private string lightHuntMessage5 = "First, you can fend things off with a melee strike. Try it out now.";
+    private string lightHuntMessage5 = "First, you can fend things off with an electrical shocker. Try it out now.";
 
 
 
@@ -206,10 +206,10 @@ public class TutorialDirector : MonoBehaviour
 
     public sequenceState meleeTutorialState = sequenceState.WAITING;
 
-    private string meleeTutorialPrompt = "Right Click | Melee";
+    private string meleeTutorialPrompt = "Right Click | Shock";
 
     private string meleeTutorialMessage1 = "That's useful if something gets too close. For longer distances, " +
-                                           "you've got a Light-powered Blaster. Fire away.";
+                                           "you've got a light-powered blaster. Fire away.";
 
 
 
@@ -217,28 +217,30 @@ public class TutorialDirector : MonoBehaviour
 
     public sequenceState blasterTutorialState = sequenceState.WAITING;
 
-    private string blasterTutorialPrompt = "Left Click | Shoot Blaster";
+    private string blasterTutorialPrompt = "Hold Left Click | Shoot Blaster";
 
     private string blasterTutorialMessage1 = "This beauty will chew through anything in your way, but it also " +
-                                             "chews through the Exo-suit's Light reserves.";
+                                             "chews through the Exo-suit's light reserves.";
 
-    private string blasterTutorialMessage2 = "Check your HUD for a blue bar. That shows how much Light you have.";
+    //private string blasterTutorialMessage2 = "Check your HUD for a blue bar. That shows how much Light you have.";
+    private string blasterTutorialMessage2 = "There's a circular bar on the top-right of your HUD. That shows how much Light you have.";
 
-    private string blasterTutorialMessage3 = "Your HUD also has a green bar. This shows the suit's Health status.";
+    private string blasterTutorialMessage3 = "Your HUD also has a bar to the left. This shows the suit's Health status.";
 
-    private string blasterTutorialMessage3p5 = "If your Health gets to zero, your suit loses all power. Meanin' you have to " +
-                                               "survive completely in the dark. No Light, no Blaster, just your melee.";
+    //private string blasterTutorialMessage3p5 = "If your Health gets to zero, your suit loses all power. Meanin' you have to " +
+    //"survive completely in the dark. No Light, no Blaster, just your melee.";
+    private string blasterTutorialMessage3p5 = "If your Health gets to zero, you'll have to survive in the dark without power.";
 
-    private string blasterTutorialMessage4 = "Even if that does happen though, you can always collect Light to repair " +
+    private string blasterTutorialMessage4 = "Just remember, you can always collect light to repair " +
                                              "yourself in a pinch.";
 
     //private string blasterTutorialMessage5 = "Alright, let's keep going. There's gonna be a tight chasm somewhere up ahead. " +
     //"Should be more Light through there.";
 
-    private string blasterTutorialMessage5 = "Anyway, no fish is gonna do that much damage, so don't worry too much.";
+    private string blasterTutorialMessage5 = "Anyway, no fish is gonna do that much damage, so don't worry yourself too much.";
 
     private string blasterTutorialMessage6 = "There's gonna be a tight chasm somewhere up ahead. " +
-                                             "Should be more Light through there.";
+                                             "Should be more light through there.";
 
 
 
@@ -292,12 +294,12 @@ public class TutorialDirector : MonoBehaviour
 
     public sequenceState room2AttackEndState = sequenceState.WAITING;
 
-    private string room2AttackEndMessage1 = "Alright kid, we're firin' up the Teleporter to get you back, but it " +
-                                            "needs some time before it's ready to go.";
+    private string room2AttackEndMessage1 = "Alright kid, we're firin' up the sub's teleporter to get you back, but it " +
+                                            "needs some time before it's ready.";
 
     private string room2AttackEndMessage2 = "You're gonna have to defend yourself until then.";
 
-    private string room2AttackEndMessage3 = "Luckily for you, our scans show that there's an Automaton in the " +
+    private string room2AttackEndMessage3 = "Lucky for you, our scans show that there's an Automaton in the " +
                                             "next chamber up ahead.";
 
     private string room2AttackEndMessage4 = "If you can reach it, it should help your chances.";
@@ -347,9 +349,9 @@ public class TutorialDirector : MonoBehaviour
     private string artifactScanObjective = "Scan the Automaton";
 
     private string artifactScanMessage1 = "The Automaton's data should've saved in the suit's Echo Drive. " +
-                                          "Look for it on your HUD just above your Light Bar.";
+                                          "Look for it on your HUD just below your Light Bar.";
 
-    private string artifactScanMessage2 = "Your suit can create a Light-powered Echo of the Automaton. It'll help " +
+    private string artifactScanMessage2 = "Your suit can create a light-powered Echo of the Automaton. It'll help " +
                                           "you fight these things off. Deploy an Echo now.";
 
 
@@ -452,21 +454,21 @@ public class TutorialDirector : MonoBehaviour
 
     private string backupSender = "EXO-SUIT BACKUP PROTOCOLS";
 
-    private string teleportMessage3 = "- - - \n" +
+    /*private string teleportMessage3 = "- - - \n" +
                                       "- ERROR REPORT: \n" +
                                       "- - - \n" +
                                       "- HOST SHIP CANNOT BE FOUND \n" +
                                       "- - - \n" +
                                       "- ASP-7 COPILOT DISCONNECTED \n" +
-                                      "- - - ";
+                                      "- - - ";*/
 
-    private string teleportMessage4 = "- - - \n" +
-                                      "- DIRECTIVE: \n" +
-                                      "- - - \n" +
-                                      "- RETURN TO HOST SHIP IMMEDIATELY \n" +
-                                      "- - - \n" +
-                                      "- RECONNECT TO ASP-7 COPILOT \n" +
-                                      "- - - ";
+    private string teleportMessage3 = "- - - ERROR - - - \n" +
+                                      "- HOST SHIP CANNOT BE FOUND . . . \n" +
+                                      "- ASP-7 COPILOT DISCONNECTED . . . ";
+
+    private string teleportMessage4 = "- - - DIRECTIVE - - - \n" +
+                                      "- RETURN TO HOST SHIP IMMEDIATELY . . . \n" +
+                                      "- RECONNECT TO ASP-7 COPILOT . . .";
 
     private string teleportObjective2 = "Return to the Submarine";
 
@@ -503,19 +505,12 @@ public class TutorialDirector : MonoBehaviour
 
     [SerializeField] public GameObject aspCore;
 
-    private string collectCoreMessage1 = "- - - \n" +
-                                         "- STATUS REPORT: \n" +
-                                         "- - - \n" +
-                                         "- HOST SHIP DESTROYED \n" +
-                                         "- - - \n" +
-                                         "- ASP-7 COPILOT CORE FOUND \n" +
-                                         "- - - \n";
+    private string collectCoreMessage1 = "- - - STATUS - - - \n" +
+                                         "- HOST SHIP DESTROYED . . . \n" +
+                                         "- ASP-7 COPILOT CORE FOUND . . .";
 
-    private string collectCoreMessage2 = "- - - \n" +
-                                         "- DIRECTIVE: \n" +
-                                         "- - - \n" +
-                                         "- MANUALLY INSTALL ASP-7 CORE \n" +
-                                         "- - - ";
+    private string collectCoreMessage2 = "- - - DIRECTIVE - - - \n" +
+                                         "- MANUALLY INSTALL ASP-7 CORE . . .";
 
     private string collectCoreObjective = "Install ASP-7 Core";
 
@@ -543,18 +538,15 @@ public class TutorialDirector : MonoBehaviour
 
     private string aspInstallMessage1 = "- ASP-7 installation initiated";
 
-    private string aspInstallMessage2 = "- Unknown host detected: Exo-suit E-54 \n" + 
-                                        "- - - - - - \n" + 
-                                        "Connecting... \n" + 
-                                        "- - - - - - - - - - - - - - \n" + 
-                                        "New host connection established \n" + 
-                                        "- - - - -";
+    private string aspInstallMessage2 = "- Unknown host detected: Exo-suit E-54 . . . \n" + 
+                                        "- Connecting... . . . . . \n" + 
+                                        "- New host connection established . . .";
 
     private string aspInstallMessage3 = "- Autonomous Support Pilot online \n" + 
                                         "- - - - - \n" + 
                                         "Explorer, I am here to help.";
 
-    private string aspInstallMessage3p5 = "Remain near the SSM Lawson while my reboot completes. Its remaining Light " +
+    private string aspInstallMessage3p5 = "Remain near the SSM Lawson while my reboot completes. The remaining light " +
                                         "power will hasten the process.";
 
     private string aspInstallMessage4 = "During this time, it is logical to assume that multiple hostile entities " + 
@@ -630,14 +622,11 @@ public class TutorialDirector : MonoBehaviour
     public sequenceState thePlanState = sequenceState.WAITING;
 
     private string thePlanMessage1 = "Analyzing... \n" + 
-                                     "- - - - - - - - - - - -";
+                                     "- - - - - - - - - -";
 
-    private string thePlanMessage2 = "- Multiple light reservoir pylons found \n" +
-                                     "- - - - - \n" +
-                                     "- Multiple defense-grade atomatons found \n" +
-                                     "- - - - - \n" +
-                                     "- Long-range homebound teleporter found \n" +
-                                     "- - - - -";
+    private string thePlanMessage2 = "- Multiple light reservoir pylons found . . . \n" +
+                                     "- Multiple defense-grade atomatons found . . . \n" +
+                                     "- Long-range homebound teleporter found . . .";
 
     private string thePlanMessage3 = "Explorer, I have a plan.";
 
@@ -646,7 +635,10 @@ public class TutorialDirector : MonoBehaviour
     private string thePlanMessage5 = "Many of these structures, or \"pylons\" as they are called, lie between " + 
                                      "us and a sunken teleporter, which we can use to escape.";
 
-    private string thePlanMessage6 = "As we travel to the teleporter, you must activate each pylon. This will " + 
+    /*private string thePlanMessage6 = "As we travel to the teleporter, you must activate each pylon. This will " + 
+                                     "inductively charge the teleporter with light.";*/
+
+    private string thePlanMessage6 = "You must activate each pylon along the way to the teleporter. This will " +
                                      "inductively charge the teleporter with light.";
 
     private string thePlanMessage7 = "Exit this trench through the newly bored tunnel to the right. The closest " + 
@@ -695,7 +687,7 @@ public class TutorialDirector : MonoBehaviour
 
     private string pylonDirectionMessage2 = "You may release a sonar pulse at any time to get your bearings, but the sound is likely to attract entities.";
 
-    private string pylonDirectionMessage3 = "Which, by the way, there are hostile entities approaching now.";
+    private string pylonDirectionMessage3 = "Parenthetically, there are hostile entities approaching now.";
 
 
 
@@ -705,9 +697,9 @@ public class TutorialDirector : MonoBehaviour
 
     private string findPylonObjective = "Travel to the Pylon";
 
-    private string findPylonMessage1 = "Remember, explorer: Use sonar pulses to find your way. Deploy echos to defend yourself.";
+    private string findPylonMessage1 = "Remember, explorer: Use sonar pulses to find your way. Deploy Echos to defend yourself.";
 
-    private string findPylonMessage2 = "The risk is high but you are capable. Now, get to the pylon.";
+    private string findPylonMessage2 = "The risk is high but you are capable. Now, get to the first pylon.";
 
 
 
@@ -1185,19 +1177,19 @@ public class TutorialDirector : MonoBehaviour
         {
             StartCoroutine(playRampingHummingSound(25f, 0.5f, 0.75f));
             yield return new WaitForSeconds(1f);
-            yield return messanger.showMessage("", startUpSender, false);
+            yield return messanger.showMessage("", startUpSender, false, true);
             yield return new WaitForSeconds(0.75f);
-            yield return messanger.showMessage(startUpMessage1, startUpSender, false);
+            yield return messanger.showMessage(startUpMessage1, startUpSender, false, true);
             yield return new WaitForSeconds(2f);
-            yield return messanger.showMessage(startUpMessage2, startUpSender, false);
+            yield return messanger.showMessage(startUpMessage2, startUpSender, false, true);
             yield return new WaitForSeconds(0.25f);
             //yield return messanger.showMessage(startUpMessage3, startUpSender, false);
             //yield return new WaitForSeconds(1f);
-            yield return messanger.showMessage("", startUpSender, false);
+            yield return messanger.showMessage("", startUpSender, false, true);
             yield return new WaitForSeconds(0.5f);
-            yield return messanger.showMessage(startUpMessage4, startUpSender, false);
+            yield return messanger.showMessage(startUpMessage4, startUpSender, false, true);
             yield return new WaitForSeconds(1.5f);
-            messanger.hideMessage();
+            messanger.hideMessage(true);
         }
 
         /*
@@ -2265,7 +2257,7 @@ public class TutorialDirector : MonoBehaviour
         pylonDirectionState = sequenceState.RUNNING;
 
         interactPrompt.hidePrompt();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         if (!fastSequencesDEV)
         {
             yield return messanger.showMessage("", aspSender, false);
@@ -2320,7 +2312,7 @@ public class TutorialDirector : MonoBehaviour
         saveManager.SetSpawnPoint(tunnelPlayerSpawnPoint.transform.position);
         saveManager.SaveGame();
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(8.75f);
         objectivePrompt.hidePrompt();
 
         findPylonState = sequenceState.COMPLETE;

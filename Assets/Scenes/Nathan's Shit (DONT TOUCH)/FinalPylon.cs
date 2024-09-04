@@ -32,6 +32,9 @@ public class FinalPylon : Interactable
     [SerializeField] public AudioSource pylonMusic;
     [SerializeField] public AudioSourceController pylonMusicController;
 
+    [SerializeField] public LightResource playerLight;
+    [SerializeField] public HealthPoints playerHealthPoints;
+
     public float currentCharge;
 
     public float tickRate;
@@ -76,11 +79,14 @@ public class FinalPylon : Interactable
     [SerializeField] public MusicConductor musicConductor;
     [SerializeField] public MusicTrack currentAmbientTrack;
 
+    private SaveManager saveManager;
+
 
 
     // Start is called before the first frame update
     public override void Start()
     {
+        saveManager = FindObjectOfType<SaveManager>();
         currentCharge = 0f;
         tickRate = 0.05f;
         isCharging = false;
@@ -152,14 +158,14 @@ public class FinalPylon : Interactable
 
     private void SavePylon()
     {
-        var saveManager = FindObjectOfType<SaveManager>();
+        //var saveManager = FindObjectOfType<SaveManager>();
         saveManager.SetSpawnPoint(transform.position + Vector3.right * 10f);
         saveManager.MarkObjective(gameObject, SaveManager.ObjectiveType.Pylon);
     }
 
     public void SavePylonCheckpoint()
     {
-        var saveManager = FindObjectOfType<SaveManager>();
+        //var saveManager = FindObjectOfType<SaveManager>();
         saveManager.SetSpawnPoint(transform.position + Vector3.right * 10f);
         saveManager.SaveGame();
     }
@@ -316,11 +322,31 @@ public class FinalPylon : Interactable
 
 
         //Wave 4
+        playerHealthPoints.healEntity(1000f);
+        playerLight.addLight(1000f);
+        float endPitch = pylonEndSFX.pitch;
+        pylonEndSFX.pitch = 1f;
+        pylonEndSFX.Play();
+        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
+            {
+                enemy.GetComponent<HealthPoints>().damageEntity(10000f);
+            }
+        }
+        yield return new WaitForSeconds(1f);
+        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
+            {
+                enemy.GetComponent<HealthPoints>().damageEntity(10000f);
+            }
+        }
         musicConductor.crossfade(15f, musicConductor.lvl2Track, 8f, 0f, true);
         pylonEnemySpawner.passiveSpawnCooldown = wave4PassiveEnemySpawnCooldown;
         //pylonEnemySpawner.passiveSpawnActive = (pylonCoroutine == null) ? false : true;
         //pylonEnemySpawner.passiveWaveSpawnActive = (pylonCoroutine == null) ? false : true;
-        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 15f);
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 14f);
         pylonEnemySpawner.passiveSpawnActive = (pylonCoroutine == null) ? false : true;
         pylonEnemySpawner.passiveWaveSpawnActive = (pylonCoroutine == null) ? false : true;
         //musicConductor.crossfade(3f, musicConductor.lvl2Track, 1.5f, 0f, true);
@@ -364,17 +390,35 @@ public class FinalPylon : Interactable
 
 
         //Wave 7
+        playerHealthPoints.healEntity(1000f);
+        playerLight.addLight(1000f);
+        pylonEndSFX.Play();
+        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
+            {
+                enemy.GetComponent<HealthPoints>().damageEntity(10000f);
+            }
+        }
+        yield return new WaitForSeconds(1f);
+        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
+            {
+                enemy.GetComponent<HealthPoints>().damageEntity(10000f);
+            }
+        }
         musicConductor.crossfade(15f, musicConductor.lvl3Track, 8f, 0f, true);
         pylonEnemySpawner.passiveSpawnCooldown = wave7PassiveEnemySpawnCooldown;
         //pylonEnemySpawner.passiveSpawnActive = (pylonCoroutine == null) ? false : true;
         //pylonEnemySpawner.passiveWaveSpawnActive = (pylonCoroutine == null) ? false : true;
-        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 15f);
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 14f);
         pylonEnemySpawner.passiveSpawnActive = (pylonCoroutine == null) ? false : true;
         pylonEnemySpawner.passiveWaveSpawnActive = (pylonCoroutine == null) ? false : true;
         //musicConductor.crossfade(3f, musicConductor.lvl3Track, 1.5f, 0f, true);
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList11));
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 8f);
-        pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList11));
+        pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList12));
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 8f);
         pylonEnemySpawner.passiveSpawnActive = (pylonCoroutine == null) ? false : true;
         pylonEnemySpawner.passiveWaveSpawnActive = (pylonCoroutine == null) ? false : true;
@@ -391,6 +435,7 @@ public class FinalPylon : Interactable
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 14f);
 
         //Wave 9
+        pylonEndSFX.pitch = endPitch;
         pylonEnemySpawner.passiveSpawnCooldown = wave9PassiveEnemySpawnCooldown;
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList14));
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 10f);
@@ -423,7 +468,7 @@ public class FinalPylon : Interactable
             {
                 if (enemy != null && enemy.GetComponent<HealthPoints>() != null)
                 {
-                    enemy.GetComponent<HealthPoints>().damageEntity(1000f);
+                    enemy.GetComponent<HealthPoints>().damageEntity(10000f);
                 }
             }
 

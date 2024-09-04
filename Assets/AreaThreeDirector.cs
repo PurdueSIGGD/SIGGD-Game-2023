@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -21,6 +23,7 @@ public class AreaThreeDirector : MonoBehaviour
     [SerializeField] public EnemySpawner enemySpawner;
     [SerializeField] public TutorialDirector tutorialDirector;
     [SerializeField] public MiniMap miniMap;
+    [SerializeField] public UnitController unitController;
 
 
     [SerializeField] public MusicConductor musicConductor;
@@ -42,6 +45,8 @@ public class AreaThreeDirector : MonoBehaviour
     [SerializeField] public ChargePylon pylon2;
     [SerializeField] public ChargePylon pylon3;
     [SerializeField] public FinalPylon finalPylon;
+
+    public bool suppressLight = false;
 
 
 
@@ -191,7 +196,7 @@ public class AreaThreeDirector : MonoBehaviour
 
     //DONE SEQUENCE --------------------------------------------------------------------
 
-    public sequenceState doneState = sequenceState.WAITING;
+    public sequenceState doneState = sequenceState.READY;
 
     private string doneSender = "0x0000555547F3AD9A5";
 
@@ -446,12 +451,14 @@ public class AreaThreeDirector : MonoBehaviour
     public IEnumerator lateStart()
     {
         yield return new WaitForSeconds(0.1f);
+        suppressLight = false;
         whaleFirstEncounterTrigger.sequenceState = sequenceState.READY;
         torpedoerPickupTrigger.sequenceState = sequenceState.READY;
         salvationTrigger.sequenceState = sequenceState.READY;
         atLastTrigger.sequenceState = sequenceState.READY;
         closerTrigger.sequenceState = sequenceState.READY;
         beFreedTrigger.sequenceState = sequenceState.READY;
+        doneState = sequenceState.READY;
         /*
         jellyFirstEncounterTrigger.sequenceState = sequenceState.READY;
         strongerTrigger.sequenceState = sequenceState.READY;
@@ -474,10 +481,11 @@ public class AreaThreeDirector : MonoBehaviour
             //musicConductor.crossfade(0f, musicConductor.deathTrack, 3f, 0f, musicConductor.deathTrack.loopStartTime);
             musicConductor.crossfade(0f, musicConductor.hummingTrack, 3f, 0f, 0f);
             yield return new WaitForSeconds(3f);
+            isLoading = false;
             pylon1.GetComponent<Collider>().enabled = true;
             pylon2.GetComponent<Collider>().enabled = true;
             pylon3.GetComponent<Collider>().enabled = true;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(7f);
             objectivePrompt.hidePrompt();
             //yield return new WaitForSeconds(10f);
             //fastSequencesDEV = false;
@@ -504,6 +512,11 @@ public class AreaThreeDirector : MonoBehaviour
         if (isLoading)
         {
             return;
+        }
+
+        if (suppressLight)
+        {
+            playerLightResource.consumeLight(1f);
         }
 
 
@@ -568,7 +581,7 @@ public class AreaThreeDirector : MonoBehaviour
         //Be Freed Trigger
         if (beFreedTrigger.sequenceState == sequenceState.READY)
         {
-            if (beFreedTrigger.triggered)
+            if (beFreedTrigger.triggered && !finalPylon.chargeDone)
             {
                 beFreedTrigger.sequenceState = sequenceState.RUNNING;
                 StartCoroutine(beFreedSequence());
@@ -822,7 +835,7 @@ public class AreaThreeDirector : MonoBehaviour
     public IEnumerator whaleFirstEncounterSequence()
     {
         whaleFirstEncounterTrigger.sequenceState = sequenceState.RUNNING;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         if (!fastSequencesDEV)
         {
             //eldritchSound.loop = true;
@@ -830,18 +843,18 @@ public class AreaThreeDirector : MonoBehaviour
             yield return messanger.showMessage("", whaleFirstEncounterSender, false);
             yield return new WaitForSeconds(1.5f);
             yield return messanger.showMessage(whaleFirstEncounterMessage1, whaleFirstEncounterSender, true);
-            yield return new WaitForSeconds(2f);
-            yield return messanger.showMessage(whaleFirstEncounterMessage2, whaleFirstEncounterSender, true);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(2.5f);
             eldritchSound.Play();
+            yield return messanger.showMessage(whaleFirstEncounterMessage2, whaleFirstEncounterSender, true);
+            yield return new WaitForSeconds(1.5f);
             yield return messanger.showMessage(whaleFirstEncounterMessage3, whaleFirstEncounterSender, true);
             //eldritchSound.loop = false;
             //eldritchSound.Stop();
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(2.5f);
         }
-        whaleFirstEncounterEnemies = whaleFirstEncounterEnemySpawner.spawnEnemyWave(whaleFirstEncounterEnemyList1);
-        yield return new WaitForSeconds(1f);
         messanger.hideMessage();
+        yield return new WaitForSeconds(1f);
+        whaleFirstEncounterEnemies = whaleFirstEncounterEnemySpawner.spawnEnemyWave(whaleFirstEncounterEnemyList1);
         whaleFirstEncounterTrigger.sequenceState = sequenceState.COMPLETE;
     }
 
@@ -875,7 +888,7 @@ public class AreaThreeDirector : MonoBehaviour
     public IEnumerator salvationSequence()
     {
         salvationTrigger.sequenceState = sequenceState.RUNNING;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         if (!fastSequencesDEV)
         {
             //eldritchSound.loop = true;
@@ -883,15 +896,15 @@ public class AreaThreeDirector : MonoBehaviour
             yield return messanger.showMessage("", salvationSender, false);
             yield return new WaitForSeconds(1.5f);
             yield return messanger.showMessage(salvationMessage1, salvationSender, true);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(3.5f);
             eldritchSound.Play();
             yield return messanger.showMessage(salvationMessage2, salvationSender, true);
             //eldritchSound.loop = false;
             yield return new WaitForSeconds(2.5f);
         }
-        salvationEnemies = salvationEnemySpawner.spawnEnemyWave(salvationEnemyList1);
-        yield return new WaitForSeconds(1f);
         messanger.hideMessage();
+        yield return new WaitForSeconds(1f);
+        salvationEnemies = salvationEnemySpawner.spawnEnemyWave(salvationEnemyList1);
         salvationTrigger.sequenceState = sequenceState.COMPLETE;
     }
 
@@ -1059,6 +1072,7 @@ public class AreaThreeDirector : MonoBehaviour
         playerAttackHandler.enabled = false;
         miniMap.sonarEnabled = false;
         miniMap.enemiesEnabled = false;
+        killTurrets();
         if (!fastSequencesDEV)
         {
             //eldritchSound.loop = true;
@@ -1119,9 +1133,19 @@ public class AreaThreeDirector : MonoBehaviour
 
         playerAttackHandler.gameObject.transform.position = playerEndPoint.transform.position;
         rejoiceEnemySpawner.spawnEnemyWave(rejoiceEnemyList1);
-
-        //messanger.hideMessage();
+        float fadeTime = 0.1f;
+        yield return new WaitForSeconds(3.25f);
         rejoiceState = sequenceState.COMPLETE;
+        var fader = FindObjectOfType<Fader>();
+        if (fader == null)
+        {
+            Debug.LogError("You need to drag the fader prefab into the scene");
+        }
+        fader.FadeOut(Color.black, fadeTime);
+        hummingSound.Stop();
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("DeathScene");
+        //TODO: Clear save data
     }
 
 
@@ -1561,6 +1585,29 @@ public class AreaThreeDirector : MonoBehaviour
         //{
         hummingSound.Stop();
         //}
+    }
+
+
+
+    public void killTurrets()
+    {
+        //unitController.enabled = false;
+        playerLightResource.consumeLight(50f);
+        playerLightResource.consumeLight(50f);
+        playerLightResource.consumeLight(50f);
+        playerLightResource.consumeLight(50f);
+        playerLightResource.consumeLight(50f);
+        playerLightResource.consumeLight(50f);
+        playerLightResource.consumeLight(50f);
+        playerLightResource.consumeLight(50f);
+        suppressLight = true;
+        foreach (GameObject turret in GameObject.FindGameObjectsWithTag("Unit"))
+        {
+            if (turret != null && turret.GetComponent<HealthPoints>() != null)
+            {
+                turret.GetComponent<HealthPoints>().damageEntity(1000f);
+            }
+        }
     }
 
 

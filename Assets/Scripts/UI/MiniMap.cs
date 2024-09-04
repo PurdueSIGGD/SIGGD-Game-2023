@@ -30,12 +30,16 @@ public class MiniMap : MonoBehaviour
 
     private ArrayList minimapIcons = new ArrayList();
 
+    private uiBarManager playerUIBars;
+
     // Start is called before the first frame update
     void Start()
     {
         minimapCamera = gameObject.GetComponent<Camera>();
         cameraAlpha = Convert.ToByte(minimapCamera.backgroundColor.a * 255);
         maskingLayer = LayerMask.NameToLayer("Minimap");
+
+        playerUIBars = FindObjectOfType<uiBarManager>();
 
         // Add pylons to the minimap icon array
         ChargePylon[] chargePylons = FindObjectsOfType<ChargePylon>();
@@ -68,7 +72,8 @@ public class MiniMap : MonoBehaviour
     void Update()
     {
         // If blackout happens, turn on or off the minimap accordingly
-        blackout = FindObjectOfType<uiBarManager>().blackout;
+        //blackout = FindObjectOfType<uiBarManager>().blackout;
+        blackout = playerUIBars.blackout;
         if (blackout && !blackoutOnce)
         {
             blackoutOnce = true;

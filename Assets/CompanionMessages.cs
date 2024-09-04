@@ -9,6 +9,8 @@ public class CompanionMessages : MonoBehaviour
 
     [SerializeField] private GameObject messageBackground;
     [SerializeField] private TMP_Text messageTextBox;
+    [SerializeField] private GameObject bigMessageBackground;
+    [SerializeField] private TMP_Text bigMessageTextBox;
     [SerializeField] private AudioSource messageSound;
     [SerializeField] private AudioSource slowMessageSound;
     [SerializeField] private bool DEVTOOLsendMessage; //DEV TOOL
@@ -21,6 +23,8 @@ public class CompanionMessages : MonoBehaviour
         DEVTOOLkillMessage = false; //DEV TOOL
         messageBackground.SetActive(false);
         messageTextBox.enabled = false;
+        bigMessageBackground.SetActive(false);
+        bigMessageTextBox.enabled = false;
     }
 
     // Update is called once per frame
@@ -76,10 +80,63 @@ public class CompanionMessages : MonoBehaviour
         }
     }
 
+    public IEnumerator showMessage(string message, string sender, bool slow, bool big)
+    {
+        if (!big)
+        {
+            yield return showMessage(message, sender, slow);
+        }
+
+        bigMessageTextBox.text = "< " + sender.ToUpper() + " >\n";
+        bigMessageBackground.SetActive(true);
+        bigMessageTextBox.enabled = true;
+        //StartCoroutine(typeMessage(message, slow));
+        string[] messageWords = message.Split(" ");
+        foreach (string word in messageWords)
+        {
+            if (slow)
+            {
+                yield return new WaitForSeconds(0.7f);
+            }
+            if ((bigMessageTextBox.text.LastIndexOf(".") == bigMessageTextBox.text.Length - 2) ||
+                (bigMessageTextBox.text.LastIndexOf("?") == bigMessageTextBox.text.Length - 2) ||
+                (bigMessageTextBox.text.LastIndexOf("!") == bigMessageTextBox.text.Length - 2) ||
+                (bigMessageTextBox.text.LastIndexOf(":") == bigMessageTextBox.text.Length - 2))
+            {
+                yield return new WaitForSeconds(0.4f);
+            }
+            else if (bigMessageTextBox.text.LastIndexOf(",") == bigMessageTextBox.text.Length - 2)
+            {
+                yield return new WaitForSeconds(0.2f);
+            }
+            yield return new WaitForSeconds(Random.Range(0.125f, 0.25f));
+            bigMessageTextBox.text += word + " ";
+            /*if (slow)
+            {
+                slowMessageSound.Play();
+            }
+            else
+            {
+                messageSound.Play();
+            }*/
+        }
+    }
+
     public void hideMessage()
     {
         messageBackground.SetActive(false);
         messageTextBox.enabled = false;
+    }
+
+    public void hideMessage(bool big)
+    {
+        if (!big)
+        {
+            hideMessage();
+            return;
+        }
+        bigMessageBackground.SetActive(false);
+        bigMessageTextBox.enabled = false;
     }
 
     /*public IEnumerator typeMessage(string message, bool slow)

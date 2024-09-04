@@ -16,6 +16,8 @@ public class TitleIntro : MonoBehaviour
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private List<Button> optionButtons;
 
+    [SerializeField] public bool isDeathScene;
+
     public Color backgroundColor;
     public Color textColor;
     public Color titleColor;
@@ -23,6 +25,15 @@ public class TitleIntro : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MusicConductor musicConductor = FindObjectOfType<MusicConductor>();
+        if (isDeathScene)
+        {
+            musicConductor.crossfade(0f, musicConductor.deathTrack, 2f, 0f, 0f);
+        }
+        else
+        {
+            musicConductor.crossfade(0f, musicConductor.titleTrack, 0f, 0f, 0f);
+        }
         backgroundColor = quoteBackground.color;
         backgroundColor.a = 1;
         quoteBackground.color = backgroundColor;
@@ -64,17 +75,20 @@ public class TitleIntro : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds((isDeathScene) ? 0f : 4f);
 
-        for (int i = 0; i < 200; i++)
+        if (!isDeathScene)
         {
-            backgroundColor.a -= 0.005f;
-            quoteBackground.color = backgroundColor;
-            textColor.a -= 0.005f;
-            quoteText.color = textColor;
-            titleColor.a += 0.01f;
-            titleText.color = titleColor;
-            yield return new WaitForSeconds(0.02f);
+            for (int i = 0; i < 200; i++)
+            {
+                backgroundColor.a -= 0.005f;
+                quoteBackground.color = backgroundColor;
+                textColor.a -= 0.005f;
+                quoteText.color = textColor;
+                titleColor.a += 0.01f;
+                titleText.color = titleColor;
+                yield return new WaitForSeconds(0.02f);
+            }
         }
 
         foreach (var optionButton in optionButtons)
@@ -88,6 +102,21 @@ public class TitleIntro : MonoBehaviour
                 optionColor.a += 0.04f;
                 optionButton.image.color = buttonColor;
                 buttonText.color = optionColor;
+                yield return new WaitForSeconds(0.02f);
+            }
+        }
+
+        if (isDeathScene)
+        {
+            yield return new WaitForSeconds(2f);
+            for (int i = 0; i < 200; i++)
+            {
+                backgroundColor.a -= 0.005f;
+                quoteBackground.color = backgroundColor;
+                textColor.a -= 0.005f;
+                quoteText.color = textColor;
+                //titleColor.a += 0.01f;
+                //titleText.color = titleColor;
                 yield return new WaitForSeconds(0.02f);
             }
         }
