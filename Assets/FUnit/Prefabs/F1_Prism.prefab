@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ed21e89c4a87748a8649cec45ebc99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumHealth: 250
+  maximumHealth: 400
   currentHealth: 0
   invulnerable: 0
   healDEV: 0
@@ -141,8 +141,10 @@ MonoBehaviour:
     splitCount: 3
     splitLife: 2
     angleBetweenSplits: 20
+    selfDamage: 5
     splitSound: {fileID: 3782243439397307022}
     placementSound: {fileID: 5422436096703802689}
+    healthPoints: {fileID: -2859459311688634453}
 --- !u!82 &1915802304779885735
 AudioSource:
   m_ObjectHideFlags: 0

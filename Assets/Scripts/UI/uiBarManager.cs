@@ -21,10 +21,15 @@ public class uiBarManager : MonoBehaviour
 
     [SerializeField] private Slider healthSlider;
     [SerializeField] private TMP_Text healthText;
+    [SerializeField] private Slider statusSlider;
     [SerializeField] private Slider lightSlider;
     [SerializeField] private TMP_Text lightText;
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private Slider unitLightSlider;
+
+    [SerializeField] private Color damageStatusColor;
+    [SerializeField] private Color healingStatusColor;
+    [SerializeField] private float statusFadeTime;
 
     // CIRCULAR SLIDERS GO FROM 0.0 TO 0.25
 
@@ -111,6 +116,9 @@ public class uiBarManager : MonoBehaviour
     void Start()
     {
         blackout = false;
+        Color statusColor = statusSlider.transform.GetChild(0).GetComponent<Image>().color;
+        statusColor.a = 0f;
+        statusSlider.transform.GetChild(0).GetComponent<Image>().color = statusColor;
     }
 
     // Update is called once per frame
@@ -121,5 +129,41 @@ public class uiBarManager : MonoBehaviour
         UpdateLevel();
         UpdateBlackout();
         UpdateUnitLight();
+        UpdateStatus(Time.deltaTime);
     }
+
+    void UpdateStatus(float deltaTime)
+    {
+        Color statusColor = statusSlider.transform.GetChild(0).GetComponent<Image>().color;
+
+        if (blackout)
+        {
+            //statusColor = statusSlider.transform.GetChild(0).GetComponent<Image>().color;
+            statusColor.a = 0f;
+            statusSlider.transform.GetChild(0).GetComponent<Image>().color = statusColor;
+            return;
+        }
+        //statusSlider.value = Mathf.Max((0.25f * playerHealth.currentHealth / (float)playerHealth.maximumHealth) + 0.005f, 0.1f);
+        //statusColor = statusSlider.transform.GetChild(0).GetComponent<Image>().color;
+
+        if (statusColor.a <= 0) return;
+
+        statusColor.a -= deltaTime / statusFadeTime;
+        statusSlider.transform.GetChild(0).GetComponent<Image>().color = statusColor;
+    }
+
+    public void SetDamagedStatus(float damage)
+    {
+        statusSlider.value = Mathf.Min((0.25f * ((playerHealth.currentHealth + damage) / (float) playerHealth.maximumHealth)), 0.25f);
+        Color statusColor = damageStatusColor;
+        statusSlider.transform.GetChild(0).GetComponent<Image>().color = statusColor;
+    }
+
+    public void SetHealedStatus(float healing)
+    {
+        statusSlider.value = Mathf.Min((0.25f * ((playerHealth.currentHealth + healing) / (float)playerHealth.maximumHealth)), 0.25f);
+        Color statusColor = healingStatusColor;
+        statusSlider.transform.GetChild(0).GetComponent<Image>().color = statusColor;
+    }
+
 }

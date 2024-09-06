@@ -18,8 +18,10 @@ public class PrismFSM : Unit
         public int splitCount;
         public float splitLife;
         public float angleBetweenSplits;
+        public float selfDamage;
         public AudioSource splitSound;
         public AudioSource placementSound;
+        public HealthPoints healthPoints;
     }
 
     [SerializeField]

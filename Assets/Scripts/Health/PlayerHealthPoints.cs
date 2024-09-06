@@ -10,6 +10,7 @@ public class PlayerHealthPoints : HealthPoints
     [SerializeField] private Light playerLight;
     [SerializeField] private Light blackoutLight;
     [SerializeField] private LightResource lightResource;
+    [SerializeField] private uiBarManager uiBarManager;
     [SerializeField] private AudioClip damagePlayerFX;
     [SerializeField] private AudioSource donezoSound;
     public bool blackout;
@@ -61,10 +62,11 @@ public class PlayerHealthPoints : HealthPoints
 
         float damageDealt = base.damageEntity(damage);
         setInvulnerable(iFrameDuration);
-        Debug.Log("INVULNERABLE CALLED - DAMAGE - " + iFrameDuration);
+        //Debug.Log("INVULNERABLE CALLED - DAMAGE - " + iFrameDuration);
         //return damageDealt;
         // Plays player damage FX
         PlayerFXManager.instance.PlayFXClip(damagePlayerFX, transform, 1f, 0.3f);
+        uiBarManager.SetDamagedStatus(damage);
 
         return damageDealt;
         //return base.damageEntity(damage);
@@ -120,8 +122,10 @@ public class PlayerHealthPoints : HealthPoints
 
             //return 0f;
         }
+        float healingDealt = base.healEntity(healing);
+        if (healing > 1f && currentHealth < maximumHealth) uiBarManager.SetHealedStatus(healing);
 
-        return base.healEntity(healing);
+        return healingDealt;
     }
 
 

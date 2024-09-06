@@ -133,8 +133,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 3619183393428281143}
   spriteHolder: {fileID: 4710849856147274493}
-  passDuration: 12
+  passDuration: 10
   maxPassDistance: 50
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 8192
   searchTurnSpeed: 0.6
   searchMoveSpeed: 20
   angleThreshold: 25
@@ -154,8 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3331baabb5b05be409d231d49d109573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretDetectionRadius: 23
-  pulseRadius: 20
+  turretDetectionRadius: 21
+  pulseRadius: 18
   attackCooldown: 2.5
   pulseDamage: 100
   pulseSound: {fileID: 6260247896834700596}
@@ -174,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c7e06b757691d4d937073a997a8b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumHealth: 5000
+  maximumHealth: 4500
   currentHealth: 0
   invulnerable: 0
   healDEV: 0
@@ -780,7 +783,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 2.5}
-  m_Center: {x: 0, y: 0, z: 0.15}
+  m_Center: {x: 0, y: 0, z: -0.15}
 --- !u!1 &5284785013433790156
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,6 +903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 339e5b287b19b694a8da3e3ecbe319d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackSpriteTransform: {fileID: 2487092926356389521}
   cameraTransform: {fileID: 0}
 --- !u!1001 &8071464364249028954
 PrefabInstance:
@@ -951,7 +955,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5647844082779132614, guid: 54c6a920d6dc45c4098f7bc8417e584b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5647844082779132614, guid: 54c6a920d6dc45c4098f7bc8417e584b, type: 3}
       propertyPath: m_LocalRotation.w

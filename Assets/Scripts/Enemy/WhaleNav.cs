@@ -16,7 +16,7 @@ public class WhaleNav : MonoBehaviour
     private float currentDuration;
 
     private LayerMask enemyMask;
-    private LayerMask wallMask;
+    [SerializeField] private LayerMask wallMask;
     private NavMeshPath path;
 
     [SerializeField] private float searchTurnSpeed;
@@ -41,7 +41,8 @@ public class WhaleNav : MonoBehaviour
         target = null;
 
         enemyMask = LayerMask.NameToLayer("Enemy");
-        wallMask = LayerMask.NameToLayer("Wall");
+        //wallMask = LayerMask.NameToLayer("Wall");
+        //wallMask = LayerMask.GetMask("Wall");
         path = new NavMeshPath();
 
 
@@ -70,12 +71,37 @@ public class WhaleNav : MonoBehaviour
 
             Vector3 targetDir = target.position - thisEnemy.position;
 
+            //float distance = Vector3.Distance(thisEnemy.position, target.position);
+            float distance = targetDir.magnitude;
+            //Debug.Log("targetDir: " + targetDir + "   |   distance: " + distance + "\nmaxPassDistance: " + maxPassDistance + "   |   greater: " + (distance > maxPassDistance));
+            if (distance > maxPassDistance) return;
+            //Debug.Log("DISTANCE check passed");
+
             RaycastHit cast;
-            bool hasLOS = Physics.Raycast(thisEnemy.position, targetDir, out cast, maxPassDistance, ~enemyMask);
-            if (!hasLOS) return;
+            bool LOSBlocked = Physics.Raycast(thisEnemy.position, targetDir, out cast, distance, wallMask);
+            //Debug.DrawLine(thisEnemy.position, cast.point, Color.magenta);
+            /*
+            if (cast.collider == null)
+            {
+                Debug.Log("LOSBlocked: " + LOSBlocked + "   |   cast.collider: null");
+                if (LOSBlocked) return;
+            }
+            else
+            {
+                Debug.Log("LOSBlocked: " + LOSBlocked + "   |   cast.collider.name: " + cast.collider.gameObject.name + "   |   cast.collider.layer: " + cast.collider.gameObject.layer);
+                if (LOSBlocked) return;
+            }
+            */
+            if (LOSBlocked) return;
+            //Debug.Log("LOSBlocked: " + LOSBlocked + "   |   cast.collider.name: " + cast.collider.gameObject.name + "   |   cast.collider.layer: " + cast.collider.gameObject.layer);
+            //if (LOSBlocked) return;
+            //Debug.Log("LOS check passed");
 
             float angleToTarget = Vector3.Angle(targetDir, thisEnemy.forward);
             if (angleToTarget > angleThreshold) return;
+            //Debug.Log("ANGLE check passed");
+
+            //bool hit = Physics.Raycast(thi)
 
             passSound.Play();
             navMode = NavMode.PASSING;

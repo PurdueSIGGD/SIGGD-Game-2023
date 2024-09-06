@@ -35,6 +35,7 @@ public class PrismIdle : UnitState
             Vector3 masterVelocity = Quaternion.AngleAxis(-1 * wingAngle, Vector3.up) * velocity;
 
             // generate splits
+            prism.config.splitSound.pitch += (prism.config.healthPoints.currentHealth < 100) ? ((1f - (prism.config.healthPoints.currentHealth / 100f)) * 0.35f) : 0f;
             prism.config.splitSound.Play();
             for (int i = 0; i < splitCount; i++)
             {
@@ -48,6 +49,7 @@ public class PrismIdle : UnitState
 
                 masterVelocity = Quaternion.AngleAxis(angleBetweenSplits, Vector3.up) * masterVelocity;
             }
+            prism.config.healthPoints.damageEntity(prism.config.selfDamage);
         }
     }
 
