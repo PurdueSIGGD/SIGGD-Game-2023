@@ -50,9 +50,8 @@ public class Gunner : Unit
     float burstTime;
 
     // -- Behavior --
-    protected override void Start()
+    void Start()
     {
-        base.Start();
         canFire = true;
         burstTime = burstDuration / burstCount;
         isBurst = false;

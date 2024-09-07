@@ -9,20 +9,24 @@ public class WhaleNav : MonoBehaviour
     private Transform target;
 
     [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private DirectionalSprite spriteHolder;
 
     [SerializeField] private float passDuration;
     [SerializeField] private float maxPassDistance;
     private float currentDuration;
 
     private LayerMask enemyMask;
-    private LayerMask wallMask;
+    [SerializeField] private LayerMask wallMask;
     private NavMeshPath path;
 
     [SerializeField] private float searchTurnSpeed;
     [SerializeField] private float searchMoveSpeed;
     [SerializeField] private float angleThreshold;
     [SerializeField] private float passMoveSpeed;
+    [SerializeField] private float passTurnSpeed;
     [SerializeField] private bool targetPlayer;
+
+    [SerializeField] private AudioSource passSound;
 
     private enum NavMode
     {
@@ -37,7 +41,8 @@ public class WhaleNav : MonoBehaviour
         target = null;
 
         enemyMask = LayerMask.NameToLayer("Enemy");
-        wallMask = LayerMask.NameToLayer("Wall");
+        //wallMask = LayerMask.NameToLayer("Wall");
+        //wallMask = LayerMask.GetMask("Wall");
         path = new NavMeshPath();
 
 
@@ -66,19 +71,47 @@ public class WhaleNav : MonoBehaviour
 
             Vector3 targetDir = target.position - thisEnemy.position;
 
+            //float distance = Vector3.Distance(thisEnemy.position, target.position);
+            float distance = targetDir.magnitude;
+            //Debug.Log("targetDir: " + targetDir + "   |   distance: " + distance + "\nmaxPassDistance: " + maxPassDistance + "   |   greater: " + (distance > maxPassDistance));
+            if (distance > maxPassDistance) return;
+            //Debug.Log("DISTANCE check passed");
+
             RaycastHit cast;
-            bool hasLOS = Physics.Raycast(thisEnemy.position, targetDir, out cast, maxPassDistance, ~enemyMask);
-            if (!hasLOS) return;
+            bool LOSBlocked = Physics.Raycast(thisEnemy.position, targetDir, out cast, distance, wallMask);
+            //Debug.DrawLine(thisEnemy.position, cast.point, Color.magenta);
+            /*
+            if (cast.collider == null)
+            {
+                Debug.Log("LOSBlocked: " + LOSBlocked + "   |   cast.collider: null");
+                if (LOSBlocked) return;
+            }
+            else
+            {
+                Debug.Log("LOSBlocked: " + LOSBlocked + "   |   cast.collider.name: " + cast.collider.gameObject.name + "   |   cast.collider.layer: " + cast.collider.gameObject.layer);
+                if (LOSBlocked) return;
+            }
+            */
+            if (LOSBlocked) return;
+            //Debug.Log("LOSBlocked: " + LOSBlocked + "   |   cast.collider.name: " + cast.collider.gameObject.name + "   |   cast.collider.layer: " + cast.collider.gameObject.layer);
+            //if (LOSBlocked) return;
+            //Debug.Log("LOS check passed");
 
             float angleToTarget = Vector3.Angle(targetDir, thisEnemy.forward);
             if (angleToTarget > angleThreshold) return;
+            //Debug.Log("ANGLE check passed");
 
+            //bool hit = Physics.Raycast(thi)
+
+            passSound.Play();
             navMode = NavMode.PASSING;
         }
 
         // Do a pass until duration runs out
         if (navMode == NavMode.PASSING)
         {
+            if (target == null) UpdateTarget();
+
             currentDuration += Time.fixedDeltaTime;
 
             /*
@@ -101,13 +134,13 @@ public class WhaleNav : MonoBehaviour
             if (currentDuration < passDuration) return;
             currentDuration -= passDuration;
 
+            UpdateTarget();
             navMode = NavMode.SEARCHING;
         }
     }
 
     void SearchNavUpdate()
     {
-        Debug.Log("Search");
         NavMesh.CalculatePath(thisEnemy.position, target.position, NavMesh.AllAreas, path);
         for (int i = 1; i < path.corners.Length; i++) { Debug.DrawLine(path.corners[i - 1], path.corners[i], Color.green); }
         if (path.corners.Length <= 1) return;
@@ -124,6 +157,15 @@ public class WhaleNav : MonoBehaviour
 
     void PassNavUpdate()
     {
+        NavMesh.CalculatePath(thisEnemy.position, target.position, NavMesh.AllAreas, path);
+        for (int i = 1; i < path.corners.Length; i++) { Debug.DrawLine(path.corners[i - 1], path.corners[i], Color.green); }
+        if (path.corners.Length <= 1) return;
+
+        // Update Orientation
+        Vector3 targetDir = target.position - thisEnemy.position;
+        Vector3 newDir = Vector3.RotateTowards(thisEnemy.forward, targetDir, passTurnSpeed * Time.fixedDeltaTime, 0.0f);
+        thisEnemy.rotation = Quaternion.LookRotation(newDir);
+
         // Update Movement
         Vector3 moveOffset = thisEnemy.forward;
         agent.Move(moveOffset * passMoveSpeed * Time.fixedDeltaTime);
@@ -131,6 +173,8 @@ public class WhaleNav : MonoBehaviour
 
     void FixedUpdate()
     {
+        Vector3 moveOffset = thisEnemy.forward;
+        spriteHolder.lookDirectionOverride = moveOffset;
         NavModeUpdate();
         switch(navMode)
         {

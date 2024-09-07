@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ed21e89c4a87748a8649cec45ebc99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumHealth: 1000
+  maximumHealth: 100
   currentHealth: 0
   invulnerable: 0
   healDEV: 0
@@ -151,11 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cdfc8b69ee6ee0429e40a3868968abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 10
+  manaCost: 60
   sellCost: 0
   type: 2
   level: 0
-  fireCooldown: 1
+  fireCooldown: 0.8
   range: 10
   burstCount: 3
   burstDuration: 0.6
@@ -166,8 +166,8 @@ MonoBehaviour:
     m_Bits: 8388608
   projPrefab: {fileID: 354620882897817373, guid: 006840180321b504f8f76f1ba47bf693, type: 3}
   projDuration: 10
-  projDamage: 10
-  projSpeed: 20
+  projDamage: 30
+  projSpeed: 500
 --- !u!1 &7364929669028330281
 GameObject:
   m_ObjectHideFlags: 0

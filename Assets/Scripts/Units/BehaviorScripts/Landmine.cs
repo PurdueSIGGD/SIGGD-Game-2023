@@ -36,9 +36,8 @@ public class Landmine : Unit
     bool triggered;
 
     // -- Behavior --
-    protected override void Start()
+    void Start()
     {
-        base.Start();
         SetupDetonator();
     }
 

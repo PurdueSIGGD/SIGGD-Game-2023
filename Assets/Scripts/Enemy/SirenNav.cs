@@ -45,21 +45,32 @@ public class SirenNav : MonoBehaviour
         NavMesh.CalculatePath(this_enemy.position, player.position, NavMesh.AllAreas, path);
         Vector3 targetDir = path.corners[1] - this_enemy.position;
         Vector3 newDir = Vector3.RotateTowards(this_enemy.forward, targetDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
-        this_enemy.rotation = Quaternion.LookRotation(newDir);  
+        this_enemy.rotation = Quaternion.LookRotation(newDir);
 
         if (path.corners.Length > 2 || distToPlayer > (tempRange + 0.5f)) {
-            move_offset += this_enemy.forward * 1.5f;
+            move_offset += this_enemy.forward * 0.5f;
         }
 
-        if (path.corners.Length <= 2) {
+        if (/*path.corners.Length > 2 ||*/ distToPlayer > (maxRangeDist + 5f))
+        {
+            move_offset += this_enemy.forward * 1f;
+        }
+
+        if (path.corners.Length <= 2 && distToPlayer < tempRange) {
+            //move_offset += this_enemy.right * flankDir * flankSpeed;
+            move_offset += this_enemy.forward * -1.5f;
+        }
+
+        if (path.corners.Length <= 2 && distToPlayer >= (maxRangeDist - rangeVariability) && distToPlayer <= (maxRangeDist))
+        {
+           move_offset += this_enemy.forward * -0.6f;
             move_offset += this_enemy.right * flankDir * flankSpeed;
-            move_offset += this_enemy.forward * -3;
         }
 
-        if (distToPlayer > ((maxRangeDist - rangeVariability) * 0.3f) && path.corners.Length < 2) {
+        /*if (distToPlayer > ((maxRangeDist - rangeVariability) * 0.3f) && path.corners.Length <= 2) {
             Debug.Log("back");
             move_offset += this_enemy.forward * -1;
-        }
+        }*/
 
         if (move_offset != Vector3.zero && canMove) {
             agent.Move(move_offset * speed * Time.fixedDeltaTime);

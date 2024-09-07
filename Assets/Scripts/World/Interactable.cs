@@ -8,6 +8,7 @@ public class Interactable : MonoBehaviour
 {
     [SerializeField] public string promptMessage;
     [SerializeField] public InteractPrompt interactPrompt;
+    [SerializeField] public AudioSource interactSound;
 
     public bool isUsed;
     public bool playerInRange;
@@ -32,7 +33,7 @@ public class Interactable : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && !isUsed)
         {
             playerInRange = false;
             interactPrompt.hidePrompt();
@@ -56,6 +57,7 @@ public class Interactable : MonoBehaviour
         {
             interactPrompt.hidePrompt();
             isUsed = true;
+            if (interactSound != null) interactSound.Play();
         }
     }
 

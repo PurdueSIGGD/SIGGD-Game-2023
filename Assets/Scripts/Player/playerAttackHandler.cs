@@ -48,7 +48,7 @@ public class playerAttackHandler : MonoBehaviour
             GameObject projectile = Instantiate(rangedProjectile,
                                                 (gameObject.transform.position + new Vector3(0, 1, 0)),
                                                 gameObject.transform.rotation);
-            Destroy(projectile, 3);
+            Destroy(projectile, 1f);
             projectile.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, rangedProjectileSpeed));
             StartCoroutine(rangedRecoveryTimer());
         }
@@ -79,14 +79,16 @@ public class playerAttackHandler : MonoBehaviour
     {
         rangedAvailable = false;
         yield return new WaitForSeconds(rangedRecoveryTime);
-        rangedAvailable = true;
+        rangedAvailable = meleeAvailable;
     }
 
     public IEnumerator meleeRecoveryTimer()
     {
         meleeAvailable = false;
+        rangedAvailable = false;
         yield return new WaitForSeconds(meleeRecoveryTime);
         meleeAvailable = true;
+        rangedAvailable = true;
     }
 
     

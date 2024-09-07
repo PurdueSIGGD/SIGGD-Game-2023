@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using System.Collections;
 
+/*
 [CustomEditor(typeof(SaveManager))]
 internal class SaveManagerEditor : Editor {
     public override void OnInspectorGUI()
@@ -27,7 +29,7 @@ internal class SaveManagerEditor : Editor {
         var stringIn = GUILayout.TextArea("");
         if (GUILayout.Button("Load this Save String"))
         {
-            saveManager.LoadGameString(stringIn);
+            saveManager.StartCoroutine(saveManager.LoadGameString(stringIn));
         }
         
         GUILayout.Space(16);
@@ -38,23 +40,25 @@ internal class SaveManagerEditor : Editor {
         }
     }
 }
+*/
 
 public class SaveManager : MonoBehaviour
 {
-    private SaveData saveData;
+    public SaveData saveData;
 
     private const string SaveGameKey = "SaveDate";
 
-    private class SaveData
+    public class SaveData
     {
         // Put all values that need to be saved here
         public int playerLevel;
+        public int tutorialProgress;
         public Vector3 spawnPoint;
         public ObjectiveData[] objectives;
     }
     
     [Serializable]
-    private struct ObjectiveData
+    public struct ObjectiveData
     {
         public string gameObjectName;
         public ObjectiveType objectiveType;
@@ -79,6 +83,22 @@ public class SaveManager : MonoBehaviour
     
     public void MarkObjective(GameObject gameObjectKey, ObjectiveType objectiveType)
     {
+        Debug.Log("GameObjectKey: " + gameObjectKey.name + "  |  objectiveType: " + objectiveType);
+        if (saveData.objectives == null)
+        {
+            ObjectiveData firstObjective = new ObjectiveData(gameObjectKey, objectiveType);
+            var newList = new List<ObjectiveData>();
+            newList.Add(firstObjective);
+            saveData.objectives = newList.ToArray();
+            //ObjectiveData[] objectiveList = { firstObjective };
+            //saveData.objectives = objectiveList;
+            Debug.Log("Calling Save");
+            SaveGame();
+            return;
+        }
+
+        Debug.Log("Why are we here?");
+
         // Check to make sure there is no duplicates
         foreach (var objective in saveData.objectives)
         {
@@ -87,7 +107,7 @@ public class SaveManager : MonoBehaviour
                 return;
             }
         }
-        
+       
         var tempList = new List<ObjectiveData>(saveData.objectives);
         tempList.Add(new ObjectiveData(gameObjectKey, objectiveType));
         saveData.objectives = tempList.ToArray();
@@ -121,10 +141,15 @@ public class SaveManager : MonoBehaviour
     {
         // Get the player's level
         saveData.playerLevel = FindObjectOfType<PlayerLevel>().currentLevel;
-        
+
+        // Get tutorial progress
+        saveData.tutorialProgress = FindObjectOfType<TutorialDirector>().tutorialProgress;
+
+        Debug.Log("About to JSONify");
         var saveDataString = JsonUtility.ToJson(saveData);
         Debug.Log($"Save string: {saveDataString}");
         PlayerPrefs.SetString(SaveGameKey, saveDataString);
+        Debug.Log("Saved!");
     }
 
     public void LoadGame()
@@ -132,7 +157,7 @@ public class SaveManager : MonoBehaviour
         if (PlayerPrefs.HasKey(SaveGameKey))
         {
             var saveDataString = GetSaveString();
-            LoadGameString(saveDataString);
+            StartCoroutine(LoadGameString(saveDataString));
         }
         else
         {
@@ -141,7 +166,7 @@ public class SaveManager : MonoBehaviour
     }
 
     // Load everything as it was during the save
-    public void LoadGameString(string saveDataString)
+    public IEnumerator LoadGameString(string saveDataString)
     {
         saveData = JsonUtility.FromJson<SaveData>(saveDataString);
         
@@ -153,9 +178,17 @@ public class SaveManager : MonoBehaviour
             FindObjectOfType<Movement>().gameObject.transform.position = spawnPoint;
         }
 
-        for (var i = 0; i < saveData.playerLevel; i++) {
+        //Update the tutorial's progress status
+        TutorialDirector tutorialDirector = FindObjectOfType<TutorialDirector>();
+        tutorialDirector.tutorialProgress = saveData.tutorialProgress;
+
+
+        //Restore the player's level
+        /*FindObjectOfType<LightResource>().addLight(100f);
+        for (var i = 1; i < saveData.playerLevel; i++) {
             FindObjectOfType<PlayerLevel>().levelUp();
-        }
+        }*/
+        yield return new WaitForSeconds(0.05f);
 
         // Deal with all of the completed objectives
         foreach (var objective in saveData.objectives)
@@ -167,7 +200,14 @@ public class SaveManager : MonoBehaviour
                     g.SetActive(false);
                     break;
                 case ObjectiveType.Pylon:
-                    g.GetComponent<ChargePylon>().markPylonDone();
+                    if (g.GetComponent<ChargePylon>() != null)
+                    {
+                        g.GetComponent<ChargePylon>().markPylonDone();
+                    }
+                    if (g.GetComponent<FinalPylon>() != null)
+                    {
+                        g.GetComponent<FinalPylon>().markPylonDone();
+                    }
                     break;
                 case ObjectiveType.Artifact:
                     g.GetComponent<Artifact>().MarkArtifactDone();

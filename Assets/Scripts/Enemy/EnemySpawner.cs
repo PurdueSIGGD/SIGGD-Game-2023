@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
-using UnityEditor.ShaderGraph;
+//using UnityEditor.ShaderGraph;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -12,10 +14,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     public float maxDistance = 10.0f;
 
-    float constantSpawnTimer = 0.0f;
-    float constantSpawnInterval = 7.0f; //seconds
-    float waveSpawnTimer = 0.0f;
-    float waveSpawnInterval = 60.0f; //seconds
+    public float constantSpawnTimer = 0.0f;
+    [SerializeField] public float constantSpawnInterval = 7.0f; //seconds
+    public float waveSpawnTimer = 0.0f;
+    [SerializeField] public float waveSpawnInterval = 60.0f; //seconds
+    [SerializeField] public int waveVolume = 5;
+    [SerializeField] public float waveSpeed = 3f;
 
     int enemyCount = 0;
 
@@ -25,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnWave());
+        //StartCoroutine(SpawnWave());
     }
 
     // Update is called once per frame
@@ -81,20 +85,21 @@ public class EnemySpawner : MonoBehaviour
     }
 
     IEnumerator SpawnWave() {
+        Debug.Log("SPAWN WAVE COROUTINE");
         // Randomize spread and direction for wave
         int degrees = Random.Range(0, 360);
         // Deviation from degrees in one direction (2 * spread is the whole arc)
         int spread = Random.Range(45, 90);
         int currentTotalSpawns = 0;
         // Larger numbers make the wave have more enemy volume
-        int waveVolume = 10;
+        //int waveVolume = 7;
         // As this approaches 1, the wave spawns much faster
         // Don't make it less than 1 or it'll probably break since we wait for speed - sin(x) seconds
-        float speed = 3;
+        //float waveSpeed = 3;
         while (currentTotalSpawns / waveVolume < Mathf.PI) {
             SpawnEnemy(degrees, spread);
             currentTotalSpawns++;
-            yield return new WaitForSeconds(speed - Mathf.Sin((float)currentTotalSpawns / (float)waveVolume));
+            yield return new WaitForSeconds(waveSpeed - Mathf.Sin((float)currentTotalSpawns / (float)waveVolume));
         }
     }
 }

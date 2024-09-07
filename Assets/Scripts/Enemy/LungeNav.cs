@@ -38,7 +38,8 @@ public class LungeNav : MonoBehaviour
 
 
     void Start() {
-        player = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        //player = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         path = new NavMeshPath();
         boxSize = this_enemy.localScale;
         lastChangeTime = 0f;
@@ -63,6 +64,7 @@ public class LungeNav : MonoBehaviour
             NavMesh.CalculatePath(this_enemy.position, player.position, NavMesh.AllAreas, path);
             Vector3 targetDir = path.corners[1] - this_enemy.position;
             //Debug.DrawLine(path.corners[1], this_enemy.position, Color.magenta);
+            //for (int i = 1; i < path.corners.Length; i++) { Debug.DrawLine(path.corners[i - 1], path.corners[i], Color.green); }
             Vector3 newDir = Vector3.RotateTowards(this_enemy.forward, targetDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
             this_enemy.rotation = Quaternion.LookRotation(newDir);
 
@@ -118,8 +120,15 @@ public class LungeNav : MonoBehaviour
         if (inPounce == false) {
             RaycastHit frontHit;
             move_offset = move_offset.normalized;
-            if (Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position) + 9, playerMask)) {
+            //bool playerHit = Physics.Raycast((this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f)), this_enemy.forward, out frontHit, Vector3.Distance(this_enemy.position, player.position) + 9, playerMask);
+            bool playerHit = Physics.Raycast(this_enemy.position + new Vector3(0f, 1f, 0f), this_enemy.forward, out frontHit, 30f, playerMask);
+            //Debug.DrawLine(this_enemy.position + (this_enemy.forward * boxSize.z * 0.51f), frontHit.point, Color.magenta);
+            //Debug.DrawRay(this_enemy.position + new Vector3(0f, 1f, 0f), this_enemy.forward * 30f, Color.magenta);
+            //Debug.Log("Barry Player Postion: " + player.position.x + ", " + player.position.y + ", " + player.position.z);
+            if (playerHit) {
+                //Debug.DrawRay(frontHit.point, Vector3.up * 20f, Color.magenta);
                 if ((lastPounceTime + timeToNextPounce) < Time.time) {
+                    Debug.Log("Barry Pounce");
                     pounceNoise.Play();
                     lastPounceTime = Time.time;
                     inPounce = true;

@@ -8,7 +8,11 @@ TagManager:
   - Enemy
   - UnitSystem
   - Unit
+  - Undefined
+  - Floor
+  - Wall
   - PlayerBullet
+  - UIUnit
   layers:
   - Default
   - TransparentFX
@@ -22,14 +26,14 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Floor
   - Wall
   - 
   - RegionLayer
   - 
   - 
-  - 
-  - 
+  - Skeleton
+  - Crosshair
   - 
   - 
   - Player
@@ -40,7 +44,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Minimap
   - 
   m_SortingLayers:
   - name: Default
@@ -48,4 +52,7 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 2216410057
+    locked: 0
+  - name: Crosshair
+    uniqueID: 4254953389
     locked: 0

@@ -15,13 +15,15 @@ public class DirectionalSprite : MonoBehaviour
     [Header("Set this to manually override the direction, set to Vector3.zero to stop overriding")]
     public Vector3 lookDirectionOverride = Vector3.zero;
     [Header("How many degrees off from \"up\" the image is (likely 90 or -90)")]
-    [SerializeField] private float rotationOffset;
+    public float rotationOffset;
     private bool breakIt;
     [SerializeField] public bool calculateOnce;
     // Saved values for later
     private float initialYScale;
     private MobNav mobNav;
     private Rigidbody rigid;
+
+    private Movement movement;
     
     // Start is called before the first frame update
     private void Start()
@@ -42,7 +44,7 @@ public class DirectionalSprite : MonoBehaviour
             }
             else
             {
-                cameraTransform = FindObjectOfType<Camera>().transform;
+                cameraTransform = FindObjectOfType<CameraFollow>().transform.GetChild(0);
             }
         }
 
@@ -50,6 +52,8 @@ public class DirectionalSprite : MonoBehaviour
         var parent = transform.parent;
         mobNav = parent.GetComponent<MobNav>();
         rigid = parent.GetComponent<Rigidbody>();
+
+        movement = FindObjectOfType<Movement>();
     }
 
     // Update is called once per frame
@@ -116,10 +120,11 @@ public class DirectionalSprite : MonoBehaviour
             //Debug.Log("First");
             return lookDirectionOverride;
         }
-        
+
         // Temporary
-        return FindObjectOfType<Movement>().transform.position - transform.position;
-        
+        //return FindObjectOfType<Movement>().transform.position - transform.position;
+        return movement.transform.position - transform.position;
+
         if (mobNav != null)
         {
             Debug.Log("Mob Nav");

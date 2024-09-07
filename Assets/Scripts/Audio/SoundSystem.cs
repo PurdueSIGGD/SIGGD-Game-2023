@@ -53,7 +53,7 @@ public class SoundSystem : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        musicSources[0].audioSource.Play();
+        //musicSources[0].audioSource.Play();
 
         var sirenOn = GetSourceOn(sirenSources);
         var objectiveOn = GetSourceOn(objectiveSources);

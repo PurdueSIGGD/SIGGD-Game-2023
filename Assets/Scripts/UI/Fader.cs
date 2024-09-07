@@ -54,6 +54,6 @@ public class Fader : MonoBehaviour
         }
         
         // This makes the audio fade on scene transitions as well
-        soundSystem.volumeFaderMod = 1 - newColor.a;
+        //soundSystem.volumeFaderMod = 1 - newColor.a;
     }
 }

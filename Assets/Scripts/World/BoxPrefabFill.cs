@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-[CustomEditor(typeof(BoxPrefabFill))]
+/*[CustomEditor(typeof(BoxPrefabFill)), CanEditMultipleObjects]
 internal class BoxPrefabFillEditor : Editor {
     public override void OnInspectorGUI()
     {
@@ -29,7 +29,7 @@ internal class BoxPrefabFillEditor : Editor {
         }
         
     }
-}
+} */
 
 // The goal of this script is to fill a box with prefabs to make designing levels easier
 public class BoxPrefabFill : MonoBehaviour
@@ -102,7 +102,7 @@ public class BoxPrefabFill : MonoBehaviour
                     toSpawn = smallPrefabsToUse[(int)Mathf.Clamp(smallDist * smallPrefabsToUse.Length, 0, smallPrefabsToUse.Length - 1)];
                 }
                 var g = Instantiate(toSpawn, worldPos, Quaternion.Euler(0, Random.value * 360, 0), prefabHolder);
-                var distScaler = (1 - totalDist / 2);
+                var distScaler = 1; //(1 - totalDist / 2);
                 g.transform.localScale = Vector3.Scale(prefabScale, new Vector3(1,distScaler,1))*distScaler;
 
             }

@@ -151,20 +151,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fca5c20cb03e73498b2da2c3de63567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 30
-  sellCost: 0
+  manaCost: 100
   type: 3
-  level: 0
   triggerRadius: 5
-  blastRadius: 20
-  blastDmg: 1000
+  blastRadius: 10
+  blastDmg: 150
   knockbackForce: 1000
   triggerDelay: 1
   blastMask:
     serializedVersion: 2
     m_Bits: 8388608
   mineAnimator: {fileID: 1056619841196554357}
-  detonator: {fileID: 0}
+  detonator: {fileID: 2921899259549748684}
 --- !u!114 &4165494177006157127
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,11 +10,21 @@ public class PlayerHealthPoints : HealthPoints
     [SerializeField] private Light playerLight;
     [SerializeField] private Light blackoutLight;
     [SerializeField] private LightResource lightResource;
+    [SerializeField] private uiBarManager uiBarManager;
     [SerializeField] private AudioClip damagePlayerFX;
+    [SerializeField] private AudioSource donezoSound;
     public bool blackout;
     private bool flickerActive;
     private bool dying;
     private float deadCount = 2f;
+    private bool isInvulnerable;
+    [SerializeField] public float iFrameDuration;
+    private float baseLightIntensity;
+
+    private bool blackoutQueued;
+    private bool isBlackingOut;
+    private bool resetQueued;
+    private bool isResetting;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +33,11 @@ public class PlayerHealthPoints : HealthPoints
         blackoutLight.enabled = false;
         blackout = false;
         flickerActive = false;
+        baseLightIntensity = playerLight.intensity;
+        blackoutQueued = false;
+        isBlackingOut = false;
+        resetQueued = false;
+        isResetting = false;
     }
 
     /// <summary>
@@ -37,6 +52,11 @@ public class PlayerHealthPoints : HealthPoints
     /// </returns>
     public override float damageEntity(float damage)
     {
+        if (isInvulnerable)
+        {
+            return 0f;
+        }
+
         if (blackout)
         {
             if (!dying)
@@ -49,10 +69,14 @@ public class PlayerHealthPoints : HealthPoints
             return 0f;
         }
 
+        float damageDealt = base.damageEntity(damage);
+        setInvulnerable(iFrameDuration);
+
         // Plays player damage FX
         PlayerFXManager.instance.PlayFXClip(damagePlayerFX, transform, 1f, 0.3f);
+        uiBarManager.SetDamagedStatus(damage);
 
-        return base.damageEntity(damage);
+        return damageDealt;
     }
 
     /// <summary>
@@ -63,7 +87,8 @@ public class PlayerHealthPoints : HealthPoints
         blackout = true;
         lightResource.blackout = true;
 
-        StartCoroutine(flickerOut());
+        //StartCoroutine(flickerOut());
+        blackoutQueued = true;
 
         /*float baseLightIntensity = playerLight.intensity;
         playerLight.intensity = baseLightIntensity * 0.4f;
@@ -94,15 +119,22 @@ public class PlayerHealthPoints : HealthPoints
     /// </returns>
     public override float healEntity(float healing)
     {
+        bool isFullHealth = (currentHealth >= maximumHealth);
         if (blackout)
         {
-            return 0f;
+            blackout = false;
+            lightResource.blackout = false;
+            //StartCoroutine(flickerIn());
+            resetQueued = true;
         }
 
-        return base.healEntity(healing);
+        float healingDealt = base.healEntity(healing);
+        if (healing > 1f && !isFullHealth) uiBarManager.SetHealedStatus(healing);
+
+        return healingDealt;
     }
 
-
+    
 
     // Update is called once per frame
     void Update()
@@ -123,23 +155,55 @@ public class PlayerHealthPoints : HealthPoints
             damageEntity(damageDEV);
             damageDEV = 0;
         }
+
+        if (blackoutQueued && !isResetting)
+        {
+            StartCoroutine(flickerOut());
+            blackoutQueued = false;
+        }
+
+        if (resetQueued && !isBlackingOut)
+        {
+            StartCoroutine(flickerIn());
+            resetQueued = false;
+        }
     }
+
+
+    public void setInvulnerable(float duration)
+    {
+        Debug.Log("INVULNERABLE CALLED - SET - " + duration);
+        StartCoroutine(setInvulnerableCo(duration));
+    }
+
+    private IEnumerator setInvulnerableCo(float duration)
+    {
+        isInvulnerable = true;
+        Debug.Log("IS INVULNERABLE - CO - " + duration);
+        yield return new WaitForSeconds(duration);
+        isInvulnerable = false;
+    }
+
 
     private IEnumerator waitForDeath()
     {
-        var deathTime = 2f;
+        donezoSound.Play();
+        var deathTime = 1.25f;
         var fader = FindObjectOfType<Fader>();
         if (fader == null)
         {
             Debug.LogError("You need to drag the fader prefab into the scene");
         }
-        fader.FadeOut(Color.red, deathTime);
+        fader.FadeOut(Color.black, deathTime);
+        MusicConductor musicConductor = FindObjectOfType<MusicConductor>();
+        musicConductor.crossfade(deathTime, musicConductor.nullTrack, 0f, 0f, 0f);
         yield return new WaitForSeconds(deathTime);
         SceneManager.LoadScene("DeathScene");
     }
 
     private IEnumerator flickerOut()
     {
+        isBlackingOut = true;
         float baseLightIntensity = playerLight.intensity;
         playerLight.intensity = baseLightIntensity * 0.1f;
         yield return new WaitForSeconds(0.025f);
@@ -151,6 +215,27 @@ public class PlayerHealthPoints : HealthPoints
         yield return new WaitForSeconds(0.037f);
         playerLight.enabled = false;
         blackoutLight.enabled = true;
+        yield return new WaitForSeconds(0.01f);
+        isBlackingOut = false;
+    }
+
+    private IEnumerator flickerIn()
+    {
+        isResetting = true;
+        playerLight.enabled = true;
+        blackoutLight.enabled = false;
+        //float baseLightIntensity = playerLight.intensity;
+        playerLight.intensity = baseLightIntensity * 0.1f;
+        yield return new WaitForSeconds(0.037f);
+        playerLight.intensity = baseLightIntensity * 0.4f;
+        yield return new WaitForSeconds(0.025f);
+        playerLight.intensity = baseLightIntensity * 0.9f;
+        yield return new WaitForSeconds(0.085f);
+        playerLight.intensity = baseLightIntensity * 0.3f;
+        yield return new WaitForSeconds(0.025f);
+        playerLight.intensity = baseLightIntensity;
+        yield return new WaitForSeconds(0.01f);
+        isResetting = false;
     }
 
     public IEnumerator flicker()

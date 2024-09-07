@@ -1,39 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UnitHotbarUI : MonoBehaviour
 {
+    // HEALTH SLIDER GOES FROM 0 TO 0.25
+
+
+    //[HideInInspector] public int selectedUnit = 0;
+    //[HideInInspector] public UnitType selectedType;
+    //[HideInInspector] public float selectedCost = 100;
+
     public int selectedUnit = 0;
-    public float selectedCost = 100;
+    public UnitType selectedType = UnitType.BUBBLE;
+    public float selectedCost = 0;
 
     private bool blackout;
     private int currentUnits = 0;
-    private const int maxUnits = 10;
+    private const int maxUnits = 5;
     private List<UnitType> hotbar = new List<UnitType>(maxUnits);
+    private Image unitImage;
     private GameObject hotbarUI;
 
     [SerializeField] private UnitLevelManager unitLevelManager;
 
     [SerializeField] bool isTest;
 
+    private uiBarManager playerUIBars;
+
     // Start is called before the first frame update
     void Start()
     {
         // Find hotbarUI
-        GameObject playerUIBars = FindObjectOfType<uiBarManager>().gameObject;
-        hotbarUI = playerUIBars.transform.GetChild(0).GetChild(5).gameObject;
-        //StartCoroutine(UITest());
-        if (isTest) InsertUnits();
+        //GameObject playerUIBars = FindObjectOfType<uiBarManager>().gameObject;
+        playerUIBars = FindObjectOfType<uiBarManager>();
+        hotbarUI = playerUIBars.transform.GetChild(0).GetChild(1).GetChild(2).gameObject;
+
+        // Set unitImage as the GameObject image showing which unit is chosen
+        unitImage = playerUIBars.transform.GetChild(0).GetChild(1).GetChild(3).gameObject.GetComponent<Image>();
+        if (isTest) StartCoroutine(UITest());
     }
 
     // Update is called once per frame
     void Update()
     {
-        blackout = FindObjectOfType<uiBarManager>().blackout;
+        //blackout = FindObjectOfType<uiBarManager>().blackout;
+        blackout = playerUIBars.blackout;
         SelectHotbarUnit();
     }
 
@@ -42,6 +58,7 @@ public class UnitHotbarUI : MonoBehaviour
     {
         // Add the new unit to the list
         hotbar.Add(unitNumber);
+        selectedType = hotbar[selectedUnit];
 
         // Activate one of the hotbars and insert sprite into the hotbar
         GameObject currentUnitHotbar = hotbarUI.transform.GetChild(currentUnits).gameObject;
@@ -58,10 +75,13 @@ public class UnitHotbarUI : MonoBehaviour
         if (currentUnits != 0)
         {
             currentUnitOverlay.SetActive(false);
-        } else
-        {
+        } else {
             GameObject unit = unitLevelManager.unitFamilies[(int)unitNumber].members[0];
             selectedCost = unit.GetComponent<Unit>().manaCost;
+
+            // Activate and set unitImage as the first unit
+            unitImage.gameObject.SetActive(true);
+            unitImage.sprite = unitSprite;
         }
 
         // If blackout happens, deactivate its overlay
@@ -86,14 +106,12 @@ public class UnitHotbarUI : MonoBehaviour
         if (currentUnits == 0)
             return;
 
-        float mouseDelta = Input.mouseScrollDelta.y;
+        float mouseDelta = Input.mouseScrollDelta.y * -1;
         int newSelectedUnit = ((((int)mouseDelta + selectedUnit) % currentUnits) + currentUnits) % currentUnits;
 
         GameObject currentUnitOverlay = hotbarUI.transform.GetChild(newSelectedUnit).GetChild(0).gameObject;
-        //byte rOverlayColor = (byte)(FindObjectOfType<uiBarManager>().unitLightColor.r * 255);
-        //byte gOverlayColor = (byte)(FindObjectOfType<uiBarManager>().unitLightColor.g * 255);
-        //byte bOverlayColor = (byte)(FindObjectOfType<uiBarManager>().unitLightColor.b * 255);
-        currentUnitOverlay.GetComponent<Image>().color = FindObjectOfType<uiBarManager>().unitLightColor;
+        //currentUnitOverlay.GetComponent<Image>().color = FindObjectOfType<uiBarManager>().unitLightColor;
+        currentUnitOverlay.GetComponent<Image>().color = playerUIBars.unitLightColor;
 
         if (selectedUnit == newSelectedUnit)
             return;
@@ -103,10 +121,15 @@ public class UnitHotbarUI : MonoBehaviour
         previousUnitOverlay.SetActive(false);
 
         UnitType unitNumber = hotbar[newSelectedUnit];
+        selectedType = hotbar[newSelectedUnit];
         GameObject unit = unitLevelManager.unitFamilies[(int)unitNumber].members[0];
         selectedCost = unit.GetComponent<Unit>().manaCost;
 
         currentUnitOverlay.SetActive(true);
+
+        // Activate and set unitImage as the selected unit
+        var childCount = unit.transform.childCount;
+        unitImage.sprite = unit.transform.GetChild(childCount - 1).GetChild(0).GetComponent<SpriteRenderer>().sprite;
 
         selectedUnit = newSelectedUnit;
     }
@@ -114,25 +137,12 @@ public class UnitHotbarUI : MonoBehaviour
     // For testing purposes
     IEnumerator UITest()
     {
-        yield return new WaitForSeconds(3);
-
-        InsertUnitIntoHotbar(UnitType.HEALER);
-
-        yield return new WaitForSeconds(3);
-
-        InsertUnitIntoHotbar(UnitType.HEALER);
-
-        yield return new WaitForSeconds(3);
-
-        InsertUnitIntoHotbar(UnitType.HEALER);
-    }
-
-    void InsertUnits()
-    {
         UnitFamily[] units = unitLevelManager.unitFamilies;
         foreach (UnitFamily fam in units)
         {
+            yield return new WaitForSeconds(1f);
             InsertUnitIntoHotbar(fam.family);
+            //yield return new WaitForSeconds(3);
         }
     }
 }

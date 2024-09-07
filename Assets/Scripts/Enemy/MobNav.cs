@@ -37,6 +37,7 @@ public class MobNav : MonoBehaviour
     }
     void FixedUpdate()
     {
+
         Vector3 targetLoc = Vector3.zero;
         if (attacksTurrets) {
             float theminDisnas = turretDetectionRad + 1;
@@ -70,6 +71,7 @@ public class MobNav : MonoBehaviour
             targetDir.y = targetDir.y * -1;
         }
         Vector3 newDir = Vector3.RotateTowards(this_enemy.forward, targetDir, turnSpeed * Time.fixedDeltaTime, 0.0f);
+        //Vector3 newDir = Vector3.RotateTowards(this_enemy.forward, targetDir, turnSpeed * frameTime, 0.0f);
 
 
         move_offset = Vector3.zero;
@@ -130,8 +132,9 @@ public class MobNav : MonoBehaviour
         if (agent.isOnNavMesh)
         {
             agent.Move(move_offset * speed * Time.fixedDeltaTime);
+            //agent.Move(move_offset * speed * frameTime);
         }
 
-        
+
     }
 }

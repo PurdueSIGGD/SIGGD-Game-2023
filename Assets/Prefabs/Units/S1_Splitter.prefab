@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ed21e89c4a87748a8649cec45ebc99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumHealth: 1000
+  maximumHealth: 300
   currentHealth: 0
   invulnerable: 0
   healDEV: 0
@@ -80,14 +80,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9df11e632d2db74dad430ff75352862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 40
-  sellCost: 0
+  manaCost: 50
   type: 4
-  level: 0
   splitProjPrefab: {fileID: 4677275191526283186, guid: e53557269d196d347b9c0bf41dedb0c8, type: 3}
-  splitCount: 3
+  splitCount: 10
   splitLife: 4
-  angleBetweenSplits: 30
+  angleBetweenSplits: 20
 --- !u!135 &3996156877251248473
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -77,9 +77,8 @@ public class Torpedoer : Unit
 
     // -- Behavior --
 
-    protected override void Start()
+    void Start()
     {
-        base.Start();
         canFire = true;
         targets = new GameObject[clusterCount];
     }
