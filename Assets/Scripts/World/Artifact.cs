@@ -6,6 +6,8 @@ public class Artifact : Interactable
 {
     [SerializeField] public UnitHotbarUI unitHotbarUI;
     [SerializeField] public MiniMap miniMap;
+    [SerializeField] public LightResource playerLight;
+    [SerializeField] public Light pointLight;
 
     // TODO: Replace this with the enum for the turret family
     [SerializeField] private UnitType unitNumber;
@@ -15,11 +17,14 @@ public class Artifact : Interactable
         if (!isUsed)
         {
             // Mark objective as done
-            isUsed = true;
+            //isUsed = true;
+            playerLight.addLight(1000f);
             miniMap.changeArtifactIcon(gameObject);
             GivePlayerArtifact();
             SaveArtifact();
-            //isUsed = true;
+            if (pointLight != null) pointLight.enabled = false;
+            //gameObject.GetComponent<Collider>().enabled = false;
+            //interactPrompt.showPrompt("");
         }
         
         base.interact();
@@ -39,12 +44,13 @@ public class Artifact : Interactable
         isUsed = true;
         miniMap.changeArtifactIcon(gameObject);
         GivePlayerArtifact();
+        if (pointLight != null) pointLight.enabled = false;
     }
     
     private void SaveArtifact()
     {
         var saveManager = FindObjectOfType<SaveManager>();
-        saveManager.SetSpawnPoint(transform.position + Vector3.back * 5f);
+        saveManager.SetSpawnPoint(transform.position + Vector3.back * 8f);
         saveManager.MarkObjective(gameObject, SaveManager.ObjectiveType.Artifact);
     }
 }

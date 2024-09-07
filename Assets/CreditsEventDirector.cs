@@ -116,7 +116,7 @@ public class CreditsEventDirector : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3.6f);
 
         // Remove the SIGGD logo
         while (alpha > 0)
@@ -129,6 +129,7 @@ public class CreditsEventDirector : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.LoadScene("Title Scene");
+        //SceneManager.LoadScene("Title Scene");
+        SceneManager.LoadScene("Small Title Scene");
     }
 }

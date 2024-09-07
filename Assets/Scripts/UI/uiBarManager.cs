@@ -16,7 +16,6 @@ public class uiBarManager : MonoBehaviour
 
     private Color unobtainableUnitLight = new Color32(217, 128, 125, 255);
     private Color nonacquirableUnitLight = new Color32(16, 91, 163, 255);
-    //private Color acquirableUnitLight = new Color32(255, 232, 90, 255);
     private Color acquirableUnitLight = new Color32(20, 160, 150, 255);
 
     [SerializeField] private Slider healthSlider;
@@ -26,9 +25,12 @@ public class uiBarManager : MonoBehaviour
     [SerializeField] private TMP_Text lightText;
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private Slider unitLightSlider;
+    [SerializeField] private Slider lightStatusSlider;
 
     [SerializeField] private Color damageStatusColor;
     [SerializeField] private Color healingStatusColor;
+    [SerializeField] private Color lightConsumedColor;
+    [SerializeField] private Color lightAddedColor;
     [SerializeField] private float statusFadeTime;
 
     // CIRCULAR SLIDERS GO FROM 0.0 TO 0.25
@@ -119,6 +121,9 @@ public class uiBarManager : MonoBehaviour
         Color statusColor = statusSlider.transform.GetChild(0).GetComponent<Image>().color;
         statusColor.a = 0f;
         statusSlider.transform.GetChild(0).GetComponent<Image>().color = statusColor;
+        Color lightStatusColor = lightStatusSlider.transform.GetChild(0).GetComponent<Image>().color;
+        lightStatusColor.a = 0f;
+        lightStatusSlider.transform.GetChild(0).GetComponent<Image>().color = lightStatusColor;
     }
 
     // Update is called once per frame
@@ -130,6 +135,7 @@ public class uiBarManager : MonoBehaviour
         UpdateBlackout();
         UpdateUnitLight();
         UpdateStatus(Time.deltaTime);
+        UpdateLightStatus(Time.deltaTime);
     }
 
     void UpdateStatus(float deltaTime)
@@ -138,14 +144,10 @@ public class uiBarManager : MonoBehaviour
 
         if (blackout)
         {
-            //statusColor = statusSlider.transform.GetChild(0).GetComponent<Image>().color;
             statusColor.a = 0f;
             statusSlider.transform.GetChild(0).GetComponent<Image>().color = statusColor;
             return;
         }
-        //statusSlider.value = Mathf.Max((0.25f * playerHealth.currentHealth / (float)playerHealth.maximumHealth) + 0.005f, 0.1f);
-        //statusColor = statusSlider.transform.GetChild(0).GetComponent<Image>().color;
-
         if (statusColor.a <= 0) return;
 
         statusColor.a -= deltaTime / statusFadeTime;
@@ -164,6 +166,38 @@ public class uiBarManager : MonoBehaviour
         statusSlider.value = Mathf.Min((0.25f * ((playerHealth.currentHealth + healing) / (float)playerHealth.maximumHealth)), 0.25f);
         Color statusColor = healingStatusColor;
         statusSlider.transform.GetChild(0).GetComponent<Image>().color = statusColor;
+    }
+
+
+
+    void UpdateLightStatus(float deltaTime)
+    {
+        Color statusColor = lightStatusSlider.transform.GetChild(0).GetComponent<Image>().color;
+
+        if (blackout)
+        {
+            statusColor.a = 0f;
+            lightStatusSlider.transform.GetChild(0).GetComponent<Image>().color = statusColor;
+            return;
+        }
+        if (statusColor.a <= 0) return;
+
+        statusColor.a -= deltaTime / statusFadeTime;
+        lightStatusSlider.transform.GetChild(0).GetComponent<Image>().color = statusColor;
+    }
+
+    public void SetLightConsumedStatus(float light)
+    {
+        lightStatusSlider.value = Mathf.Min((0.25f * ((playerLight.currentLight + light) / (float)playerLight.maximumLight)), 0.25f);
+        Color statusColor = lightConsumedColor;
+        lightStatusSlider.transform.GetChild(0).GetComponent<Image>().color = statusColor;
+    }
+
+    public void SetLightAddedStatus(float light)
+    {
+        lightStatusSlider.value = Mathf.Min((0.25f * ((playerLight.currentLight + light) / (float)playerLight.maximumLight)), 0.25f);
+        Color statusColor = lightAddedColor;
+        lightStatusSlider.transform.GetChild(0).GetComponent<Image>().color = statusColor;
     }
 
 }

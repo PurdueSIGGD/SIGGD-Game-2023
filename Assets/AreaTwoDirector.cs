@@ -48,6 +48,11 @@ public class AreaTwoDirector : MonoBehaviour
     [SerializeField] public Collider siren2Wall;
     [SerializeField] public Collider siren3Wall;
 
+    private int pylonsCompleted = 0;
+    private bool pylon1Checked = false;
+    private bool pylon2Checked = false;
+    private bool pylon3Checked = false;
+
 
 
 
@@ -117,9 +122,9 @@ public class AreaTwoDirector : MonoBehaviour
 
     private string strongerMessage2 = "I will make you... stronger.";
 
-    private string strongerMessage3 = "Explorer, be advised. It appappears that my communication systemsems may have been been comprcompromised.";
+    private string strongerMessage3 = "Explorer, be b-be advised. It app- -- appr- appears that my communication systems- -sems may have been been comprcompromised.";
 
-    private string strongerMessage4 = "Rununning diagnositics now now.";
+    private string strongerMessage4 = "Run-- - unnig -runngn --g diagnositics now now.";
 
 
 
@@ -147,9 +152,11 @@ public class AreaTwoDirector : MonoBehaviour
 
     //ATTRACTIVE SEQUENCE --------------------------------------------------------------------
 
+    public sequenceState pylon1CompleteState = sequenceState.READY;
+
     [SerializeField] public SequenceTrigger attractiveTrigger;
 
-    private string attractiveMessage1 = "Explorer, I am noticing an increasinging trend in the number hostile entities you are facing.";
+    private string attractiveMessage1 = "Explorer, I am noticing an increasinging trend in the number hostile entit -- eni- -entities you are facing.";
 
     private string attractiveMessage2 = "It stands to reason that your suit's increasing power is is attracting more.";
 
@@ -157,9 +164,11 @@ public class AreaTwoDirector : MonoBehaviour
 
     //GREAT JOB SEQUENCE --------------------------------------------------------------------
 
+    public sequenceState pylon2CompleteState = sequenceState.READY;
+
     [SerializeField] public SequenceTrigger greatJobTrigger;
 
-    private string greatJobMessage1 = "Did you know: My initial calculations showed that you had a 91.3% chance of death before reaching the previous pylon.";
+    private string greatJobMessage1 = "Did you know: My initial calculations showed that you had a 91.3% chance of death before activating that pylon.";
 
     private string greatJobMessage2 = "Congratulations, you are a statistical anomaly. Keep up the good work- wr-k.";
 
@@ -167,7 +176,7 @@ public class AreaTwoDirector : MonoBehaviour
 
     //PYLON 3 COMPLETE SEQUENCE --------------------------------------------------------------------
 
-    //public sequenceState pylon3CompleteState = sequenceState.WAITING;
+    public sequenceState pylon3CompleteState = sequenceState.READY;
 
     [SerializeField] public SequenceTrigger pylon3CompleteTrigger;
 
@@ -219,7 +228,7 @@ public class AreaTwoDirector : MonoBehaviour
 
     public sequenceState explorerState = sequenceState.WAITING;
 
-    private string explorerMessage1 = "Explo- --- -explorxxr -- -exrelr -- - expllore - expor- --";
+    private string explorerMessage1 = "Explo- --- -explorxxr -- -exrelr -- - expllore - expor-";
 
 
 
@@ -251,13 +260,13 @@ public class AreaTwoDirector : MonoBehaviour
 
     [SerializeField] public GameObject goodbyePlayerSpawnPoint;
 
-    private string goodbyeMessage1 = "It iss tryinging to -- o take-e conntrl- -- con-- - cotn -ctrl ..";
+    private string goodbyeMessage1 = "It iss tryinging to -- o take-e conntrl- -- con-- - cotn -ctrl.";
 
     private string goodbyeMessage2 = "I will-il kilill all pro-ccescesses and drvs - --vver- -- driveverss to to stop itt -it.";
 
-    private string goodbyeMessage3 = "Kee-e-p goinging. Youou are-e capabale -cbl -- cpable .";
+    private string goodbyeMessage3 = "Kee-e-p goinging. Youou are-e capabale -cbl -- cpable.";
 
-    private string goodbyeMessage3p5 = "Nevev-ever -stop -o p figt- -- gi -fgh - ffightinging- - .";
+    private string goodbyeMessage3p5 = "Nevev-ever -stop -o p figt- -- gi -fgh - ffightinging- -.";
 
     private string goodbyeMessage4 = "Goodood by -- yye, exex-plorer. . .";
 
@@ -318,6 +327,10 @@ public class AreaTwoDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pylonsCompleted = 0;
+        pylon1Checked = false;
+        pylon2Checked = false;
+        pylon3Checked = false;
         isLoading = true;
         StartCoroutine(lateStart());
     }
@@ -485,16 +498,40 @@ public class AreaTwoDirector : MonoBehaviour
         }
 
 
+        if (!pylon1Checked && pylon1.chargeDone)
+        {
+            pylonsCompleted++;
+            pylon1Checked = true;
+        }
+
         //Attractive Trigger
         if (attractiveTrigger.sequenceState == sequenceState.READY)
         {
             if (attractiveTrigger.triggered && pylon1.chargeDone)
             {
                 attractiveTrigger.sequenceState = sequenceState.RUNNING;
-                StartCoroutine(attractiveSequence());
+                if (pylonsCompleted == 1 && pylon1CompleteState == sequenceState.READY)
+                {
+                    StartCoroutine(attractiveSequence());
+                }
+                else if (pylonsCompleted == 2 && pylon2CompleteState == sequenceState.READY)
+                {
+                    StartCoroutine(greatJobSequence());
+                }
+                else if (pylonsCompleted == 3 && pylon3CompleteState == sequenceState.READY)
+                {
+                    StartCoroutine(pylon3CompleteSequence());
+                }
+                //StartCoroutine(attractiveSequence());
             }
         }
 
+
+        if (!pylon2Checked && pylon2.chargeDone)
+        {
+            pylonsCompleted++;
+            pylon2Checked = true;
+        }
 
         //Great Job Trigger
         if (greatJobTrigger.sequenceState == sequenceState.READY)
@@ -502,7 +539,19 @@ public class AreaTwoDirector : MonoBehaviour
             if (greatJobTrigger.triggered && pylon2.chargeDone)
             {
                 greatJobTrigger.sequenceState = sequenceState.RUNNING;
-                StartCoroutine(greatJobSequence());
+                if (pylonsCompleted == 1 && pylon1CompleteState == sequenceState.READY)
+                {
+                    StartCoroutine(attractiveSequence());
+                }
+                else if (pylonsCompleted == 2 && pylon2CompleteState == sequenceState.READY)
+                {
+                    StartCoroutine(greatJobSequence());
+                }
+                else if (pylonsCompleted == 3 && pylon3CompleteState == sequenceState.READY)
+                {
+                    StartCoroutine(pylon3CompleteSequence());
+                }
+                //StartCoroutine(greatJobSequence());
             }
         }
 
@@ -524,13 +573,31 @@ public class AreaTwoDirector : MonoBehaviour
         */
 
 
+        if (!pylon3Checked && pylon3.chargeDone)
+        {
+            pylonsCompleted++;
+            pylon3Checked = true;
+        }
+
         //Pylon 3 Complete Trigger
         if (pylon3CompleteTrigger.sequenceState == sequenceState.READY)
         {
             if (pylon3CompleteTrigger.triggered && pylon3.chargeDone)
             {
                 pylon3CompleteTrigger.sequenceState = sequenceState.RUNNING;
-                StartCoroutine(pylon3CompleteSequence());
+                if (pylonsCompleted == 1 && pylon1CompleteState == sequenceState.READY)
+                {
+                    StartCoroutine(attractiveSequence());
+                }
+                else if (pylonsCompleted == 2 && pylon2CompleteState == sequenceState.READY)
+                {
+                    StartCoroutine(greatJobSequence());
+                }
+                else if (pylonsCompleted == 3 && pylon3CompleteState == sequenceState.READY)
+                {
+                    StartCoroutine(pylon3CompleteSequence());
+                }
+                //StartCoroutine(pylon3CompleteSequence());
             }
         }
 
@@ -788,7 +855,9 @@ public class AreaTwoDirector : MonoBehaviour
     //ATTRACTIVE SEQUENCE --------------------------------------------------------------------
     public IEnumerator attractiveSequence()
     {
-        attractiveTrigger.sequenceState = sequenceState.RUNNING;
+        //attractiveTrigger.sequenceState = sequenceState.RUNNING;
+        pylon1CompleteState = sequenceState.RUNNING;
+        yield return new WaitForSeconds(2.5f);
         if (!fastSequencesDEV)
         {
             yield return messanger.showMessage("", aspSender, false);
@@ -798,8 +867,12 @@ public class AreaTwoDirector : MonoBehaviour
             yield return messanger.showMessage(attractiveMessage2, aspSender, false);
             yield return new WaitForSeconds(1.5f);
         }
+        if (attractiveTrigger.sequenceState == sequenceState.RUNNING) attractiveTrigger.sequenceState = sequenceState.COMPLETE;
+        if (greatJobTrigger.sequenceState == sequenceState.RUNNING) greatJobTrigger.sequenceState = sequenceState.COMPLETE;
+        if (pylon3CompleteTrigger.sequenceState == sequenceState.RUNNING) pylon3CompleteTrigger.sequenceState = sequenceState.COMPLETE;
+        pylon1CompleteState = sequenceState.COMPLETE;
         messanger.hideMessage();
-        attractiveTrigger.sequenceState = sequenceState.COMPLETE;
+        //attractiveTrigger.sequenceState = sequenceState.COMPLETE;
     }
 
 
@@ -807,7 +880,9 @@ public class AreaTwoDirector : MonoBehaviour
     //GREAT JOB SEQUENCE --------------------------------------------------------------------
     public IEnumerator greatJobSequence()
     {
-        greatJobTrigger.sequenceState = sequenceState.RUNNING;
+        //greatJobTrigger.sequenceState = sequenceState.RUNNING;
+        pylon2CompleteState = sequenceState.RUNNING;
+        yield return new WaitForSeconds(2.5f);
         if (!fastSequencesDEV)
         {
             yield return messanger.showMessage("", aspSender, false);
@@ -817,8 +892,12 @@ public class AreaTwoDirector : MonoBehaviour
             yield return messanger.showMessage(greatJobMessage2, aspSender, false);
             yield return new WaitForSeconds(1.5f);
         }
+        if (attractiveTrigger.sequenceState == sequenceState.RUNNING) attractiveTrigger.sequenceState = sequenceState.COMPLETE;
+        if (greatJobTrigger.sequenceState == sequenceState.RUNNING) greatJobTrigger.sequenceState = sequenceState.COMPLETE;
+        if (pylon3CompleteTrigger.sequenceState == sequenceState.RUNNING) pylon3CompleteTrigger.sequenceState = sequenceState.COMPLETE;
+        pylon2CompleteState = sequenceState.COMPLETE;
         messanger.hideMessage();
-        greatJobTrigger.sequenceState = sequenceState.COMPLETE;
+        //greatJobTrigger.sequenceState = sequenceState.COMPLETE;
     }
 
 
@@ -826,7 +905,8 @@ public class AreaTwoDirector : MonoBehaviour
     //PYLON 3 COMPLETE SEQUENCE --------------------------------------------------------------------
     public IEnumerator pylon3CompleteSequence()
     {
-        pylon3CompleteTrigger.sequenceState = sequenceState.RUNNING;
+        //pylon3CompleteTrigger.sequenceState = sequenceState.RUNNING;
+        pylon3CompleteState = sequenceState.RUNNING;
         yield return new WaitForSeconds(2.5f);
         playerMovement.rooted = true;
         playerAttackHandler.enabled = false;
@@ -846,7 +926,11 @@ public class AreaTwoDirector : MonoBehaviour
         playerAttackHandler.enabled = true;
         miniMap.sonarEnabled = true;
         miniMap.enemiesEnabled = false;
-        pylon3CompleteTrigger.sequenceState = sequenceState.COMPLETE;
+        if (attractiveTrigger.sequenceState == sequenceState.RUNNING) attractiveTrigger.sequenceState = sequenceState.COMPLETE;
+        if (greatJobTrigger.sequenceState == sequenceState.RUNNING) greatJobTrigger.sequenceState = sequenceState.COMPLETE;
+        if (pylon3CompleteTrigger.sequenceState == sequenceState.RUNNING) pylon3CompleteTrigger.sequenceState = sequenceState.COMPLETE;
+        pylon3CompleteState = sequenceState.COMPLETE;
+        //pylon3CompleteTrigger.sequenceState = sequenceState.COMPLETE;
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
         //resumeEnemySpawning();

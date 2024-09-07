@@ -68,11 +68,24 @@ public class SceneTransitionButtons : MonoBehaviour
     
     private IEnumerator CreditsCoroutine()
     {
-        StartFade(Color.black, 1);
+        StartFade(Color.black, 3);
         MusicConductor musicConductor = FindObjectOfType<MusicConductor>();
-        musicConductor.crossfade(1f, musicConductor.nullTrack, 0f, 0f, 0f);
-        yield return new WaitForSeconds(1);
-        //TODO: GO TO CREDITS
+        musicConductor.crossfade(3f, musicConductor.nullTrack, 0f, 0f, 0f);
+        yield return new WaitForSeconds(3);
         SceneManager.LoadScene("CreditsScene");
+    }
+
+    public void SmallTitle()
+    {
+        StartCoroutine(SmallTitleCoroutine());
+    }
+
+    private IEnumerator SmallTitleCoroutine()
+    {
+        StartFade(Color.black, 2);
+        MusicConductor musicConductor = FindObjectOfType<MusicConductor>();
+        musicConductor.crossfade(2f, musicConductor.nullTrack, 0f, 0f, 0f);
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("Small Title Scene");
     }
 }

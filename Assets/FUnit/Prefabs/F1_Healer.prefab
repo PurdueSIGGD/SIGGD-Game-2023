@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distFromPlayer: 3
-  orbitalSpeed: 0.6
+  orbitalSpeed: 1
   clockwise: 1
   height: 1
 --- !u!114 &4193236147189031464
@@ -138,12 +138,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaCost: 80
   type: 1
-  healAmount: 10
+  healAmount: 20
   lightAmount: 0
   cooldown: 2.5
   animator: {fileID: 3807171442417436290}
-  initialHealAmount: 50
-  totalPulses: 4
+  initialHealAmount: 40
+  totalPulses: 3
   healSound: {fileID: 758702966506126129}
   healthPoints: {fileID: -2859459311688634453}
   placementSound: {fileID: 177686908357472341}

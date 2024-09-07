@@ -43,6 +43,15 @@ public class AreaOneDirector : MonoBehaviour
 
     [SerializeField] public Collider area1FinalWall;
 
+    private int pylonsCompleted = 0;
+    private bool pylon1Checked = false;
+    private bool pylon2Checked = false;
+    private bool pylon3Checked = false;
+
+    [SerializeField] public GameObject splitterMinimapIcon;
+    [SerializeField] public GameObject pylon2MinimapIcon;
+    [SerializeField] public GameObject pylon3MinimapIcon;
+
 
 
 
@@ -108,7 +117,7 @@ public class AreaOneDirector : MonoBehaviour
     private string pylon1CompleteMessage3 = "Light capacity and suit integrity are increased, and the suit is now slowly regenerating power on its own.";
 
     private string pylon1CompleteMessage4 = "Now, you must continue on. I detect a pylon and a new automaton nearby. " +
-                                            "I recommend you travel to both. You need any edge you can get down here.";
+                                            "I recommend you travel to both. You need any edge you can get.";
 
     private string pylon1CompleteObjective = "Travel to a point of interest";
 
@@ -159,7 +168,7 @@ public class AreaOneDirector : MonoBehaviour
 
     //PYLON 3 COMPLETE SEQUENCE --------------------------------------------------------------------------
 
-    //public sequenceState pylon3CompleteState = sequenceState.WAITING;
+    public sequenceState pylon3CompleteState = sequenceState.READY;
 
     [SerializeField] public SequenceTrigger pylon3CompleteTrigger;
     
@@ -167,7 +176,7 @@ public class AreaOneDirector : MonoBehaviour
 
     private string pylon3CompleteMessage1 = "Well done. That was the final pylon in this area.";
 
-    private string pylon3CompleteMessage2 = "Now we must pass through the trench ahead to progress.";
+    private string pylon3CompleteMessage2 = "Now you must pass through the trench ahead to progress.";
 
     private string pylon3CompleteMessage3 = "More pylons and atomatons are located on the other side.";
 
@@ -191,11 +200,19 @@ public class AreaOneDirector : MonoBehaviour
 
     //PYLON 2 COMPLETE SEQUENCE --------------------------------------------------------------------------
 
-    //public sequenceState pylon2CompleteState = sequenceState.WAITING;
+    public sequenceState pylon2CompleteState = sequenceState.READY;
 
     [SerializeField] public SequenceTrigger pylon2CompleteTrigger;
 
-    private string pylon2CompleteMessage1 = "There is one more pylon nearby, just ahead.";
+    //private string pylon2CompleteMessage1 = "There is one more pylon nearby. Keep moving.";
+
+    private string pylon2CompleteMessage1 = "Activation successful. Pylon online.";
+
+    private string pylon2CompleteMessage2A = "There is one more pylon nearby. Keep moving.";
+
+    private string pylon2CompleteMessage2B1 = "I suggest that you travel to the automaton next.";
+
+    private string pylon2CompleteMessage2B2 = "It will be marked as a round dot on your sonar map when you release a sonar ping.";
 
 
 
@@ -225,6 +242,10 @@ public class AreaOneDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pylonsCompleted = 0;
+        pylon1Checked = false;
+        pylon2Checked = false;
+        pylon3Checked = false;
         isLoading = true;
         StartCoroutine(lateStart());
     }
@@ -303,6 +324,19 @@ public class AreaOneDirector : MonoBehaviour
 
 
 
+        if (!pylon1Checked && pylon1.chargeDone)
+        {
+            //if pylon2 minimap icon disabled
+            //splitter minimap icon enabled
+            //pylon2 minimap icon enabled
+            //pylon3 minimap icon enabled
+            splitterMinimapIcon.transform.localScale = new Vector3(560f, 560f, 560f);
+            pylon2MinimapIcon.transform.localScale = new Vector3(560f, 560f, 560f);
+            pylon3MinimapIcon.transform.localScale = new Vector3(560f, 560f, 560f);
+            pylonsCompleted++;
+            pylon1Checked = true;
+        }
+
         //Pylon 1 Complete Trigger
         if (pylon1CompleteState == sequenceState.READY)
         {
@@ -377,12 +411,26 @@ public class AreaOneDirector : MonoBehaviour
 
 
 
+        if (!pylon3Checked && pylon3.chargeDone)
+        {
+            pylonsCompleted++;
+            pylon3Checked = true;
+        }
+
         //Pylon 3 Complete Trigger
         if (pylon3CompleteTrigger.sequenceState == sequenceState.READY)
         {
             if (pylon3CompleteTrigger.triggered && pylon3.chargeDone)
             {
-                StartCoroutine(pylon3CompleteSequence());
+                pylon3CompleteTrigger.sequenceState = sequenceState.RUNNING;
+                if (pylonsCompleted == 2 && pylon2CompleteState == sequenceState.READY)
+                {
+                    StartCoroutine(pylon2CompleteSequence());
+                }
+                else if (pylonsCompleted == 3 && pylon3CompleteState == sequenceState.READY)
+                {
+                    StartCoroutine(pylon3CompleteSequence());
+                }
             }
         }
 
@@ -418,12 +466,27 @@ public class AreaOneDirector : MonoBehaviour
 
 
 
+        if (!pylon2Checked && pylon2.chargeDone)
+        {
+            pylonsCompleted++;
+            pylon2Checked = true;
+        }
+
         //Pylon 2 Complete Trigger
         if (pylon2CompleteTrigger.sequenceState == sequenceState.READY)
         {
             if (pylon2CompleteTrigger.triggered && pylon2.chargeDone)
             {
-                StartCoroutine(pylon2CompleteSequence());
+                pylon2CompleteTrigger.sequenceState = sequenceState.RUNNING;
+                if (pylonsCompleted == 2 && pylon2CompleteState == sequenceState.READY)
+                {
+                    StartCoroutine(pylon2CompleteSequence());
+                }
+                else if (pylonsCompleted == 3 && pylon3CompleteState == sequenceState.READY)
+                {
+                    StartCoroutine(pylon3CompleteSequence());
+                }
+                //StartCoroutine(pylon2CompleteSequence());
             }
         }
 
@@ -639,7 +702,8 @@ public class AreaOneDirector : MonoBehaviour
     //PYLON 3 COMPLETE SEQUENCE --------------------------------------------------------------------
     public IEnumerator pylon3CompleteSequence()
     {
-        pylon3CompleteTrigger.sequenceState = sequenceState.RUNNING;
+        //pylon3CompleteTrigger.sequenceState = sequenceState.RUNNING;
+        pylon3CompleteState = sequenceState.RUNNING;
         yield return new WaitForSeconds(2.5f);
         playerMovement.rooted = true;
         playerAttackHandler.enabled = false;
@@ -663,7 +727,10 @@ public class AreaOneDirector : MonoBehaviour
         playerAttackHandler.enabled = true;
         miniMap.sonarEnabled = true;
         miniMap.enemiesEnabled = false;
-        pylon3CompleteTrigger.sequenceState = sequenceState.COMPLETE;
+        if (pylon2CompleteTrigger.sequenceState == sequenceState.RUNNING) pylon2CompleteTrigger.sequenceState = sequenceState.COMPLETE;
+        if (pylon3CompleteTrigger.sequenceState == sequenceState.RUNNING) pylon3CompleteTrigger.sequenceState = sequenceState.COMPLETE;
+        pylon3CompleteState = sequenceState.COMPLETE;
+        //pylon3CompleteTrigger.sequenceState = sequenceState.COMPLETE;
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
         //resumeEnemySpawning();
@@ -708,7 +775,8 @@ public class AreaOneDirector : MonoBehaviour
     //PYLON 2 COMPLETE SEQUENCE --------------------------------------------------------------------
     public IEnumerator pylon2CompleteSequence()
     {
-        pylon2CompleteTrigger.sequenceState = sequenceState.RUNNING;
+        //pylon2CompleteTrigger.sequenceState = sequenceState.RUNNING;
+        pylon2CompleteState = sequenceState.RUNNING;
         yield return new WaitForSeconds(2.5f);
         pauseEnemySpawning();
         if (!fastSequencesDEV)
@@ -716,9 +784,24 @@ public class AreaOneDirector : MonoBehaviour
             yield return messanger.showMessage("", aspSender, false);
             yield return new WaitForSeconds(0.5f);
             yield return messanger.showMessage(pylon2CompleteMessage1, aspSender, false);
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(1.25f);
+            if (!splitter.isUsed)
+            {
+                yield return messanger.showMessage(pylon2CompleteMessage2B1, aspSender, false);
+                yield return new WaitForSeconds(1.25f);
+                yield return messanger.showMessage(pylon2CompleteMessage2B2, aspSender, false);
+                yield return new WaitForSeconds(0.75f);
+            }
+            else
+            {
+                yield return messanger.showMessage(pylon2CompleteMessage2A, aspSender, false);
+                yield return new WaitForSeconds(0.75f);
+            }
         }
-        pylon2CompleteTrigger.sequenceState = sequenceState.COMPLETE;
+        if (pylon2CompleteTrigger.sequenceState == sequenceState.RUNNING) pylon2CompleteTrigger.sequenceState = sequenceState.COMPLETE;
+        if (pylon3CompleteTrigger.sequenceState == sequenceState.RUNNING) pylon3CompleteTrigger.sequenceState = sequenceState.COMPLETE;
+        pylon2CompleteState = sequenceState.COMPLETE;
+        //pylon2CompleteTrigger.sequenceState = sequenceState.COMPLETE;
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
         resumeEnemySpawning();

@@ -40,6 +40,7 @@ public class TutorialDirector : MonoBehaviour
 
     [SerializeField] public GameObject dummyObjective;
 
+    [SerializeField] public Collider introWall;
     [SerializeField] public Collider artifactWall;
     [SerializeField] public Collider submarineWall;
     [SerializeField] public Collider tunnelWall;
@@ -543,7 +544,7 @@ public class TutorialDirector : MonoBehaviour
     private string aspInstallMessage1 = "- ASP-7 installation initiated";
 
     private string aspInstallMessage2 = "- Unknown host detected: Exo-suit E-54 . . . \n" + 
-                                        "- Connecting... . . . . . \n" + 
+                                        "- Connecting . . . . . . \n" + 
                                         "- New host connection established . . .";
 
     private string aspInstallMessage3 = "- Autonomous Support Pilot online \n" + 
@@ -733,6 +734,7 @@ public class TutorialDirector : MonoBehaviour
         //Set Sequence States
         if (tutorialProgress >= 1) //Before First Encounter
         {
+            playerLightResource.addLight(100f);
             startUpState = sequenceState.COMPLETE;
             movementTutorialState = sequenceState.COMPLETE;
             lightSearchTrigger.sequenceState = sequenceState.COMPLETE;
@@ -745,7 +747,6 @@ public class TutorialDirector : MonoBehaviour
         }
         if (tutorialProgress >= 2) //Before Echo Deployment
         {
-            playerLightResource.addLight(100f);
             firstEncounterTrigger.sequenceState = sequenceState.COMPLETE;
             firstEncounterTrigger.triggered = true;
             room2AttackState = sequenceState.COMPLETE;
@@ -1273,6 +1274,7 @@ public class TutorialDirector : MonoBehaviour
             yield return new WaitForSeconds(1.25f);
         }
         objectivePrompt.showPrompt(lightSearchObjective);
+        introWall.enabled = false;
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
 
@@ -1290,7 +1292,7 @@ public class TutorialDirector : MonoBehaviour
     {
         //lightSearchState = sequenceState.RUNNING;
         lightSearchTrigger.sequenceState = sequenceState.RUNNING;
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(1.2f);
         playerMovement.rooted = true;
 
         objectivePrompt.hidePrompt();
@@ -1348,6 +1350,7 @@ public class TutorialDirector : MonoBehaviour
         lightHuntState = sequenceState.RUNNING;
 
         //objectivePrompt.hidePrompt();
+        yield return new WaitForSeconds(0.7f);
         if (!fastSequencesDEV)
         {
             yield return messanger.showMessage("", tutorialSender, false);
@@ -2201,6 +2204,11 @@ public class TutorialDirector : MonoBehaviour
         yield return new WaitForSeconds(0.75f);
         messanger.hideMessage();
 
+        tutorialProgress = 6;
+        SaveManager saveManager = FindObjectOfType<SaveManager>();
+        saveManager.SetSpawnPoint(tunnelPlayerSpawnPoint.transform.position);
+        saveManager.SaveGame();
+
         thePlanState = sequenceState.COMPLETE;
         tunnelTrigger.sequenceState = sequenceState.READY;
     }
@@ -2226,10 +2234,10 @@ public class TutorialDirector : MonoBehaviour
         }
         messanger.hideMessage();
 
-        tutorialProgress = 6;
-        SaveManager saveManager = FindObjectOfType<SaveManager>();
-        saveManager.SetSpawnPoint(tunnelPlayerSpawnPoint.transform.position);
-        saveManager.SaveGame();
+        //tutorialProgress = 6;
+        //SaveManager saveManager = FindObjectOfType<SaveManager>();
+        //saveManager.SetSpawnPoint(tunnelPlayerSpawnPoint.transform.position);
+        //saveManager.SaveGame();
 
         tunnelTrigger.sequenceState = sequenceState.COMPLETE;
         newScanTrigger.sequenceState = sequenceState.READY;
@@ -2283,7 +2291,7 @@ public class TutorialDirector : MonoBehaviour
             yield return messanger.showMessage("", aspSender, false);
             yield return new WaitForSeconds(0.5f);
             yield return messanger.showMessage(pylonDirectionMessage1, aspSender, false);
-            yield return new WaitForSeconds(1.25f);
+            yield return new WaitForSeconds(2.5f);
             yield return messanger.showMessage(pylonDirectionMessage2, aspSender, false);
             yield return new WaitForSeconds(1.25f);
             yield return messanger.showMessage(pylonDirectionMessage3, aspSender, false);

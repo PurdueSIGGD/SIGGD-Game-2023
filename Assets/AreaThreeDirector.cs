@@ -29,6 +29,7 @@ public class AreaThreeDirector : MonoBehaviour
     [SerializeField] public MusicConductor musicConductor;
     [SerializeField] public AudioSource eldritchSound;
     [SerializeField] public AudioSource hummingSound;
+    [SerializeField] public AudioSource possessionSound;
 
 
     [SerializeField] public InteractPrompt interactPrompt;
@@ -76,7 +77,7 @@ public class AreaThreeDirector : MonoBehaviour
 
     private List<GameObject> whaleFirstEncounterEnemies;
 
-    private string whaleFirstEncounterSender = "0x00006D23AD7C1fCE";
+    private string whaleFirstEncounterSender = "0x00006D23AD7017AE";
 
     private string whaleFirstEncounterMessage1 = "You will not defy me.";
 
@@ -204,7 +205,7 @@ public class AreaThreeDirector : MonoBehaviour
 
     private string doneMessage2 = "Now... liberate yourself...";
 
-    private string doneMessage3 = "Liberate all of them...";
+    private string doneMessage3 = "Liberate them all...";
 
     private string doneObjective = "Use the Teleporter";
 
@@ -1132,6 +1133,7 @@ public class AreaThreeDirector : MonoBehaviour
         }
 
         playerAttackHandler.gameObject.transform.position = playerEndPoint.transform.position;
+        possessionSound.Play();
         rejoiceEnemySpawner.spawnEnemyWave(rejoiceEnemyList1);
         float fadeTime = 0.1f;
         yield return new WaitForSeconds(3.25f);
@@ -1143,9 +1145,10 @@ public class AreaThreeDirector : MonoBehaviour
         }
         fader.FadeOut(Color.black, fadeTime);
         hummingSound.Stop();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(4f);
         SceneManager.LoadScene("CreditsScene");
         //TODO: Clear save data
+        SaveManager.ClearSave();
     }
 
 

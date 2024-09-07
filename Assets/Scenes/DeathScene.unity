@@ -700,6 +700,7 @@ MonoBehaviour:
   - {fileID: 207380134}
   - {fileID: 2084832610}
   isDeathScene: 1
+  isSmallTitle: 0
   backgroundColor: {r: 0, g: 0, b: 0, a: 0}
   textColor: {r: 0, g: 0, b: 0, a: 0}
   titleColor: {r: 0, g: 0, b: 0, a: 0}
@@ -1336,7 +1337,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1457966208}
         m_TargetAssemblyTypeName: SceneTransitionButtons, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: SmallTitle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
