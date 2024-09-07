@@ -1098,6 +1098,7 @@ MonoBehaviour:
   - {fileID: 1385165055}
   - {fileID: 453622360}
   isDeathScene: 0
+  isSmallTitle: 0
   backgroundColor: {r: 0, g: 0, b: 0, a: 0}
   textColor: {r: 0, g: 0, b: 0, a: 0}
   titleColor: {r: 0, g: 0, b: 0, a: 0}
@@ -2848,7 +2849,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: quit
+  m_text: exit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3485e13efe2d9604391f048953b36075, type: 2}
   m_sharedMaterial: {fileID: -5457053241862690596, guid: 3485e13efe2d9604391f048953b36075, type: 2}
