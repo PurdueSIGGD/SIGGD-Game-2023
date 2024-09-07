@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,8 @@ public class MusicConductor : MonoBehaviour
     [SerializeField] public bool crossfadeInUnisonDEVTOOL = false;
     //private bool tutorialPlayingDEVTOOL = true;
 
+    private bool isGeneralVolumeFading = false;
+
 
 
 
@@ -44,6 +47,22 @@ public class MusicConductor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (deapOceanBassTrack.isPlaying || lvl1Track.isPlaying || lvl2Track.isPlaying || lvl3Track.isPlaying || sirenTrack.isPlaying || hummingTrack.isPlaying) //&& generalVolume < 0.4f) //&& !isGeneralVolumeFading)
+        {
+            if (generalVolume < 0.4f && !isCrossfading)
+            {
+                generalVolume = 0.4f;
+                activeTrack.generalVolume = generalVolume;
+            }
+            //generalVolume = 0.4f;
+            //StartCoroutine(fadeGeneralVolume(0.4f, 2f));
+        } else if (generalVolume > 0.3f && !isCrossfading)// && !isGeneralVolumeFading)
+        {
+            generalVolume = 0.3f;
+            activeTrack.generalVolume = generalVolume;
+            //StartCoroutine(fadeGeneralVolume(0.3f, 2f));
+        }
 
         /*
         // Crossfade test DEV TOOL
@@ -205,6 +224,22 @@ public class MusicConductor : MonoBehaviour
             fadeTrack.stopPlayingTrack();
         }
         fadeTrack.isBeingConducted = false;
+    }
+
+
+
+
+    private IEnumerator fadeGeneralVolume(float newVolume, float fadeTime)
+    {
+        isGeneralVolumeFading = true;
+        float fadeSteps = 25f;
+        for (int i = 0; i < fadeSteps; i++)
+        {
+
+            generalVolume += (newVolume - generalVolume) / fadeSteps;
+            yield return new WaitForSeconds(fadeTime / fadeSteps);
+        }
+        isGeneralVolumeFading = false;
     }
 
 
