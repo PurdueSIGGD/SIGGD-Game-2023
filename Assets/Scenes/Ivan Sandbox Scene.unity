@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 840081028}
-  m_IndirectSpecularColor: {r: 0, g: 0.08524736, b: 0.16908893, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.0851428, b: 0.16914535, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -848,7 +848,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3258812583959100136, guid: 24859607059edd841a83e519d444dbf4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.22
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3258812583959100136, guid: 24859607059edd841a83e519d444dbf4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -886,6 +886,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: A_Healer
       objectReference: {fileID: 0}
+    - target: {fileID: 4104431810730098589, guid: 24859607059edd841a83e519d444dbf4, type: 3}
+      propertyPath: unitHotbarUI
+      value: 
+      objectReference: {fileID: 1332412928}
+    - target: {fileID: 4104431810730098589, guid: 24859607059edd841a83e519d444dbf4, type: 3}
+      propertyPath: interactPrompt
+      value: 
+      objectReference: {fileID: 4483882145949002665}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1177,7 +1185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3258812583959100136, guid: ca176473250c80141ab0d8598a126ac1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.22
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3258812583959100136, guid: ca176473250c80141ab0d8598a126ac1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1215,6 +1223,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: A_Landmine
       objectReference: {fileID: 0}
+    - target: {fileID: 4104431810730098589, guid: ca176473250c80141ab0d8598a126ac1, type: 3}
+      propertyPath: unitHotbarUI
+      value: 
+      objectReference: {fileID: 1332412928}
+    - target: {fileID: 4104431810730098589, guid: ca176473250c80141ab0d8598a126ac1, type: 3}
+      propertyPath: interactPrompt
+      value: 
+      objectReference: {fileID: 4483882145949002665}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1327,7 +1343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3258812583959100136, guid: 668af5d58d45bbd4ab51b1e6251fafa4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.22
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3258812583959100136, guid: 668af5d58d45bbd4ab51b1e6251fafa4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1365,6 +1381,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: A_Splitter
       objectReference: {fileID: 0}
+    - target: {fileID: 4104431810730098589, guid: 668af5d58d45bbd4ab51b1e6251fafa4, type: 3}
+      propertyPath: unitHotbarUI
+      value: 
+      objectReference: {fileID: 1332412928}
+    - target: {fileID: 4104431810730098589, guid: 668af5d58d45bbd4ab51b1e6251fafa4, type: 3}
+      propertyPath: interactPrompt
+      value: 
+      objectReference: {fileID: 4483882145949002665}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1658,7 +1682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3258812583959100136, guid: 1b8c3e3736febf1418740b52ce5b11f5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.22
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3258812583959100136, guid: 1b8c3e3736febf1418740b52ce5b11f5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1696,6 +1720,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: A_Gunner
       objectReference: {fileID: 0}
+    - target: {fileID: 4104431810730098589, guid: 1b8c3e3736febf1418740b52ce5b11f5, type: 3}
+      propertyPath: unitHotbarUI
+      value: 
+      objectReference: {fileID: 1332412928}
+    - target: {fileID: 4104431810730098589, guid: 1b8c3e3736febf1418740b52ce5b11f5, type: 3}
+      propertyPath: interactPrompt
+      value: 
+      objectReference: {fileID: 4483882145949002665}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2117,10 +2149,6 @@ PrefabInstance:
     - target: {fileID: 5370144180382523803, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6337267014536007470, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
-      propertyPath: isTest
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6337267014536007470, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: minimapCamera
@@ -2856,7 +2884,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3258812583959100136, guid: 389e2c167c70c634fa25e45e468bb114, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.22
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3258812583959100136, guid: 389e2c167c70c634fa25e45e468bb114, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2894,6 +2922,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: A_Torpedoer
       objectReference: {fileID: 0}
+    - target: {fileID: 4104431810730098589, guid: 389e2c167c70c634fa25e45e468bb114, type: 3}
+      propertyPath: unitHotbarUI
+      value: 
+      objectReference: {fileID: 1332412928}
+    - target: {fileID: 4104431810730098589, guid: 389e2c167c70c634fa25e45e468bb114, type: 3}
+      propertyPath: interactPrompt
+      value: 
+      objectReference: {fileID: 4483882145949002665}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4823,7 +4859,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5340764768337387622, guid: d2e7e0a1ac686ba45aa8b826ad83df98, type: 3}
       propertyPath: isTest
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5340764768337387622, guid: d2e7e0a1ac686ba45aa8b826ad83df98, type: 3}
       propertyPath: unitUI
