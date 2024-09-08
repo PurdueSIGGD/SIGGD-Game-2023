@@ -300,6 +300,37 @@ public class AreaOneDirector : MonoBehaviour
 
 
 
+        if (!pylon1Checked && pylon1.chargeDone)
+        {
+            //if pylon2 minimap icon disabled
+            //splitter minimap icon enabled
+            //pylon2 minimap icon enabled
+            //pylon3 minimap icon enabled
+            splitterMinimapIcon.transform.localScale = new Vector3(560f, 560f, 560f);
+            pylon2MinimapIcon.transform.localScale = new Vector3(560f, 560f, 560f);
+            pylon3MinimapIcon.transform.localScale = new Vector3(560f, 560f, 560f);
+            pylonsCompleted++;
+            pylon1Checked = true;
+        }
+
+
+
+        if (!pylon3Checked && pylon3.chargeDone)
+        {
+            pylonsCompleted++;
+            pylon3Checked = true;
+        }
+
+
+
+        if (!pylon2Checked && pylon2.chargeDone)
+        {
+            pylonsCompleted++;
+            pylon2Checked = true;
+        }
+
+
+
         //Barracuda First Encounter Trigger
         if (baracudaFirstEncounterTrigger.sequenceState == sequenceState.READY)
         {
@@ -324,7 +355,7 @@ public class AreaOneDirector : MonoBehaviour
 
 
 
-        if (!pylon1Checked && pylon1.chargeDone)
+        /*if (!pylon1Checked && pylon1.chargeDone)
         {
             //if pylon2 minimap icon disabled
             //splitter minimap icon enabled
@@ -335,7 +366,7 @@ public class AreaOneDirector : MonoBehaviour
             pylon3MinimapIcon.transform.localScale = new Vector3(560f, 560f, 560f);
             pylonsCompleted++;
             pylon1Checked = true;
-        }
+        }*/
 
         //Pylon 1 Complete Trigger
         if (pylon1CompleteState == sequenceState.READY)
@@ -411,11 +442,11 @@ public class AreaOneDirector : MonoBehaviour
 
 
 
-        if (!pylon3Checked && pylon3.chargeDone)
+        /*if (!pylon3Checked && pylon3.chargeDone)
         {
             pylonsCompleted++;
             pylon3Checked = true;
-        }
+        }*/
 
         //Pylon 3 Complete Trigger
         if (pylon3CompleteTrigger.sequenceState == sequenceState.READY)
@@ -466,11 +497,11 @@ public class AreaOneDirector : MonoBehaviour
 
 
 
-        if (!pylon2Checked && pylon2.chargeDone)
+        /*if (!pylon2Checked && pylon2.chargeDone)
         {
             pylonsCompleted++;
             pylon2Checked = true;
-        }
+        }*/
 
         //Pylon 2 Complete Trigger
         if (pylon2CompleteTrigger.sequenceState == sequenceState.READY)

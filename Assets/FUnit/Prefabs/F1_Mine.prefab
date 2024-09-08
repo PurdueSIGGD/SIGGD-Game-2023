@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 2121019435476539155}
   - component: {fileID: 1132635648169605806}
   - component: {fileID: 4560534535868960874}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: F1_Mine
   m_TagString: Unit
   m_Icon: {fileID: 0}
@@ -137,9 +137,9 @@ MonoBehaviour:
   manaCost: 60
   type: 3
   config:
-    triggerRadius: 4
+    triggerRadius: 2.5
     blastRadius: 9
-    blastDmg: 150
+    blastDmg: 300
     blastMask:
       serializedVersion: 2
       m_Bits: 8388608

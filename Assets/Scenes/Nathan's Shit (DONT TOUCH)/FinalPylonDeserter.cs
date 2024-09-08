@@ -85,15 +85,15 @@ public class FinalPylonDeserter : MonoBehaviour
         //Deserted Pylon
         pylon.pylonHumSFX.Stop();
         pylon.playerHealthPoints.damageEntity(1000f);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         pylon.playerHealthPoints.damageEntity(1000f);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         pylon.playerHealthPoints.damageEntity(1000f);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         pylon.playerHealthPoints.damageEntity(1000f);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         pylon.playerHealthPoints.damageEntity(1000f);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         pylon.playerHealthPoints.damageEntity(1000f);
         //pylon.pylonMusicController.audioState = false;
         pylon.musicConductor.crossfade(1f, pylon.currentAmbientTrack, 5f, 0f, pylon.currentAmbientTrack.loopStartTime);///////////////////////////////////////////////////////

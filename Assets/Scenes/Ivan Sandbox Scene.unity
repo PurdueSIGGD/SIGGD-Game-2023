@@ -1941,7 +1941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   piranha: {fileID: 932233891626951811, guid: 064e599652476134d8d51bfc0b417c95, type: 3}
   barracuda: {fileID: 3929528446240850241, guid: 01fe5bead48ab26438ed7d04340e1718, type: 3}
-  jelly: {fileID: 8079511848009728111, guid: 67656c0e8e887e3418dd3f59b01e8625, type: 3}
+  jelly: {fileID: 8079511848009728111, guid: ea08644cfdb2f7c42af94686e1263a30, type: 3}
   siren: {fileID: 5497866761594921072, guid: aea974ea50c30fa478299d61d2292194, type: 3}
   leviathan: {fileID: 2860092190202976410, guid: 5d7789591dee3d449a2c84fa20baa00b, type: 3}
   spawnPoints:
@@ -1956,7 +1956,7 @@ MonoBehaviour:
   canPassiveSpawn: 0
   canPassiveWaveSpawn: 0
   spawnWaveDEV: 0
-  waveEnemyTypesDEV: 00000000000000000000000000000000
+  waveEnemyTypesDEV: 0200000002000000
 --- !u!4 &786241880
 Transform:
   m_ObjectHideFlags: 0
@@ -2501,7 +2501,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6337267014536007470, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: isTest
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6337267014536007470, guid: 4b1eb0f6ad981824e8ea3e98a483b19a, type: 3}
       propertyPath: minimapCamera

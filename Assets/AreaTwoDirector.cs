@@ -397,6 +397,25 @@ public class AreaTwoDirector : MonoBehaviour
         }
 
 
+        if (!pylon1Checked && pylon1.chargeDone)
+        {
+            pylonsCompleted++;
+            pylon1Checked = true;
+        }
+
+        if (!pylon2Checked && pylon2.chargeDone)
+        {
+            pylonsCompleted++;
+            pylon2Checked = true;
+        }
+
+        if (!pylon3Checked && pylon3.chargeDone)
+        {
+            pylonsCompleted++;
+            pylon3Checked = true;
+        }
+
+
         //Jelly First Encounter Trigger
         if (jellyFirstEncounterTrigger.sequenceState == sequenceState.READY)
         {
@@ -498,11 +517,11 @@ public class AreaTwoDirector : MonoBehaviour
         }
 
 
-        if (!pylon1Checked && pylon1.chargeDone)
+        /*if (!pylon1Checked && pylon1.chargeDone)
         {
             pylonsCompleted++;
             pylon1Checked = true;
-        }
+        }*/
 
         //Attractive Trigger
         if (attractiveTrigger.sequenceState == sequenceState.READY)
@@ -527,11 +546,11 @@ public class AreaTwoDirector : MonoBehaviour
         }
 
 
-        if (!pylon2Checked && pylon2.chargeDone)
+        /*if (!pylon2Checked && pylon2.chargeDone)
         {
             pylonsCompleted++;
             pylon2Checked = true;
-        }
+        }*/
 
         //Great Job Trigger
         if (greatJobTrigger.sequenceState == sequenceState.READY)
@@ -573,11 +592,11 @@ public class AreaTwoDirector : MonoBehaviour
         */
 
 
-        if (!pylon3Checked && pylon3.chargeDone)
+        /*if (!pylon3Checked && pylon3.chargeDone)
         {
             pylonsCompleted++;
             pylon3Checked = true;
-        }
+        }*/
 
         //Pylon 3 Complete Trigger
         if (pylon3CompleteTrigger.sequenceState == sequenceState.READY)

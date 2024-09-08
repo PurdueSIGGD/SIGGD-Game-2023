@@ -423,7 +423,7 @@ public class FinalPylon : Interactable
         pylonEnemySpawner.passiveSpawnActive = (pylonCoroutine == null) ? false : true;
         pylonEnemySpawner.passiveWaveSpawnActive = (pylonCoroutine == null) ? false : true;
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList13));
-        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 14f);
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 12f);
 
         //Wave 8
         pylonEnemySpawner.passiveSpawnCooldown = wave8PassiveEnemySpawnCooldown;
@@ -432,7 +432,7 @@ public class FinalPylon : Interactable
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList13));
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 8f);
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList14));
-        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 14f);
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 12f);
 
         //Wave 9
         pylonEndSFX.pitch = endPitch;
@@ -446,7 +446,7 @@ public class FinalPylon : Interactable
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList12));
         yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 5f);
         pylonEnemies.Add((pylonCoroutine == null) ? emptyList : pylonEnemySpawner.spawnEnemyWave(pylonEnemyList15));
-        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 7f);
+        yield return new WaitForSeconds((pylonCoroutine == null) ? 0.1f : 11f);
         pylonEnemySpawner.passiveSpawnActive = false;
         pylonEnemySpawner.passiveWaveSpawnActive = false;
 
